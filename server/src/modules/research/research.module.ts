@@ -9,5 +9,6 @@ import { Module } from "@nestjs/common";
   imports: [ProcessModule, JurisprudenceModule, DissidioModule],
   controllers: [ResearchController],
   providers: [ResearchService],
+  exports: [ResearchService],
 })
 export class ResearchModule {}

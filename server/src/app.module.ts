@@ -1,6 +1,8 @@
 import { LoggerMiddleware } from "@common/middlewares/logger.middleware";
 import { DissidioModule } from "@modules/dissidio/dissidio.module";
+import { GatewayModule } from "@modules/gateway/gateway.module";
 import { JurisprudenceModule } from "@modules/jurisprudence/jurisprudence.module";
+import { McpModule } from "@modules/mcp/mcp.module";
 import { ProcessModule } from "@modules/process/process.module";
 import { ResearchModule } from "@modules/research/research.module";
 import { MiddlewareConsumer, Module, NestModule } from "@nestjs/common";
@@ -15,6 +17,8 @@ import { AppService } from "./app.service";
     JurisprudenceModule,
     DissidioModule,
     ResearchModule,
+    GatewayModule,
+    McpModule,
   ],
   controllers: [AppController],
   providers: [AppService],
