@@ -8,6 +8,7 @@ O advogado informa o **número do processo** (obrigatório) e, opcionalmente, **
 
 ## Stack
 
+<<<<<<< HEAD
 - **client:** React + Vite + TypeScript
 - **server:** NestJS (mesma organização de pastas do Buglan: `common`, `config`, `models`, `modules`)
 
@@ -43,9 +44,30 @@ Na tela, use **Preencher caso bancário (demo)** e clique em **Pesquisar**.
 DataJud **não** é dump de ~1,2 bi de linhas. É consulta de metadados (capa/andamento). Ementa vem de fonte oficial de tribunal no roadmap. Sem Jusbrasil e sem scraper.
 
 Espírito **cite-or-silent**: se a fixture não tem ementa, a cite fica **indisponível**. A demo não inventa texto.
+=======
+- **Client:** React + Vite (TypeScript) em `client/`
+- **Server:** NestJS (TypeScript) em `server/` — **mesma estrutura** do [buglan](https://github.com/joaozupeli/buglan) (`common`, `config`, `modules`, aliases `@common/*` / `@modules/*`, prefixo `api`)
+>>>>>>> 4b928608af5cb14465b217e80210e213a2ef56be
 
 ## Documentação
 
 - [Visão do produto](docs/PRODUCT.md)
 - [Fluxo do usuário](docs/FLUXO.md)
 - [Arquitetura](docs/ARCHITECTURE.md)
+<<<<<<< HEAD
+=======
+- [Prompt Cursor — DEMO ONLY](docs/CURSOR-PROMPT-DEMO.md) ← cole no Cursor para gerar a demo
+
+## Dados (importante)
+
+- DataJud = metadados via **API** (capa/andamento), **não** dump local de 1,2 bi.
+- Demo usa **fixtures fictícias**; ementa oficial entra no roadmap.
+- Sem Jusbrasil / scrapers sem API oficial.
+- Espírito **cite-or-silent**.
+
+## Demo
+
+1. Abra este repo no Cursor
+2. Cole o prompt em `docs/CURSOR-PROMPT-DEMO.md` (a partir de "You are scaffolding…")
+3. O Cursor deve gerar `client/` + `server/` no molde buglan, com fixtures
+>>>>>>> 4b928608af5cb14465b217e80210e213a2ef56be
