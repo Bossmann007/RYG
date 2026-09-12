@@ -8,8 +8,8 @@ O advogado informa o **número do processo** (obrigatório) e, opcionalmente, **
 
 ## Stack
 
-- **Frontend:** React (TypeScript)
-- **Backend:** NestJS (TypeScript)
+- **Client:** React + Vite (TypeScript) em `client/`
+- **Server:** NestJS (TypeScript) em `server/` — **mesma estrutura** do [buglan](https://github.com/joaozupeli/buglan) (`common`, `config`, `modules`, aliases `@common/*` / `@modules/*`, prefixo `api`)
 
 ## Documentação
 
@@ -20,14 +20,13 @@ O advogado informa o **número do processo** (obrigatório) e, opcionalmente, **
 
 ## Dados (importante)
 
-- DataJud = metadados nacionais (~ordem de bilhões) via **API** (capa/andamento), **não** dump local de 1,2 bi.
-- Ementa vem de **fonte oficial de tribunal** (roadmap); demo usa **fixtures fictícias**.
+- DataJud = metadados via **API** (capa/andamento), **não** dump local de 1,2 bi.
+- Demo usa **fixtures fictícias**; ementa oficial entra no roadmap.
 - Sem Jusbrasil / scrapers sem API oficial.
-- Espírito **cite-or-silent**: sem texto da fonte → não inventa cite.
+- Espírito **cite-or-silent**.
 
 ## Demo
 
-Ainda não há app no repo. Para gerar a demo React + Nest com fixtures:
-
 1. Abra este repo no Cursor
-2. Cole o conteúdo de `docs/CURSOR-PROMPT-DEMO.md` (a partir de "You are building…")
+2. Cole o prompt em `docs/CURSOR-PROMPT-DEMO.md` (a partir de "You are scaffolding…")
+3. O Cursor deve gerar `client/` + `server/` no molde buglan, com fixtures
