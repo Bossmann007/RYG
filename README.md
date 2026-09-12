@@ -1,0 +1,2 @@
+# openlegalai
+HACKATON OAB RUSH
