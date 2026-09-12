@@ -1,0 +1,9 @@
+{
+  "name": "openlegalai",
+  "private": true,
+  "scripts": {
+    "test:gateway": "npm --prefix privacy-gateway test",
+    "demo:gateway": "npm --prefix privacy-gateway run demo",
+    "evidence": "npm run test:gateway && npm run demo:gateway"
+  }
+}
