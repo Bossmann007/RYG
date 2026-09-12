@@ -28,8 +28,8 @@ function fieldLabel(doc: CaseDocument, fieldLabelValue: Classification | undefin
 }
 
 /**
- * The only reader of case fields. A field name outside the allowlist is never
- * copied into memory here, so it cannot reach a DTO by any later mistake.
+ * The only reader that builds PresentedField values. RawContext is already in
+ * the store. A name outside the allowlist is not copied into PresentedField.
  */
 export class Presenter {
   read(raw: RawContext): PresentedField[] {

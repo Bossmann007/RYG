@@ -62,13 +62,6 @@ export type RawContext = {
   documents: CaseDocument[];
 };
 
-/** Intermediate DLP stage only. Never the MCP tool result. */
-export type SanitizedBlob = {
-  readonly __brand: 'sanitized_blob';
-  text: string;
-  redactions: number;
-};
-
 export type AuditEvent = {
   ts: string;
   action: string;

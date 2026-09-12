@@ -3,6 +3,9 @@ export type FirewallVerdict = { ok: true } | { ok: false; code: string };
 export const FIREWALL_CANARY = 'FIREWALL_CANARY';
 export const FIREWALL_BR_PATTERN = 'FIREWALL_BR_PATTERN';
 export const FIREWALL_LABEL_LEAK = 'FIREWALL_LABEL_LEAK';
+export const FIREWALL_CREDENTIAL = 'FIREWALL_CREDENTIAL';
+export const FIREWALL_PATH = 'FIREWALL_PATH';
+export const FIREWALL_STACK = 'FIREWALL_STACK';
 
 const CANARIES = [
   'Joao da Silva',
@@ -42,6 +45,13 @@ const LABEL_LEAKS = [
   /rag_chunks/,
 ];
 
+const CREDENTIAL_RE =
+  /(?:password|passwd|pwd|senha|secret|token|api[_-]?key|bearer)\s*[=:]\s*\S+/i;
+const BEARER_RE = /\bbearer\s+[a-z0-9._\-+=\/]{8,}/i;
+const UNIX_PATH_RE = /(?:^|[\s"'`])(\/(?:[A-Za-z0-9._-]+\/)+[A-Za-z0-9._-]+)/;
+const WIN_PATH_RE = /(?:^|[\s"'`])([A-Za-z]:\\(?:[^\s"'`]+))/;
+const STACK_RE = /\bstack\s+at\s+\S+\.(?:ts|js|tsx|jsx):\d+/i;
+
 /**
  * Independent of DTO construction on purpose: it owns its own canaries and
  * patterns so a bug in the declassifier cannot also disable this check.
@@ -62,6 +72,15 @@ export class EgressFirewall {
       if (pattern.test(wire)) {
         return { ok: false, code: FIREWALL_LABEL_LEAK };
       }
+    }
+    if (CREDENTIAL_RE.test(wire) || BEARER_RE.test(wire)) {
+      return { ok: false, code: FIREWALL_CREDENTIAL };
+    }
+    if (UNIX_PATH_RE.test(wire) || WIN_PATH_RE.test(wire)) {
+      return { ok: false, code: FIREWALL_PATH };
+    }
+    if (STACK_RE.test(wire)) {
+      return { ok: false, code: FIREWALL_STACK };
     }
     return { ok: true };
   }

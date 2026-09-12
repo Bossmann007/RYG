@@ -1,9 +1,30 @@
 # Virtual Law Office — Architecture research (Phase 1)
 
-Status: **pending user approval**. No product code in this phase.
 Date: 2026-09-12.
-Builds on: approved `privacy-gateway-v2` (redaction/minimization MVP) and `docs/research/fase1-*.md`.
-Thesis upgrade: egress must **destroy information** (declassification), not only redact tokens.
+Builds on: `docs/architecture/privacy-gateway-v3.md` (implemented slice) and `docs/research/fase1-*.md`.
+Thesis: egress must **destroy information** (declassification), not only redact tokens.
+
+## Implemented on `enzo` (this slice)
+
+The `privacy-gateway/` package is product code. It is not a research sketch.
+
+- Office session with opaque `ofs_*` ids.
+- Allowlisted tools that return SafeDTO only.
+- Connection principal from env/handshake. Tool arguments cannot set `user` or `role`.
+- Declassifier templates, taint, presenter allowlist, independent egress firewall.
+- MCP stdio adapter (`npm run mcp`) proven with Inspector CLI `tools/list` + `tools/call enter_office`, and with `npm run mcp:smoke` for `get_safe_summary`.
+- Deterministic BR PII as an internal DLP stage.
+
+## Architecture future (not implemented here)
+
+Keep these out of the demo claim.
+
+- OpenFGA / OPA as the authorization or egress policy runtime.
+- Private RAG, private agents, and a high-side message bus.
+- Multi-tenant isolation and OAuth / hosted HTTPS.
+- Formal privacy budget against reconstruction by repeated safe queries.
+- Presidio NER sidecar. The unused client was removed. Notes stay in `docs/research/fase1-privacy-security.md`.
+- Ollama or any local model runtime.
 
 ## 1. Precise understanding
 
@@ -76,7 +97,7 @@ Inspiration outside MCP: CDS / data diode / content filtering ([ACSC CDS](https:
 | Langfuse | https://github.com/langfuse/langfuse | MIT | Alta | Trace tool ids, decisions | Must redact | Prompt logging trap | **SIM** if redacted |
 | Qdrant | https://github.com/qdrant/qdrant | Apache-2.0 | Alta | Filtered retrieval high-side | Never expose to MCP | App must inject ACL | **TALVEZ** |
 | pgvector | https://github.com/pgvector/pgvector | PostgreSQL | Alta | RLS + vectors (current stack) | Same | Bypass roles | **SIM** MVP |
-| Our privacy-gateway | `privacy-gateway/` on `enzo` | MIT repo | Thin-C | Fail-closed, spy, BR PII, audit-before-egress | True declassification + OfficeSession + MCP | Redaction ≠ destruction | **SIM** as stage toward Declassifier |
+| Our privacy-gateway | `privacy-gateway/` on `enzo` | MIT repo | SafeDTO v3 on stdio | Fail-closed, IFC, connection principal, Inspector-tested stdio | Privacy budget, OpenFGA/OPA, RAG, multi-tenant | Hosted providers not wired | **SIM** as the implemented egress slice |
 
 ## 6. Architecture (Mermaid)
 

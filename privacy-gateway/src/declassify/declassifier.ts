@@ -1,5 +1,5 @@
 import { randomBytes } from 'node:crypto';
-import type { RawContext, Role } from '../domain/types.js';
+import type { AuditLog } from '../audit/audit-log.js';
 import type {
   SafeDTO,
   SafeItem,
@@ -9,8 +9,13 @@ import type {
 } from '../domain/safe-dto.js';
 import { SUMMARY_MAX, validateSafeDto } from '../domain/safe-dto.js';
 import type { Tainted } from '../domain/taint.js';
-import { deriveTaint, markDeclassified, tainted } from '../domain/taint.js';
+import { deriveTaint } from '../domain/taint.js';
+import type { RawContext, Role } from '../domain/types.js';
 import { DeterministicBrPii } from '../pii/deterministic-br-pii.js';
+import {
+  authorizeRelease,
+  type ReleaseKind,
+} from '../policy/authorized-releases.js';
 import { FlowPolicy } from '../policy/flow-policy.js';
 import { ReleasePolicy } from '../policy/release-policy.js';
 import type { PresentedField } from './presenter.js';
@@ -42,16 +47,27 @@ export class Declassifier {
   private readonly release = new ReleasePolicy();
   private readonly flow = new FlowPolicy();
   protected readonly presenter = new Presenter();
+  private readonly audit?: AuditLog;
+
+  constructor(opts?: { audit?: AuditLog }) {
+    this.audit = opts?.audit;
+  }
 
   declassify(args: {
     raw: RawContext;
     sessionId: string;
     role: Role;
+    userId?: string;
     intent?: string;
   }): SafeDTO {
     const fields = this.presenter.read(args.raw);
     const signals = readSignals(fields, args.intent);
-    const draft = this.compose({ fields, role: args.role, signals });
+    const draft = this.compose({
+      fields,
+      role: args.role,
+      signals,
+      userId: args.userId ?? 'office',
+    });
 
     for (const piece of [
       draft.summary,
@@ -113,6 +129,7 @@ export class Declassifier {
     fields: PresentedField[];
     role: Role;
     signals: DeclassifySignals;
+    userId?: string;
   }): DeclassifiedDraft {
     const thesis = this.presenter.find(args.fields, 'tese_interna');
     const grounds = this.presenter.find(args.fields, 'fundamentacao');
@@ -121,6 +138,13 @@ export class Declassifier {
         (t): t is Tainted<string> => t !== undefined,
       ),
     );
+    const kind: ReleaseKind =
+      args.role === 'estagiario'
+        ? 'intern_brief'
+        : args.role === 'socio'
+          ? 'partner_brief'
+          : 'associate_brief';
+    const userId = args.userId ?? 'office';
 
     const summaryText =
       args.role === 'estagiario'
@@ -130,7 +154,7 @@ export class Declassifier {
           : 'A equipe identificou uma possivel inconsistencia contratual e recomendou aprofundar a analise da tese principal com base em trabalho interno de camara.';
 
     const abstract = <T>(value: T): Tainted<T> =>
-      markDeclassified(tainted(value, sourceTaint));
+      authorizeRelease(kind, value, sourceTaint, this.audit, userId);
 
     const decisions: Tainted<SafeItem>[] =
       args.role === 'estagiario'

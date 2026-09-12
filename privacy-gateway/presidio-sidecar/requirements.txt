@@ -1,2 +1,0 @@
-# Optional. Stdlib server works without deps.
-# presidio-analyzer>=2.2.0

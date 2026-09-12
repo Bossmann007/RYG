@@ -31,8 +31,9 @@ export class VirtualOffice {
   }) {
     this.store = opts?.store ?? CaseFixtureStore.fromDefaultFixture();
     this.sessions = opts?.sessions ?? new OfficeSessionStore();
-    this.declassifier = opts?.declassifier ?? new Declassifier();
     this.audit = opts?.audit ?? new AuditLog();
+    this.declassifier =
+      opts?.declassifier ?? new Declassifier({ audit: this.audit });
   }
 
   handleTool(args: {
@@ -130,6 +131,7 @@ export class VirtualOffice {
           raw,
           sessionId: session.id,
           role: effective.role,
+          userId: effective.id,
           intent: args.intent,
         });
         const mcpBytes = serializeSafeDtoForMcp(dto);

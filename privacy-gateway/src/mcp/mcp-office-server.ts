@@ -1,8 +1,13 @@
+import { AuditLog } from '../audit/audit-log.js';
 import type { SafeDTO } from '../domain/safe-dto.js';
 import { serializeSafeDtoForMcp, validateSafeDto } from '../domain/safe-dto.js';
-import type { UserPrincipal } from '../domain/types.js';
 import { EgressFirewall } from '../firewall/egress-firewall.js';
 import { VirtualOffice } from '../office/virtual-office.js';
+import {
+  argumentsCarryPrincipal,
+  type ConnectionContext,
+  PRINCIPAL_IN_ARGUMENTS,
+} from './connection-context.js';
 
 export type McpToolCall = {
   name: string;
@@ -21,27 +26,46 @@ export type McpToolResult =
       content: [{ type: 'text'; text: string }];
     };
 
+export type McpOfficeServerArgs = {
+  office?: VirtualOffice;
+  connection: ConnectionContext;
+  firewall?: EgressFirewall;
+  onFirewallBlock?: (code: string) => void;
+  audit?: AuditLog;
+};
+
 /**
- * BYOAI MCP boundary. External models only receive serialized SafeDTO bytes.
+ * BYOAI MCP boundary. Identity is frozen on the connection, never on a tool call.
  */
 export class McpOfficeServer {
   private readonly office: VirtualOffice;
+  private readonly connection: ConnectionContext;
   private readonly firewall: EgressFirewall;
+  private readonly audit: AuditLog;
   private readonly onFirewallBlock?: (code: string) => void;
 
-  constructor(
-    office: VirtualOffice = new VirtualOffice(),
-    opts?: { firewall?: EgressFirewall; onFirewallBlock?: (code: string) => void },
-  ) {
-    this.office = office;
-    this.firewall = opts?.firewall ?? new EgressFirewall();
-    this.onFirewallBlock = opts?.onFirewallBlock;
+  constructor(args: McpOfficeServerArgs) {
+    this.office = args.office ?? new VirtualOffice();
+    this.connection = args.connection;
+    this.firewall = args.firewall ?? new EgressFirewall();
+    this.audit = args.audit ?? new AuditLog();
+    this.onFirewallBlock = args.onFirewallBlock;
   }
 
-  callTool(user: UserPrincipal, call: McpToolCall): McpToolResult {
+  callTool(call: McpToolCall): McpToolResult {
+    if (argumentsCarryPrincipal(call.arguments)) {
+      this.audit.append({
+        action: 'principal_in_arguments',
+        userId: this.connection.principal.id,
+        outcome: 'deny',
+        reason: PRINCIPAL_IN_ARGUMENTS,
+      });
+      return publicError();
+    }
+
     const result = this.office.handleTool({
       toolName: call.name,
-      user,
+      user: this.connection.principal,
       caseId:
         typeof call.arguments.caseId === 'string'
           ? call.arguments.caseId
@@ -57,17 +81,7 @@ export class McpOfficeServer {
     });
 
     if (!result.ok) {
-      return {
-        isError: true,
-        content: [
-          {
-            type: 'text',
-            text: JSON.stringify({
-              error: 'Requested resource could not be accessed.',
-            }),
-          },
-        ],
-      };
+      return publicError();
     }
 
     if (result.tool === 'enter_office' || result.tool === 'leave_office') {
@@ -93,17 +107,7 @@ export class McpOfficeServer {
     }
 
     if (!result.dto || !result.mcpBytes) {
-      return {
-        isError: true,
-        content: [
-          {
-            type: 'text',
-            text: JSON.stringify({
-              error: 'Requested resource could not be accessed.',
-            }),
-          },
-        ],
-      };
+      return publicError();
     }
 
     return this.release(result.dto, result.mcpBytes);
