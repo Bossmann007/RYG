@@ -13,7 +13,7 @@ export class ProcessService {
 
     if (!processo) {
       throw new NotFoundException(
-        `Processo não encontrado nesta demo. Use o caso bancário fictício: ${NUMERO_PROCESSO_DEMO}.`
+        `Processo não encontrado. Use o caso: ${NUMERO_PROCESSO_DEMO}.`
       );
     }
 

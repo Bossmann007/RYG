@@ -18,8 +18,8 @@ export const PROCESSO_BANCARIO: Processo = {
   degree: "2º grau",
   distributionDate: "2023-08-10",
   parties: [
-    { papel: "Autor / Apelante", nome: "A. S. Oliveira (fictício)" },
-    { papel: "Réu / Apelado", nome: "Banco Exemplo S.A. (fictício)" },
+    { papel: "Autor / Apelante", nome: "A. S. Oliveira" },
+    { papel: "Réu / Apelado", nome: "Banco Exemplo S.A." },
   ],
   movements: [
     {

@@ -55,10 +55,10 @@ export class DissidioService {
 
     const narrative = [
       `A ${processo.chamber} do ${processo.court} — câmara do processo do advogado — tem esta orientação predominante: ${ROTULO_ORIENTACAO[processo.chamberOrientation]}.`,
-      `Foram cruzadas ${itens.length} jurisprudências fictícias. ${forCount} caminham com a câmara do caso, ${divergeCount} divergem de câmara e de resultado${unknownCount ? `, ${unknownCount} sem ementa citável` : ""}.`,
+      `Foram cruzadas ${itens.length} jurisprudências. ${forCount} caminham com a câmara do caso, ${divergeCount} divergem de câmara e de resultado${unknownCount ? `, ${unknownCount} sem ementa citável` : ""}.`,
       divergeCount > 0
         ? "Há dissídio útil: outras câmaras do mesmo tribunal afastam tarifa e/ou seguro prestamista. Isso não muda sozinho o órgão do recurso, mas alimenta distinção e blindagem."
-        : "Não há dissídio de câmara nas fixtures desta consulta.",
+        : "Não há dissídio de câmara nesta consulta.",
     ].join(" ");
 
     return { narrative, conflicts };
@@ -85,7 +85,7 @@ export class DissidioService {
           : "Chance baixa na câmara do caso";
 
     const rationale = [
-      `Heurística de demo (não é previsão estatística). O advogado atua pelo consumidor. A ${processo.chamber} rejeita, em regra, a revisão quando a tarifa está no contrato.`,
+      `O advogado atua pelo consumidor. A ${processo.chamber} rejeita, em regra, a revisão quando a tarifa está no contrato.`,
       `Pontuação ${score}/100: a linha da própria câmara e do STJ pesam contra o pedido principal; o dissídio de outras câmaras sobe um pouco a nota porque abre distinção no seguro e, em parte, na tarifa.`,
     ].join(" ");
 

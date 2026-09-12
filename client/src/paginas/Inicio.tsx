@@ -18,7 +18,9 @@ export function Inicio({ enviando, erro, onPesquisar }: Props) {
   }
 
   return (
-    <section>
+    <section className="bloco busca">
+      <h2 className="titulo-secao">Pesquisa</h2>
+
       <div className="abas">
         <button
           className={aba === "numero" ? "aba ativa" : "aba"}
@@ -36,14 +38,13 @@ export function Inicio({ enviando, erro, onPesquisar }: Props) {
         </button>
       </div>
 
-      <form className="cartao" onSubmit={enviar}>
+      <form className="formulario" onSubmit={enviar}>
         <p className="ajuda">
-          O número do processo é obrigatório nos dois modos. Nesta demo, o
-          arquivo só envia o nome — não lemos o conteúdo.
+          O número do processo é obrigatório nos dois modos.
         </p>
 
         <label className="campo">
-          Número do processo (padrão CNJ)
+          Numeração processual
           <input
             type="text"
             value={numero}
@@ -55,7 +56,7 @@ export function Inicio({ enviando, erro, onPesquisar }: Props) {
 
         {aba === "importar" && (
           <label className="campo">
-            Documento (opcional)
+            Documento
             <input
               type="file"
               onChange={(evento) =>
@@ -69,14 +70,14 @@ export function Inicio({ enviando, erro, onPesquisar }: Props) {
 
         <div className="acoes">
           <button className="botao" type="submit" disabled={enviando}>
-            {enviando ? "Cruzando…" : "Pesquisar"}
+            {enviando ? "Pesquisando…" : "Pesquisar"}
           </button>
           <button
             className="botao secundario"
             type="button"
             onClick={() => setNumero(NUMERO_PROCESSO_DEMO)}
           >
-            Preencher caso bancário (demo)
+            Preencher caso bancário
           </button>
         </div>
       </form>

@@ -29,43 +29,34 @@ export function App() {
   }
 
   return (
-    <div className="app">
-      <div className="faixa-demo">
-        DEMO com fixtures fictícias. A API pública do DataJud (capa/andamento) e
-        as ementas oficiais dos tribunais entram depois. Esta tela só prova o
-        loop do produto: processo → jurisprudência → dissídio → chance/blindagem.
-      </div>
+    <>
+      <header className="topo">
+        <h1>OpenLegalAI</h1>
+        <p>Consulta de jurisprudência · dissídio de câmaras</p>
+      </header>
 
-      {enviando && !resultado && (
-        <div className="cartao carregando">
-          <h2>Cruzando jurisprudências…</h2>
-          <p>Comparando a câmara do caso com os votos das fixtures.</p>
-        </div>
-      )}
+      <main className="app">
+        {enviando && !resultado && (
+          <div className="bloco carregando">
+            <h2 className="titulo-secao">Cruzando jurisprudências…</h2>
+            <p>Comparando a câmara do caso com os votos encontrados.</p>
+          </div>
+        )}
 
-      {!enviando && !resultado && (
-        <>
-          <header className="cabecalho">
-            <div>
-              <h1 className="marca">OpenLegalAI</h1>
-              <p className="subtitulo">
-                Dissídio entre câmaras + chance e blindagem
-              </p>
-            </div>
-          </header>
+        {!enviando && !resultado && (
           <Inicio enviando={enviando} erro={erro} onPesquisar={pesquisar} />
-        </>
-      )}
+        )}
 
-      {resultado && (
-        <Resultados
-          resultado={resultado}
-          onVoltar={() => {
-            setResultado(null);
-            setErro("");
-          }}
-        />
-      )}
-    </div>
+        {resultado && (
+          <Resultados
+            resultado={resultado}
+            onVoltar={() => {
+              setResultado(null);
+              setErro("");
+            }}
+          />
+        )}
+      </main>
+    </>
   );
 }

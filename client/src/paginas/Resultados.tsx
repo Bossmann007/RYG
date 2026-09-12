@@ -1,123 +1,132 @@
-import { ResultadoPesquisa, ROTULO_ALINHAMENTO } from "../tipos";
+import { Jurisprudencia, ResultadoPesquisa, ROTULO_ALINHAMENTO } from "../tipos";
 
 type Props = {
   resultado: ResultadoPesquisa;
   onVoltar: () => void;
 };
 
+function linha(rotulo: string, valor: string | null | undefined) {
+  return (
+    <tr>
+      <th>{rotulo}</th>
+      <td>{valor || "—"}</td>
+    </tr>
+  );
+}
+
+function FichaJuris({ item }: { item: Jurisprudencia }) {
+  return (
+    <article className="bloco">
+      <div className="selos">
+        <span className={`selo ${item.alignment}`}>
+          {ROTULO_ALINHAMENTO[item.alignment]}
+        </span>
+        {item.citeStatus === "unavailable" && (
+          <span className="selo unknown">Cite indisponível</span>
+        )}
+      </div>
+
+      <table className="ficha">
+        <tbody>
+          {linha("Numeração processual", item.processNumber)}
+          {linha("Numeração do acórdão", item.acordaoNumber)}
+          {linha("Tribunal", item.court)}
+          {linha("Órgão julgador", item.chamber)}
+          {linha("Relator(a)", item.reporter)}
+          {linha("Comarca", item.district)}
+          {linha("Classe processual", item.caseClass)}
+          {linha("Assunto", item.subjects?.join(" · "))}
+          {linha("Julgamento", item.judgmentDate)}
+          {linha("Publicação", item.publicationDate)}
+          {linha("Tipo de decisão", item.decisionType)}
+          {linha("Voto", item.voteSummary || "Sem voto na fonte.")}
+        </tbody>
+      </table>
+
+      <p className="titulo-secao" style={{ fontSize: 13, marginBottom: 8 }}>
+        Ementa
+      </p>
+      <div className="ementa">
+        {item.ementaSnippet ||
+          "Ementa ausente na fonte."}
+      </div>
+    </article>
+  );
+}
+
 export function Resultados({ resultado, onVoltar }: Props) {
   const { process, jurisprudences, dissidioReport, chanceReport } = resultado;
 
   return (
     <section>
-      <div className="cabecalho">
-        <div>
-          <h1 className="marca">Resultado da pesquisa</h1>
-          <p className="subtitulo">{process.processNumber}</p>
-        </div>
-        <button className="voltar" type="button" onClick={onVoltar}>
+      <div className="resultado-topo">
+        <h2>Resultado da pesquisa</h2>
+        <button className="botao secundario" type="button" onClick={onVoltar}>
           Nova pesquisa
         </button>
       </div>
 
-      <article className="cartao">
-        <h2>Processo</h2>
-        <div className="grade">
-          <p>
-            <strong>Tribunal:</strong> {process.court}
-          </p>
-          <p>
-            <strong>Câmara:</strong> {process.chamber}
-          </p>
-          <p>
-            <strong>Classe:</strong> {process.caseClass}
-          </p>
-          <p>
-            <strong>Órgão:</strong> {process.organ}
-          </p>
-        </div>
-        <p>
-          <strong>Tese:</strong> {process.thesis}
-        </p>
+      <article className="bloco">
+        <h3 className="titulo-secao">Processo consultado</h3>
+        <table className="ficha">
+          <tbody>
+            {linha("Numeração processual", process.processNumber)}
+            {linha("Tribunal", process.court)}
+            {linha("Órgão julgador", process.chamber)}
+            {linha("Classe processual", process.caseClass)}
+            {linha("Assunto", process.subjects.join(" · "))}
+            {linha("Unidade", process.courtUnit)}
+            {linha("Tese", process.thesis)}
+            {process.importedFile
+              ? linha("Documento importado", process.importedFile.name)
+              : null}
+          </tbody>
+        </table>
         <p>{process.summary}</p>
-        {process.importedFile && (
-          <p className="ajuda">
-            Arquivo importado (metadado da demo): {process.importedFile.name}
-          </p>
-        )}
         <p>
-          <strong>Partes:</strong>
+          <strong>Partes: </strong>
+          {process.parties
+            .map((parte) => `${parte.papel}: ${parte.nome}`)
+            .join(" · ")}
         </p>
-        <ul className="lista">
-          {process.parties.map((parte) => (
-            <li key={parte.nome}>
-              {parte.papel}: {parte.nome}
-            </li>
-          ))}
-        </ul>
       </article>
 
-      <article className="cartao">
-        <h2>Jurisprudências e votos</h2>
-        <div className="juris">
-          {jurisprudences.map((item) => (
-            <article key={item.id}>
-              <p>
-                <span className={`selo ${item.alignment}`}>
-                  {ROTULO_ALINHAMENTO[item.alignment]}
-                </span>{" "}
-                {item.citeStatus === "unavailable" && (
-                  <span className="selo unknown">Cite indisponível</span>
-                )}{" "}
-                <strong>
-                  {item.court} — {item.chamber}
-                </strong>
-              </p>
-              <p className="ajuda">{item.organ}</p>
-              <p>
-                <strong>Voto:</strong>{" "}
-                {item.voteSummary || "Sem voto na fonte."}
-              </p>
-              <p className="ementa">
-                {item.ementaSnippet ||
-                  "Ementa ausente — esta demo não inventa cite."}
-              </p>
-            </article>
-          ))}
-        </div>
-      </article>
+      <h3 className="titulo-secao">Jurisprudências encontradas</h3>
+      {jurisprudences.map((item) => (
+        <FichaJuris key={item.id} item={item} />
+      ))}
 
-      <article className="cartao">
-        <h2>Dissídio entre câmaras</h2>
+      <article className="bloco">
+        <h3 className="titulo-secao">Dissídio entre câmaras</h3>
         <p>{dissidioReport.narrative}</p>
         <table className="tabela">
           <thead>
             <tr>
               <th>Tribunal</th>
-              <th>Câmara</th>
+              <th>Órgão julgador</th>
               <th>Orientação</th>
               <th>Versus o caso</th>
               <th>Nota</th>
             </tr>
           </thead>
           <tbody>
-            {dissidioReport.conflicts.map((linha) => (
-              <tr key={`${linha.court}-${linha.chamber}`}>
-                <td>{linha.court}</td>
-                <td>{linha.chamber}</td>
-                <td>{linha.orientationLabel}</td>
-                <td>{ROTULO_ALINHAMENTO[linha.vsProcessChamber]}</td>
-                <td>{linha.note}</td>
+            {dissidioReport.conflicts.map((linhaItem) => (
+              <tr key={`${linhaItem.court}-${linhaItem.chamber}`}>
+                <td>{linhaItem.court}</td>
+                <td>{linhaItem.chamber}</td>
+                <td>{linhaItem.orientationLabel}</td>
+                <td>{ROTULO_ALINHAMENTO[linhaItem.vsProcessChamber]}</td>
+                <td>{linhaItem.note}</td>
               </tr>
             ))}
           </tbody>
         </table>
       </article>
 
-      <article className="cartao">
-        <h2>Chance e blindagem</h2>
+      <article className="bloco">
+        <h3 className="titulo-secao">Chance e blindagem</h3>
         <p className="pontuacao">{chanceReport.score}/100</p>
-        <p>
+        <p style={{ textAlign: "center" }}>
           <strong>{chanceReport.label}</strong>
         </p>
         <p>{chanceReport.rationale}</p>
