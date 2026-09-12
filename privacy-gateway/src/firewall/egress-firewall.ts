@@ -52,10 +52,6 @@ const UNIX_PATH_RE = /(?:^|[\s"'`])(\/(?:[A-Za-z0-9._-]+\/)+[A-Za-z0-9._-]+)/;
 const WIN_PATH_RE = /(?:^|[\s"'`])([A-Za-z]:\\(?:[^\s"'`]+))/;
 const STACK_RE = /\bstack\s+at\s+\S+\.(?:ts|js|tsx|jsx):\d+/i;
 
-/**
- * Independent of DTO construction on purpose: it owns its own canaries and
- * patterns so a bug in the declassifier cannot also disable this check.
- */
 export class EgressFirewall {
   inspect(wire: string): FirewallVerdict {
     for (const canary of CANARIES) {

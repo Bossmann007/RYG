@@ -42,7 +42,6 @@ function mcpFor(
   });
 }
 
-/** Emits a paraphrase of a source field without ever declassifying it. */
 class UnmarkedDeclassifier extends Declassifier {
   constructor(private readonly label: Classification) {
     super();

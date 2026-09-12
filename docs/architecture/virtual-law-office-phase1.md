@@ -198,10 +198,10 @@ type SafeContextDTO = {
   action_items: string[];
   legal_topics: string[];
   open_questions: string[];
-  safe_references: string[]; // public or pre-cleared ids only
+  safe_references: string[];
   warnings: string[];
-  classification_released: 'PUBLIC' | 'INTERNAL'; // never CONFIDENTIAL+
-  session_id: string; // opaque
+  classification_released: 'PUBLIC' | 'INTERNAL';
+  session_id: string;
 };
 ```
 

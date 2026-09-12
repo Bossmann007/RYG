@@ -11,9 +11,9 @@ Private virtual office reachable over MCP stdio (BYOAI). The Inspector CLI and a
 ```ts
 type SafeDTO = {
   schemaVersion: '1';
-  sessionId: string; // ofs_*
-  releaseId: string; // rel_*
-  summary: string;   // max 600
+  sessionId: `ofs_${string}`;
+  releaseId: `rel_${string}`;
+  summary: string;
   decisions: SafeItem[];
   tasks: SafeTask[];
   safeReferences: SafeRef[];

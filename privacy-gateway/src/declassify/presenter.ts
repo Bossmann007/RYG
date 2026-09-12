@@ -27,10 +27,6 @@ function fieldLabel(doc: CaseDocument, fieldLabelValue: Classification | undefin
   );
 }
 
-/**
- * The only reader that builds PresentedField values. RawContext is already in
- * the store. A name outside the allowlist is not copied into PresentedField.
- */
 export class Presenter {
   read(raw: RawContext): PresentedField[] {
     const out: PresentedField[] = [];

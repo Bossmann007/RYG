@@ -20,7 +20,6 @@ export type SafeWarning = {
   message: string;
 };
 
-/** Frozen outbound MCP contract. Only this shape may cross the boundary. */
 export type SafeDTO = {
   schemaVersion: '1';
   sessionId: string;

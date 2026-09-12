@@ -34,9 +34,6 @@ export type McpOfficeServerArgs = {
   audit?: AuditLog;
 };
 
-/**
- * BYOAI MCP boundary. Identity is frozen on the connection, never on a tool call.
- */
 export class McpOfficeServer {
   private readonly office: VirtualOffice;
   private readonly connection: ConnectionContext;
@@ -113,7 +110,6 @@ export class McpOfficeServer {
     return this.release(result.dto, result.mcpBytes);
   }
 
-  /** Single outbound path. Validate, serialize, then run the independent firewall. */
   private release(dto: SafeDTO, expectedBytes?: string): McpToolResult {
     const checked = validateSafeDto(dto);
     if (!checked.ok) {

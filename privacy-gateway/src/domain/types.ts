@@ -13,7 +13,6 @@ export function classificationRank(value: Classification): number {
   return CLASSIFICATION_RANK[value];
 }
 
-/** Unlabelled data is STRICT so a missing label can never widen a release. */
 export function classificationOf(
   value: Classification | undefined,
 ): Classification {

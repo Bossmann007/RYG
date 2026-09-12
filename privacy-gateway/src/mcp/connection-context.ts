@@ -20,7 +20,6 @@ export function isRole(value: unknown): value is Role {
   return typeof value === 'string' && (ROLES as readonly string[]).includes(value);
 }
 
-/** True when the caller tried to name a principal inside tool arguments. */
 export function argumentsCarryPrincipal(
   args: Record<string, unknown>,
 ): boolean {
@@ -29,10 +28,6 @@ export function argumentsCarryPrincipal(
   );
 }
 
-/**
- * Stdio / Inspector bind identity at process start.
- * Fail closed when OFFICE_USER_ID or OFFICE_ROLE is missing or unknown.
- */
 export function parseConnectionFromEnv(
   env: NodeJS.Dict<string> = process.env,
 ): ConnectionContext {

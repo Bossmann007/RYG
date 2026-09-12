@@ -15,10 +15,6 @@ export function isAuthorizedReleaseKind(kind: string): kind is ReleaseKind {
   return Object.prototype.hasOwnProperty.call(AUTHORIZED_RELEASES, kind);
 }
 
-/**
- * Only allowlisted templates receive the declassified stamp.
- * Unknown kinds stay tainted so FlowPolicy denies the crossing.
- */
 export function authorizeRelease<T>(
   kind: string,
   value: T,

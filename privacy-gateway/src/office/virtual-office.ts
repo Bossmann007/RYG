@@ -14,9 +14,6 @@ export type OfficeResult =
   | { ok: true; tool: AllowlistedTool; dto?: SafeDTO; sessionId?: string; mcpBytes?: string }
   | { ok: false; reason: string };
 
-/**
- * Virtual office boundary. Tool results are SafeDTO only (never free-text answers).
- */
 export class VirtualOffice {
   private readonly store: CaseFixtureStore;
   private readonly sessions: OfficeSessionStore;
@@ -117,7 +114,6 @@ export class VirtualOffice {
           return { ok: false, reason: 'unauthorized_or_missing_classification' };
         }
 
-        // Audit before MCP serialization.
         this.audit.append({
           action: 'egress_intent',
           userId: effective.id,
@@ -157,10 +153,6 @@ export class VirtualOffice {
     }
   }
 
-  /**
-   * Effective principal is frozen at enter_office. A caller cannot re-declare a
-   * higher role on a later tool call in the same session.
-   */
   private resolvePrincipal(
     session: OfficeSession,
     claimed: UserPrincipal,

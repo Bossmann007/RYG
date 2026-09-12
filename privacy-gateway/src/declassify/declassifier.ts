@@ -37,11 +37,6 @@ export type DeclassifiedDraft = {
   refs: Tainted<SafeRef>[];
 };
 
-/**
- * Declassification destroys documentary shape.
- * Output is abstract SafeDTO, never a redacted document blob.
- * No Ollama. Deterministic templates + flow control + DLP pass.
- */
 export class Declassifier {
   private readonly brPii = new DeterministicBrPii();
   private readonly release = new ReleasePolicy();
