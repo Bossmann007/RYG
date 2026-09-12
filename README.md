@@ -13,6 +13,7 @@ O advogado informa o **número do processo** (obrigatório) e, opcionalmente, **
 
 ## Documentação
 
+- [Como contribuir, branches e versões](CONTRIBUTING.md)
 - [Visão do produto](docs/PRODUCT.md)
 - [Fluxo do usuário](docs/FLUXO.md)
 - [Arquitetura](docs/ARCHITECTURE.md)

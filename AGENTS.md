@@ -22,7 +22,7 @@
 - Egress must destroy information through declassification; token redaction is only an internal DLP stage.
 - `SafeDTO` is the frozen egress contract, carrying opaque `ofs_` session ids and `rel_` release ids.
 - Egress enforces four layers: classification labels, taint provenance, a typed presenter allowlist, and an independent byte firewall.
-- Gateway code lives in `privacy-gateway/` on branch `enzo`; `npm run evidence` at the repo root runs typecheck, tests, demo, and MCP stdio smoke.
+- Gateway code lives in `privacy-gateway/`. The repository uses only `main` for releases and `develop` for shared development; see `CONTRIBUTING.md`. `npm run evidence` at the repo root runs typecheck, tests, demo, and MCP stdio smoke.
 - MCP identity is the connection principal (`OFFICE_USER_ID` / `OFFICE_ROLE` on stdio). Tool arguments must not carry `user` or `role`.
 - Stdio server is `npm run mcp` in `privacy-gateway/`. Inspector CLI was used for `tools/list` and `enter_office`; `npm run mcp:smoke` covers `get_safe_summary` in one process.
 - Current architecture doc is `docs/architecture/privacy-gateway-v3.md`; the v2 doc is kept as DLP-stage notes.
