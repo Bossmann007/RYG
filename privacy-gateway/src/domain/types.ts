@@ -1,19 +1,50 @@
 export type Role = 'socio' | 'advogado' | 'estagiario';
 
-export type DocClassification =
-  | 'public_jurisprudence'
-  | 'case_workproduct'
-  | 'client_secret';
+export type Classification = 'PUBLIC' | 'INTERNAL' | 'CONFIDENTIAL' | 'STRICT';
+
+const CLASSIFICATION_RANK: Record<Classification, number> = {
+  PUBLIC: 0,
+  INTERNAL: 1,
+  CONFIDENTIAL: 2,
+  STRICT: 3,
+};
+
+export function classificationRank(value: Classification): number {
+  return CLASSIFICATION_RANK[value];
+}
+
+/** Unlabelled data is STRICT so a missing label can never widen a release. */
+export function classificationOf(
+  value: Classification | undefined,
+): Classification {
+  if (value === undefined || !(value in CLASSIFICATION_RANK)) {
+    return 'STRICT';
+  }
+  return value;
+}
+
+export function maxClassification(
+  a: Classification,
+  b: Classification,
+): Classification {
+  return CLASSIFICATION_RANK[a] >= CLASSIFICATION_RANK[b] ? a : b;
+}
 
 export type UserPrincipal = {
   id: string;
   role: Role;
 };
 
+export type CaseField = {
+  name: string;
+  value: string;
+  classification: Classification;
+};
+
 export type CaseDocument = {
   id: string;
-  classification: DocClassification;
-  text: string;
+  classification: Classification;
+  fields: CaseField[];
 };
 
 export type CaseRecord = {
@@ -24,43 +55,28 @@ export type CaseRecord = {
   documents: CaseDocument[];
 };
 
-/** Post-authz text. Never pass to LlmProvider. */
+/** High-side only. Never serialize across MCP. */
 export type RawContext = {
   readonly __brand: 'raw';
-  text: string;
   caseId: string;
-  docIds: string[];
+  documents: CaseDocument[];
 };
 
-/** Built only by EgressGate. */
-export type SanitizedContext = {
-  readonly __brand: 'sanitized';
+/** Intermediate DLP stage only. Never the MCP tool result. */
+export type SanitizedBlob = {
+  readonly __brand: 'sanitized_blob';
   text: string;
-  caseId: string;
   redactions: number;
 };
-
-export type EgressDecision =
-  | { kind: 'deny'; reason: string }
-  | {
-      kind: 'allow';
-      context: SanitizedContext;
-      mode: 'external' | 'local_only';
-    };
 
 export type AuditEvent = {
   ts: string;
   action: string;
   userId: string;
   caseId?: string;
-  outcome: 'allow' | 'deny' | 'local_only';
+  sessionId?: string;
+  outcome: 'allow' | 'deny';
   reason?: string;
-  redactions?: number;
-  egressChars?: number;
-};
-
-export type LlmProvider = {
-  generate(context: SanitizedContext, prompt: string): Promise<string>;
 };
 
 export type PiiSpan = {
@@ -69,9 +85,13 @@ export type PiiSpan = {
   type: string;
 };
 
-export const MAX_EGRESS_CHARS = 4000;
+export const ALLOWLISTED_TOOLS = [
+  'enter_office',
+  'leave_office',
+  'get_safe_summary',
+  'ask_office',
+] as const;
 
-export const ALLOWLISTED_TOOLS = ['get_sanitized_case_summary'] as const;
 export type AllowlistedTool = (typeof ALLOWLISTED_TOOLS)[number];
 
 export function isAllowlistedTool(name: string): name is AllowlistedTool {
@@ -79,17 +99,23 @@ export function isAllowlistedTool(name: string): name is AllowlistedTool {
 }
 
 export function asRawContext(
-  text: string,
   caseId: string,
-  docIds: string[],
+  documents: CaseDocument[],
 ): RawContext {
-  return { __brand: 'raw', text, caseId, docIds };
+  return { __brand: 'raw', caseId, documents };
 }
 
-export function asSanitizedContext(
-  text: string,
-  caseId: string,
-  redactions: number,
-): SanitizedContext {
-  return { __brand: 'sanitized', text, caseId, redactions };
-}
+export const FORBIDDEN_MCP_KEYS = [
+  'raw_messages',
+  'raw_documents',
+  'rag_chunks',
+  'client_data',
+  'cpf',
+  'account_number',
+  'credentials',
+  'database_rows',
+  'raw_agent_memory',
+  'raw_session_context',
+  'text',
+  'answer',
+] as const;

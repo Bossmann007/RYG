@@ -43,11 +43,6 @@ export class CaseFixtureStore {
         return null;
       }
     }
-    const text = record.documents.map((d) => d.text).join('\n\n');
-    return asRawContext(
-      text,
-      record.id,
-      record.documents.map((d) => d.id),
-    );
+    return asRawContext(record.id, record.documents);
   }
 }

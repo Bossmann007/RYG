@@ -1,6 +1,7 @@
 # Privacy Gateway architecture v2 (thin-C)
 
-Status: **approved** by user (2026-09-12). Replaces design §1 Mermaid.
+Status: **superseded for product proof by v3 SafeDTO**. Remains as DLP-stage design notes.
+See `privacy-gateway-v3.md` for the thesis implementation.
 Branch: enzo. Owner: LGPD + AI usage.
 Sources: docs/research/fase1-*.md, hackathon clock, locked decisions.
 

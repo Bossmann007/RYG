@@ -1,29 +1,25 @@
-# Privacy Gateway (thin-C / architecture v2)
+# Privacy Gateway / Virtual Office (SafeDTO v3)
 
-Deny-by-default egress for OpenLegalAI. External LLMs receive only `SanitizedContext`.
+Thesis: private office context never returns to the native AI UI as raw or redacted documents. MCP tool results are **SafeDTO only**.
 
-## Quick proof (V1 evidence)
+Thin-C BR PII redaction remains an **internal DLP stage**, not the product proof.
+
+## Evidence
 
 ```bash
-cd privacy-gateway
-npm install
-npm test
-npm run demo
+cd /Users/bossmann/openlegalai && npm run evidence
 ```
 
-If any forbidden literal reaches `MockExternalProvider`, tests fail via `ForbiddenStringSpy`.
+## MCP tools (allowlist)
+
+- `enter_office` / `leave_office`
+- `get_safe_summary` / `ask_office`
+
+Forbidden: `execute_sql`, `get_raw_document`, etc.
 
 ## Layout
 
-- `src/gateway` — Nest-ready orchestrator (plain TS for V1 speed)
-- `src/pii` — deterministic BR PII + optional Presidio HTTP client
-- `presidio-sidecar` — local analyze stub (`python main.py`)
-- `test/adversarial.test.ts` — fail-closed proofs
-
-## MCP note
-
-HTTP tool today: `get_sanitized_case_summary`. Same allowlist intent for future MCP. Never `execute_sql`.
-
-## LGPD
-
-Technical controls only. Not a compliance claim. DPO review required before production.
+- `src/mcp` — BYOAI MCP serialization gate + byte spy
+- `src/declassify` — information-destroying SafeDTO builder (no Ollama)
+- `src/policy/release-policy.ts` — role-based SafeDTO richness
+- `src/pii` — DLP stage only
