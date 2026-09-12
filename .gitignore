@@ -57,3 +57,9 @@ frontend/
 server/dist/
 server/public/
 backend/
+
+# Trilha de auditoria do gateway (nunca vai para o repositorio)
+server/audit/
+
+# Estado de sessao local de ferramentas (nao e config de projeto)
+.claude/state/
