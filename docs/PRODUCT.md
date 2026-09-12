@@ -10,8 +10,8 @@ O advogado informa o **número do processo** (obrigatório) e, opcionalmente, **
 - Fontes oficiais no roadmap (DataJud = capa/andamento; ementa = tribunal). Sem Jusbrasil/scrapers
 
 ## Stack
-- **Frontend:** React (TypeScript)
-- **Backend:** NestJS (TypeScript) — orquestra busca, cruzamento e relatório
+- **client:** React (TypeScript)
+- **server:** NestJS (TypeScript) — pastas no padrão Buglan (`models`, `modules`, `common`)
 - Time: liderança forte em TS; Python do time = nível inicial (não depende de FastAPI)
 
 ## Escopo demo vs produção

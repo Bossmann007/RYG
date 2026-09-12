@@ -1,0 +1,251 @@
+:root {
+  --papel: #f3eee4;
+  --papel-escuro: #e8e0d2;
+  --tinta: #1c1915;
+  --tinta-suave: #5c564c;
+  --selo: #8b1e1e;
+  --selo-claro: #f3d6d2;
+  --linha: #1c1915;
+  --ok: #1f4d3a;
+  --ok-fundo: #d7eadf;
+  --alerta: #7a4b00;
+  --alerta-fundo: #f3e4c4;
+  --neutro: #3d3a36;
+  --neutro-fundo: #ddd8ce;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  background: var(--papel);
+  color: var(--tinta);
+  font-family: "IBM Plex Sans", sans-serif;
+  line-height: 1.5;
+}
+
+h1,
+h2,
+h3,
+.marca {
+  font-family: "Libre Baskerville", serif;
+}
+
+button,
+input,
+label {
+  font: inherit;
+}
+
+.app {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 24px 20px 64px;
+}
+
+.faixa-demo {
+  border: 1px solid var(--linha);
+  background: #fff8e8;
+  padding: 10px 14px;
+  margin-bottom: 28px;
+  font-size: 14px;
+}
+
+.cabecalho {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-end;
+  margin-bottom: 28px;
+  border-bottom: 2px solid var(--linha);
+  padding-bottom: 16px;
+}
+
+.marca {
+  font-size: 28px;
+  margin: 0 0 6px;
+}
+
+.subtitulo {
+  margin: 0;
+  color: var(--tinta-suave);
+}
+
+.voltar {
+  background: transparent;
+  border: 1px solid var(--linha);
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.abas {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.aba {
+  border: 1px solid var(--linha);
+  background: transparent;
+  padding: 8px 14px;
+  cursor: pointer;
+}
+
+.aba.ativa {
+  background: var(--tinta);
+  color: var(--papel);
+}
+
+.cartao {
+  border: 1px solid var(--linha);
+  background: #fffdf8;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.campo input[type="text"] {
+  border: 1px solid var(--linha);
+  background: #fff;
+  padding: 10px 12px;
+}
+
+.acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.botao {
+  border: 1px solid var(--linha);
+  background: var(--selo);
+  color: #fff;
+  padding: 10px 16px;
+  cursor: pointer;
+}
+
+.botao.secundario {
+  background: transparent;
+  color: var(--tinta);
+}
+
+.erro {
+  color: var(--selo);
+  margin: 0 0 12px;
+}
+
+.ajuda {
+  color: var(--tinta-suave);
+  font-size: 14px;
+  margin: 0 0 12px;
+}
+
+.carregando {
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+}
+
+.grade {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 20px;
+}
+
+.lista {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.juris {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.juris article {
+  border-top: 1px solid var(--papel-escuro);
+  padding-top: 12px;
+}
+
+.juris article:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.selo {
+  display: inline-block;
+  font-size: 12px;
+  padding: 2px 8px;
+  margin-right: 6px;
+  border: 1px solid var(--linha);
+}
+
+.selo.for {
+  background: var(--ok-fundo);
+  color: var(--ok);
+}
+
+.selo.diverge {
+  background: var(--alerta-fundo);
+  color: var(--alerta);
+}
+
+.selo.against,
+.selo.unknown {
+  background: var(--neutro-fundo);
+  color: var(--neutro);
+}
+
+.tabela {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.tabela th,
+.tabela td {
+  border: 1px solid var(--papel-escuro);
+  text-align: left;
+  padding: 8px;
+  vertical-align: top;
+}
+
+.pontuacao {
+  font-family: "Libre Baskerville", serif;
+  font-size: 42px;
+  margin: 0 0 4px;
+}
+
+.ementa {
+  font-size: 14px;
+  color: var(--tinta-suave);
+}
+
+@media (max-width: 720px) {
+  .cabecalho,
+  .grade {
+    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
+  }
+}
