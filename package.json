@@ -1,5 +1,13 @@
 {
   "name": "openlegalai",
+  "private": true,
+  "scripts": {
+    "typecheck:gateway": "npm --prefix privacy-gateway run typecheck",
+    "test:gateway": "npm --prefix privacy-gateway test",
+    "demo:gateway": "npm --prefix privacy-gateway run demo",
+    "mcp:smoke": "npm --prefix privacy-gateway run mcp:smoke",
+    "evidence": "npm run typecheck:gateway && npm run test:gateway && npm run demo:gateway && npm run mcp:smoke"
+  }
   "version": "1.0.0",
   "description": "OpenLegalAI — demo de pesquisa jurídica com dissídio de câmaras",
   "private": true,
