@@ -23,6 +23,10 @@ async function main() {
     'tools/list=',
     JSON.stringify(listed.tools.map((t) => t.name)),
   );
+  if (!listed.tools.every((t) => t.outputSchema && t.outputSchema.type === 'object')) {
+    throw new Error('smoke_missing_output_schema');
+  }
+  console.log('tools/list outputSchema=SafeDTO');
 
   const entered = await client.callTool({
     name: 'enter_office',

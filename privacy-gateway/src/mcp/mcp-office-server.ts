@@ -8,6 +8,10 @@ import {
   type ConnectionContext,
   PRINCIPAL_IN_ARGUMENTS,
 } from './connection-context.js';
+import {
+  argumentsHaveUnknownKeys,
+  UNKNOWN_ARGUMENT,
+} from './tool-contract.js';
 
 export type McpToolCall = {
   name: string;
@@ -56,6 +60,15 @@ export class McpOfficeServer {
         userId: this.connection.principal.id,
         outcome: 'deny',
         reason: PRINCIPAL_IN_ARGUMENTS,
+      });
+      return publicError();
+    }
+    if (argumentsHaveUnknownKeys(call.name, call.arguments)) {
+      this.audit.append({
+        action: 'unknown_argument',
+        userId: this.connection.principal.id,
+        outcome: 'deny',
+        reason: UNKNOWN_ARGUMENT,
       });
       return publicError();
     }

@@ -14,7 +14,7 @@ cd /Users/bossmann/openlegalai && npm run evidence
 
 Mostrar: intern vs socio, bytes SafeDTO sem CPF/nome, `execute_sql` negado, firewall fail-closed no canario `password=`. Intent de injection vira warning, nao dump.
 
-**Impacto.** Controles tecnicos para sigilo. Nao declaramos conformidade LGPD. Declaramos prova: no stdio testado, o que atravessa a tool e so SafeDTO.
+**Impacto.** MCP stdio comprovado; autenticação/hosting são próximos passos; controles técnicos com risco residual; sem declaração de conformidade LGPD.
 
 ## Nao dizer
 

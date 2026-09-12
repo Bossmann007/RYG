@@ -4,64 +4,9 @@ import {
   CallToolRequestSchema,
   ListToolsRequestSchema,
 } from '@modelcontextprotocol/sdk/types.js';
-import { McpOfficeServer } from './mcp-office-server.js';
 import { parseConnectionFromEnv } from './connection-context.js';
-
-const TOOLS = [
-  {
-    name: 'enter_office',
-    description:
-      'Open a server-side office session. Returns a SafeDTO with an opaque session id.',
-    inputSchema: {
-      type: 'object',
-      properties: {
-        caseId: { type: 'string' },
-      },
-      required: ['caseId'],
-      additionalProperties: false,
-    },
-  },
-  {
-    name: 'leave_office',
-    description: 'Close an office session. Returns a SafeDTO ack.',
-    inputSchema: {
-      type: 'object',
-      properties: {
-        sessionId: { type: 'string' },
-      },
-      required: ['sessionId'],
-      additionalProperties: false,
-    },
-  },
-  {
-    name: 'get_safe_summary',
-    description:
-      'Release a declassified SafeDTO for the session. Never returns raw case text.',
-    inputSchema: {
-      type: 'object',
-      properties: {
-        sessionId: { type: 'string' },
-        intent: { type: 'string' },
-      },
-      required: ['sessionId'],
-      additionalProperties: false,
-    },
-  },
-  {
-    name: 'ask_office',
-    description:
-      'Ask a question inside the office. The answer is a SafeDTO, not free text.',
-    inputSchema: {
-      type: 'object',
-      properties: {
-        sessionId: { type: 'string' },
-        intent: { type: 'string' },
-      },
-      required: ['sessionId'],
-      additionalProperties: false,
-    },
-  },
-] as const;
+import { McpOfficeServer } from './mcp-office-server.js';
+import { MCP_TOOLS } from './tool-contract.js';
 
 function buildServer(): Server {
   const connection = parseConnectionFromEnv();
@@ -72,7 +17,7 @@ function buildServer(): Server {
   );
 
   server.setRequestHandler(ListToolsRequestSchema, async () => ({
-    tools: [...TOOLS],
+    tools: [...MCP_TOOLS],
   }));
 
   server.setRequestHandler(CallToolRequestSchema, async (request) => {

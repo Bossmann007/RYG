@@ -14,6 +14,8 @@ cd /Users/bossmann/openlegalai && npm run evidence
 
 The demo prints intern vs partner SafeDTO bytes, a denied `execute_sql` call, and a planted firewall fail-closed.
 
+MCP stdio comprovado; autenticação/hosting são próximos passos; controles técnicos com risco residual; sem declaração de conformidade LGPD.
+
 ## MCP stdio (Inspector)
 
 Identity comes from the process environment, never from tool arguments.

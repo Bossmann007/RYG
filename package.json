@@ -5,6 +5,7 @@
     "typecheck:gateway": "npm --prefix privacy-gateway run typecheck",
     "test:gateway": "npm --prefix privacy-gateway test",
     "demo:gateway": "npm --prefix privacy-gateway run demo",
-    "evidence": "npm run typecheck:gateway && npm run test:gateway && npm run demo:gateway"
+    "mcp:smoke": "npm --prefix privacy-gateway run mcp:smoke",
+    "evidence": "npm run typecheck:gateway && npm run test:gateway && npm run demo:gateway && npm run mcp:smoke"
   }
 }

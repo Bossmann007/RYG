@@ -10,6 +10,7 @@ export * from './declassify/declassifier.js';
 export * from './office/virtual-office.js';
 export * from './mcp/mcp-office-server.js';
 export * from './mcp/connection-context.js';
+export * from './mcp/tool-contract.js';
 export * from './policy/authorized-releases.js';
 export * from './pii/deterministic-br-pii.js';
 export * from './store/case-fixture-store.js';

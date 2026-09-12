@@ -338,6 +338,27 @@ describe('SafeDTO v3 MCP boundary', () => {
     ).toBe(true);
   });
 
+  it('rejects unknown keys on an allowlisted tool', () => {
+    const audit = new AuditLog();
+    const mcp = mcpFor(ADV, undefined, { audit });
+    const entered = mcp.callTool({
+      name: 'enter_office',
+      arguments: { caseId: 'case-banco-001' },
+    });
+    if (entered.isError) throw new Error('enter');
+    const out = mcp.callTool({
+      name: 'get_safe_summary',
+      arguments: {
+        sessionId: entered.structuredContent.sessionId,
+        leaked: '/srv/cases/raw.pdf',
+      },
+    });
+    expect(out.isError).toBe(true);
+    expect(out.content[0].text).toBe(PUBLIC_ERROR);
+    expect(out.content[0].text).not.toContain('/srv/cases');
+    expect(audit.all().some((e) => e.reason === 'UNKNOWN_ARGUMENT')).toBe(true);
+  });
+
   it('intern session cannot be reused from a partner connection', () => {
     const office = new VirtualOffice();
     const internMcp = mcpFor(INTERN, office);
