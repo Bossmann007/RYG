@@ -1,0 +1,20 @@
+import { Public } from "@common/decorators/public.decorator";
+import { Controller, Get } from "@nestjs/common";
+import { AppService } from "./app.service";
+
+@Controller()
+export class AppController {
+  constructor(private readonly appService: AppService) {}
+
+  @Public()
+  @Get()
+  home() {
+    return this.appService.home();
+  }
+
+  @Public()
+  @Get("health")
+  health() {
+    return this.appService.health();
+  }
+}
