@@ -1,17 +1,18 @@
-# openlegalai
+# OpenLegalAI
 
-HACKATON OAB RUSH
+Hackathon OAB Rush — pesquisa jurídica com **dissídios entre câmaras** e relatório de **chance + blindagem**.
 
-## Virtual Law Office (SafeDTO v3)
+## Pitch
 
-MCP BYOAI boundary. Tool results are SafeDTO only. Thin-C PII is an internal DLP stage.
+O advogado informa o **número do processo** (obrigatório) e, opcionalmente, **importa documentos**. O sistema resolve a capa, busca jurisprudências (com votos quando disponíveis), compara a **câmara do caso** com as **câmaras das juris** e entrega um relatório de **dissídios + chance/blindagem**.
 
-Workspace root: `/Users/bossmann/openlegalai`
+## Stack
 
-```bash
-cd /Users/bossmann/openlegalai && npm run evidence
-```
+- **Client:** React + Vite (TypeScript) em `client/`
+- **Server:** NestJS (TypeScript) em `server/` — **mesma estrutura** do [buglan](https://github.com/joaozupeli/buglan) (`common`, `config`, `modules`, aliases `@common/*` / `@modules/*`, prefixo `api`)
 
-Architecture: `docs/architecture/privacy-gateway-v3.md`  
-Pitch: `docs/pitch-2min.md`  
-Research: `docs/research/fase1-*.md` and `docs/architecture/virtual-law-office-phase1.md`
+## Documentação
+
+- [Visão do produto](docs/PRODUCT.md)
+- [Fluxo do usuário](docs/FLUXO.md)
+- [Arquitetura](docs/ARCHITECTURE.md)
