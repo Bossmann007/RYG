@@ -45,7 +45,7 @@ export class DbService implements OnModuleDestroy {
       );
     }
 
-    const [resultado] = await this.pool.execute<ResultSetHeader>(sql, params);
+    const [resultado] = await this.pool.query<ResultSetHeader>(sql, params);
     return resultado;
   }
 
