@@ -1,4 +1,5 @@
 import { LoggerMiddleware } from "@common/middlewares/logger.middleware";
+import { CasosModule } from "@modules/casos/casos.module";
 import { ClientsModule } from "@modules/clients/clients.module";
 import { ContractsModule } from "@modules/contracts/contracts.module";
 import { DissidioModule } from "@modules/dissidio/dissidio.module";
@@ -15,7 +16,11 @@ import { AppService } from "./app.service";
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: [".env", "../.env"],
+    }),
+    CasosModule,
     ProcessModule,
     ClientsModule,
     PetitionsModule,

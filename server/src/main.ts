@@ -1,6 +1,8 @@
 import "./register-aliases";
 /* eslint-disable @typescript-eslint/no-var-requires */
-import "dotenv/config";
+import { config as loadEnv } from "dotenv";
+loadEnv();
+loadEnv({ path: "../.env" });
 const { name } = require("../package.json");
 
 import { HttpExceptionFilter } from "@common/filters/http-exception.filter";
