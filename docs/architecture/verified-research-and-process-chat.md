@@ -1,6 +1,6 @@
 # Verified research and persistent process chat
 
-Status: proposed implementation, 2026-09-13.
+Status: **implemented**, 2026-09-13. TJPR fonte first-class, anti-alucinação controls in place.
 
 ## Evidence and scope
 
@@ -54,9 +54,11 @@ staging directory is temporary and is not a long-term evidence archive.
 Before import, add source document identifier, official URL, retrieval time,
 content digest, citation eligibility and association type to the storage
 contract. Preserve unverified historical records separately from the verified
-query. Unreviewed alignment must be `not_assessed`, not `diverge` (the current
-assembler fallback). Expose the actual source as TJPR, not DataJud. Include the
-source link in the UI. A citation flag alone is insufficient evidence of origin.
+query. **Implemented:** Unreviewed alignment now maps to `unknown`, not `diverge`
+(assembler `alinhamentoDe` fixed). **Implemented:** TJPR exposed as first-class
+`fonte='tjpr'`, not remapped to DataJud (`fonte-fato.ts` and `caso-policy.ts`
+updated). Include the source link in the UI. A citation flag alone is
+insufficient evidence of origin.
 
 The initial corpus is a convenience sample of decisions from existing office
 processes. It supports descriptive coverage counts only, not court-wide success

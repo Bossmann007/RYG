@@ -578,25 +578,49 @@ function jurisprudenciasDe(linhas: Linha[], fallback: Jurisprudencia[]): Jurispr
     return fallback;
   }
 
-  return linhas.map((linha, indice) => ({
-    id: textoCampo(linha, ALIASES.id, `jur-${indice}`),
-    processNumber: textoCampo(linha, ALIASES.numeroCnj),
-    acordao: textoCampo(linha, ALIASES.acordao),
-    court: textoCampo(linha, ALIASES.court),
-    chamber: textoCampo(linha, ALIASES.chamber),
-    reporter: textoCampo(linha, ALIASES.reporter),
-    date: textoCampo(linha, ALIASES.data),
-    status: statusDe(valorCampo(linha, ALIASES.status)),
-    alignment: alinhamentoDe(valorCampo(linha, ALIASES.alignment)),
-    ementa: textoCampo(linha, ALIASES.ementa),
-    pontos: textosDe(valorCampo(linha, ALIASES.pontos)),
-    essencial: blocoDe(linha, "essencial"),
-    fortalecer: blocoDe(linha, "fortalecer"),
-    blindar: blocoDe(linha, "blindar"),
-    contrapor: blocoDe(linha, "contrapor"),
-    citavel: booleanDe(valorCampo(linha, ALIASES.citavel)),
-    fonte: "acervo_interno",
-  }));
+  return linhas.map((linha, indice) => {
+    const court = textoCampo(linha, ALIASES.court);
+    const fonteRaw = textoCampo(linha, ["fonte", "source"]) ||
+                     textoCampo(linha, ["seed_fonte", "seedFonte"]);
+    const citavel = booleanDe(valorCampo(linha, ALIASES.citavel));
+
+    const fonte = fonteDeLinha(fonteRaw, court, citavel);
+
+    return {
+      id: textoCampo(linha, ALIASES.id, `jur-${indice}`),
+      processNumber: textoCampo(linha, ALIASES.numeroCnj),
+      acordao: textoCampo(linha, ALIASES.acordao),
+      court,
+      chamber: textoCampo(linha, ALIASES.chamber),
+      reporter: textoCampo(linha, ALIASES.reporter),
+      date: textoCampo(linha, ALIASES.data),
+      status: statusDe(valorCampo(linha, ALIASES.status)),
+      alignment: alinhamentoDe(valorCampo(linha, ALIASES.alignment)),
+      ementa: textoCampo(linha, ALIASES.ementa),
+      pontos: textosDe(valorCampo(linha, ALIASES.pontos)),
+      essencial: blocoDe(linha, "essencial"),
+      fortalecer: blocoDe(linha, "fortalecer"),
+      blindar: blocoDe(linha, "blindar"),
+      contrapor: blocoDe(linha, "contrapor"),
+      citavel,
+      fonte,
+    };
+  });
+}
+
+function fonteDeLinha(fonteRaw: string, court: string, citavel: boolean): FonteFato {
+  if (fonteRaw) {
+    const normalizada = fonteDe(fonteRaw);
+    if (normalizada !== "acervo_interno" && normalizada !== "indisponivel") {
+      return normalizada;
+    }
+  }
+
+  if (citavel && court.toUpperCase() === "TJPR") {
+    return "tjpr";
+  }
+
+  return "acervo_interno";
 }
 
 function dissidiosDe(linhas: Linha[], fallback: Dissidio[]): Dissidio[] {
@@ -662,9 +686,10 @@ function alinhamentoDe(valor: unknown): Alinhamento {
   const texto = String(valor ?? "")
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
-    .toLowerCase();
+    .toLowerCase()
+    .trim();
 
-  if (texto === "for" || texto === "a favor" || texto === "favoravel") {
+  if (texto === "for" || texto === "a favor" || texto === "favoravel" || texto === "favor") {
     return "for";
   }
 
@@ -672,7 +697,11 @@ function alinhamentoDe(valor: unknown): Alinhamento {
     return "against";
   }
 
-  return "diverge";
+  if (texto === "diverge" || texto === "divergente") {
+    return "diverge";
+  }
+
+  return "unknown";
 }
 
 function forcaDe(valor: unknown): ForcaTese {
@@ -763,7 +792,12 @@ function fonteDe(valor: unknown): FonteFato {
   const texto = String(valor ?? "")
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
-    .toLowerCase();
+    .toLowerCase()
+    .trim();
+
+  if (texto === "tjpr" || texto === "tjpr_portal_publico") {
+    return "tjpr";
+  }
 
   if (
     texto === "datajud" ||

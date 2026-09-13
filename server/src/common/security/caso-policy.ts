@@ -152,6 +152,8 @@ function carimbarJurisprudencia(item: Jurisprudencia): Jurisprudencia {
     date: item.date,
   });
 
+  const fonte = derivarFonteJurisprudencia(item.fonte, item.court, citavel);
+
   return {
     ...item,
     id: sanitizeUntrustedText(item.id),
@@ -168,8 +170,28 @@ function carimbarJurisprudencia(item: Jurisprudencia): Jurisprudencia {
     blindar: sanitizarBloco(item.blindar),
     contrapor: sanitizarBloco(item.contrapor),
     citavel,
-    fonte: citavel ? "datajud" : "acervo_interno",
+    fonte,
   };
+}
+
+function derivarFonteJurisprudencia(
+  fonteOriginal: FonteFato,
+  court: string,
+  citavel: boolean
+): FonteFato {
+  if (fonteOriginal === "tjpr" || fonteOriginal === "datajud") {
+    return fonteOriginal;
+  }
+
+  if (citavel && court.toUpperCase() === "TJPR") {
+    return "tjpr";
+  }
+
+  if (citavel) {
+    return "datajud";
+  }
+
+  return "acervo_interno";
 }
 
 function sanitizarBloco(bloco: BlocoAnalise | undefined): BlocoAnalise {

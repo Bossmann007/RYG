@@ -53,7 +53,7 @@ export const STATUS_PROCESSO = [
 ] as const;
 
 export type StatusProcesso = (typeof STATUS_PROCESSO)[number];
-export type Alinhamento = "for" | "against" | "diverge";
+export type Alinhamento = "for" | "against" | "diverge" | "unknown";
 export type ForcaTese = "alta" | "media" | "baixa";
 
 export type ParteProcesso = {
