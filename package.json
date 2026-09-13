@@ -9,6 +9,7 @@
     "demo:gateway": "npm --prefix privacy-gateway run demo",
     "mcp:smoke": "npm --prefix privacy-gateway run mcp:smoke",
     "evidence": "npm run typecheck:gateway && npm run test:gateway && npm run demo:gateway && npm run mcp:smoke",
+    "prova:acervo": "npm --prefix server run build && npm --prefix server run prova:acervo",
     "dev": "cd client && pnpm run dev",
     "dev:server": "cd server && pnpm run start:dev",
     "build-client": "cd client && pnpm install && pnpm run build",

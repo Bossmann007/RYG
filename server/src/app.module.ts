@@ -1,8 +1,10 @@
 import { LoggerMiddleware } from "@common/middlewares/logger.middleware";
+import { ClientsModule } from "@modules/clients/clients.module";
 import { DissidioModule } from "@modules/dissidio/dissidio.module";
 import { GatewayModule } from "@modules/gateway/gateway.module";
 import { JurisprudenceModule } from "@modules/jurisprudence/jurisprudence.module";
 import { McpModule } from "@modules/mcp/mcp.module";
+import { PetitionsModule } from "@modules/petitions/petitions.module";
 import { ProcessModule } from "@modules/process/process.module";
 import { ResearchModule } from "@modules/research/research.module";
 import { MiddlewareConsumer, Module, NestModule } from "@nestjs/common";
@@ -14,6 +16,8 @@ import { AppService } from "./app.service";
   imports: [
     ConfigModule.forRoot(),
     ProcessModule,
+    ClientsModule,
+    PetitionsModule,
     JurisprudenceModule,
     DissidioModule,
     ResearchModule,

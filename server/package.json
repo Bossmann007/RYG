@@ -11,7 +11,8 @@
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
-    "prova": "node scripts/prova-declassificacao.js"
+    "prova": "node scripts/prova-declassificacao.js",
+    "prova:acervo": "node scripts/prova-acervo.js"
   },
   "dependencies": {
     "@modelcontextprotocol/node": "^2",
