@@ -10,6 +10,8 @@ import {
   IconeModelo,
   IconePeca,
   IconePessoa,
+  IconePrazo,
+  IconeRelatorio,
   IconeResultado,
   IconeTese,
   IconeVisao,
@@ -25,6 +27,8 @@ import {
   PainelTeses,
   PainelVisao,
 } from "../componentes/PaineisCaso";
+import { PainelPrazos } from "../componentes/PainelPrazos";
+import { PainelRelatorios } from "../componentes/PainelRelatorios";
 import { AbaCaso, Caso, Jurisprudencia, ROTULO_STATUS } from "../tipos";
 
 type Props = {
@@ -42,6 +46,7 @@ type ItemMenu = {
 const MENU: ItemMenu[] = [
   { id: "visao", rotulo: "Visão", grupo: "Caso", icone: <IconeVisao /> },
   { id: "historico", rotulo: "Histórico", grupo: "Caso", icone: <IconeHistorico /> },
+  { id: "prazos", rotulo: "Prazos", grupo: "Caso", icone: <IconePrazo /> },
   { id: "conversas", rotulo: "Conversas", grupo: "Caso", icone: <IconeConversa /> },
   { id: "peticoes", rotulo: "Petições", grupo: "Acervo", icone: <IconePeca /> },
   { id: "contratos", rotulo: "Contratos", grupo: "Acervo", icone: <IconeContrato /> },
@@ -52,6 +57,7 @@ const MENU: ItemMenu[] = [
   { id: "resultados", rotulo: "Resultados", grupo: "Estratégia", icone: <IconeResultado /> },
   { id: "jurisprudencia", rotulo: "Jurisprudência", grupo: "Estratégia", icone: <IconeJuris /> },
   { id: "jurimetria", rotulo: "Jurimetria", grupo: "Estratégia", icone: <IconeGrafico /> },
+  { id: "relatorios", rotulo: "Relatórios", grupo: "Estratégia", icone: <IconeRelatorio /> },
 ];
 
 export function DetalheCaso({ caso, onVoltar }: Props) {
@@ -148,6 +154,7 @@ export function DetalheCaso({ caso, onVoltar }: Props) {
             />
           )}
           {aba === "historico" && <PainelHistorico caso={caso} />}
+          {aba === "prazos" && <PainelPrazos caso={caso} />}
           {aba === "teses" && <PainelTeses caso={caso} />}
           {aba === "resultados" && <PainelResultados caso={caso} />}
           {aba === "conversas" && <ChatCaso inicial={caso.conversas} />}
@@ -155,6 +162,7 @@ export function DetalheCaso({ caso, onVoltar }: Props) {
             <PainelJurisprudencia caso={caso} onAbrir={setJuris} />
           )}
           {aba === "jurimetria" && <PainelJurimetria caso={caso} />}
+          {aba === "relatorios" && <PainelRelatorios caso={caso} />}
         </div>
       </div>
 

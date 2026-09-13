@@ -49,6 +49,7 @@ export type CampoFatoCaso =
   | "decisoes"
   | "modelos"
   | "historico"
+  | "prazos"
   | "teses"
   | "resultados"
   | "conversas"
@@ -66,11 +67,13 @@ export type AbaCaso =
   | "decisoes"
   | "modelos"
   | "historico"
+  | "prazos"
   | "teses"
   | "resultados"
   | "conversas"
   | "jurisprudencia"
-  | "jurimetria";
+  | "jurimetria"
+  | "relatorios";
 
 export type TelaApp =
   | { tipo: "casos" }
@@ -101,6 +104,68 @@ export type Andamento = {
   data: string;
   titulo: string;
   detalhe: string;
+};
+
+export const PRAZO_KINDS = [
+  "manifestacao",
+  "recurso",
+  "prova",
+  "audiencia",
+  "interno",
+  "outro",
+] as const;
+export const PRAZO_STATUSES = [
+  "aberto",
+  "a_vencer",
+  "vencido",
+  "cumprido",
+  "suspenso",
+] as const;
+export const PRAZO_CALENDARIOS = ["uteis", "corridos"] as const;
+
+export type PrazoKind = (typeof PRAZO_KINDS)[number];
+export type PrazoStatus = (typeof PRAZO_STATUSES)[number];
+export type PrazoCalendario = (typeof PRAZO_CALENDARIOS)[number];
+
+/**
+ * Office calendar. The clock may start from a public movement,
+ * but the due date, owner and status live in the internal bank.
+ */
+export type Prazo = {
+  id: string;
+  title: string;
+  kind: PrazoKind;
+  dueAt: string;
+  startedAt?: string;
+  days: number;
+  calendar: PrazoCalendario;
+  status: PrazoStatus;
+  owner: string;
+  trigger: string;
+  gatilhoFonte: FonteFato;
+  notes?: string;
+};
+
+export const ROTULO_PRAZO_KIND: Record<PrazoKind, string> = {
+  manifestacao: "Manifestação",
+  recurso: "Recurso",
+  prova: "Prova",
+  audiencia: "Audiência",
+  interno: "Interno",
+  outro: "Outro",
+};
+
+export const ROTULO_PRAZO_STATUS: Record<PrazoStatus, string> = {
+  aberto: "Aberto",
+  a_vencer: "A vencer",
+  vencido: "Vencido",
+  cumprido: "Cumprido",
+  suspenso: "Suspenso",
+};
+
+export const ROTULO_CALENDARIO: Record<PrazoCalendario, string> = {
+  uteis: "dias úteis",
+  corridos: "dias corridos",
 };
 
 export type Tese = {
@@ -186,6 +251,7 @@ export type Caso = {
   decisoes: Documento[];
   modelos: Documento[];
   historico: Andamento[];
+  prazos: Prazo[];
   teses: Tese[];
   resultados: ResultadoInterno[];
   conversas: Mensagem[];

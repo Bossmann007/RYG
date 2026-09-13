@@ -954,6 +954,291 @@ main {
   font-size: 12px;
 }
 
+.prazo-resumo {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.prazo-kpi {
+  background: var(--papel);
+  border: 1px solid var(--linha);
+  border-radius: var(--raio-sm);
+  padding: 14px 16px;
+  box-shadow: var(--sombra);
+}
+
+.prazo-kpi strong {
+  display: block;
+  font-family: Fraunces, Georgia, serif;
+  font-size: 28px;
+  line-height: 1;
+}
+
+.prazo-kpi span {
+  color: var(--texto-suave);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.prazo-kpi.vencido strong {
+  color: var(--contra);
+}
+
+.prazo-kpi.a_vencer strong {
+  color: var(--diverge);
+}
+
+.prazo-kpi.aberto strong,
+.prazo-kpi.cumprido strong {
+  color: var(--vinho);
+}
+
+.prazo-chips {
+  margin-bottom: 14px;
+}
+
+.lista-prazos {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.cartao-prazo {
+  display: grid;
+  grid-template-columns: 6px minmax(0, 1fr) auto;
+  gap: 14px;
+  align-items: stretch;
+  background: var(--papel);
+  border: 1px solid var(--linha);
+  border-radius: var(--raio-sm);
+  padding: 14px 16px 14px 0;
+  box-shadow: var(--sombra);
+}
+
+.prazo-faixa {
+  border-radius: 0 8px 8px 0;
+  background: var(--linha);
+}
+
+.cartao-prazo.status-vencido .prazo-faixa {
+  background: var(--contra);
+}
+
+.cartao-prazo.status-a_vencer .prazo-faixa {
+  background: var(--ouro);
+}
+
+.cartao-prazo.status-aberto .prazo-faixa,
+.cartao-prazo.status-cumprido .prazo-faixa {
+  background: var(--vinho);
+}
+
+.cartao-prazo.status-suspenso .prazo-faixa {
+  background: #b8aaa6;
+}
+
+.prazo-corpo strong {
+  display: block;
+  margin-top: 8px;
+  font-size: 17px;
+}
+
+.prazo-corpo p {
+  margin: 6px 0 0;
+  color: var(--texto-suave);
+}
+
+.prazo-meta {
+  font-size: 13px;
+}
+
+.prazo-quando {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 4px;
+  min-width: 108px;
+  text-align: right;
+}
+
+.prazo-quando span {
+  font-family: Fraunces, Georgia, serif;
+  font-size: 18px;
+}
+
+.prazo-quando b {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--texto-suave);
+}
+
+.selo.prazo-vencido {
+  background: var(--contra-fundo);
+  color: var(--contra);
+}
+
+.selo.prazo-a_vencer {
+  background: var(--diverge-fundo);
+  color: var(--diverge);
+}
+
+.selo.prazo-aberto,
+.selo.prazo-cumprido {
+  background: var(--vinho-suave);
+  color: var(--vinho);
+}
+
+.selo.prazo-suspenso {
+  background: #eee7e4;
+  color: #6a5b57;
+}
+
+.grade-relatorios {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.cartao-relatorio {
+  display: flex;
+  flex-direction: column;
+  background: var(--papel);
+  border: 1px solid var(--linha);
+  border-radius: var(--raio-sm);
+  box-shadow: var(--sombra);
+  overflow: hidden;
+}
+
+.cartao-relatorio.ativo {
+  border-color: #d7b4bd;
+}
+
+.cartao-relatorio button:first-child {
+  flex: 1;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  padding: 16px 18px 8px;
+  color: inherit;
+}
+
+.cartao-relatorio strong {
+  display: block;
+  font-family: Fraunces, Georgia, serif;
+  font-size: 20px;
+  margin-bottom: 6px;
+}
+
+.cartao-relatorio p {
+  margin: 0;
+  color: var(--texto-suave);
+}
+
+.botao-pdf {
+  margin: 8px 16px 16px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--vinho);
+  color: #fff;
+  padding: 10px 16px;
+  font-weight: 600;
+}
+
+.botao-pdf:hover {
+  background: var(--vinho-medio);
+}
+
+.botao-pdf:disabled {
+  background: #e3d3d7;
+  color: #9b8189;
+  cursor: wait;
+}
+
+.folha {
+  background: var(--papel);
+  border: 1px solid var(--linha);
+  border-radius: 4px;
+  box-shadow: var(--sombra);
+  padding: 36px 40px 28px;
+}
+
+.folha-cabeca {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--vinho);
+}
+
+.folha-cabeca h4 {
+  margin: 4px 0 0;
+  font-family: Fraunces, Georgia, serif;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.folha-cabeca span {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--vinho);
+}
+
+.folha-sub {
+  margin: 14px 0 8px;
+  font-size: 16px;
+}
+
+.folha-meta {
+  list-style: none;
+  margin: 0 0 12px;
+  padding: 0;
+  color: var(--texto-suave);
+  font-size: 13px;
+}
+
+.folha-aviso {
+  margin: 0 0 22px;
+  padding: 10px 12px;
+  background: var(--vinho-suave);
+  color: var(--vinho);
+  border-radius: 10px;
+  font-size: 13px;
+}
+
+.folha-bloco {
+  margin-bottom: 18px;
+}
+
+.folha-bloco h5 {
+  margin: 0 0 6px;
+  font-family: Fraunces, Georgia, serif;
+  font-size: 18px;
+}
+
+.folha-bloco p {
+  margin: 0 0 6px;
+  color: var(--texto);
+}
+
+.folha-rodape {
+  margin-top: 28px;
+  padding-top: 12px;
+  border-top: 1px solid var(--linha);
+  color: var(--texto-suave);
+  font-size: 12px;
+}
+
 @media (max-width: 860px) {
   .filtros,
   .filtros.internos,
@@ -962,8 +1247,20 @@ main {
   .dissidios,
   .detalhe-corpo,
   .lista-docs li,
-  .barra-linha {
+  .barra-linha,
+  .prazo-resumo,
+  .grade-relatorios,
+  .cartao-prazo {
     grid-template-columns: 1fr;
+  }
+
+  .prazo-quando {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .folha {
+    padding: 22px 18px;
   }
 
   main {

@@ -1,5 +1,6 @@
 import { aplicarPoliticaAntiAlucinacao } from "./politica-caso";
-import { Caso, Documento, MembroEquipe } from "./tipos";
+import { hidratarPrazos } from "./prazos-escritorio";
+import { Caso, Documento, MembroEquipe, Prazo } from "./tipos";
 
 function doc(
   id: string,
@@ -26,7 +27,7 @@ export const EQUIPE: MembroEquipe[] = [
   { id: "joao", nome: "João Lima", papel: "Estagiário", iniciais: "JL" },
 ];
 
-const CASOS_BRUTOS: Caso[] = [
+const CASOS_BRUTOS: Array<Omit<Caso, "prazos"> & { prazos?: Prazo[] }> = [
   {
     id: "tarifas",
     titulo: "Revisão de juros e tarifas",
@@ -1508,7 +1509,9 @@ const CASOS_BRUTOS: Caso[] = [
   },
 ];
 
-export const CASOS: Caso[] = CASOS_BRUTOS.map(aplicarPoliticaAntiAlucinacao);
+export const CASOS: Caso[] = CASOS_BRUTOS.map((caso) =>
+  aplicarPoliticaAntiAlucinacao(hidratarPrazos({ ...caso, prazos: caso.prazos ?? [] }))
+);
 
 export function buscarCaso(id: string) {
   return CASOS.find((caso) => caso.id === id);

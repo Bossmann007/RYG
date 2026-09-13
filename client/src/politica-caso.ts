@@ -26,6 +26,7 @@ const CAMPOS_ACERVO: CampoFatoCaso[] = [
   "decisoes",
   "modelos",
   "historico",
+  "prazos",
   "teses",
   "resultados",
   "conversas",
@@ -42,6 +43,7 @@ export function aplicarPoliticaAntiAlucinacao(caso: Caso): Caso {
     chance: 0,
     chanceRotulo: CHANCE_INDISPONIVEL,
     chanceTexto: CHANCE_INDISPONIVEL,
+    prazos: caso.prazos || [],
     teses: caso.teses.map((tese) => ({ ...tese, fonte: "acervo_interno" as const })),
     jurisprudencias: caso.jurisprudencias.map((item) => ({
       ...item,

@@ -1,3 +1,5 @@
+import { CASOS } from "./dados";
+import { hidratarPrazos } from "./prazos-escritorio";
 import { Caso } from "./tipos";
 
 type ListaCasosResposta = {
@@ -35,33 +37,58 @@ async function lerErro(resposta: Response): Promise<string> {
 }
 
 export async function listarCasos(): Promise<Caso[]> {
-  const resposta = await fetch(`${baseUrl()}/api/casos`);
+  try {
+    const resposta = await fetch(`${baseUrl()}/api/casos`);
 
-  if (!resposta.ok) {
-    throw new Error(await lerErro(resposta));
+    if (!resposta.ok) {
+      throw new Error(await lerErro(resposta));
+    }
+
+    const corpo = (await resposta.json()) as ListaCasosResposta;
+
+    if (corpo.zone !== "internal" || !Array.isArray(corpo.casos)) {
+      throw new Error("Resposta inválida do acervo interno.");
+    }
+
+    return corpo.casos.map((caso) => hidratarPrazos({ ...caso, prazos: caso.prazos ?? [] }));
+  } catch (erro) {
+    if (import.meta.env.DEV) {
+      return acervoLocal();
+    }
+
+    throw erro;
   }
-
-  const corpo = (await resposta.json()) as ListaCasosResposta;
-
-  if (corpo.zone !== "internal" || !Array.isArray(corpo.casos)) {
-    throw new Error("Resposta inválida do acervo interno.");
-  }
-
-  return corpo.casos;
 }
 
 export async function obterCaso(idOrCnj: string): Promise<Caso> {
-  const resposta = await fetch(`${baseUrl()}/api/casos/${encodeURIComponent(idOrCnj)}`);
+  try {
+    const resposta = await fetch(`${baseUrl()}/api/casos/${encodeURIComponent(idOrCnj)}`);
 
-  if (!resposta.ok) {
-    throw new Error(await lerErro(resposta));
+    if (!resposta.ok) {
+      throw new Error(await lerErro(resposta));
+    }
+
+    const corpo = (await resposta.json()) as CasoResposta;
+
+    if (corpo.zone !== "internal" || !corpo.caso) {
+      throw new Error("Resposta inválida do acervo interno.");
+    }
+
+    return hidratarPrazos({ ...corpo.caso, prazos: corpo.caso.prazos ?? [] });
+  } catch (erro) {
+    if (import.meta.env.DEV) {
+      const local = acervoLocal().find(
+        (caso) => caso.id === idOrCnj || caso.processNumber === idOrCnj
+      );
+      if (local) {
+        return local;
+      }
+    }
+
+    throw erro;
   }
+}
 
-  const corpo = (await resposta.json()) as CasoResposta;
-
-  if (corpo.zone !== "internal" || !corpo.caso) {
-    throw new Error("Resposta inválida do acervo interno.");
-  }
-
-  return corpo.caso;
+function acervoLocal(): Caso[] {
+  return CASOS.map((caso) => hidratarPrazos(caso));
 }
