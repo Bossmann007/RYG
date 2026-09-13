@@ -1002,9 +1002,13 @@ main {
 }
 
 .lista-limpa li {
-  padding: 12px 14px;
+  padding: 14px 18px;
   border-radius: 14px;
   background: var(--creme);
+  line-height: 1.55;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 
 .gaveta-legenda {
@@ -1017,8 +1021,14 @@ main {
 }
 
 .bloco-resumo {
-  margin: 0 0 14px;
+  margin: 0 0 16px;
+  padding: 14px 18px;
   font-size: 15px;
+  line-height: 1.6;
+  background: var(--vinho-suave);
+  border-radius: 14px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .doc-origem {

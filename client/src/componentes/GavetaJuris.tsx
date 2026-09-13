@@ -1,8 +1,21 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Jurisprudencia, ROTULO_ALINHAMENTO, ROTULO_RELACAO, ROTULO_STATUS } from "../tipos";
 import { SeloCitacao, SeloFonte, ementaExibida } from "./SelosPolitica";
 
 type AbaGaveta = "essencial" | "fortalecer" | "blindar" | "contrapor";
+
+function isMostlyUpperCase(text: string): boolean {
+  const letters = text.replace(/[^a-zA-ZÀ-ÿ]/g, "");
+  if (letters.length === 0) return false;
+  const upper = letters.replace(/[^A-ZÀ-ÖØ-Þ]/g, "").length;
+  return upper / letters.length > 0.7;
+}
+
+function textoCard(text: string): string {
+  if (!isMostlyUpperCase(text)) return text;
+  const lower = text.toLowerCase();
+  return lower.charAt(0).toUpperCase() + lower.slice(1);
+}
 
 type Props = {
   item: Jurisprudencia;
@@ -47,6 +60,16 @@ export function GavetaJuris({ item, onFechar }: Props) {
   const bloco = blocoComFallback(blocoOriginal, aba);
   const legenda = ABAS.find((itemAba) => itemAba.id === aba)?.legenda;
   const ehPrecedenteTema = item.relacao === "precedente_tema";
+
+  const itensUnicos = useMemo(() => {
+    const vistos = new Set<string>();
+    return bloco.itens.filter((linha) => {
+      const normalizado = linha.trim().toLowerCase();
+      if (vistos.has(normalizado)) return false;
+      vistos.add(normalizado);
+      return true;
+    });
+  }, [bloco.itens]);
 
   return (
     <div className="gaveta-fundo" onClick={onFechar} role="presentation">
@@ -114,11 +137,11 @@ export function GavetaJuris({ item, onFechar }: Props) {
         </div>
 
         <p className="gaveta-legenda">{legenda}</p>
-        <p className="bloco-resumo">{bloco.resumo}</p>
+        <p className="bloco-resumo">{textoCard(bloco.resumo)}</p>
 
         <ul className="lista-limpa">
-          {bloco.itens.map((linha) => (
-            <li key={linha}>{linha}</li>
+          {itensUnicos.map((linha) => (
+            <li key={linha}>{textoCard(linha)}</li>
           ))}
         </ul>
       </aside>
