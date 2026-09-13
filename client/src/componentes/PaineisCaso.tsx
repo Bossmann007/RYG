@@ -6,6 +6,7 @@ import {
   Documento,
   Jurisprudencia,
   ROTULO_ALINHAMENTO,
+  ROTULO_RELACAO,
   ROTULO_STATUS,
   STATUS_PROCESSO,
   StatusProcesso,
@@ -246,7 +247,7 @@ export function PainelJurimetria({ caso }: { caso: Caso }) {
         </div>
       ) : (
         <div className="barras">
-          {(["for", "against", "diverge"] as Alinhamento[]).map((chave) => {
+          {(["for", "against", "diverge"] as const).map((chave) => {
             const valor = caso.votos[chave];
             const porcento = total ? Math.round((valor / total) * 100) : 0;
             return (
@@ -359,7 +360,8 @@ export function PainelJurisprudencia({
 
       {itens.length === 0 ? (
         <div className="vazio">
-          <p>Nenhum julgado neste recorte.</p>
+          <p>Nenhum julgado encontrado com esses filtros.</p>
+          <p className="vazio-dica">Tente remover filtros ou aguarde novos precedentes.</p>
         </div>
       ) : (
         <ul className="lista-juris">
@@ -375,6 +377,9 @@ export function PainelJurisprudencia({
                   </span>
                   <SeloCitacao item={item} />
                   <SeloFonte fonte={item.fonte || "acervo_interno"} />
+                  {item.relacao === "precedente_tema" && (
+                    <span className="selo relacao-tema">{ROTULO_RELACAO.precedente_tema}</span>
+                  )}
                 </div>
                 <strong>{item.acordao}</strong>
                 <p>

@@ -106,6 +106,8 @@ export type BlocoAnalise = {
   itens: string[];
 };
 
+export type RelacaoJuris = "mesmo_caso" | "precedente_tema" | "relacionado";
+
 export type Jurisprudencia = {
   id: string;
   processNumber: string;
@@ -124,6 +126,7 @@ export type Jurisprudencia = {
   contrapor: BlocoAnalise;
   citavel: boolean;
   fonte: FonteFato;
+  relacao?: RelacaoJuris;
 };
 
 export type Dissidio = {

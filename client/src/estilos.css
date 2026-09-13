@@ -399,6 +399,25 @@ main {
   font-size: 13px;
 }
 
+.aviso-tema {
+  margin: 0 0 12px;
+  padding: 8px 10px;
+  background: var(--diverge-fundo);
+  color: var(--diverge);
+  border-radius: 8px;
+  font-size: 13px;
+}
+
+.selo.relacao-tema {
+  background: var(--diverge-fundo);
+  color: var(--diverge);
+}
+
+.selo.alinhamento-unknown {
+  background: #eee7e4;
+  color: #6a5b57;
+}
+
 .anel {
   flex: 0 0 auto;
 }
@@ -928,6 +947,12 @@ main {
 .vazio {
   text-align: center;
   color: var(--texto-suave);
+}
+
+.vazio-dica {
+  margin-top: 4px;
+  font-size: 13px;
+  opacity: 0.8;
 }
 
 .gaveta-fundo {

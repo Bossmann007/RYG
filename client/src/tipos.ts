@@ -15,7 +15,7 @@ export type StatusProcesso =
   | "INATIVO"
   | "CANCELADO";
 
-export type Alinhamento = "for" | "against" | "diverge";
+export type Alinhamento = "for" | "against" | "diverge" | "unknown";
 
 export const FONTES_FATO = [
   "tjpr",
@@ -202,6 +202,14 @@ export type BlocoAnalise = {
   itens: string[];
 };
 
+export type RelacaoJuris = "mesmo_caso" | "precedente_tema" | "relacionado";
+
+export const ROTULO_RELACAO: Record<RelacaoJuris, string> = {
+  mesmo_caso: "Mesmo caso",
+  precedente_tema: "Precedente por tema",
+  relacionado: "Relacionado",
+};
+
 export type Jurisprudencia = {
   id: string;
   processNumber: string;
@@ -220,6 +228,7 @@ export type Jurisprudencia = {
   contrapor: BlocoAnalise;
   citavel?: boolean;
   fonte?: FonteFato;
+  relacao?: RelacaoJuris;
 };
 
 export type Dissidio = {
@@ -310,6 +319,7 @@ export const ROTULO_ALINHAMENTO: Record<Alinhamento, string> = {
   for: "A favor",
   against: "Contra",
   diverge: "Divergente",
+  unknown: "Não avaliado",
 };
 
 export const ROTULO_FONTE: Record<FonteFato, string> = {

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Jurisprudencia, ROTULO_ALINHAMENTO, ROTULO_STATUS } from "../tipos";
+import { Jurisprudencia, ROTULO_ALINHAMENTO, ROTULO_RELACAO, ROTULO_STATUS } from "../tipos";
 import { SeloCitacao, SeloFonte, ementaExibida } from "./SelosPolitica";
 
 type AbaGaveta = "essencial" | "fortalecer" | "blindar" | "contrapor";
@@ -16,11 +16,37 @@ const ABAS: { id: AbaGaveta; rotulo: string; legenda: string }[] = [
   { id: "contrapor", rotulo: "Quebrar", legenda: "Como derrubar esse argumento." },
 ];
 
+const FALLBACK_BLOCO: Record<AbaGaveta, { resumo: string; itens: string[] }> = {
+  essencial: {
+    resumo: "Análise detalhada ainda não disponível para este julgado.",
+    itens: ["Consulte a ementa oficial para os fundamentos da decisão."],
+  },
+  fortalecer: {
+    resumo: "Pontos de fortalecimento ainda não mapeados.",
+    itens: ["Analise a ementa para identificar argumentos favoráveis."],
+  },
+  blindar: {
+    resumo: "Pontos de vulnerabilidade ainda não mapeados.",
+    itens: ["Revise a fundamentação para antecipar contra-argumentos."],
+  },
+  contrapor: {
+    resumo: "Estratégias de contraposição ainda não disponíveis.",
+    itens: ["Identifique divergências doutrinárias ou fáticas aplicáveis."],
+  },
+};
+
+function blocoComFallback(bloco: { resumo: string; itens: string[] }, aba: AbaGaveta) {
+  const temConteudo = bloco.resumo.trim() || bloco.itens.length > 0;
+  return temConteudo ? bloco : FALLBACK_BLOCO[aba];
+}
+
 export function GavetaJuris({ item, onFechar }: Props) {
   const [aba, setAba] = useState<AbaGaveta>("essencial");
 
-  const bloco = item[aba];
+  const blocoOriginal = item[aba];
+  const bloco = blocoComFallback(blocoOriginal, aba);
   const legenda = ABAS.find((itemAba) => itemAba.id === aba)?.legenda;
+  const ehPrecedenteTema = item.relacao === "precedente_tema";
 
   return (
     <div className="gaveta-fundo" onClick={onFechar} role="presentation">
@@ -40,6 +66,9 @@ export function GavetaJuris({ item, onFechar }: Props) {
             </span>
             <SeloCitacao item={item} />
             <SeloFonte fonte={item.fonte || "acervo_interno"} />
+            {ehPrecedenteTema && (
+              <span className="selo relacao-tema">{ROTULO_RELACAO.precedente_tema}</span>
+            )}
           </div>
           <button className="botao-texto" type="button" onClick={onFechar}>
             Fechar
@@ -55,6 +84,11 @@ export function GavetaJuris({ item, onFechar }: Props) {
         {!item.citavel && (
           <p className="aviso-nao-citavel">
             Notas abaixo são acervo interno. Não são julgamento oficial.
+          </p>
+        )}
+        {ehPrecedenteTema && item.citavel && (
+          <p className="aviso-tema">
+            Precedente relacionado por tema. Ementa oficial do TJPR, mas não é o mesmo processo.
           </p>
         )}
 

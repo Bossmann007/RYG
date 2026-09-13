@@ -16,6 +16,7 @@ import {
   PrazoCalendario,
   PrazoKind,
   PrazoStatus,
+  RelacaoJuris,
   ResultadoInterno,
   STATUS_PROCESSO,
   StatusProcesso,
@@ -586,6 +587,8 @@ function jurisprudenciasDe(linhas: Linha[], fallback: Jurisprudencia[]): Jurispr
 
     const fonte = fonteDeLinha(fonteRaw, court, citavel);
 
+    const relacao = relacaoDe(valorCampo(linha, ["relacao", "relation", "tipo_relacao"]));
+
     return {
       id: textoCampo(linha, ALIASES.id, `jur-${indice}`),
       processNumber: textoCampo(linha, ALIASES.numeroCnj),
@@ -604,6 +607,7 @@ function jurisprudenciasDe(linhas: Linha[], fallback: Jurisprudencia[]): Jurispr
       contrapor: blocoDe(linha, "contrapor"),
       citavel,
       fonte,
+      relacao,
     };
   });
 }
@@ -702,6 +706,28 @@ function alinhamentoDe(valor: unknown): Alinhamento {
   }
 
   return "unknown";
+}
+
+function relacaoDe(valor: unknown): RelacaoJuris | undefined {
+  const texto = String(valor ?? "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .trim();
+
+  if (texto === "mesmo_caso" || texto === "mesmo caso") {
+    return "mesmo_caso";
+  }
+
+  if (texto === "precedente_tema" || texto === "precedente por tema" || texto === "tema") {
+    return "precedente_tema";
+  }
+
+  if (texto === "relacionado") {
+    return "relacionado";
+  }
+
+  return undefined;
 }
 
 function forcaDe(valor: unknown): ForcaTese {
