@@ -23,6 +23,7 @@ import {
   Tese,
   FonteFato,
 } from "@models/caso.model";
+import { enriquecerCaso } from "./leitura-oficial";
 import { ALIASES } from "./schema-map";
 
 export type Linha = Record<string, unknown>;
@@ -152,7 +153,7 @@ export function montarCaso(pacote: PacoteCaso): Caso {
     textoCampo(pacote.processo, ALIASES.numeroCnj) ||
     base.id;
 
-  return aplicarPoliticaCaso({
+  return aplicarPoliticaCaso(enriquecerCaso({
     id,
     processoId: textoCampo(pacote.processo, ALIASES.id),
     titulo:
@@ -195,7 +196,7 @@ export function montarCaso(pacote: PacoteCaso): Caso {
     dissidios: dissidiosDe(pacote.dissidios, base.dissidios),
     jurimetria: jurimetriaDe(pacote.jurimetria, capa, base.jurimetria),
     fontes: base.fontes,
-  });
+  }));
 }
 
 function desempacotar(valor: unknown): unknown {

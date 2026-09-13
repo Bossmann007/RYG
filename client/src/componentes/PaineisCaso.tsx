@@ -12,6 +12,7 @@ import {
   StatusProcesso,
   chanceIndisponivel,
 } from "../tipos";
+import { fraseOficial } from "../texto";
 import { SeloCitacao, SeloFonte, SeloTese, ementaExibida } from "./SelosPolitica";
 
 type PropsLista = {
@@ -42,12 +43,12 @@ export function PainelDocumentos({ titulo, texto, itens }: PropsLista) {
         {itens.map((item) => (
           <li key={item.id}>
             <div>
-              <strong>{item.titulo}</strong>
-              <p>{item.resumo}</p>
-              <p className="doc-origem">Origem: {item.origem}</p>
+              <strong>{fraseOficial(item.titulo)}</strong>
+              {item.resumo ? <p>{fraseOficial(item.resumo)}</p> : null}
+              {item.origem ? <p className="doc-origem">{item.origem}</p> : null}
             </div>
             <span>
-              {item.tipo} · {item.data}
+              {[item.tipo, item.data].filter(Boolean).join(" · ")}
             </span>
           </li>
         ))}
@@ -116,7 +117,7 @@ export function PainelVisao({
         <div className="selos">
           <SeloFonte fonte={caso.fontes?.tese || "acervo_interno"} />
         </div>
-        <p className="tese-destaque">{caso.tese}</p>
+        <p className="tese-destaque">{fraseOficial(caso.tese)}</p>
         <p className="partes">
           {caso.partes.map((parte) => `${parte.papel}: ${parte.nome}`).join("  ·  ")}
         </p>
@@ -169,8 +170,8 @@ export function PainelHistorico({ caso }: { caso: Caso }) {
         {caso.historico.map((item) => (
           <li key={`${item.data}-${item.titulo}`}>
             <span>{item.data}</span>
-            <strong>{item.titulo}</strong>
-            <p>{item.detalhe}</p>
+            <strong>{fraseOficial(item.titulo)}</strong>
+            <p>{fraseOficial(item.detalhe)}</p>
           </li>
         ))}
       </ol>
@@ -189,8 +190,8 @@ export function PainelTeses({ caso }: { caso: Caso }) {
         {caso.teses.map((tese) => (
           <li key={tese.id}>
             <div>
-              <strong>{tese.titulo}</strong>
-              <p>{tese.uso}</p>
+              <strong>{fraseOficial(tese.titulo)}</strong>
+              <p>{fraseOficial(tese.uso)}</p>
             </div>
             <div className="selos">
               <SeloTese tese={tese} />
@@ -214,9 +215,9 @@ export function PainelResultados({ caso }: { caso: Caso }) {
         {caso.resultados.map((item) => (
           <li key={item.id}>
             <div>
-              <strong>{item.titulo}</strong>
-              <p>{item.desfecho}</p>
-              <p>{item.aprendizado}</p>
+              <strong>{fraseOficial(item.titulo)}</strong>
+              <p>{fraseOficial(item.desfecho)}</p>
+              <p>{fraseOficial(item.aprendizado)}</p>
             </div>
           </li>
         ))}
@@ -228,6 +229,11 @@ export function PainelResultados({ caso }: { caso: Caso }) {
 export function PainelJurimetria({ caso }: { caso: Caso }) {
   const total = caso.votos.for + caso.votos.against + caso.votos.diverge;
   const amostraValida = caso.jurimetria.amostra > 0;
+  const porAlinhamento = {
+    for: caso.jurisprudencias.filter((item) => item.alignment === "for" && item.ementa),
+    against: caso.jurisprudencias.filter((item) => item.alignment === "against" && item.ementa),
+    diverge: caso.jurisprudencias.filter((item) => item.alignment === "diverge" && item.ementa),
+  };
 
   return (
     <section className="painel">
@@ -235,8 +241,8 @@ export function PainelJurimetria({ caso }: { caso: Caso }) {
         <h3>Jurimetria</h3>
         <p>
           {amostraValida
-            ? `${caso.jurimetria.amostra} julgados semelhantes no recorte descritivo.`
-            : "Recorte descritivo do corpus TJPR."}
+            ? `${caso.jurimetria.amostra} acórdãos oficiais neste recorte.`
+            : "Leitura das ementas oficiais deste caso."}
         </p>
         <SeloFonte fonte={caso.fontes?.jurimetria || "tjpr"} />
       </header>
@@ -265,22 +271,38 @@ export function PainelJurimetria({ caso }: { caso: Caso }) {
         </div>
       )}
 
-      <article className="cartao-suave">
-        <p className="olho">Padrão externo</p>
-        <p>{caso.jurimetria.padrao}</p>
-      </article>
-      <article className="cartao-suave">
-        <p className="olho">Memória interna</p>
-        <p>{caso.jurimetria.interno}</p>
-      </article>
+      {(["against", "diverge", "for"] as const).map((chave) => {
+        const itens = porAlinhamento[chave];
+        if (!itens.length) {
+          return null;
+        }
+        return (
+          <div key={chave} className="voto-motivo">
+            <p className="olho">{ROTULO_ALINHAMENTO[chave]} — por quê</p>
+            {itens.map((item) => (
+              <article key={item.id} className={`cartao-suave voto-card ${chave}`}>
+                <p className="voto-card-meta">
+                  {item.chamber} · {item.date}
+                </p>
+                <p>{fraseOficial(item.essencial.resumo || ementaExibida(item))}</p>
+              </article>
+            ))}
+          </div>
+        );
+      })}
 
-      {caso.jurimetria.riscos.length > 0 && (
-        <ul className="lista-limpa">
-          {caso.jurimetria.riscos.map((risco) => (
-            <li key={risco}>{risco}</li>
-          ))}
-        </ul>
-      )}
+      {caso.jurimetria.padrao ? (
+        <article className="cartao-suave">
+          <p className="olho">Leitura do recorte</p>
+          <p>{fraseOficial(caso.jurimetria.padrao)}</p>
+        </article>
+      ) : null}
+      {caso.jurimetria.interno ? (
+        <article className="cartao-suave">
+          <p className="olho">O que as ementas oficiais dizem</p>
+          <p>{fraseOficial(caso.jurimetria.interno)}</p>
+        </article>
+      ) : null}
 
       {caso.dissidios.length > 0 && (
         <div className="dissidios">
@@ -292,8 +314,8 @@ export function PainelJurimetria({ caso }: { caso: Caso }) {
                 </span>
               </div>
               <strong>{item.camara}</strong>
-              <p>{item.orientacao}</p>
-              <p>{item.nota}</p>
+              <p>{fraseOficial(item.orientacao)}</p>
+              <p>{fraseOficial(item.nota)}</p>
             </article>
           ))}
         </div>

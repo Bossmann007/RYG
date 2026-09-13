@@ -28,30 +28,40 @@ export class DbService implements OnModuleDestroy {
     sql: string,
     params: unknown[] = []
   ): Promise<T[]> {
-    if (!this.pool) {
-      throw new ServiceUnavailableException(
-        "Banco não configurado. Defina DB_HOST, DB_PORT, DB_USERNAME, DB_PASSWORD e DB_DATABASE."
-      );
-    }
-
-    const [linhas] = await this.pool.query<T[]>(sql, params);
+    const [linhas] = await this.consultarBanco<T[]>(sql, params);
     return linhas;
   }
 
   async executar(sql: string, params: unknown[] = []): Promise<ResultSetHeader> {
-    if (!this.pool) {
-      throw new ServiceUnavailableException(
-        "Banco não configurado. Defina DB_HOST, DB_PORT, DB_USERNAME, DB_PASSWORD e DB_DATABASE."
-      );
-    }
-
-    const [resultado] = await this.pool.execute<ResultSetHeader>(sql, params);
+    const [resultado] = await this.consultarBanco<ResultSetHeader>(sql, params);
     return resultado;
   }
 
   async onModuleDestroy() {
     if (this.pool) {
       await this.pool.end();
+    }
+  }
+
+  private async consultarBanco<T>(sql: string, params: unknown[]): Promise<[T, unknown]> {
+    if (!this.pool) {
+      throw new ServiceUnavailableException(
+        "Banco não configurado. Defina DB_HOST, DB_PORT, DB_USERNAME, DB_PASSWORD e DB_DATABASE."
+      );
+    }
+
+    try {
+      return (await this.pool.query(sql, params)) as [T, unknown];
+    } catch (erro) {
+      const codigo = (erro as { code?: string }).code;
+      if (
+        codigo === "ETIMEDOUT" ||
+        codigo === "ECONNRESET" ||
+        codigo === "PROTOCOL_CONNECTION_LOST"
+      ) {
+        return (await this.pool.query(sql, params)) as [T, unknown];
+      }
+      throw erro;
     }
   }
 }

@@ -43,4 +43,10 @@ export type ModeloListaItem = {
   tags?: string[];
   status: ModeloStatus;
   updatedAt: string;
+  titulo?: string;
+  tipo?: string;
+  data?: string;
+  origem?: string;
+  resumo?: string;
+  corpo?: string;
 };

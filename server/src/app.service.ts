@@ -27,7 +27,6 @@ export class AppService implements OnApplicationBootstrap {
   health(): object {
     return {
       status: "ok",
-      demo: true,
     };
   }
 }

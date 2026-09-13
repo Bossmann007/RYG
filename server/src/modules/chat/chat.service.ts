@@ -71,7 +71,7 @@ export class ChatService {
       throw new BadRequestException("mensagem não pode conter apenas espaços.");
     }
 
-    const remetenteNome = process.env.CHAT_DEMO_SENDER_NAME?.trim() || "Usuário demonstrativo";
+    const remetenteNome = process.env.CHAT_DEMO_SENDER_NAME?.trim() || "Equipe Mafinni";
     const remetentePapel = process.env.CHAT_DEMO_SENDER_ROLE?.trim() || "Equipe jurídica";
 
     try {

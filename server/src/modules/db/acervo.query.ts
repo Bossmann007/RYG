@@ -45,6 +45,24 @@ export class AcervoQuery {
     return linhas.map((linha, indice) => documentoDaLinha(linha, prefixo, tipo, indice));
   }
 
+  async listarEscritorio(tabela: string): Promise<Linha[]> {
+    if (!this.ativo()) {
+      return [];
+    }
+
+    try {
+      const linhas = await this.db.consultar<RowDataPacket>(
+        `SELECT * FROM ${nomeSeguro(tabela)} LIMIT 80`
+      );
+      return linhas.map((linha) => ({ ...linha }));
+    } catch (erro) {
+      if (tabelaAusente(erro)) {
+        return [];
+      }
+      throw erro;
+    }
+  }
+
   async listar(tabela: string, filtro: FiltroAcervo): Promise<Linha[]> {
     if (!this.ativo()) {
       return [];

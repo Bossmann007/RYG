@@ -1,6 +1,20 @@
 import { useState } from "react";
+import { fraseOficial } from "../texto";
 import { Jurisprudencia, ROTULO_ALINHAMENTO, ROTULO_RELACAO, ROTULO_STATUS } from "../tipos";
 import { SeloCitacao, SeloFonte, ementaExibida } from "./SelosPolitica";
+
+function itensUnicos(itens: string[]): string[] {
+  const seen = new Set<string>();
+  const out: string[] = [];
+  for (const bruto of itens || []) {
+    const t = fraseOficial(bruto);
+    const key = t.toLocaleLowerCase("pt-BR");
+    if (!t || seen.has(key)) continue;
+    seen.add(key);
+    out.push(t);
+  }
+  return out;
+}
 
 type AbaGaveta = "essencial" | "fortalecer" | "blindar" | "contrapor";
 
@@ -10,42 +24,16 @@ type Props = {
 };
 
 const ABAS: { id: AbaGaveta; rotulo: string; legenda: string }[] = [
-  { id: "essencial", rotulo: "O essencial", legenda: "O que decidiu o julgamento." },
-  { id: "fortalecer", rotulo: "Fortalecer", legenda: "Como usar isso a seu favor." },
-  { id: "blindar", rotulo: "Blindar", legenda: "Onde você pode ser atacado." },
-  { id: "contrapor", rotulo: "Quebrar", legenda: "Como derrubar esse argumento." },
+  { id: "essencial", rotulo: "O essencial", legenda: "O que a ementa oficial decidiu." },
+  { id: "fortalecer", rotulo: "Fortalecer", legenda: "Como usar o dispositivo a favor." },
+  { id: "blindar", rotulo: "Blindar", legenda: "Onde o julgado pode ser usado contra você." },
+  { id: "contrapor", rotulo: "Quebrar", legenda: "Como limitar o alcance deste acórdão." },
 ];
-
-const FALLBACK_BLOCO: Record<AbaGaveta, { resumo: string; itens: string[] }> = {
-  essencial: {
-    resumo: "Análise detalhada ainda não disponível para este julgado.",
-    itens: ["Consulte a ementa oficial para os fundamentos da decisão."],
-  },
-  fortalecer: {
-    resumo: "Pontos de fortalecimento ainda não mapeados.",
-    itens: ["Analise a ementa para identificar argumentos favoráveis."],
-  },
-  blindar: {
-    resumo: "Pontos de vulnerabilidade ainda não mapeados.",
-    itens: ["Revise a fundamentação para antecipar contra-argumentos."],
-  },
-  contrapor: {
-    resumo: "Estratégias de contraposição ainda não disponíveis.",
-    itens: ["Identifique divergências doutrinárias ou fáticas aplicáveis."],
-  },
-};
-
-function blocoComFallback(bloco: { resumo: string; itens: string[] }, aba: AbaGaveta) {
-  const temConteudo = bloco.resumo.trim() || bloco.itens.length > 0;
-  return temConteudo ? bloco : FALLBACK_BLOCO[aba];
-}
 
 export function GavetaJuris({ item, onFechar }: Props) {
   const [aba, setAba] = useState<AbaGaveta>("essencial");
-
-  const blocoOriginal = item[aba];
-  const bloco = blocoComFallback(blocoOriginal, aba);
-  const legenda = ABAS.find((itemAba) => itemAba.id === aba)?.legenda;
+  const bloco = item[aba];
+  const linhas = itensUnicos(bloco.itens);
   const ehPrecedenteTema = item.relacao === "precedente_tema";
 
   return (
@@ -81,24 +69,21 @@ export function GavetaJuris({ item, onFechar }: Props) {
         </p>
         <p className="gaveta-meta">{item.processNumber}</p>
         <p className="ementa">{ementaExibida(item)}</p>
-        {!item.citavel && (
-          <p className="aviso-nao-citavel">
-            Notas abaixo são acervo interno. Não são julgamento oficial.
-          </p>
-        )}
         {ehPrecedenteTema && item.citavel && (
           <p className="aviso-tema">
-            Precedente relacionado por tema. Ementa oficial do TJPR, mas não é o mesmo processo.
+            Ementa oficial do TJPR sobre o mesmo tema deste processo.
           </p>
         )}
 
-        <div className="pontos">
-          {item.pontos.map((ponto) => (
-            <span key={ponto} className="chip">
-              {ponto}
-            </span>
-          ))}
-        </div>
+        {item.pontos.length > 0 && (
+          <div className="pontos">
+            {item.pontos.map((ponto) => (
+              <span key={ponto} className="chip">
+                {fraseOficial(ponto)}
+              </span>
+            ))}
+          </div>
+        )}
 
         <div className="abas-gaveta">
           {ABAS.map((itemAba) => (
@@ -113,11 +98,11 @@ export function GavetaJuris({ item, onFechar }: Props) {
           ))}
         </div>
 
-        <p className="gaveta-legenda">{legenda}</p>
-        <p className="bloco-resumo">{bloco.resumo}</p>
+        <p className="gaveta-legenda">{ABAS.find((itemAba) => itemAba.id === aba)?.legenda}</p>
+        {bloco.resumo ? <p className="bloco-resumo">{fraseOficial(bloco.resumo)}</p> : null}
 
         <ul className="lista-limpa">
-          {bloco.itens.map((linha) => (
+          {linhas.map((linha) => (
             <li key={linha}>{linha}</li>
           ))}
         </ul>

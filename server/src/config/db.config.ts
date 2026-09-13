@@ -54,6 +54,7 @@ export function opcoesPool(env: DbEnvConfig): PoolOptions {
     database: env.database,
     waitForConnections: true,
     connectionLimit: 10,
+    connectTimeout: 12000,
     enableKeepAlive: true,
     timezone: "Z",
   };

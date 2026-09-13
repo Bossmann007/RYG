@@ -58,22 +58,82 @@ export class CasosRepository {
   }
 
   async obter(idOrCnj: string): Promise<Caso | undefined> {
-    const casos = await this.linhas("casos");
-    const processos = await this.linhas("processos");
-    const capas = casos.length ? casos : processos;
-
-    if (!capas.length) {
-      throw new ServiceUnavailableException(
-        "Tabelas casos/processos ausentes no banco configurado."
-      );
-    }
-
-    const capa = capas.find((linha) => this.capaBate(linha, idOrCnj));
+    const capa = await this.buscarCapa(idOrCnj);
     if (!capa) {
       return undefined;
     }
 
-    return this.montarDeCapa(capa, processos, casos.length > 0, true);
+    const processo = await this.buscarProcesso(capa);
+    return this.montarDeCapa(capa, processo ? [processo] : [], true, true);
+  }
+
+  private async buscarProcesso(capa: Linha): Promise<Linha | undefined> {
+    const processoId = String(valorCampo(capa, ALIASES.processoId) ?? "");
+    const cnj = cnjDigitos(valorCampo(capa, ALIASES.numeroCnj));
+
+    try {
+      if (processoId) {
+        const porId = await this.db.consultar<RowDataPacket>(
+          `SELECT ${PROCESSOS_COLUNAS} FROM processos WHERE id = ? LIMIT 1`,
+          [processoId]
+        );
+        if (porId[0]) {
+          return { ...porId[0] };
+        }
+      }
+
+      if (cnj.length === 20) {
+        const porCnj = await this.db.consultar<RowDataPacket>(
+          `SELECT ${PROCESSOS_COLUNAS} FROM processos WHERE REPLACE(REPLACE(REPLACE(numero_cnj, '-', ''), '.', ''), '/', '') = ? LIMIT 1`,
+          [cnj]
+        );
+        if (porCnj[0]) {
+          return { ...porCnj[0] };
+        }
+      }
+    } catch (erro) {
+      if (!tabelaAusente(erro)) {
+        throw erro;
+      }
+    }
+
+    return undefined;
+  }
+
+  private async buscarCapa(idOrCnj: string): Promise<Linha | undefined> {
+    const chave = idOrCnj.trim();
+    const pedido = cnjDigitos(chave);
+
+    try {
+      if (/^\d+$/.test(chave)) {
+        const porId = await this.db.consultar<RowDataPacket>(
+          "SELECT * FROM casos WHERE id = ? OR processo_id = ? LIMIT 1",
+          [chave, chave]
+        );
+        if (porId[0]) {
+          return { ...porId[0] };
+        }
+      }
+
+      if (pedido.length === 20) {
+        const porCnj = await this.db.consultar<RowDataPacket>(
+          "SELECT * FROM casos WHERE REPLACE(REPLACE(REPLACE(numero_cnj, '-', ''), '.', ''), '/', '') = ? LIMIT 1",
+          [pedido]
+        );
+        if (porCnj[0]) {
+          return { ...porCnj[0] };
+        }
+      }
+    } catch (erro) {
+      if (!tabelaAusente(erro)) {
+        throw erro;
+      }
+    }
+
+    const casos = await this.linhas("casos");
+    const processos = await this.linhas("processos");
+    const capas = casos.length ? casos : processos;
+    return capas.find((linha) => this.capaBate(linha, idOrCnj));
   }
 
   async carregar(): Promise<Caso[]> {
@@ -112,10 +172,20 @@ export class CasosRepository {
     );
 
     const filhos: Record<string, Linha[]> = {};
-    for (const tabela of FILHAS) {
-      filhos[tabela] = filtrarFilhos
-        ? await this.linhasDoProcesso(tabela, processoId, cnj)
-        : this.ligarFilhos(cache?.[tabela] || [], capa, processo);
+    if (filtrarFilhos) {
+      const carregadas = await Promise.all(
+        FILHAS.map(async (tabela) => ({
+          tabela,
+          linhas: await this.linhasDoProcesso(tabela, processoId, cnj),
+        }))
+      );
+      for (const item of carregadas) {
+        filhos[item.tabela] = item.linhas;
+      }
+    } else {
+      for (const tabela of FILHAS) {
+        filhos[tabela] = this.ligarFilhos(cache?.[tabela] || [], capa, processo);
+      }
     }
 
     const pacote: PacoteCaso = {

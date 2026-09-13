@@ -180,7 +180,6 @@ export function ChatCaso({ processoId }: { processoId?: string }) {
     <section className="painel">
       <header className="painel-cabeca compacta">
         <div><h3>Canal do caso</h3><p>Histórico persistente vinculado ao processo.</p></div>
-        <span className="selo neutro">Remetente simulado</span>
       </header>
 
       {!processoId ? (
@@ -193,7 +192,7 @@ export function ChatCaso({ processoId }: { processoId?: string }) {
             {mensagens.map((mensagem) => (
               <article key={mensagem.id} className={["balao", mensagem.ia ? "ia" : "", mensagem.propria ? "propria" : ""].filter(Boolean).join(" ")}>
                 <header>
-                  <strong>{mensagem.autora}{mensagem.simulada ? " · simulado" : ""}</strong>
+                  <strong>{mensagem.autora}</strong>
                   <span>{mensagem.papel} · {horaMensagem(mensagem)}</span>
                 </header>
                 <TextoMensagem texto={mensagem.texto} />

@@ -10,7 +10,7 @@ export const ACERVO_REAL: Caso[] = [
     "subtema": "Procedimento Comum Cível",
     "processNumber": "9000001-04.2012.8.16.0028",
     "court": "TJPR",
-    "chamber": "COLOMBO - 2ª VARA CÍVEL",
+    "chamber": "Colombo - 2ª vara cível",
     "status": "TRANSITADO_EM_JULGADO",
     "cliente": "Parte autora (sigilo)",
     "partes": [
@@ -24,15 +24,15 @@ export const ACERVO_REAL: Caso[] = [
       }
     ],
     "resumo": "Procedimento Comum Cível perante COLOMBO - 2ª VARA CÍVEL (TJPR). Assunto(s) DataJud: Alienação Fiduciária.",
-    "tese": "Indisponível no DataJud (capa/andamentos apenas).",
+    "tese": "Ação revisional de contrato bancário garantido por alienação fiduciária. Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
     "atualizacao": "31/08/2026",
-    "chance": 0,
-    "chanceRotulo": "indisponível sem modelo oficial",
-    "chanceTexto": "indisponível sem modelo oficial",
+    "chance": 33,
+    "chanceRotulo": "recorte descritivo TJPR",
+    "chanceTexto": "Com base em 3 ementa(s) oficial(is) do portal TJPR neste recorte: 0 a favor, 1 contra, 2 divergente(s). Índice descritivo (favor +½ divergente).",
     "votos": {
       "for": 0,
-      "against": 0,
-      "diverge": 0
+      "against": 1,
+      "diverge": 2
     },
     "peticoes": [
       {
@@ -100,7 +100,16 @@ export const ACERVO_REAL: Caso[] = [
         "resumo": "Andamento DataJud: Petição em 22/01/2016."
       }
     ],
-    "contratos": [],
+    "contratos": [
+      {
+        "id": "ctr-capa",
+        "titulo": "Alienação Fiduciária",
+        "tipo": "Capa do processo",
+        "data": "31/08/2026",
+        "origem": "TJPR",
+        "resumo": "Procedimento Comum Cível perante COLOMBO - 2ª VARA CÍVEL (TJPR). Assunto(s) DataJud: Alienação Fiduciária."
+      }
+    ],
     "documentos": [
       {
         "id": "1",
@@ -296,11 +305,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 5,
         "calendar": "uteis",
         "status": "vencido",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para prestar esclarecimentos sobre os pontos indicados pelo juízo.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-01",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-01"
       },
       {
         "id": "27",
@@ -310,11 +318,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 10,
         "calendar": "uteis",
         "status": "a_vencer",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para juntar os documentos solicitados pelo juízo.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-02",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-02"
       },
       {
         "id": "53",
@@ -324,11 +331,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 15,
         "calendar": "uteis",
         "status": "aberto",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para especificar as provas pretendidas e justificar sua pertinência.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-10",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-10"
       },
       {
         "id": "79",
@@ -338,55 +344,214 @@ export const ACERVO_REAL: Caso[] = [
         "days": 15,
         "calendar": "uteis",
         "status": "cumprido",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para apresentar manifestação sobre documento juntado aos autos.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-08-14",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real. Cumprimento fictício registrado apenas para demonstrar o filtro da tela."
+        "startedAt": "2026-08-14"
       }
     ],
-    "teses": [],
-    "resultados": [],
-    "conversas": [],
-    "jurisprudencias": [
+    "teses": [
       {
-        "id": "1",
-        "processNumber": "90000010420128160028",
-        "acordao": "[NÃO OFICIAL] Referência de capa 9000001-04.2012.8.16.0028",
-        "court": "TJPR",
-        "chamber": "COLOMBO - 2ª VARA CÍVEL",
-        "reporter": "Não informado",
-        "date": "31/08/2026",
-        "status": "TRANSITADO_EM_JULGADO",
-        "alignment": "diverge",
-        "ementa": "",
-        "pontos": [],
-        "essencial": {
-          "resumo": "",
-          "itens": []
-        },
-        "fortalecer": {
-          "resumo": "",
-          "itens": []
-        },
-        "blindar": {
-          "resumo": "",
-          "itens": []
-        },
-        "contrapor": {
-          "resumo": "",
-          "itens": []
-        },
-        "citavel": false,
+        "id": "27",
+        "titulo": "Alienação Fiduciária",
+        "uso": "Aguardar ementa oficial; até lá usar só corpus descritivo do tema.",
+        "forca": "baixa",
         "fonte": "acervo_interno"
       }
     ],
-    "dissidios": [],
+    "resultados": [
+      {
+        "id": "42",
+        "titulo": "5ª Câmara Cível · 16/11/2020",
+        "desfecho": "Ação revisional de contrato bancário garantido por alienação fiduciária. Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+        "aprendizado": "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples."
+      },
+      {
+        "id": "43",
+        "titulo": "18ª Câmara Cível · 03/05/2021",
+        "desfecho": "Ação revisional de contrato. Alienação fiduciária. Impugnação ao cumprimento de sentença. Alegado excesso de execução. Incidência de juros remuneratórios reflexos sobre a tarifa declarada abusiva pela sentença.",
+        "aprendizado": "18ª Câmara Cível · 03/05/2021. A ementa oficial fecha contra o pedido: Recurso conhecido e provido."
+      },
+      {
+        "id": "44",
+        "titulo": "18ª Câmara Cível · 06/04/2020",
+        "desfecho": "ALIENAÇÃO FIDUCIÁRIA. JUROS REMUNERATÓRIOS. AUSÊNCIA DE ABUSIVIDADE. CAPITALIZAÇÃO DE JUROS PACTUADA. tarifa de registro DO CONTRATO E GRAVAME ELETRÔNICO.",
+        "aprendizado": "18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES."
+      }
+    ],
+    "conversas": [],
+    "jurisprudencias": [
+      {
+        "id": "42",
+        "processNumber": "90000010420128160028",
+        "acordao": "TJPR-4100000015299901 (tema)",
+        "court": "TJPR",
+        "chamber": "5ª Câmara Cível",
+        "reporter": "Nilson Mizuta Desembargador",
+        "date": "16/11/2020",
+        "status": "SENTENCIADO",
+        "alignment": "diverge",
+        "ementa": "Apelação cível. Ação revisional de contrato bancário garantido por alienação fiduciária. Procedência. Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples. Ajuizamento do cumprimento de sentença. Impugnação ao cumprimento de sentença. Alegação de excesso e pedido de compensação (vinte parcelas não pagas de um total de 36). Concordância entre as partes quanto ao não pagamento das 20 parcelas. Várias memórias de cálculos elaboradas. Homologação do último cálculo que incluiu a compensação entre os créditos de ambas as partes. Sentença que acolhe a impugnação ao cumprimento de sentença. Mérito do apelo. Pedido de prestação de contas quanto à venda do bem nestes autos. Não acolhimento. Etapa que deve ocorrer nos respectivos autos de busca e apreensão (art. 2º do decreto-lei nº 911/1969). Precedentes do stj e tjpr. Impossibilidade de determinação de adequação do rito nesta instância. Compensação entre saldo devedor do contrato e os valores cobrados indevidamente reconhecidos na ação revisional. Legalidade. Possibilidade de compensação de valores ainda que a sentença ou o acórdão não tenham assim determinado. Inteligência do art. 368 do código civil. Não existe qualquer vedação legal para que se dê a compensação se a apelante e o apelado são reciprocamente credores e devedores entre si. Precedentes.1. A prestação de contas é fase prevista no caput do art. 2º, do decreto-lei nº 911/1969, todavia, esta deve ser requerida nos respectivos autos da ação de busca e apreensão, conforme já decidiu o superior tribunal de justiça: “ação de prestação de contas. Interesse processual. Alienação fiduciária. Busca e apreensão. Leilão extrajudicial. Veiculo automotor. (..) no caso de alienação extrajudicial de veículo automotor regida pelo art. 2º do decreto-lei n. 911/1969 - redação anterior à lei n. 13.043/2014 -, tem o devedor interesse processual na ação de prestação de contas, quanto aos valores decorrentes da venda e à correta imputação no débito (saldo remanescente). (...).” (stj - resp 1678525/sp, rel. Ministro antonio carlos ferreira, quarta turma, julgado em 05/10/2017, dje 09/10/2017)2. Faz-se possível a compensação de valores entre os créditos ainda pendentes do financiamento do veículo e aqueles reconhecidos em ação revisional como abusivos, conforme este e. Tribunal de justiça já decidiu: “(...) compensação de valores é a forma preferencial de pagamento desde que não exista qualquer vedação legal acerca da sua possibilidade. Apesar de não haver previsão de compensação em fase de conhecimento, não existe qualquer vedação acerca da sua impossibilidade em fase de execução, eis que se trata de dívida líquida, certa e exigível.” (tjpr - 18ª c.cível - 9000062-36.2018.8.16.0000 - curitiba - rel.: juíza subst. 2ºgrau denise antunes - j. 13.03.2019)recurso não provido.",
+        "pontos": [],
+        "essencial": {
+          "resumo": "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+          "itens": [
+            "Ação revisional de contrato bancário garantido por alienação fiduciária.",
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+            "Ajuizamento do cumprimento de sentença.",
+            "Impugnação ao cumprimento de sentença."
+          ]
+        },
+        "fortalecer": {
+          "resumo": "Use só a parte do julgado que favorece o pedido e isole o restante.",
+          "itens": [
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples."
+          ]
+        },
+        "blindar": {
+          "resumo": "Onde a parte contrária pode apoiar o ataque, segundo a ementa oficial.",
+          "itens": [
+            "Ação revisional de contrato bancário garantido por alienação fiduciária.",
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+            "Ajuizamento do cumprimento de sentença."
+          ]
+        },
+        "contrapor": {
+          "resumo": "Como limitar o alcance deste julgado: o dispositivo oficial e o contexto da câmara.",
+          "itens": [
+            "Ação revisional de contrato bancário garantido por alienação fiduciária.",
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+            "Ajuizamento do cumprimento de sentença."
+          ]
+        },
+        "citavel": true,
+        "fonte": "tjpr",
+        "relacao": "precedente_tema"
+      },
+      {
+        "id": "43",
+        "processNumber": "90000010420128160028",
+        "acordao": "TJPR-4100000016690231 (tema)",
+        "court": "TJPR",
+        "chamber": "18ª Câmara Cível",
+        "reporter": "Marcelo Gobbo Dalla Dea Desembargador",
+        "date": "03/05/2021",
+        "status": "SENTENCIADO",
+        "alignment": "against",
+        "ementa": "Apelação cível. Ação revisional de contrato. Alienação fiduciária. Impugnação ao cumprimento de sentença. Acolhimento. Alegado excesso de execução. Incidência de juros remuneratórios reflexos sobre a tarifa declarada abusiva pela sentença. Possibilidade, sob pena de enriquecimento sem causa. Encargos acessórios que devem seguir a sorte do principal. Ausência de ofensa à coisa julgada. Recurso conhecido e provido.",
+        "pontos": [],
+        "essencial": {
+          "resumo": "18ª Câmara Cível · 03/05/2021. A ementa oficial fecha contra o pedido: Recurso conhecido e provido.",
+          "itens": [
+            "Ação revisional de contrato.",
+            "Alienação fiduciária.",
+            "Impugnação ao cumprimento de sentença.",
+            "Alegado excesso de execução."
+          ]
+        },
+        "fortalecer": {
+          "resumo": "Este julgado fecha contra. Sirva-se dele para saber o que o tribunal já recusou.",
+          "itens": [
+            "Ação revisional de contrato.",
+            "Alienação fiduciária.",
+            "Impugnação ao cumprimento de sentença."
+          ]
+        },
+        "blindar": {
+          "resumo": "Onde a parte contrária pode apoiar o ataque, segundo a ementa oficial.",
+          "itens": [
+            "Ação revisional de contrato.",
+            "Alienação fiduciária.",
+            "Impugnação ao cumprimento de sentença."
+          ]
+        },
+        "contrapor": {
+          "resumo": "Como limitar o alcance deste julgado: o dispositivo oficial e o contexto da câmara.",
+          "itens": [
+            "Ação revisional de contrato.",
+            "Alienação fiduciária.",
+            "Impugnação ao cumprimento de sentença."
+          ]
+        },
+        "citavel": true,
+        "fonte": "tjpr",
+        "relacao": "precedente_tema"
+      },
+      {
+        "id": "44",
+        "processNumber": "90000010420128160028",
+        "acordao": "TJPR-4100000012641161 (tema)",
+        "court": "TJPR",
+        "chamber": "18ª Câmara Cível",
+        "reporter": "Marcelo Gobbo Dalla Dea Desembargador",
+        "date": "06/04/2020",
+        "status": "SENTENCIADO",
+        "alignment": "diverge",
+        "ementa": "APELAÇÃO CÍVEL. AÇÃO REVISIONAL. ALIENAÇÃO FIDUCIÁRIA. JUROS REMUNERATÓRIOS. AUSÊNCIA DE ABUSIVIDADE. CAPITALIZAÇÃO DE JUROS PACTUADA. tarifa de registro DO CONTRATO E GRAVAME ELETRÔNICO. LEGALIDADE. SEGURO PROTEÇÃO. VENDA CASADA. ABUSIVIDADE. COMISSÃO DE PERMANÊNCIA. INEXISTÊNCIA. DEVOLUÇÃO NA FORMA SIMPLES. SUCUMBÊNCIA REDISTRIBUÍDA. RECURSO CONHECIDO E PARCIALMENTE PROVIDO.1. É livre a pactuação dos juros remuneratórios através do posicionamento jurisprudencial do Superior Tribunal de Justiça, de forma que a sua limitação ao patamar acima de 12% ao ano não indica abusividade. 2. O Superior Tribunal de Justiça firmou entendimento no RESP 973827 de que a capitalização é válida desde que expressamente pactuada.3. É permitida a capitalização de juros, sendo autorizada pelo Superior Tribunal de Justiça nos REsp 1251331 e 1255573, julgados pelo rito do artigo 543-C do Código de Processo Civil/73.4. É passível de repasse ao consumidor o custo referente à tarifa de registro do contrato de financiamento de veículo com cláusula de garantia fiduciária, desde que a cobrança pelo registro do contrato corresponda a um serviço efetivamente prestado e que o valor não se mostre abusivo.5. Nos contratos bancários em geral, o consumidor não pode ser compelido a contratar seguro com a instituição financeira ou com seguradora por ela indicada (STJ – Recurso Especial Repetitivo nº 1.639.259/SP e nº 1.639.320/SP - Tema 972).6. Nos contratos de concessão de crédito, a importância cobrada a título de comissão de permanência não poderá ultrapassar a soma dos encargos remuneratórios e moratórios previstos no contrato, ou seja: a) juros remuneratórios à taxa média de mercado, não podendo ultrapassar o percentual contratado para o período de normalidade da operação; b) juros moratórios até o limite de 12% ao ano; e c) multa contratual limitada a 2% do valor da prestação, nos termos do art. 52. § 1º, do CDC.",
+        "pontos": [],
+        "essencial": {
+          "resumo": "18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES.",
+          "itens": [
+            "Alienação fiduciária.",
+            "Juros remuneratórios.",
+            "Ausência de abusividade.",
+            "Capitalização de juros pactuada."
+          ]
+        },
+        "fortalecer": {
+          "resumo": "Use só a parte do julgado que favorece o pedido e isole o restante.",
+          "itens": [
+            "Alienação fiduciária.",
+            "Juros remuneratórios.",
+            "Ausência de abusividade."
+          ]
+        },
+        "blindar": {
+          "resumo": "Onde a parte contrária pode apoiar o ataque, segundo a ementa oficial.",
+          "itens": [
+            "Alienação fiduciária.",
+            "Juros remuneratórios.",
+            "Ausência de abusividade."
+          ]
+        },
+        "contrapor": {
+          "resumo": "Como limitar o alcance deste julgado: o dispositivo oficial e o contexto da câmara.",
+          "itens": [
+            "Alienação fiduciária.",
+            "Juros remuneratórios.",
+            "Ausência de abusividade."
+          ]
+        },
+        "citavel": true,
+        "fonte": "tjpr",
+        "relacao": "precedente_tema"
+      }
+    ],
+    "dissidios": [
+      {
+        "camara": "5ª Câmara Cível",
+        "orientacao": "Neste órgão: 0 a favor, 0 contra, 1 divergente.",
+        "versus": "diverge",
+        "nota": "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+        "fonte": "acervo_interno"
+      },
+      {
+        "camara": "18ª Câmara Cível",
+        "orientacao": "Neste órgão: 0 a favor, 1 contra, 1 divergente.",
+        "versus": "against",
+        "nota": "18ª Câmara Cível · 03/05/2021. A ementa oficial fecha contra o pedido: Recurso conhecido e provido.",
+        "fonte": "acervo_interno"
+      }
+    ],
     "jurimetria": {
-      "amostra": 0,
-      "padrao": "",
-      "interno": "",
-      "riscos": []
+      "amostra": 3,
+      "padrao": "No recorte oficial deste caso há 3 acórdãos do TJPR (5ª Câmara Cível, 18ª Câmara Cível). Distribuição: 0 a favor, 1 contra, 2 divergente.",
+      "interno": "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples. 18ª Câmara Cível · 03/05/2021. A ementa oficial fecha contra o pedido: Recurso conhecido e provido. 18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES.",
+      "riscos": [
+        "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+        "18ª Câmara Cível · 03/05/2021. A ementa oficial fecha contra o pedido: Recurso conhecido e provido.",
+        "18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES."
+      ]
     },
     "fontes": {
       "titulo": "acervo_interno",
@@ -401,21 +566,21 @@ export const ACERVO_REAL: Caso[] = [
       "resumo": "acervo_interno",
       "tese": "acervo_interno",
       "atualizacao": "acervo_interno",
-      "chance": "indisponivel",
-      "votos": "indisponivel",
+      "chance": "tjpr",
+      "votos": "tjpr",
       "peticoes": "acervo_interno",
-      "contratos": "indisponivel",
+      "contratos": "acervo_interno",
       "documentos": "acervo_interno",
       "decisoes": "acervo_interno",
       "modelos": "indisponivel",
       "historico": "acervo_interno",
       "prazos": "acervo_interno",
-      "teses": "indisponivel",
-      "resultados": "indisponivel",
+      "teses": "acervo_interno",
+      "resultados": "acervo_interno",
       "conversas": "indisponivel",
-      "jurisprudencias": "acervo_interno",
-      "dissidios": "indisponivel",
-      "jurimetria": "indisponivel"
+      "jurisprudencias": "tjpr",
+      "dissidios": "acervo_interno",
+      "jurimetria": "tjpr"
     }
   },
   {
@@ -425,7 +590,7 @@ export const ACERVO_REAL: Caso[] = [
     "subtema": "Procedimento Comum Cível",
     "processNumber": "9000002-66.2018.8.16.0193",
     "court": "TJPR",
-    "chamber": "COLOMBO - 1ª VARA CÍVEL",
+    "chamber": "Colombo - 1ª vara cível",
     "status": "SUSPENSO",
     "cliente": "Parte autora (sigilo)",
     "partes": [
@@ -439,15 +604,15 @@ export const ACERVO_REAL: Caso[] = [
       }
     ],
     "resumo": "Procedimento Comum Cível perante COLOMBO - 1ª VARA CÍVEL (TJPR). Assunto(s) DataJud: Contratos Bancários.",
-    "tese": "Indisponível no DataJud (capa/andamentos apenas).",
+    "tese": "Ação revisional de contrato bancário garantido por alienação fiduciária. Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
     "atualizacao": "31/08/2026",
-    "chance": 0,
-    "chanceRotulo": "indisponível sem modelo oficial",
-    "chanceTexto": "indisponível sem modelo oficial",
+    "chance": 50,
+    "chanceRotulo": "recorte descritivo TJPR",
+    "chanceTexto": "Com base em 1 ementa(s) oficial(is) do portal TJPR neste recorte: 0 a favor, 0 contra, 1 divergente(s). Índice descritivo (favor +½ divergente).",
     "votos": {
       "for": 0,
       "against": 0,
-      "diverge": 0
+      "diverge": 3
     },
     "peticoes": [
       {
@@ -515,7 +680,16 @@ export const ACERVO_REAL: Caso[] = [
         "resumo": "Andamento DataJud: Petição em 19/08/2021."
       }
     ],
-    "contratos": [],
+    "contratos": [
+      {
+        "id": "ctr-capa",
+        "titulo": "Contratos Bancários",
+        "tipo": "Capa do processo",
+        "data": "31/08/2026",
+        "origem": "TJPR",
+        "resumo": "Procedimento Comum Cível perante COLOMBO - 1ª VARA CÍVEL (TJPR). Assunto(s) DataJud: Contratos Bancários."
+      }
+    ],
     "documentos": [
       {
         "id": "9",
@@ -695,11 +869,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 5,
         "calendar": "uteis",
         "status": "vencido",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para prestar esclarecimentos sobre os pontos indicados pelo juízo.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-01",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-01"
       },
       {
         "id": "28",
@@ -709,11 +882,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 10,
         "calendar": "uteis",
         "status": "a_vencer",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para juntar os documentos solicitados pelo juízo.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-02",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-02"
       },
       {
         "id": "54",
@@ -723,11 +895,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 15,
         "calendar": "uteis",
         "status": "aberto",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para especificar as provas pretendidas e justificar sua pertinência.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-10",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-10"
       },
       {
         "id": "80",
@@ -737,55 +908,221 @@ export const ACERVO_REAL: Caso[] = [
         "days": 15,
         "calendar": "uteis",
         "status": "cumprido",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para apresentar manifestação sobre documento juntado aos autos.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-08-14",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real. Cumprimento fictício registrado apenas para demonstrar o filtro da tela."
+        "startedAt": "2026-08-14"
       }
     ],
-    "teses": [],
-    "resultados": [],
-    "conversas": [],
-    "jurisprudencias": [
+    "teses": [
       {
-        "id": "2",
-        "processNumber": "90000026620188160193",
-        "acordao": "[NÃO OFICIAL] Referência de capa 9000002-66.2018.8.16.0193",
-        "court": "TJPR",
-        "chamber": "COLOMBO - 1ª VARA CÍVEL",
-        "reporter": "Não informado",
-        "date": "31/08/2026",
-        "status": "SUSPENSO",
-        "alignment": "diverge",
-        "ementa": "",
-        "pontos": [],
-        "essencial": {
-          "resumo": "",
-          "itens": []
-        },
-        "fortalecer": {
-          "resumo": "",
-          "itens": []
-        },
-        "blindar": {
-          "resumo": "",
-          "itens": []
-        },
-        "contrapor": {
-          "resumo": "",
-          "itens": []
-        },
-        "citavel": false,
+        "id": "28",
+        "titulo": "Contratos Bancários",
+        "uso": "Aguardar ementa oficial; até lá usar só corpus descritivo do tema.",
+        "forca": "media",
         "fonte": "acervo_interno"
       }
     ],
-    "dissidios": [],
+    "resultados": [
+      {
+        "id": "45",
+        "titulo": "5ª Câmara Cível · 16/11/2020",
+        "desfecho": "Ação revisional de contrato bancário garantido por alienação fiduciária. Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+        "aprendizado": "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples."
+      },
+      {
+        "id": "46",
+        "titulo": "18ª Câmara Cível · 06/04/2020",
+        "desfecho": "ALIENAÇÃO FIDUCIÁRIA. JUROS REMUNERATÓRIOS. AUSÊNCIA DE ABUSIVIDADE. CAPITALIZAÇÃO DE JUROS PACTUADA. tarifa de registro DO CONTRATO E GRAVAME ELETRÔNICO.",
+        "aprendizado": "18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES."
+      },
+      {
+        "id": "47",
+        "titulo": "1ª Turma Recursal · 14/06/2021",
+        "desfecho": "Ementa: recurso inominado. Ação de revisão contratual c/c repetição de indébito. Contrato de financiamento. Alegação de cobrança abusiva de juros remuneratórios.",
+        "aprendizado": "1ª Turma Recursal · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida."
+      }
+    ],
+    "conversas": [],
+    "jurisprudencias": [
+      {
+        "id": "45",
+        "processNumber": "90000026620188160193",
+        "acordao": "TJPR-4100000015299901 (tema)",
+        "court": "TJPR",
+        "chamber": "5ª Câmara Cível",
+        "reporter": "Nilson Mizuta Desembargador",
+        "date": "16/11/2020",
+        "status": "SENTENCIADO",
+        "alignment": "diverge",
+        "ementa": "Apelação cível. Ação revisional de contrato bancário garantido por alienação fiduciária. Procedência. Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples. Ajuizamento do cumprimento de sentença. Impugnação ao cumprimento de sentença. Alegação de excesso e pedido de compensação (vinte parcelas não pagas de um total de 36). Concordância entre as partes quanto ao não pagamento das 20 parcelas. Várias memórias de cálculos elaboradas. Homologação do último cálculo que incluiu a compensação entre os créditos de ambas as partes. Sentença que acolhe a impugnação ao cumprimento de sentença. Mérito do apelo. Pedido de prestação de contas quanto à venda do bem nestes autos. Não acolhimento. Etapa que deve ocorrer nos respectivos autos de busca e apreensão (art. 2º do decreto-lei nº 911/1969). Precedentes do stj e tjpr. Impossibilidade de determinação de adequação do rito nesta instância. Compensação entre saldo devedor do contrato e os valores cobrados indevidamente reconhecidos na ação revisional. Legalidade. Possibilidade de compensação de valores ainda que a sentença ou o acórdão não tenham assim determinado. Inteligência do art. 368 do código civil. Não existe qualquer vedação legal para que se dê a compensação se a apelante e o apelado são reciprocamente credores e devedores entre si. Precedentes.1. A prestação de contas é fase prevista no caput do art. 2º, do decreto-lei nº 911/1969, todavia, esta deve ser requerida nos respectivos autos da ação de busca e apreensão, conforme já decidiu o superior tribunal de justiça: “ação de prestação de contas. Interesse processual. Alienação fiduciária. Busca e apreensão. Leilão extrajudicial. Veiculo automotor. (..) no caso de alienação extrajudicial de veículo automotor regida pelo art. 2º do decreto-lei n. 911/1969 - redação anterior à lei n. 13.043/2014 -, tem o devedor interesse processual na ação de prestação de contas, quanto aos valores decorrentes da venda e à correta imputação no débito (saldo remanescente). (...).” (stj - resp 1678525/sp, rel. Ministro antonio carlos ferreira, quarta turma, julgado em 05/10/2017, dje 09/10/2017)2. Faz-se possível a compensação de valores entre os créditos ainda pendentes do financiamento do veículo e aqueles reconhecidos em ação revisional como abusivos, conforme este e. Tribunal de justiça já decidiu: “(...) compensação de valores é a forma preferencial de pagamento desde que não exista qualquer vedação legal acerca da sua possibilidade. Apesar de não haver previsão de compensação em fase de conhecimento, não existe qualquer vedação acerca da sua impossibilidade em fase de execução, eis que se trata de dívida líquida, certa e exigível.” (tjpr - 18ª c.cível - 9000062-36.2018.8.16.0000 - curitiba - rel.: juíza subst. 2ºgrau denise antunes - j. 13.03.2019)recurso não provido.",
+        "pontos": [],
+        "essencial": {
+          "resumo": "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+          "itens": [
+            "Ação revisional de contrato bancário garantido por alienação fiduciária.",
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+            "Ajuizamento do cumprimento de sentença.",
+            "Impugnação ao cumprimento de sentença."
+          ]
+        },
+        "fortalecer": {
+          "resumo": "Use só a parte do julgado que favorece o pedido e isole o restante.",
+          "itens": [
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples."
+          ]
+        },
+        "blindar": {
+          "resumo": "Onde a parte contrária pode apoiar o ataque, segundo a ementa oficial.",
+          "itens": [
+            "Ação revisional de contrato bancário garantido por alienação fiduciária.",
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+            "Ajuizamento do cumprimento de sentença."
+          ]
+        },
+        "contrapor": {
+          "resumo": "Como limitar o alcance deste julgado: o dispositivo oficial e o contexto da câmara.",
+          "itens": [
+            "Ação revisional de contrato bancário garantido por alienação fiduciária.",
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+            "Ajuizamento do cumprimento de sentença."
+          ]
+        },
+        "citavel": true,
+        "fonte": "tjpr",
+        "relacao": "precedente_tema"
+      },
+      {
+        "id": "46",
+        "processNumber": "90000026620188160193",
+        "acordao": "TJPR-4100000012641161 (tema)",
+        "court": "TJPR",
+        "chamber": "18ª Câmara Cível",
+        "reporter": "Marcelo Gobbo Dalla Dea Desembargador",
+        "date": "06/04/2020",
+        "status": "SENTENCIADO",
+        "alignment": "diverge",
+        "ementa": "APELAÇÃO CÍVEL. AÇÃO REVISIONAL. ALIENAÇÃO FIDUCIÁRIA. JUROS REMUNERATÓRIOS. AUSÊNCIA DE ABUSIVIDADE. CAPITALIZAÇÃO DE JUROS PACTUADA. tarifa de registro DO CONTRATO E GRAVAME ELETRÔNICO. LEGALIDADE. SEGURO PROTEÇÃO. VENDA CASADA. ABUSIVIDADE. COMISSÃO DE PERMANÊNCIA. INEXISTÊNCIA. DEVOLUÇÃO NA FORMA SIMPLES. SUCUMBÊNCIA REDISTRIBUÍDA. RECURSO CONHECIDO E PARCIALMENTE PROVIDO.1. É livre a pactuação dos juros remuneratórios através do posicionamento jurisprudencial do Superior Tribunal de Justiça, de forma que a sua limitação ao patamar acima de 12% ao ano não indica abusividade. 2. O Superior Tribunal de Justiça firmou entendimento no RESP 973827 de que a capitalização é válida desde que expressamente pactuada.3. É permitida a capitalização de juros, sendo autorizada pelo Superior Tribunal de Justiça nos REsp 1251331 e 1255573, julgados pelo rito do artigo 543-C do Código de Processo Civil/73.4. É passível de repasse ao consumidor o custo referente à tarifa de registro do contrato de financiamento de veículo com cláusula de garantia fiduciária, desde que a cobrança pelo registro do contrato corresponda a um serviço efetivamente prestado e que o valor não se mostre abusivo.5. Nos contratos bancários em geral, o consumidor não pode ser compelido a contratar seguro com a instituição financeira ou com seguradora por ela indicada (STJ – Recurso Especial Repetitivo nº 1.639.259/SP e nº 1.639.320/SP - Tema 972).6. Nos contratos de concessão de crédito, a importância cobrada a título de comissão de permanência não poderá ultrapassar a soma dos encargos remuneratórios e moratórios previstos no contrato, ou seja: a) juros remuneratórios à taxa média de mercado, não podendo ultrapassar o percentual contratado para o período de normalidade da operação; b) juros moratórios até o limite de 12% ao ano; e c) multa contratual limitada a 2% do valor da prestação, nos termos do art. 52. § 1º, do CDC.",
+        "pontos": [],
+        "essencial": {
+          "resumo": "18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES.",
+          "itens": [
+            "Alienação fiduciária.",
+            "Juros remuneratórios.",
+            "Ausência de abusividade.",
+            "Capitalização de juros pactuada."
+          ]
+        },
+        "fortalecer": {
+          "resumo": "Use só a parte do julgado que favorece o pedido e isole o restante.",
+          "itens": [
+            "Alienação fiduciária.",
+            "Juros remuneratórios.",
+            "Ausência de abusividade."
+          ]
+        },
+        "blindar": {
+          "resumo": "Onde a parte contrária pode apoiar o ataque, segundo a ementa oficial.",
+          "itens": [
+            "Alienação fiduciária.",
+            "Juros remuneratórios.",
+            "Ausência de abusividade."
+          ]
+        },
+        "contrapor": {
+          "resumo": "Como limitar o alcance deste julgado: o dispositivo oficial e o contexto da câmara.",
+          "itens": [
+            "Alienação fiduciária.",
+            "Juros remuneratórios.",
+            "Ausência de abusividade."
+          ]
+        },
+        "citavel": true,
+        "fonte": "tjpr",
+        "relacao": "precedente_tema"
+      },
+      {
+        "id": "47",
+        "processNumber": "90000026620188160193",
+        "acordao": "TJPR-2100000014800751 (tema)",
+        "court": "TJPR",
+        "chamber": "1ª Turma Recursal",
+        "reporter": "Melissa de Azevedo Olivas Juíza de Direito da Turma Recursal dos Juízaados Especiais",
+        "date": "14/06/2021",
+        "status": "SENTENCIADO",
+        "alignment": "diverge",
+        "ementa": "Ementa: recurso inominado. Ação de revisão contratual c/c repetição de indébito. Direito bancário. Contrato de financiamento. Alegação de cobrança abusiva de juros remuneratórios. Taxa média acima da praticada no mercado. Recálculo que necessita de cálculos complexos. Incompetência dos juizados especiais. Tarifa de registro. Ausência de prova da prestação do serviço. Restituição devida. Sentença parcialmente reformada. Recurso da parte autora conhecido e parcialmente provido.",
+        "pontos": [],
+        "essencial": {
+          "resumo": "1ª Turma Recursal · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida.",
+          "itens": [
+            "Ementa: recurso inominado.",
+            "Ação de revisão contratual c/c repetição de indébito.",
+            "Contrato de financiamento.",
+            "Alegação de cobrança abusiva de juros remuneratórios."
+          ]
+        },
+        "fortalecer": {
+          "resumo": "Use só a parte do julgado que favorece o pedido e isole o restante.",
+          "itens": [
+            "Ementa: recurso inominado.",
+            "Ação de revisão contratual c/c repetição de indébito.",
+            "Contrato de financiamento."
+          ]
+        },
+        "blindar": {
+          "resumo": "Onde a parte contrária pode apoiar o ataque, segundo a ementa oficial.",
+          "itens": [
+            "Ementa: recurso inominado.",
+            "Ação de revisão contratual c/c repetição de indébito.",
+            "Contrato de financiamento."
+          ]
+        },
+        "contrapor": {
+          "resumo": "Como limitar o alcance deste julgado: o dispositivo oficial e o contexto da câmara.",
+          "itens": [
+            "Ementa: recurso inominado.",
+            "Ação de revisão contratual c/c repetição de indébito.",
+            "Contrato de financiamento."
+          ]
+        },
+        "citavel": true,
+        "fonte": "tjpr",
+        "relacao": "precedente_tema"
+      }
+    ],
+    "dissidios": [
+      {
+        "camara": "5ª Câmara Cível",
+        "orientacao": "Neste órgão: 0 a favor, 0 contra, 1 divergente.",
+        "versus": "diverge",
+        "nota": "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+        "fonte": "acervo_interno"
+      },
+      {
+        "camara": "18ª Câmara Cível",
+        "orientacao": "Neste órgão: 0 a favor, 0 contra, 1 divergente.",
+        "versus": "diverge",
+        "nota": "18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES.",
+        "fonte": "acervo_interno"
+      },
+      {
+        "camara": "1ª Turma Recursal",
+        "orientacao": "Neste órgão: 0 a favor, 0 contra, 1 divergente.",
+        "versus": "diverge",
+        "nota": "1ª Turma Recursal · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida.",
+        "fonte": "acervo_interno"
+      }
+    ],
     "jurimetria": {
-      "amostra": 0,
-      "padrao": "",
-      "interno": "",
-      "riscos": []
+      "amostra": 3,
+      "padrao": "No recorte oficial deste caso há 3 acórdãos do TJPR (5ª Câmara Cível, 18ª Câmara Cível, 1ª Turma Recursal). Distribuição: 0 a favor, 0 contra, 3 divergente.",
+      "interno": "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples. 18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES. 1ª Turma Recursal · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida.",
+      "riscos": [
+        "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+        "18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES.",
+        "1ª Turma Recursal · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida."
+      ]
     },
     "fontes": {
       "titulo": "acervo_interno",
@@ -800,21 +1137,21 @@ export const ACERVO_REAL: Caso[] = [
       "resumo": "acervo_interno",
       "tese": "acervo_interno",
       "atualizacao": "acervo_interno",
-      "chance": "indisponivel",
-      "votos": "indisponivel",
+      "chance": "tjpr",
+      "votos": "tjpr",
       "peticoes": "acervo_interno",
-      "contratos": "indisponivel",
+      "contratos": "acervo_interno",
       "documentos": "acervo_interno",
       "decisoes": "acervo_interno",
       "modelos": "indisponivel",
       "historico": "acervo_interno",
       "prazos": "acervo_interno",
-      "teses": "indisponivel",
-      "resultados": "indisponivel",
+      "teses": "acervo_interno",
+      "resultados": "acervo_interno",
       "conversas": "indisponivel",
-      "jurisprudencias": "acervo_interno",
-      "dissidios": "indisponivel",
-      "jurimetria": "indisponivel"
+      "jurisprudencias": "tjpr",
+      "dissidios": "acervo_interno",
+      "jurimetria": "tjpr"
     }
   },
   {
@@ -824,7 +1161,7 @@ export const ACERVO_REAL: Caso[] = [
     "subtema": "Cumprimento de sentença",
     "processNumber": "9000003-80.2012.8.16.0025",
     "court": "TJPR",
-    "chamber": "ARAUCÁRIA - 1ª VARA CÍVEL E DA FAZENDA PÚBLICA",
+    "chamber": "Araucária - 1ª vara cível e da fazenda pública",
     "status": "TRANSITADO_EM_JULGADO",
     "cliente": "Parte autora (sigilo)",
     "partes": [
@@ -838,15 +1175,15 @@ export const ACERVO_REAL: Caso[] = [
       }
     ],
     "resumo": "Cumprimento de sentença perante ARAUCÁRIA - 1ª VARA CÍVEL E DA FAZENDA PÚBLICA (TJPR). Assunto(s) DataJud: Alienação Fiduciária.",
-    "tese": "Indisponível no DataJud (capa/andamentos apenas).",
+    "tese": "Ação revisional de contrato bancário garantido por alienação fiduciária. Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
     "atualizacao": "01/09/2026",
-    "chance": 0,
-    "chanceRotulo": "indisponível sem modelo oficial",
-    "chanceTexto": "indisponível sem modelo oficial",
+    "chance": 33,
+    "chanceRotulo": "recorte descritivo TJPR",
+    "chanceTexto": "Com base em 3 ementa(s) oficial(is) do portal TJPR neste recorte: 0 a favor, 1 contra, 2 divergente(s). Índice descritivo (favor +½ divergente).",
     "votos": {
       "for": 0,
-      "against": 0,
-      "diverge": 0
+      "against": 1,
+      "diverge": 2
     },
     "peticoes": [
       {
@@ -914,7 +1251,16 @@ export const ACERVO_REAL: Caso[] = [
         "resumo": "Andamento DataJud: Petição em 04/05/2015."
       }
     ],
-    "contratos": [],
+    "contratos": [
+      {
+        "id": "ctr-capa",
+        "titulo": "Alienação Fiduciária",
+        "tipo": "Capa do processo",
+        "data": "01/09/2026",
+        "origem": "TJPR",
+        "resumo": "Cumprimento de sentença perante ARAUCÁRIA - 1ª VARA CÍVEL E DA FAZENDA PÚBLICA (TJPR). Assunto(s) DataJud: Alienação Fiduciária."
+      }
+    ],
     "documentos": [
       {
         "id": "17",
@@ -1142,11 +1488,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 5,
         "calendar": "uteis",
         "status": "vencido",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para prestar esclarecimentos sobre os pontos indicados pelo juízo.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-01",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-01"
       },
       {
         "id": "29",
@@ -1156,11 +1501,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 10,
         "calendar": "uteis",
         "status": "a_vencer",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para juntar os documentos solicitados pelo juízo.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-02",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-02"
       },
       {
         "id": "55",
@@ -1170,11 +1514,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 15,
         "calendar": "uteis",
         "status": "aberto",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para especificar as provas pretendidas e justificar sua pertinência.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-10",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-10"
       },
       {
         "id": "81",
@@ -1184,55 +1527,214 @@ export const ACERVO_REAL: Caso[] = [
         "days": 15,
         "calendar": "uteis",
         "status": "cumprido",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para apresentar manifestação sobre documento juntado aos autos.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-08-14",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real. Cumprimento fictício registrado apenas para demonstrar o filtro da tela."
+        "startedAt": "2026-08-14"
       }
     ],
-    "teses": [],
-    "resultados": [],
-    "conversas": [],
-    "jurisprudencias": [
+    "teses": [
       {
-        "id": "3",
-        "processNumber": "90000038020128160025",
-        "acordao": "[NÃO OFICIAL] Referência de capa 9000003-80.2012.8.16.0025",
-        "court": "TJPR",
-        "chamber": "ARAUCÁRIA - 1ª VARA CÍVEL E DA FAZENDA PÚBLICA",
-        "reporter": "Não informado",
-        "date": "01/09/2026",
-        "status": "TRANSITADO_EM_JULGADO",
-        "alignment": "diverge",
-        "ementa": "",
-        "pontos": [],
-        "essencial": {
-          "resumo": "",
-          "itens": []
-        },
-        "fortalecer": {
-          "resumo": "",
-          "itens": []
-        },
-        "blindar": {
-          "resumo": "",
-          "itens": []
-        },
-        "contrapor": {
-          "resumo": "",
-          "itens": []
-        },
-        "citavel": false,
+        "id": "29",
+        "titulo": "Alienação Fiduciária",
+        "uso": "Aguardar ementa oficial; até lá usar só corpus descritivo do tema.",
+        "forca": "baixa",
         "fonte": "acervo_interno"
       }
     ],
-    "dissidios": [],
+    "resultados": [
+      {
+        "id": "48",
+        "titulo": "5ª Câmara Cível · 16/11/2020",
+        "desfecho": "Ação revisional de contrato bancário garantido por alienação fiduciária. Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+        "aprendizado": "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples."
+      },
+      {
+        "id": "49",
+        "titulo": "18ª Câmara Cível · 03/05/2021",
+        "desfecho": "Ação revisional de contrato. Alienação fiduciária. Impugnação ao cumprimento de sentença. Alegado excesso de execução. Incidência de juros remuneratórios reflexos sobre a tarifa declarada abusiva pela sentença.",
+        "aprendizado": "18ª Câmara Cível · 03/05/2021. A ementa oficial fecha contra o pedido: Recurso conhecido e provido."
+      },
+      {
+        "id": "50",
+        "titulo": "18ª Câmara Cível · 06/04/2020",
+        "desfecho": "ALIENAÇÃO FIDUCIÁRIA. JUROS REMUNERATÓRIOS. AUSÊNCIA DE ABUSIVIDADE. CAPITALIZAÇÃO DE JUROS PACTUADA. tarifa de registro DO CONTRATO E GRAVAME ELETRÔNICO.",
+        "aprendizado": "18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES."
+      }
+    ],
+    "conversas": [],
+    "jurisprudencias": [
+      {
+        "id": "48",
+        "processNumber": "90000038020128160025",
+        "acordao": "TJPR-4100000015299901 (tema)",
+        "court": "TJPR",
+        "chamber": "5ª Câmara Cível",
+        "reporter": "Nilson Mizuta Desembargador",
+        "date": "16/11/2020",
+        "status": "SENTENCIADO",
+        "alignment": "diverge",
+        "ementa": "Apelação cível. Ação revisional de contrato bancário garantido por alienação fiduciária. Procedência. Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples. Ajuizamento do cumprimento de sentença. Impugnação ao cumprimento de sentença. Alegação de excesso e pedido de compensação (vinte parcelas não pagas de um total de 36). Concordância entre as partes quanto ao não pagamento das 20 parcelas. Várias memórias de cálculos elaboradas. Homologação do último cálculo que incluiu a compensação entre os créditos de ambas as partes. Sentença que acolhe a impugnação ao cumprimento de sentença. Mérito do apelo. Pedido de prestação de contas quanto à venda do bem nestes autos. Não acolhimento. Etapa que deve ocorrer nos respectivos autos de busca e apreensão (art. 2º do decreto-lei nº 911/1969). Precedentes do stj e tjpr. Impossibilidade de determinação de adequação do rito nesta instância. Compensação entre saldo devedor do contrato e os valores cobrados indevidamente reconhecidos na ação revisional. Legalidade. Possibilidade de compensação de valores ainda que a sentença ou o acórdão não tenham assim determinado. Inteligência do art. 368 do código civil. Não existe qualquer vedação legal para que se dê a compensação se a apelante e o apelado são reciprocamente credores e devedores entre si. Precedentes.1. A prestação de contas é fase prevista no caput do art. 2º, do decreto-lei nº 911/1969, todavia, esta deve ser requerida nos respectivos autos da ação de busca e apreensão, conforme já decidiu o superior tribunal de justiça: “ação de prestação de contas. Interesse processual. Alienação fiduciária. Busca e apreensão. Leilão extrajudicial. Veiculo automotor. (..) no caso de alienação extrajudicial de veículo automotor regida pelo art. 2º do decreto-lei n. 911/1969 - redação anterior à lei n. 13.043/2014 -, tem o devedor interesse processual na ação de prestação de contas, quanto aos valores decorrentes da venda e à correta imputação no débito (saldo remanescente). (...).” (stj - resp 1678525/sp, rel. Ministro antonio carlos ferreira, quarta turma, julgado em 05/10/2017, dje 09/10/2017)2. Faz-se possível a compensação de valores entre os créditos ainda pendentes do financiamento do veículo e aqueles reconhecidos em ação revisional como abusivos, conforme este e. Tribunal de justiça já decidiu: “(...) compensação de valores é a forma preferencial de pagamento desde que não exista qualquer vedação legal acerca da sua possibilidade. Apesar de não haver previsão de compensação em fase de conhecimento, não existe qualquer vedação acerca da sua impossibilidade em fase de execução, eis que se trata de dívida líquida, certa e exigível.” (tjpr - 18ª c.cível - 9000062-36.2018.8.16.0000 - curitiba - rel.: juíza subst. 2ºgrau denise antunes - j. 13.03.2019)recurso não provido.",
+        "pontos": [],
+        "essencial": {
+          "resumo": "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+          "itens": [
+            "Ação revisional de contrato bancário garantido por alienação fiduciária.",
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+            "Ajuizamento do cumprimento de sentença.",
+            "Impugnação ao cumprimento de sentença."
+          ]
+        },
+        "fortalecer": {
+          "resumo": "Use só a parte do julgado que favorece o pedido e isole o restante.",
+          "itens": [
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples."
+          ]
+        },
+        "blindar": {
+          "resumo": "Onde a parte contrária pode apoiar o ataque, segundo a ementa oficial.",
+          "itens": [
+            "Ação revisional de contrato bancário garantido por alienação fiduciária.",
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+            "Ajuizamento do cumprimento de sentença."
+          ]
+        },
+        "contrapor": {
+          "resumo": "Como limitar o alcance deste julgado: o dispositivo oficial e o contexto da câmara.",
+          "itens": [
+            "Ação revisional de contrato bancário garantido por alienação fiduciária.",
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+            "Ajuizamento do cumprimento de sentença."
+          ]
+        },
+        "citavel": true,
+        "fonte": "tjpr",
+        "relacao": "precedente_tema"
+      },
+      {
+        "id": "49",
+        "processNumber": "90000038020128160025",
+        "acordao": "TJPR-4100000016690231 (tema)",
+        "court": "TJPR",
+        "chamber": "18ª Câmara Cível",
+        "reporter": "Marcelo Gobbo Dalla Dea Desembargador",
+        "date": "03/05/2021",
+        "status": "SENTENCIADO",
+        "alignment": "against",
+        "ementa": "Apelação cível. Ação revisional de contrato. Alienação fiduciária. Impugnação ao cumprimento de sentença. Acolhimento. Alegado excesso de execução. Incidência de juros remuneratórios reflexos sobre a tarifa declarada abusiva pela sentença. Possibilidade, sob pena de enriquecimento sem causa. Encargos acessórios que devem seguir a sorte do principal. Ausência de ofensa à coisa julgada. Recurso conhecido e provido.",
+        "pontos": [],
+        "essencial": {
+          "resumo": "18ª Câmara Cível · 03/05/2021. A ementa oficial fecha contra o pedido: Recurso conhecido e provido.",
+          "itens": [
+            "Ação revisional de contrato.",
+            "Alienação fiduciária.",
+            "Impugnação ao cumprimento de sentença.",
+            "Alegado excesso de execução."
+          ]
+        },
+        "fortalecer": {
+          "resumo": "Este julgado fecha contra. Sirva-se dele para saber o que o tribunal já recusou.",
+          "itens": [
+            "Ação revisional de contrato.",
+            "Alienação fiduciária.",
+            "Impugnação ao cumprimento de sentença."
+          ]
+        },
+        "blindar": {
+          "resumo": "Onde a parte contrária pode apoiar o ataque, segundo a ementa oficial.",
+          "itens": [
+            "Ação revisional de contrato.",
+            "Alienação fiduciária.",
+            "Impugnação ao cumprimento de sentença."
+          ]
+        },
+        "contrapor": {
+          "resumo": "Como limitar o alcance deste julgado: o dispositivo oficial e o contexto da câmara.",
+          "itens": [
+            "Ação revisional de contrato.",
+            "Alienação fiduciária.",
+            "Impugnação ao cumprimento de sentença."
+          ]
+        },
+        "citavel": true,
+        "fonte": "tjpr",
+        "relacao": "precedente_tema"
+      },
+      {
+        "id": "50",
+        "processNumber": "90000038020128160025",
+        "acordao": "TJPR-4100000012641161 (tema)",
+        "court": "TJPR",
+        "chamber": "18ª Câmara Cível",
+        "reporter": "Marcelo Gobbo Dalla Dea Desembargador",
+        "date": "06/04/2020",
+        "status": "SENTENCIADO",
+        "alignment": "diverge",
+        "ementa": "APELAÇÃO CÍVEL. AÇÃO REVISIONAL. ALIENAÇÃO FIDUCIÁRIA. JUROS REMUNERATÓRIOS. AUSÊNCIA DE ABUSIVIDADE. CAPITALIZAÇÃO DE JUROS PACTUADA. tarifa de registro DO CONTRATO E GRAVAME ELETRÔNICO. LEGALIDADE. SEGURO PROTEÇÃO. VENDA CASADA. ABUSIVIDADE. COMISSÃO DE PERMANÊNCIA. INEXISTÊNCIA. DEVOLUÇÃO NA FORMA SIMPLES. SUCUMBÊNCIA REDISTRIBUÍDA. RECURSO CONHECIDO E PARCIALMENTE PROVIDO.1. É livre a pactuação dos juros remuneratórios através do posicionamento jurisprudencial do Superior Tribunal de Justiça, de forma que a sua limitação ao patamar acima de 12% ao ano não indica abusividade. 2. O Superior Tribunal de Justiça firmou entendimento no RESP 973827 de que a capitalização é válida desde que expressamente pactuada.3. É permitida a capitalização de juros, sendo autorizada pelo Superior Tribunal de Justiça nos REsp 1251331 e 1255573, julgados pelo rito do artigo 543-C do Código de Processo Civil/73.4. É passível de repasse ao consumidor o custo referente à tarifa de registro do contrato de financiamento de veículo com cláusula de garantia fiduciária, desde que a cobrança pelo registro do contrato corresponda a um serviço efetivamente prestado e que o valor não se mostre abusivo.5. Nos contratos bancários em geral, o consumidor não pode ser compelido a contratar seguro com a instituição financeira ou com seguradora por ela indicada (STJ – Recurso Especial Repetitivo nº 1.639.259/SP e nº 1.639.320/SP - Tema 972).6. Nos contratos de concessão de crédito, a importância cobrada a título de comissão de permanência não poderá ultrapassar a soma dos encargos remuneratórios e moratórios previstos no contrato, ou seja: a) juros remuneratórios à taxa média de mercado, não podendo ultrapassar o percentual contratado para o período de normalidade da operação; b) juros moratórios até o limite de 12% ao ano; e c) multa contratual limitada a 2% do valor da prestação, nos termos do art. 52. § 1º, do CDC.",
+        "pontos": [],
+        "essencial": {
+          "resumo": "18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES.",
+          "itens": [
+            "Alienação fiduciária.",
+            "Juros remuneratórios.",
+            "Ausência de abusividade.",
+            "Capitalização de juros pactuada."
+          ]
+        },
+        "fortalecer": {
+          "resumo": "Use só a parte do julgado que favorece o pedido e isole o restante.",
+          "itens": [
+            "Alienação fiduciária.",
+            "Juros remuneratórios.",
+            "Ausência de abusividade."
+          ]
+        },
+        "blindar": {
+          "resumo": "Onde a parte contrária pode apoiar o ataque, segundo a ementa oficial.",
+          "itens": [
+            "Alienação fiduciária.",
+            "Juros remuneratórios.",
+            "Ausência de abusividade."
+          ]
+        },
+        "contrapor": {
+          "resumo": "Como limitar o alcance deste julgado: o dispositivo oficial e o contexto da câmara.",
+          "itens": [
+            "Alienação fiduciária.",
+            "Juros remuneratórios.",
+            "Ausência de abusividade."
+          ]
+        },
+        "citavel": true,
+        "fonte": "tjpr",
+        "relacao": "precedente_tema"
+      }
+    ],
+    "dissidios": [
+      {
+        "camara": "5ª Câmara Cível",
+        "orientacao": "Neste órgão: 0 a favor, 0 contra, 1 divergente.",
+        "versus": "diverge",
+        "nota": "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+        "fonte": "acervo_interno"
+      },
+      {
+        "camara": "18ª Câmara Cível",
+        "orientacao": "Neste órgão: 0 a favor, 1 contra, 1 divergente.",
+        "versus": "against",
+        "nota": "18ª Câmara Cível · 03/05/2021. A ementa oficial fecha contra o pedido: Recurso conhecido e provido.",
+        "fonte": "acervo_interno"
+      }
+    ],
     "jurimetria": {
-      "amostra": 0,
-      "padrao": "",
-      "interno": "",
-      "riscos": []
+      "amostra": 3,
+      "padrao": "No recorte oficial deste caso há 3 acórdãos do TJPR (5ª Câmara Cível, 18ª Câmara Cível). Distribuição: 0 a favor, 1 contra, 2 divergente.",
+      "interno": "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples. 18ª Câmara Cível · 03/05/2021. A ementa oficial fecha contra o pedido: Recurso conhecido e provido. 18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES.",
+      "riscos": [
+        "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+        "18ª Câmara Cível · 03/05/2021. A ementa oficial fecha contra o pedido: Recurso conhecido e provido.",
+        "18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES."
+      ]
     },
     "fontes": {
       "titulo": "acervo_interno",
@@ -1247,21 +1749,21 @@ export const ACERVO_REAL: Caso[] = [
       "resumo": "acervo_interno",
       "tese": "acervo_interno",
       "atualizacao": "acervo_interno",
-      "chance": "indisponivel",
-      "votos": "indisponivel",
+      "chance": "tjpr",
+      "votos": "tjpr",
       "peticoes": "acervo_interno",
-      "contratos": "indisponivel",
+      "contratos": "acervo_interno",
       "documentos": "acervo_interno",
       "decisoes": "acervo_interno",
       "modelos": "indisponivel",
       "historico": "acervo_interno",
       "prazos": "acervo_interno",
-      "teses": "indisponivel",
-      "resultados": "indisponivel",
+      "teses": "acervo_interno",
+      "resultados": "acervo_interno",
       "conversas": "indisponivel",
-      "jurisprudencias": "acervo_interno",
-      "dissidios": "indisponivel",
-      "jurimetria": "indisponivel"
+      "jurisprudencias": "tjpr",
+      "dissidios": "acervo_interno",
+      "jurimetria": "tjpr"
     }
   },
   {
@@ -1271,7 +1773,7 @@ export const ACERVO_REAL: Caso[] = [
     "subtema": "Cumprimento de sentença",
     "processNumber": "9000004-07.2016.8.16.0193",
     "court": "TJPR",
-    "chamber": "BOCAIÚVA DO SUL - JUÍZO ÚNICO",
+    "chamber": "Bocaiúva do sul - juízo único",
     "status": "TRANSITADO_EM_JULGADO",
     "cliente": "Parte autora (sigilo)",
     "partes": [
@@ -1285,15 +1787,15 @@ export const ACERVO_REAL: Caso[] = [
       }
     ],
     "resumo": "Cumprimento de sentença perante BOCAIÚVA DO SUL - JUÍZO ÚNICO (TJPR). Assunto(s) DataJud: Contratos Bancários.",
-    "tese": "Indisponível no DataJud (capa/andamentos apenas).",
+    "tese": "Ação revisional de contrato bancário garantido por alienação fiduciária. Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
     "atualizacao": "10/06/2026",
-    "chance": 0,
-    "chanceRotulo": "indisponível sem modelo oficial",
-    "chanceTexto": "indisponível sem modelo oficial",
+    "chance": 50,
+    "chanceRotulo": "recorte descritivo TJPR",
+    "chanceTexto": "Com base em 1 ementa(s) oficial(is) do portal TJPR neste recorte: 0 a favor, 0 contra, 1 divergente(s). Índice descritivo (favor +½ divergente).",
     "votos": {
       "for": 0,
       "against": 0,
-      "diverge": 0
+      "diverge": 3
     },
     "peticoes": [
       {
@@ -1361,7 +1863,16 @@ export const ACERVO_REAL: Caso[] = [
         "resumo": "Andamento DataJud: Petição em 12/08/2016."
       }
     ],
-    "contratos": [],
+    "contratos": [
+      {
+        "id": "ctr-capa",
+        "titulo": "Contratos Bancários",
+        "tipo": "Capa do processo",
+        "data": "10/06/2026",
+        "origem": "TJPR",
+        "resumo": "Cumprimento de sentença perante BOCAIÚVA DO SUL - JUÍZO ÚNICO (TJPR). Assunto(s) DataJud: Contratos Bancários."
+      }
+    ],
     "documentos": [
       {
         "id": "25",
@@ -1541,11 +2052,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 5,
         "calendar": "uteis",
         "status": "vencido",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para prestar esclarecimentos sobre os pontos indicados pelo juízo.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-01",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-01"
       },
       {
         "id": "30",
@@ -1555,11 +2065,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 10,
         "calendar": "uteis",
         "status": "a_vencer",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para juntar os documentos solicitados pelo juízo.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-02",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-02"
       },
       {
         "id": "56",
@@ -1569,11 +2078,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 15,
         "calendar": "uteis",
         "status": "aberto",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para especificar as provas pretendidas e justificar sua pertinência.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-10",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-10"
       },
       {
         "id": "82",
@@ -1583,55 +2091,221 @@ export const ACERVO_REAL: Caso[] = [
         "days": 15,
         "calendar": "uteis",
         "status": "cumprido",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para apresentar manifestação sobre documento juntado aos autos.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-08-14",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real. Cumprimento fictício registrado apenas para demonstrar o filtro da tela."
+        "startedAt": "2026-08-14"
       }
     ],
-    "teses": [],
-    "resultados": [],
-    "conversas": [],
-    "jurisprudencias": [
+    "teses": [
       {
-        "id": "4",
-        "processNumber": "90000040720168160193",
-        "acordao": "[NÃO OFICIAL] Referência de capa 9000004-07.2016.8.16.0193",
-        "court": "TJPR",
-        "chamber": "BOCAIÚVA DO SUL - JUÍZO ÚNICO",
-        "reporter": "Não informado",
-        "date": "10/06/2026",
-        "status": "TRANSITADO_EM_JULGADO",
-        "alignment": "diverge",
-        "ementa": "",
-        "pontos": [],
-        "essencial": {
-          "resumo": "",
-          "itens": []
-        },
-        "fortalecer": {
-          "resumo": "",
-          "itens": []
-        },
-        "blindar": {
-          "resumo": "",
-          "itens": []
-        },
-        "contrapor": {
-          "resumo": "",
-          "itens": []
-        },
-        "citavel": false,
+        "id": "30",
+        "titulo": "Contratos Bancários",
+        "uso": "Aguardar ementa oficial; até lá usar só corpus descritivo do tema.",
+        "forca": "media",
         "fonte": "acervo_interno"
       }
     ],
-    "dissidios": [],
+    "resultados": [
+      {
+        "id": "51",
+        "titulo": "5ª Câmara Cível · 16/11/2020",
+        "desfecho": "Ação revisional de contrato bancário garantido por alienação fiduciária. Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+        "aprendizado": "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples."
+      },
+      {
+        "id": "52",
+        "titulo": "18ª Câmara Cível · 06/04/2020",
+        "desfecho": "ALIENAÇÃO FIDUCIÁRIA. JUROS REMUNERATÓRIOS. AUSÊNCIA DE ABUSIVIDADE. CAPITALIZAÇÃO DE JUROS PACTUADA. tarifa de registro DO CONTRATO E GRAVAME ELETRÔNICO.",
+        "aprendizado": "18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES."
+      },
+      {
+        "id": "53",
+        "titulo": "1ª Turma Recursal · 14/06/2021",
+        "desfecho": "Ementa: recurso inominado. Ação de revisão contratual c/c repetição de indébito. Contrato de financiamento. Alegação de cobrança abusiva de juros remuneratórios.",
+        "aprendizado": "1ª Turma Recursal · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida."
+      }
+    ],
+    "conversas": [],
+    "jurisprudencias": [
+      {
+        "id": "51",
+        "processNumber": "90000040720168160193",
+        "acordao": "TJPR-4100000015299901 (tema)",
+        "court": "TJPR",
+        "chamber": "5ª Câmara Cível",
+        "reporter": "Nilson Mizuta Desembargador",
+        "date": "16/11/2020",
+        "status": "SENTENCIADO",
+        "alignment": "diverge",
+        "ementa": "Apelação cível. Ação revisional de contrato bancário garantido por alienação fiduciária. Procedência. Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples. Ajuizamento do cumprimento de sentença. Impugnação ao cumprimento de sentença. Alegação de excesso e pedido de compensação (vinte parcelas não pagas de um total de 36). Concordância entre as partes quanto ao não pagamento das 20 parcelas. Várias memórias de cálculos elaboradas. Homologação do último cálculo que incluiu a compensação entre os créditos de ambas as partes. Sentença que acolhe a impugnação ao cumprimento de sentença. Mérito do apelo. Pedido de prestação de contas quanto à venda do bem nestes autos. Não acolhimento. Etapa que deve ocorrer nos respectivos autos de busca e apreensão (art. 2º do decreto-lei nº 911/1969). Precedentes do stj e tjpr. Impossibilidade de determinação de adequação do rito nesta instância. Compensação entre saldo devedor do contrato e os valores cobrados indevidamente reconhecidos na ação revisional. Legalidade. Possibilidade de compensação de valores ainda que a sentença ou o acórdão não tenham assim determinado. Inteligência do art. 368 do código civil. Não existe qualquer vedação legal para que se dê a compensação se a apelante e o apelado são reciprocamente credores e devedores entre si. Precedentes.1. A prestação de contas é fase prevista no caput do art. 2º, do decreto-lei nº 911/1969, todavia, esta deve ser requerida nos respectivos autos da ação de busca e apreensão, conforme já decidiu o superior tribunal de justiça: “ação de prestação de contas. Interesse processual. Alienação fiduciária. Busca e apreensão. Leilão extrajudicial. Veiculo automotor. (..) no caso de alienação extrajudicial de veículo automotor regida pelo art. 2º do decreto-lei n. 911/1969 - redação anterior à lei n. 13.043/2014 -, tem o devedor interesse processual na ação de prestação de contas, quanto aos valores decorrentes da venda e à correta imputação no débito (saldo remanescente). (...).” (stj - resp 1678525/sp, rel. Ministro antonio carlos ferreira, quarta turma, julgado em 05/10/2017, dje 09/10/2017)2. Faz-se possível a compensação de valores entre os créditos ainda pendentes do financiamento do veículo e aqueles reconhecidos em ação revisional como abusivos, conforme este e. Tribunal de justiça já decidiu: “(...) compensação de valores é a forma preferencial de pagamento desde que não exista qualquer vedação legal acerca da sua possibilidade. Apesar de não haver previsão de compensação em fase de conhecimento, não existe qualquer vedação acerca da sua impossibilidade em fase de execução, eis que se trata de dívida líquida, certa e exigível.” (tjpr - 18ª c.cível - 9000062-36.2018.8.16.0000 - curitiba - rel.: juíza subst. 2ºgrau denise antunes - j. 13.03.2019)recurso não provido.",
+        "pontos": [],
+        "essencial": {
+          "resumo": "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+          "itens": [
+            "Ação revisional de contrato bancário garantido por alienação fiduciária.",
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+            "Ajuizamento do cumprimento de sentença.",
+            "Impugnação ao cumprimento de sentença."
+          ]
+        },
+        "fortalecer": {
+          "resumo": "Use só a parte do julgado que favorece o pedido e isole o restante.",
+          "itens": [
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples."
+          ]
+        },
+        "blindar": {
+          "resumo": "Onde a parte contrária pode apoiar o ataque, segundo a ementa oficial.",
+          "itens": [
+            "Ação revisional de contrato bancário garantido por alienação fiduciária.",
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+            "Ajuizamento do cumprimento de sentença."
+          ]
+        },
+        "contrapor": {
+          "resumo": "Como limitar o alcance deste julgado: o dispositivo oficial e o contexto da câmara.",
+          "itens": [
+            "Ação revisional de contrato bancário garantido por alienação fiduciária.",
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+            "Ajuizamento do cumprimento de sentença."
+          ]
+        },
+        "citavel": true,
+        "fonte": "tjpr",
+        "relacao": "precedente_tema"
+      },
+      {
+        "id": "52",
+        "processNumber": "90000040720168160193",
+        "acordao": "TJPR-4100000012641161 (tema)",
+        "court": "TJPR",
+        "chamber": "18ª Câmara Cível",
+        "reporter": "Marcelo Gobbo Dalla Dea Desembargador",
+        "date": "06/04/2020",
+        "status": "SENTENCIADO",
+        "alignment": "diverge",
+        "ementa": "APELAÇÃO CÍVEL. AÇÃO REVISIONAL. ALIENAÇÃO FIDUCIÁRIA. JUROS REMUNERATÓRIOS. AUSÊNCIA DE ABUSIVIDADE. CAPITALIZAÇÃO DE JUROS PACTUADA. tarifa de registro DO CONTRATO E GRAVAME ELETRÔNICO. LEGALIDADE. SEGURO PROTEÇÃO. VENDA CASADA. ABUSIVIDADE. COMISSÃO DE PERMANÊNCIA. INEXISTÊNCIA. DEVOLUÇÃO NA FORMA SIMPLES. SUCUMBÊNCIA REDISTRIBUÍDA. RECURSO CONHECIDO E PARCIALMENTE PROVIDO.1. É livre a pactuação dos juros remuneratórios através do posicionamento jurisprudencial do Superior Tribunal de Justiça, de forma que a sua limitação ao patamar acima de 12% ao ano não indica abusividade. 2. O Superior Tribunal de Justiça firmou entendimento no RESP 973827 de que a capitalização é válida desde que expressamente pactuada.3. É permitida a capitalização de juros, sendo autorizada pelo Superior Tribunal de Justiça nos REsp 1251331 e 1255573, julgados pelo rito do artigo 543-C do Código de Processo Civil/73.4. É passível de repasse ao consumidor o custo referente à tarifa de registro do contrato de financiamento de veículo com cláusula de garantia fiduciária, desde que a cobrança pelo registro do contrato corresponda a um serviço efetivamente prestado e que o valor não se mostre abusivo.5. Nos contratos bancários em geral, o consumidor não pode ser compelido a contratar seguro com a instituição financeira ou com seguradora por ela indicada (STJ – Recurso Especial Repetitivo nº 1.639.259/SP e nº 1.639.320/SP - Tema 972).6. Nos contratos de concessão de crédito, a importância cobrada a título de comissão de permanência não poderá ultrapassar a soma dos encargos remuneratórios e moratórios previstos no contrato, ou seja: a) juros remuneratórios à taxa média de mercado, não podendo ultrapassar o percentual contratado para o período de normalidade da operação; b) juros moratórios até o limite de 12% ao ano; e c) multa contratual limitada a 2% do valor da prestação, nos termos do art. 52. § 1º, do CDC.",
+        "pontos": [],
+        "essencial": {
+          "resumo": "18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES.",
+          "itens": [
+            "Alienação fiduciária.",
+            "Juros remuneratórios.",
+            "Ausência de abusividade.",
+            "Capitalização de juros pactuada."
+          ]
+        },
+        "fortalecer": {
+          "resumo": "Use só a parte do julgado que favorece o pedido e isole o restante.",
+          "itens": [
+            "Alienação fiduciária.",
+            "Juros remuneratórios.",
+            "Ausência de abusividade."
+          ]
+        },
+        "blindar": {
+          "resumo": "Onde a parte contrária pode apoiar o ataque, segundo a ementa oficial.",
+          "itens": [
+            "Alienação fiduciária.",
+            "Juros remuneratórios.",
+            "Ausência de abusividade."
+          ]
+        },
+        "contrapor": {
+          "resumo": "Como limitar o alcance deste julgado: o dispositivo oficial e o contexto da câmara.",
+          "itens": [
+            "Alienação fiduciária.",
+            "Juros remuneratórios.",
+            "Ausência de abusividade."
+          ]
+        },
+        "citavel": true,
+        "fonte": "tjpr",
+        "relacao": "precedente_tema"
+      },
+      {
+        "id": "53",
+        "processNumber": "90000040720168160193",
+        "acordao": "TJPR-2100000014800751 (tema)",
+        "court": "TJPR",
+        "chamber": "1ª Turma Recursal",
+        "reporter": "Melissa de Azevedo Olivas Juíza de Direito da Turma Recursal dos Juízaados Especiais",
+        "date": "14/06/2021",
+        "status": "SENTENCIADO",
+        "alignment": "diverge",
+        "ementa": "Ementa: recurso inominado. Ação de revisão contratual c/c repetição de indébito. Direito bancário. Contrato de financiamento. Alegação de cobrança abusiva de juros remuneratórios. Taxa média acima da praticada no mercado. Recálculo que necessita de cálculos complexos. Incompetência dos juizados especiais. Tarifa de registro. Ausência de prova da prestação do serviço. Restituição devida. Sentença parcialmente reformada. Recurso da parte autora conhecido e parcialmente provido.",
+        "pontos": [],
+        "essencial": {
+          "resumo": "1ª Turma Recursal · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida.",
+          "itens": [
+            "Ementa: recurso inominado.",
+            "Ação de revisão contratual c/c repetição de indébito.",
+            "Contrato de financiamento.",
+            "Alegação de cobrança abusiva de juros remuneratórios."
+          ]
+        },
+        "fortalecer": {
+          "resumo": "Use só a parte do julgado que favorece o pedido e isole o restante.",
+          "itens": [
+            "Ementa: recurso inominado.",
+            "Ação de revisão contratual c/c repetição de indébito.",
+            "Contrato de financiamento."
+          ]
+        },
+        "blindar": {
+          "resumo": "Onde a parte contrária pode apoiar o ataque, segundo a ementa oficial.",
+          "itens": [
+            "Ementa: recurso inominado.",
+            "Ação de revisão contratual c/c repetição de indébito.",
+            "Contrato de financiamento."
+          ]
+        },
+        "contrapor": {
+          "resumo": "Como limitar o alcance deste julgado: o dispositivo oficial e o contexto da câmara.",
+          "itens": [
+            "Ementa: recurso inominado.",
+            "Ação de revisão contratual c/c repetição de indébito.",
+            "Contrato de financiamento."
+          ]
+        },
+        "citavel": true,
+        "fonte": "tjpr",
+        "relacao": "precedente_tema"
+      }
+    ],
+    "dissidios": [
+      {
+        "camara": "5ª Câmara Cível",
+        "orientacao": "Neste órgão: 0 a favor, 0 contra, 1 divergente.",
+        "versus": "diverge",
+        "nota": "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+        "fonte": "acervo_interno"
+      },
+      {
+        "camara": "18ª Câmara Cível",
+        "orientacao": "Neste órgão: 0 a favor, 0 contra, 1 divergente.",
+        "versus": "diverge",
+        "nota": "18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES.",
+        "fonte": "acervo_interno"
+      },
+      {
+        "camara": "1ª Turma Recursal",
+        "orientacao": "Neste órgão: 0 a favor, 0 contra, 1 divergente.",
+        "versus": "diverge",
+        "nota": "1ª Turma Recursal · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida.",
+        "fonte": "acervo_interno"
+      }
+    ],
     "jurimetria": {
-      "amostra": 0,
-      "padrao": "",
-      "interno": "",
-      "riscos": []
+      "amostra": 3,
+      "padrao": "No recorte oficial deste caso há 3 acórdãos do TJPR (5ª Câmara Cível, 18ª Câmara Cível, 1ª Turma Recursal). Distribuição: 0 a favor, 0 contra, 3 divergente.",
+      "interno": "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples. 18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES. 1ª Turma Recursal · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida.",
+      "riscos": [
+        "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+        "18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES.",
+        "1ª Turma Recursal · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida."
+      ]
     },
     "fontes": {
       "titulo": "acervo_interno",
@@ -1646,21 +2320,21 @@ export const ACERVO_REAL: Caso[] = [
       "resumo": "acervo_interno",
       "tese": "acervo_interno",
       "atualizacao": "acervo_interno",
-      "chance": "indisponivel",
-      "votos": "indisponivel",
+      "chance": "tjpr",
+      "votos": "tjpr",
       "peticoes": "acervo_interno",
-      "contratos": "indisponivel",
+      "contratos": "acervo_interno",
       "documentos": "acervo_interno",
       "decisoes": "acervo_interno",
       "modelos": "indisponivel",
       "historico": "acervo_interno",
       "prazos": "acervo_interno",
-      "teses": "indisponivel",
-      "resultados": "indisponivel",
+      "teses": "acervo_interno",
+      "resultados": "acervo_interno",
       "conversas": "indisponivel",
-      "jurisprudencias": "acervo_interno",
-      "dissidios": "indisponivel",
-      "jurimetria": "indisponivel"
+      "jurisprudencias": "tjpr",
+      "dissidios": "acervo_interno",
+      "jurimetria": "tjpr"
     }
   },
   {
@@ -1670,7 +2344,7 @@ export const ACERVO_REAL: Caso[] = [
     "subtema": "Cumprimento de sentença",
     "processNumber": "9000005-26.2015.8.16.0193",
     "court": "TJPR",
-    "chamber": "COLOMBO - 1ª VARA CÍVEL",
+    "chamber": "Colombo - 1ª vara cível",
     "status": "TRANSITADO_EM_JULGADO",
     "cliente": "Parte autora (sigilo)",
     "partes": [
@@ -1684,15 +2358,15 @@ export const ACERVO_REAL: Caso[] = [
       }
     ],
     "resumo": "Cumprimento de sentença perante COLOMBO - 1ª VARA CÍVEL (TJPR). Assunto(s) DataJud: Causas Supervenientes à Sentença.",
-    "tese": "Indisponível no DataJud (capa/andamentos apenas).",
+    "tese": "Ação revisional de contrato de financiamento bancário em sede de cumprimento de sentença.",
     "atualizacao": "10/06/2026",
-    "chance": 0,
-    "chanceRotulo": "indisponível sem modelo oficial",
-    "chanceTexto": "indisponível sem modelo oficial",
+    "chance": 29,
+    "chanceRotulo": "recorte descritivo TJPR",
+    "chanceTexto": "Com base em 14 ementa(s) oficial(is) do portal TJPR neste recorte: 1 a favor, 7 contra, 6 divergente(s). Índice descritivo (favor +½ divergente).",
     "votos": {
-      "for": 0,
-      "against": 0,
-      "diverge": 0
+      "for": 1,
+      "against": 1,
+      "diverge": 1
     },
     "peticoes": [
       {
@@ -1996,11 +2670,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 5,
         "calendar": "uteis",
         "status": "vencido",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para prestar esclarecimentos sobre os pontos indicados pelo juízo.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-01",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-01"
       },
       {
         "id": "31",
@@ -2010,11 +2683,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 10,
         "calendar": "uteis",
         "status": "a_vencer",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para juntar os documentos solicitados pelo juízo.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-02",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-02"
       },
       {
         "id": "57",
@@ -2024,11 +2696,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 15,
         "calendar": "uteis",
         "status": "aberto",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para especificar as provas pretendidas e justificar sua pertinência.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-10",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-10"
       },
       {
         "id": "83",
@@ -2038,55 +2709,205 @@ export const ACERVO_REAL: Caso[] = [
         "days": 15,
         "calendar": "uteis",
         "status": "cumprido",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para apresentar manifestação sobre documento juntado aos autos.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-08-14",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real. Cumprimento fictício registrado apenas para demonstrar o filtro da tela."
+        "startedAt": "2026-08-14"
       }
     ],
-    "teses": [],
-    "resultados": [],
-    "conversas": [],
-    "jurisprudencias": [
+    "teses": [
       {
-        "id": "5",
-        "processNumber": "90000052620158160193",
-        "acordao": "[NÃO OFICIAL] Referência de capa 9000005-26.2015.8.16.0193",
-        "court": "TJPR",
-        "chamber": "COLOMBO - 1ª VARA CÍVEL",
-        "reporter": "Não informado",
-        "date": "10/06/2026",
-        "status": "TRANSITADO_EM_JULGADO",
-        "alignment": "diverge",
-        "ementa": "",
-        "pontos": [],
-        "essencial": {
-          "resumo": "",
-          "itens": []
-        },
-        "fortalecer": {
-          "resumo": "",
-          "itens": []
-        },
-        "blindar": {
-          "resumo": "",
-          "itens": []
-        },
-        "contrapor": {
-          "resumo": "",
-          "itens": []
-        },
-        "citavel": false,
+        "id": "31",
+        "titulo": "Causas Supervenientes à Sentença",
+        "uso": "Aguardar ementa oficial; até lá usar só corpus descritivo do tema.",
+        "forca": "baixa",
         "fonte": "acervo_interno"
       }
     ],
-    "dissidios": [],
+    "resultados": [
+      {
+        "id": "54",
+        "titulo": "18ª Câmara Cível · 25/05/2020",
+        "desfecho": "Ação revisional de contrato de financiamento bancário em sede de cumprimento de sentença.",
+        "aprendizado": "18ª Câmara Cível · 25/05/2020. A ementa oficial acolhe o sentido do pedido: Decisão transitada em julgado que concluiu pela exclusão dos juros de forma capitalizada, impossibilidade de cobrança cumulada da comissão de permanência com outros encargos, inexistência da mora, diante da presença de encargos abusivos e pela necessidade de restituição do valor cobrado indevidamente de forma simples."
+      },
+      {
+        "id": "55",
+        "titulo": "5ª Câmara Cível · 18/10/2022",
+        "desfecho": "Costa neto (em regime de substituição ao desembargador ramon de medeiros nogueira).",
+        "aprendizado": "5ª Câmara Cível · 18/10/2022. A ementa oficial fecha contra o pedido: Apelação cível – ação de rescisão contratual em fase de cumprimento de sentença – decisão interlocutória que rejeitou a impugnação apresentada – não cabimento do recurso interposto – decisum que não extingue a execução – recurso cabível – agravo de instrumento – impossibilidade de aplicação do princípio da fungibilidade recursal – erro grosseiro – recurso não conhecido."
+      },
+      {
+        "id": "56",
+        "titulo": "5ª Câmara Cível · 16/11/2020",
+        "desfecho": "Ação revisional de contrato bancário garantido por alienação fiduciária. Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+        "aprendizado": "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples."
+      }
+    ],
+    "conversas": [],
+    "jurisprudencias": [
+      {
+        "id": "54",
+        "processNumber": "90000052620158160193",
+        "acordao": "TJPR-4100000013018371 (tema)",
+        "court": "TJPR",
+        "chamber": "18ª Câmara Cível",
+        "reporter": "Pericles Bellusci de Batista Pereira Desembargador",
+        "date": "25/05/2020",
+        "status": "SENTENCIADO",
+        "alignment": "for",
+        "ementa": "Apelação cível. Ação revisional de contrato de financiamento bancário em sede de cumprimento de sentença. Decisão transitada em julgado que concluiu pela exclusão dos juros de forma capitalizada, impossibilidade de cobrança cumulada da comissão de permanência com outros encargos, inexistência da mora, diante da presença de encargos abusivos e pela necessidade de restituição do valor cobrado indevidamente de forma simples. Perito contábil que concluiu pela existência de saldo em favor do autor/exequente. Diversas insurgências da instituição financeira. Sentença que homologou a perícia, mas extinguiu a execução considerando a inexistência de saldo em favor do exequente. Insurgência. Divergência nos cálculos das partes. Inclusão da comissão de permanência e cômputo dos saldos. Conclusão correta da perícia contábil. Comissão de permanência somente devida em caso de subsistir mora. Decisão transitada em julgado que afastou a mora, sendo inaplicável cláusula válida relativa à comissão de permanência. Saldo contratual calculado a partir da posição do saldo devedor na planilha da instituição financeira e não pela simples soma das parcelas em aberto. - no caso, a decisão transitada em julgado, agora em sede de execução, concluiu: (i) pela exclusão dos juros de forma capitalizada; (ii) pela impossibilidade de cobrança cumulada da comissão de permanência com outros encargos; (iii) inexistência da mora, diante da presença de encargos abusivos; (iv) pela necessidade de restituição do valor cobrado indevidamente de forma simples.- a despeito da decisão ter concluído pela legalidade de cobrança da comissão de permanência de forma isolada, isto é, sem a cumulação com outros encargos, a mesma decisão entendeu inexistir mora por parte do autor, ora exequente, diante da cobrança pela instituição financeira de juros de forma capitalizada que tornavam inexigíveis os pagamentos da maneira com que eram cobrados, nesse sentido, inexistindo a mora, não se mostra aplicável a comissão de permanência, ainda que a sua cláusula fosse válida e eficaz, notadamente porque inexiste seu fato gerador.- sobre o valor alegadamente devido pelo contrato, não há que se acolher o raciocínio da instituição financeira que somou individualmente as parcelas 25 a 36 atualizando-as e acrescendo de juros, correto o cálculo do perito que partiu da posição do saldo devedor no momento do vencimento da 25ª parcela e deduziu o montante devido em favor do autor.recurso de apelação provido.",
+        "pontos": [],
+        "essencial": {
+          "resumo": "18ª Câmara Cível · 25/05/2020. A ementa oficial acolhe o sentido do pedido: Decisão transitada em julgado que concluiu pela exclusão dos juros de forma capitalizada, impossibilidade de cobrança cumulada da comissão de permanência com outros encargos, inexistência da mora, diante da presença de encargos abusivos e pela necessidade de restituição do valor cobrado indevidamente de forma simples.",
+          "itens": [
+            "Ação revisional de contrato de financiamento bancário em sede de cumprimento de sentença.",
+            "Decisão transitada em julgado que concluiu pela exclusão dos juros de forma capitalizada, impossibilidade de cobrança cumulada da comissão de permanência com outros encargos, inexistência da mora, diante da presença de encargos abusivos e pela necessidade de restituição do valor cobrado indevidamente de forma simples.",
+            "Perito contábil que concluiu pela existência de saldo em favor do autor/exequente.",
+            "Diversas insurgências da instituição financeira."
+          ]
+        },
+        "fortalecer": {
+          "resumo": "O que este acórdão oficial já reconheceu e pode ir para a peça.",
+          "itens": [
+            "Decisão transitada em julgado que concluiu pela exclusão dos juros de forma capitalizada, impossibilidade de cobrança cumulada da comissão de permanência com outros encargos, inexistência da mora, diante da presença de encargos abusivos e pela necessidade de restituição do valor cobrado indevidamente de forma simples."
+          ]
+        },
+        "blindar": {
+          "resumo": "Onde a parte contrária pode apoiar o ataque, segundo a ementa oficial.",
+          "itens": [
+            "Ação revisional de contrato de financiamento bancário em sede de cumprimento de sentença.",
+            "Decisão transitada em julgado que concluiu pela exclusão dos juros de forma capitalizada, impossibilidade de cobrança cumulada da comissão de permanência com outros encargos, inexistência da mora, diante da presença de encargos abusivos e pela necessidade de restituição do valor cobrado indevidamente de forma simples.",
+            "Perito contábil que concluiu pela existência de saldo em favor do autor/exequente."
+          ]
+        },
+        "contrapor": {
+          "resumo": "Se citarem este julgado contra você, volte ao dispositivo oficial e à identidade do caso.",
+          "itens": [
+            "Ação revisional de contrato de financiamento bancário em sede de cumprimento de sentença.",
+            "Decisão transitada em julgado que concluiu pela exclusão dos juros de forma capitalizada, impossibilidade de cobrança cumulada da comissão de permanência com outros encargos, inexistência da mora, diante da presença de encargos abusivos e pela necessidade de restituição do valor cobrado indevidamente de forma simples.",
+            "Perito contábil que concluiu pela existência de saldo em favor do autor/exequente."
+          ]
+        },
+        "citavel": true,
+        "fonte": "tjpr",
+        "relacao": "precedente_tema"
+      },
+      {
+        "id": "55",
+        "processNumber": "90000052620158160193",
+        "acordao": "TJPR-4100000022240782 (tema)",
+        "court": "TJPR",
+        "chamber": "5ª Câmara Cível",
+        "reporter": "Antonio Franco Ferreira da Costa Neto Desembargador",
+        "date": "18/10/2022",
+        "status": "SENTENCIADO",
+        "alignment": "against",
+        "ementa": "Costa neto (em regime de substituição ao desembargador ramon de medeiros nogueira). Apelação cível – ação de rescisão contratual em fase de cumprimento de sentença – decisão interlocutória que rejeitou a impugnação apresentada – não cabimento do recurso interposto – decisum que não extingue a execução – recurso cabível – agravo de instrumento – impossibilidade de aplicação do princípio da fungibilidade recursal – erro grosseiro – recurso não conhecido.",
+        "pontos": [],
+        "essencial": {
+          "resumo": "5ª Câmara Cível · 18/10/2022. A ementa oficial fecha contra o pedido: Apelação cível – ação de rescisão contratual em fase de cumprimento de sentença – decisão interlocutória que rejeitou a impugnação apresentada – não cabimento do recurso interposto – decisum que não extingue a execução – recurso cabível – agravo de instrumento – impossibilidade de aplicação do princípio da fungibilidade recursal – erro grosseiro – recurso não conhecido.",
+          "itens": [
+            "Costa neto (em regime de substituição ao desembargador ramon de medeiros nogueira).",
+            "Apelação cível – ação de rescisão contratual em fase de cumprimento de sentença – decisão interlocutória que rejeitou a impugnação apresentada – não cabimento do recurso interposto – decisum que não extingue a execução – recurso cabível – agravo de instrumento – impossibilidade de aplicação do princípio da fungibilidade recursal – erro grosseiro – recurso não conhecido."
+          ]
+        },
+        "fortalecer": {
+          "resumo": "Este julgado fecha contra. Sirva-se dele para saber o que o tribunal já recusou.",
+          "itens": [
+            "Costa neto (em regime de substituição ao desembargador ramon de medeiros nogueira).",
+            "Apelação cível – ação de rescisão contratual em fase de cumprimento de sentença – decisão interlocutória que rejeitou a impugnação apresentada – não cabimento do recurso interposto – decisum que não extingue a execução – recurso cabível – agravo de instrumento – impossibilidade de aplicação do princípio da fungibilidade recursal – erro grosseiro – recurso não conhecido."
+          ]
+        },
+        "blindar": {
+          "resumo": "Onde a parte contrária pode apoiar o ataque, segundo a ementa oficial.",
+          "itens": [
+            "Apelação cível – ação de rescisão contratual em fase de cumprimento de sentença – decisão interlocutória que rejeitou a impugnação apresentada – não cabimento do recurso interposto – decisum que não extingue a execução – recurso cabível – agravo de instrumento – impossibilidade de aplicação do princípio da fungibilidade recursal – erro grosseiro – recurso não conhecido."
+          ]
+        },
+        "contrapor": {
+          "resumo": "Como limitar o alcance deste julgado: o dispositivo oficial e o contexto da câmara.",
+          "itens": [
+            "Costa neto (em regime de substituição ao desembargador ramon de medeiros nogueira).",
+            "Apelação cível – ação de rescisão contratual em fase de cumprimento de sentença – decisão interlocutória que rejeitou a impugnação apresentada – não cabimento do recurso interposto – decisum que não extingue a execução – recurso cabível – agravo de instrumento – impossibilidade de aplicação do princípio da fungibilidade recursal – erro grosseiro – recurso não conhecido."
+          ]
+        },
+        "citavel": true,
+        "fonte": "tjpr",
+        "relacao": "precedente_tema"
+      },
+      {
+        "id": "56",
+        "processNumber": "90000052620158160193",
+        "acordao": "TJPR-4100000015299901 (tema)",
+        "court": "TJPR",
+        "chamber": "5ª Câmara Cível",
+        "reporter": "Nilson Mizuta Desembargador",
+        "date": "16/11/2020",
+        "status": "SENTENCIADO",
+        "alignment": "diverge",
+        "ementa": "Apelação cível. Ação revisional de contrato bancário garantido por alienação fiduciária. Procedência. Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples. Ajuizamento do cumprimento de sentença. Impugnação ao cumprimento de sentença. Alegação de excesso e pedido de compensação (vinte parcelas não pagas de um total de 36). Concordância entre as partes quanto ao não pagamento das 20 parcelas. Várias memórias de cálculos elaboradas. Homologação do último cálculo que incluiu a compensação entre os créditos de ambas as partes. Sentença que acolhe a impugnação ao cumprimento de sentença. Mérito do apelo. Pedido de prestação de contas quanto à venda do bem nestes autos. Não acolhimento. Etapa que deve ocorrer nos respectivos autos de busca e apreensão (art. 2º do decreto-lei nº 911/1969). Precedentes do stj e tjpr. Impossibilidade de determinação de adequação do rito nesta instância. Compensação entre saldo devedor do contrato e os valores cobrados indevidamente reconhecidos na ação revisional. Legalidade. Possibilidade de compensação de valores ainda que a sentença ou o acórdão não tenham assim determinado. Inteligência do art. 368 do código civil. Não existe qualquer vedação legal para que se dê a compensação se a apelante e o apelado são reciprocamente credores e devedores entre si. Precedentes.1. A prestação de contas é fase prevista no caput do art. 2º, do decreto-lei nº 911/1969, todavia, esta deve ser requerida nos respectivos autos da ação de busca e apreensão, conforme já decidiu o superior tribunal de justiça: “ação de prestação de contas. Interesse processual. Alienação fiduciária. Busca e apreensão. Leilão extrajudicial. Veiculo automotor. (..) no caso de alienação extrajudicial de veículo automotor regida pelo art. 2º do decreto-lei n. 911/1969 - redação anterior à lei n. 13.043/2014 -, tem o devedor interesse processual na ação de prestação de contas, quanto aos valores decorrentes da venda e à correta imputação no débito (saldo remanescente). (...).” (stj - resp 1678525/sp, rel. Ministro antonio carlos ferreira, quarta turma, julgado em 05/10/2017, dje 09/10/2017)2. Faz-se possível a compensação de valores entre os créditos ainda pendentes do financiamento do veículo e aqueles reconhecidos em ação revisional como abusivos, conforme este e. Tribunal de justiça já decidiu: “(...) compensação de valores é a forma preferencial de pagamento desde que não exista qualquer vedação legal acerca da sua possibilidade. Apesar de não haver previsão de compensação em fase de conhecimento, não existe qualquer vedação acerca da sua impossibilidade em fase de execução, eis que se trata de dívida líquida, certa e exigível.” (tjpr - 18ª c.cível - 9000062-36.2018.8.16.0000 - curitiba - rel.: juíza subst. 2ºgrau denise antunes - j. 13.03.2019)recurso não provido.",
+        "pontos": [],
+        "essencial": {
+          "resumo": "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+          "itens": [
+            "Ação revisional de contrato bancário garantido por alienação fiduciária.",
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+            "Ajuizamento do cumprimento de sentença.",
+            "Impugnação ao cumprimento de sentença."
+          ]
+        },
+        "fortalecer": {
+          "resumo": "Use só a parte do julgado que favorece o pedido e isole o restante.",
+          "itens": [
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples."
+          ]
+        },
+        "blindar": {
+          "resumo": "Onde a parte contrária pode apoiar o ataque, segundo a ementa oficial.",
+          "itens": [
+            "Ação revisional de contrato bancário garantido por alienação fiduciária.",
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+            "Ajuizamento do cumprimento de sentença."
+          ]
+        },
+        "contrapor": {
+          "resumo": "Como limitar o alcance deste julgado: o dispositivo oficial e o contexto da câmara.",
+          "itens": [
+            "Ação revisional de contrato bancário garantido por alienação fiduciária.",
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+            "Ajuizamento do cumprimento de sentença."
+          ]
+        },
+        "citavel": true,
+        "fonte": "tjpr",
+        "relacao": "precedente_tema"
+      }
+    ],
+    "dissidios": [
+      {
+        "camara": "18ª Câmara Cível",
+        "orientacao": "Neste órgão: 1 a favor, 0 contra, 0 divergente.",
+        "versus": "for",
+        "nota": "18ª Câmara Cível · 25/05/2020. A ementa oficial acolhe o sentido do pedido: Decisão transitada em julgado que concluiu pela exclusão dos juros de forma capitalizada, impossibilidade de cobrança cumulada da comissão de permanência com outros encargos, inexistência da mora, diante da presença de encargos abusivos e pela necessidade de restituição do valor cobrado indevidamente de forma simples.",
+        "fonte": "acervo_interno"
+      },
+      {
+        "camara": "5ª Câmara Cível",
+        "orientacao": "Neste órgão: 0 a favor, 1 contra, 1 divergente.",
+        "versus": "against",
+        "nota": "5ª Câmara Cível · 18/10/2022. A ementa oficial fecha contra o pedido: Apelação cível – ação de rescisão contratual em fase de cumprimento de sentença – decisão interlocutória que rejeitou a impugnação apresentada – não cabimento do recurso interposto – decisum que não extingue a execução – recurso cabível – agravo de instrumento – impossibilidade de aplicação do princípio da fungibilidade recursal – erro grosseiro – recurso não conhecido.",
+        "fonte": "acervo_interno"
+      }
+    ],
     "jurimetria": {
-      "amostra": 0,
-      "padrao": "",
-      "interno": "",
-      "riscos": []
+      "amostra": 3,
+      "padrao": "No recorte oficial deste caso há 3 acórdãos do TJPR (18ª Câmara Cível, 5ª Câmara Cível). Distribuição: 1 a favor, 1 contra, 1 divergente.",
+      "interno": "18ª Câmara Cível · 25/05/2020. A ementa oficial acolhe o sentido do pedido: Decisão transitada em julgado que concluiu pela exclusão dos juros de forma capitalizada, impossibilidade de cobrança cumulada da comissão de permanência com outros encargos, inexistência da mora, diante da presença de encargos abusivos e pela necessidade de restituição do valor cobrado indevidamente de forma simples. 5ª Câmara Cível · 18/10/2022. A ementa oficial fecha contra o pedido: Apelação cível – ação de rescisão contratual em fase de cumprimento de sentença – decisão interlocutória que rejeitou a impugnação apresentada – não cabimento do recurso interposto – decisum que não extingue a execução – recurso cabível – agravo de instrumento – impossibilidade de aplicação do princípio da fungibilidade recursal – erro grosseiro – recurso não conhecido. 5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+      "riscos": [
+        "5ª Câmara Cível · 18/10/2022. A ementa oficial fecha contra o pedido: Apelação cível – ação de rescisão contratual em fase de cumprimento de sentença – decisão interlocutória que rejeitou a impugnação apresentada – não cabimento do recurso interposto – decisum que não extingue a execução – recurso cabível – agravo de instrumento – impossibilidade de aplicação do princípio da fungibilidade recursal – erro grosseiro – recurso não conhecido.",
+        "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples."
+      ]
     },
     "fontes": {
       "titulo": "acervo_interno",
@@ -2101,8 +2922,8 @@ export const ACERVO_REAL: Caso[] = [
       "resumo": "acervo_interno",
       "tese": "acervo_interno",
       "atualizacao": "acervo_interno",
-      "chance": "indisponivel",
-      "votos": "indisponivel",
+      "chance": "tjpr",
+      "votos": "tjpr",
       "peticoes": "acervo_interno",
       "contratos": "indisponivel",
       "documentos": "acervo_interno",
@@ -2110,12 +2931,12 @@ export const ACERVO_REAL: Caso[] = [
       "modelos": "indisponivel",
       "historico": "acervo_interno",
       "prazos": "acervo_interno",
-      "teses": "indisponivel",
-      "resultados": "indisponivel",
+      "teses": "acervo_interno",
+      "resultados": "acervo_interno",
       "conversas": "indisponivel",
-      "jurisprudencias": "acervo_interno",
-      "dissidios": "indisponivel",
-      "jurimetria": "indisponivel"
+      "jurisprudencias": "tjpr",
+      "dissidios": "acervo_interno",
+      "jurimetria": "tjpr"
     }
   },
   {
@@ -2125,7 +2946,7 @@ export const ACERVO_REAL: Caso[] = [
     "subtema": "Apelação Cível",
     "processNumber": "9000006-45.2014.8.16.0193",
     "court": "TJPR",
-    "chamber": "GABINETE DO DESEMBARGADOR FERNANDO PAULINO DA SILVA WOLFF FILHO",
+    "chamber": "Gabinete do desembargador fernando paulino da silva wolff filho",
     "status": "BAIXADO",
     "cliente": "Parte autora (sigilo)",
     "partes": [
@@ -2138,16 +2959,16 @@ export const ACERVO_REAL: Caso[] = [
         "nome": "Parte ré (sigilo)"
       }
     ],
-    "resumo": "Apelação Cível perante GABINETE DO DESEMBARGADOR FERNANDO PAULINO DA SILVA WOLFF FILHO (TJPR). Assunto(s) DataJud: Contratos Bancários.",
-    "tese": "Indisponível no DataJud (capa/andamentos apenas).",
+    "resumo": "Apelação cível perante gabinete do desembargador fernando paulino da silva wolff filho (tjpr). Assunto(s) datajud: contratos bancários.",
+    "tese": "Embargos de declaração. Ausência de omissão (art. 1022, ii, do cpc). Embargos usados com o manifesto propósito de modificar o acórdão. Inviabilidade, no caso.",
     "atualizacao": "01/09/2026",
-    "chance": 0,
-    "chanceRotulo": "indisponível sem modelo oficial",
-    "chanceTexto": "indisponível sem modelo oficial",
+    "chance": 25,
+    "chanceRotulo": "recorte descritivo TJPR",
+    "chanceTexto": "Com base em 2 ementa(s) oficial(is) do portal TJPR neste recorte: 0 a favor, 1 contra, 1 divergente(s). Índice descritivo (favor +½ divergente).",
     "votos": {
       "for": 0,
-      "against": 0,
-      "diverge": 0
+      "against": 1,
+      "diverge": 1
     },
     "peticoes": [
       {
@@ -2167,7 +2988,16 @@ export const ACERVO_REAL: Caso[] = [
         "resumo": "Andamento DataJud: Petição em 24/06/2021."
       }
     ],
-    "contratos": [],
+    "contratos": [
+      {
+        "id": "ctr-capa",
+        "titulo": "Contratos Bancários",
+        "tipo": "Capa do processo",
+        "data": "01/09/2026",
+        "origem": "TJPR",
+        "resumo": "Apelação cível perante gabinete do desembargador fernando paulino da silva wolff filho (tjpr). Assunto(s) datajud: contratos bancários."
+      }
+    ],
     "documentos": [
       {
         "id": "41",
@@ -2355,11 +3185,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 5,
         "calendar": "uteis",
         "status": "vencido",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para prestar esclarecimentos sobre os pontos indicados pelo juízo.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-01",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-01"
       },
       {
         "id": "32",
@@ -2369,11 +3198,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 10,
         "calendar": "uteis",
         "status": "a_vencer",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para juntar os documentos solicitados pelo juízo.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-02",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-02"
       },
       {
         "id": "58",
@@ -2383,11 +3211,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 15,
         "calendar": "uteis",
         "status": "aberto",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para especificar as provas pretendidas e justificar sua pertinência.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-10",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-10"
       },
       {
         "id": "84",
@@ -2397,55 +3224,154 @@ export const ACERVO_REAL: Caso[] = [
         "days": 15,
         "calendar": "uteis",
         "status": "cumprido",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para apresentar manifestação sobre documento juntado aos autos.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-08-14",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real. Cumprimento fictício registrado apenas para demonstrar o filtro da tela."
+        "startedAt": "2026-08-14"
       }
     ],
-    "teses": [],
-    "resultados": [],
-    "conversas": [],
-    "jurisprudencias": [
+    "teses": [
       {
-        "id": "6",
-        "processNumber": "90000064520148160193",
-        "acordao": "[NÃO OFICIAL] Referência de capa 9000006-45.2014.8.16.0193",
-        "court": "TJPR",
-        "chamber": "GABINETE DO DESEMBARGADOR FERNANDO PAULINO DA SILVA WOLFF FILHO",
-        "reporter": "Não informado",
-        "date": "01/09/2026",
-        "status": "BAIXADO",
-        "alignment": "diverge",
-        "ementa": "",
-        "pontos": [],
-        "essencial": {
-          "resumo": "",
-          "itens": []
-        },
-        "fortalecer": {
-          "resumo": "",
-          "itens": []
-        },
-        "blindar": {
-          "resumo": "",
-          "itens": []
-        },
-        "contrapor": {
-          "resumo": "",
-          "itens": []
-        },
-        "citavel": false,
+        "id": "tese-oficial-0",
+        "titulo": "Apelação Cível",
+        "uso": "17ª Câmara Cível · 16/08/2021. A ementa oficial fecha contra o pedido: Inviabilidade, no caso.",
+        "forca": "baixa",
+        "fonte": "acervo_interno"
+      },
+      {
+        "id": "tese-oficial-1",
+        "titulo": "Apelação Cível",
+        "uso": "17ª Câmara Cível · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: prescrição relativa ao pedido de restituição das tarifas.",
+        "forca": "media",
         "fonte": "acervo_interno"
       }
     ],
-    "dissidios": [],
+    "resultados": [
+      {
+        "id": "27",
+        "titulo": "17ª Câmara Cível · 16/08/2021",
+        "desfecho": "Embargos de declaração. Ausência de omissão (art. 1022, ii, do cpc). Embargos usados com o manifesto propósito de modificar o acórdão. Inviabilidade, no caso.",
+        "aprendizado": "17ª Câmara Cível · 16/08/2021. A ementa oficial fecha contra o pedido: Inviabilidade, no caso."
+      },
+      {
+        "id": "28",
+        "titulo": "17ª Câmara Cível · 14/06/2021",
+        "desfecho": "Arrendamento mercantil. Reintegração de posse e revisional de contrato julgadas conjuntamente. prescrição relativa ao pedido de restituição das tarifas.",
+        "aprendizado": "17ª Câmara Cível · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: prescrição relativa ao pedido de restituição das tarifas."
+      }
+    ],
+    "conversas": [],
+    "jurisprudencias": [
+      {
+        "id": "27",
+        "processNumber": "90000064520148160193",
+        "acordao": "TJPR-4100000018045741",
+        "court": "TJPR",
+        "chamber": "17ª Câmara Cível",
+        "reporter": "Fernando Paulino da Silva Wolff Filho Desembargador",
+        "date": "16/08/2021",
+        "status": "SENTENCIADO",
+        "alignment": "against",
+        "ementa": "Embargos de declaração. Ausência de omissão (art. 1022, ii, do cpc). Embargos usados com o manifesto propósito de modificar o acórdão. Inviabilidade, no caso. Recurso que não serve a esse fim. Embargos que, de resto, têm a mera finalidade de prequestionamento. Não cabimento, na espécie.embargos rejeitados.",
+        "pontos": [],
+        "essencial": {
+          "resumo": "17ª Câmara Cível · 16/08/2021. A ementa oficial fecha contra o pedido: Inviabilidade, no caso.",
+          "itens": [
+            "Embargos de declaração.",
+            "Ausência de omissão (art. 1022, ii, do cpc).",
+            "Embargos usados com o manifesto propósito de modificar o acórdão.",
+            "Inviabilidade, no caso."
+          ]
+        },
+        "fortalecer": {
+          "resumo": "Este julgado fecha contra. Sirva-se dele para saber o que o tribunal já recusou.",
+          "itens": [
+            "Embargos de declaração.",
+            "Ausência de omissão (art. 1022, ii, do cpc).",
+            "Embargos usados com o manifesto propósito de modificar o acórdão."
+          ]
+        },
+        "blindar": {
+          "resumo": "Onde a parte contrária pode apoiar o ataque, segundo a ementa oficial.",
+          "itens": [
+            "Inviabilidade, no caso."
+          ]
+        },
+        "contrapor": {
+          "resumo": "Como limitar o alcance deste julgado: o dispositivo oficial e o contexto da câmara.",
+          "itens": [
+            "Embargos de declaração.",
+            "Ausência de omissão (art. 1022, ii, do cpc).",
+            "Embargos usados com o manifesto propósito de modificar o acórdão."
+          ]
+        },
+        "citavel": true,
+        "fonte": "tjpr"
+      },
+      {
+        "id": "28",
+        "processNumber": "90000064520148160193",
+        "acordao": "TJPR-4100000016033031",
+        "court": "TJPR",
+        "chamber": "17ª Câmara Cível",
+        "reporter": "Fernando Paulino da Silva Wolff Filho Desembargador",
+        "date": "14/06/2021",
+        "status": "SENTENCIADO",
+        "alignment": "diverge",
+        "ementa": "Arrendamento mercantil. Reintegração de posse e revisional de contrato julgadas conjuntamente. (1) prescrição relativa ao pedido de restituição das tarifas. Inocorrência. Direito pessoal. Prazo prescricional de 10 anos (art. 205 do cc). Precedentes do stj. (2) devolução do vrg. Valor que corresponde ao preço a ser pago pelo arrendatário, caso exerça a opção de compra do bem, ou ao mínimo garantido ao arrendador, caso o arrendatário não opte pela compra. Resolução do contrato por inadimplemento, com o consequente retorno das partes ao status quo ante. Vrg que deve ser devolvido ao arrendatário no limite da diferença entre o vrg pago antecipadamente somado ao valor da venda do bem a terceiro e o vrg previsto contratualmente. Inteligência da súmula 564 do stj. Contraprestações devidas e não pagas até a reintegração do bem que devem ser descontadas do montante a ser devolvido a título de vrg. (3) tarifa de registro. Questão decidida pelo stj em julgamento de recurso repetitivo (resp n.º 1.578.553/sp). Tema 958/stj. Onerosidade excessiva não verificada. Prestação do servço devidamente comprovada. Documento do veículo que consta as devidas anotações. Abusividade não configurada. (4) seguro de proteção financeira. Enunciado nº 6 da 17ª e 18º câmaras cíveis do tjpr. Tema repetitivo nº 972/stj. Cobrança possível desde que não tenha configurado venda casada. Elementos dos autos que apontam para a contratação do seguro como uma mera faculdade do autor. Autor que, de acordo com o quadro c4, poderia ou não contratar o seguro e, contratando-o, teria a liberdade para escolher a seguradora. (5) serviço de terceiros. Tema submetido ao crivo do stj em sede de recurso repetitivo (resp no 1.578.553/sp). Cobrança permitida quando devidamente especificados e prestados os serviços. Análise do caso concreto. Requisitos preenchidos. Validade da cobrança. (6) honorários advocatícios. Redução. Possibilidade apenas na ação revisional (autos nº 9000006-45.2014.8.16.0193).apelo 1, desprovido.apelo 2, parcialmente provido",
+        "pontos": [],
+        "essencial": {
+          "resumo": "17ª Câmara Cível · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: prescrição relativa ao pedido de restituição das tarifas.",
+          "itens": [
+            "Arrendamento mercantil.",
+            "Reintegração de posse e revisional de contrato julgadas conjuntamente.",
+            "prescrição relativa ao pedido de restituição das tarifas.",
+            "Prazo prescricional de 10 anos (art. 205 do cc)."
+          ]
+        },
+        "fortalecer": {
+          "resumo": "Use só a parte do julgado que favorece o pedido e isole o restante.",
+          "itens": [
+            "prescrição relativa ao pedido de restituição das tarifas."
+          ]
+        },
+        "blindar": {
+          "resumo": "Onde a parte contrária pode apoiar o ataque, segundo a ementa oficial.",
+          "itens": [
+            "Arrendamento mercantil.",
+            "Reintegração de posse e revisional de contrato julgadas conjuntamente.",
+            "prescrição relativa ao pedido de restituição das tarifas."
+          ]
+        },
+        "contrapor": {
+          "resumo": "Como limitar o alcance deste julgado: o dispositivo oficial e o contexto da câmara.",
+          "itens": [
+            "Arrendamento mercantil.",
+            "Reintegração de posse e revisional de contrato julgadas conjuntamente.",
+            "prescrição relativa ao pedido de restituição das tarifas."
+          ]
+        },
+        "citavel": true,
+        "fonte": "tjpr"
+      }
+    ],
+    "dissidios": [
+      {
+        "camara": "17ª Câmara Cível",
+        "orientacao": "Neste órgão: 0 a favor, 1 contra, 1 divergente.",
+        "versus": "against",
+        "nota": "17ª Câmara Cível · 16/08/2021. A ementa oficial fecha contra o pedido: Inviabilidade, no caso.",
+        "fonte": "acervo_interno"
+      }
+    ],
     "jurimetria": {
-      "amostra": 0,
-      "padrao": "",
-      "interno": "",
-      "riscos": []
+      "amostra": 2,
+      "padrao": "No recorte oficial deste caso há 2 acórdãos do TJPR (17ª Câmara Cível). Distribuição: 0 a favor, 1 contra, 1 divergente.",
+      "interno": "17ª Câmara Cível · 16/08/2021. A ementa oficial fecha contra o pedido: Inviabilidade, no caso. 17ª Câmara Cível · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: prescrição relativa ao pedido de restituição das tarifas.",
+      "riscos": [
+        "17ª Câmara Cível · 16/08/2021. A ementa oficial fecha contra o pedido: Inviabilidade, no caso.",
+        "17ª Câmara Cível · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: prescrição relativa ao pedido de restituição das tarifas."
+      ]
     },
     "fontes": {
       "titulo": "acervo_interno",
@@ -2460,21 +3386,21 @@ export const ACERVO_REAL: Caso[] = [
       "resumo": "acervo_interno",
       "tese": "acervo_interno",
       "atualizacao": "acervo_interno",
-      "chance": "indisponivel",
-      "votos": "indisponivel",
+      "chance": "tjpr",
+      "votos": "tjpr",
       "peticoes": "acervo_interno",
-      "contratos": "indisponivel",
+      "contratos": "acervo_interno",
       "documentos": "acervo_interno",
       "decisoes": "acervo_interno",
       "modelos": "indisponivel",
       "historico": "acervo_interno",
       "prazos": "acervo_interno",
-      "teses": "indisponivel",
-      "resultados": "indisponivel",
+      "teses": "acervo_interno",
+      "resultados": "acervo_interno",
       "conversas": "indisponivel",
-      "jurisprudencias": "acervo_interno",
-      "dissidios": "indisponivel",
-      "jurimetria": "indisponivel"
+      "jurisprudencias": "tjpr",
+      "dissidios": "acervo_interno",
+      "jurimetria": "tjpr"
     }
   },
   {
@@ -2484,7 +3410,7 @@ export const ACERVO_REAL: Caso[] = [
     "subtema": "Procedimento Comum Cível",
     "processNumber": "9000007-37.2019.8.16.0037",
     "court": "TJPR",
-    "chamber": "CAMPINA GRANDE DO SUL - VARA CÍVEL E DA FAZENDA PÚBLICA",
+    "chamber": "Campina grande do sul - vara cível e da fazenda pública",
     "status": "TRANSITADO_EM_JULGADO",
     "cliente": "Parte autora (sigilo)",
     "partes": [
@@ -2497,16 +3423,16 @@ export const ACERVO_REAL: Caso[] = [
         "nome": "Parte ré (sigilo)"
       }
     ],
-    "resumo": "Procedimento Comum Cível perante CAMPINA GRANDE DO SUL - VARA CÍVEL E DA FAZENDA PÚBLICA (TJPR). Assunto(s) DataJud: Contratos Bancários.",
-    "tese": "Indisponível no DataJud (capa/andamentos apenas).",
+    "resumo": "Procedimento comum cível perante campina grande do sul - vara cível e da fazenda pública (tjpr). Assunto(s) datajud: contratos bancários.",
+    "tese": "(cpf/cnpj: 59.285.411/0001-13) av paulista, 1374 12º andar - bela vista - são paulo/sp - cep: 01.310-100 apelação cível. Sentença julgou liminarmente improcedente o pedido inicial.",
     "atualizacao": "01/09/2026",
-    "chance": 0,
-    "chanceRotulo": "indisponível sem modelo oficial",
-    "chanceTexto": "indisponível sem modelo oficial",
+    "chance": 50,
+    "chanceRotulo": "recorte descritivo TJPR",
+    "chanceTexto": "Com base em 1 ementa(s) oficial(is) do portal TJPR neste recorte: 0 a favor, 0 contra, 1 divergente(s). Índice descritivo (favor +½ divergente).",
     "votos": {
       "for": 0,
       "against": 0,
-      "diverge": 0
+      "diverge": 1
     },
     "peticoes": [
       {
@@ -2574,7 +3500,16 @@ export const ACERVO_REAL: Caso[] = [
         "resumo": "Andamento DataJud: Petição em 27/03/2020."
       }
     ],
-    "contratos": [],
+    "contratos": [
+      {
+        "id": "ctr-capa",
+        "titulo": "Contratos Bancários",
+        "tipo": "Capa do processo",
+        "data": "01/09/2026",
+        "origem": "TJPR",
+        "resumo": "Procedimento comum cível perante campina grande do sul - vara cível e da fazenda pública (tjpr). Assunto(s) datajud: contratos bancários."
+      }
+    ],
     "documentos": [
       {
         "id": "49",
@@ -2754,11 +3689,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 5,
         "calendar": "uteis",
         "status": "vencido",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para prestar esclarecimentos sobre os pontos indicados pelo juízo.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-01",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-01"
       },
       {
         "id": "33",
@@ -2768,11 +3702,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 10,
         "calendar": "uteis",
         "status": "a_vencer",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para juntar os documentos solicitados pelo juízo.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-02",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-02"
       },
       {
         "id": "59",
@@ -2782,11 +3715,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 15,
         "calendar": "uteis",
         "status": "aberto",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para especificar as provas pretendidas e justificar sua pertinência.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-10",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-10"
       },
       {
         "id": "85",
@@ -2796,55 +3728,94 @@ export const ACERVO_REAL: Caso[] = [
         "days": 15,
         "calendar": "uteis",
         "status": "cumprido",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para apresentar manifestação sobre documento juntado aos autos.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-08-14",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real. Cumprimento fictício registrado apenas para demonstrar o filtro da tela."
+        "startedAt": "2026-08-14"
       }
     ],
-    "teses": [],
-    "resultados": [],
-    "conversas": [],
-    "jurisprudencias": [
+    "teses": [
       {
-        "id": "7",
-        "processNumber": "90000073720198160037",
-        "acordao": "[NÃO OFICIAL] Referência de capa 9000007-37.2019.8.16.0037",
-        "court": "TJPR",
-        "chamber": "CAMPINA GRANDE DO SUL - VARA CÍVEL E DA FAZENDA PÚBLICA",
-        "reporter": "Não informado",
-        "date": "01/09/2026",
-        "status": "TRANSITADO_EM_JULGADO",
-        "alignment": "diverge",
-        "ementa": "",
-        "pontos": [],
-        "essencial": {
-          "resumo": "",
-          "itens": []
-        },
-        "fortalecer": {
-          "resumo": "",
-          "itens": []
-        },
-        "blindar": {
-          "resumo": "",
-          "itens": []
-        },
-        "contrapor": {
-          "resumo": "",
-          "itens": []
-        },
-        "citavel": false,
+        "id": "tese-oficial-0",
+        "titulo": "Procedimento Comum Cível",
+        "uso": "17ª Câmara Cível · 29/09/2020. A ementa oficial é parcial — uma parte favorece, outra não: Sentença julgou liminarmente improcedente o pedido inicial.",
+        "forca": "media",
         "fonte": "acervo_interno"
       }
     ],
-    "dissidios": [],
+    "resultados": [
+      {
+        "id": "29",
+        "titulo": "17ª Câmara Cível · 29/09/2020",
+        "desfecho": "(cpf/cnpj: 59.285.411/0001-13) av paulista, 1374 12º andar - bela vista - são paulo/sp - cep: 01.310-100 apelação cível. Sentença julgou liminarmente improcedente o pedido inicial.",
+        "aprendizado": "17ª Câmara Cível · 29/09/2020. A ementa oficial é parcial — uma parte favorece, outra não: Sentença julgou liminarmente improcedente o pedido inicial."
+      }
+    ],
+    "conversas": [],
+    "jurisprudencias": [
+      {
+        "id": "29",
+        "processNumber": "90000073720198160037",
+        "acordao": "TJPR-4100000013896042",
+        "court": "TJPR",
+        "chamber": "17ª Câmara Cível",
+        "reporter": "Sandra Bauermann Juíza de Direito Substituto em Segundo Grau",
+        "date": "29/09/2020",
+        "status": "SENTENCIADO",
+        "alignment": "diverge",
+        "ementa": "Banco pan s.a. (cpf/cnpj: 59.285.411/0001-13) av paulista, 1374 12º andar - bela vista - são paulo/sp - cep: 01.310-100 apelação cível. Ação revisional. Sentença julgou liminarmente improcedente o pedido inicial. Insurgência do autor que requer a reforma da sentença para que sejam julgados procedentes os pedidos iniciais. Parte apelada que informou a composição de acordo entre as partes requerendo sua homologação. Homologação com extinção do processo na forma do artigo 487, iii, b, do cpc. Procedimento recursal extinto. Artigo 200, xvi, do ritjpr e artigo 923, i e iii do cpc. Decisão monocrática",
+        "pontos": [],
+        "essencial": {
+          "resumo": "17ª Câmara Cível · 29/09/2020. A ementa oficial é parcial — uma parte favorece, outra não: Sentença julgou liminarmente improcedente o pedido inicial.",
+          "itens": [
+            "(cpf/cnpj: 59.285.411/0001-13) av paulista, 1374 12º andar - bela vista - são paulo/sp - cep: 01.310-100 apelação cível.",
+            "Sentença julgou liminarmente improcedente o pedido inicial.",
+            "Insurgência do autor que requer a reforma da sentença para que sejam julgados procedentes os pedidos iniciais.",
+            "Parte apelada que informou a composição de acordo entre as partes requerendo sua homologação."
+          ]
+        },
+        "fortalecer": {
+          "resumo": "Use só a parte do julgado que favorece o pedido e isole o restante.",
+          "itens": [
+            "(cpf/cnpj: 59.285.411/0001-13) av paulista, 1374 12º andar - bela vista - são paulo/sp - cep: 01.310-100 apelação cível.",
+            "Sentença julgou liminarmente improcedente o pedido inicial.",
+            "Insurgência do autor que requer a reforma da sentença para que sejam julgados procedentes os pedidos iniciais."
+          ]
+        },
+        "blindar": {
+          "resumo": "Onde a parte contrária pode apoiar o ataque, segundo a ementa oficial.",
+          "itens": [
+            "Sentença julgou liminarmente improcedente o pedido inicial."
+          ]
+        },
+        "contrapor": {
+          "resumo": "Como limitar o alcance deste julgado: o dispositivo oficial e o contexto da câmara.",
+          "itens": [
+            "(cpf/cnpj: 59.285.411/0001-13) av paulista, 1374 12º andar - bela vista - são paulo/sp - cep: 01.310-100 apelação cível.",
+            "Sentença julgou liminarmente improcedente o pedido inicial.",
+            "Insurgência do autor que requer a reforma da sentença para que sejam julgados procedentes os pedidos iniciais."
+          ]
+        },
+        "citavel": true,
+        "fonte": "tjpr"
+      }
+    ],
+    "dissidios": [
+      {
+        "camara": "17ª Câmara Cível",
+        "orientacao": "Neste órgão: 0 a favor, 0 contra, 1 divergente.",
+        "versus": "diverge",
+        "nota": "17ª Câmara Cível · 29/09/2020. A ementa oficial é parcial — uma parte favorece, outra não: Sentença julgou liminarmente improcedente o pedido inicial.",
+        "fonte": "acervo_interno"
+      }
+    ],
     "jurimetria": {
-      "amostra": 0,
-      "padrao": "",
-      "interno": "",
-      "riscos": []
+      "amostra": 1,
+      "padrao": "No recorte oficial deste caso há 1 acórdão do TJPR (17ª Câmara Cível). Distribuição: 0 a favor, 0 contra, 1 divergente.",
+      "interno": "17ª Câmara Cível · 29/09/2020. A ementa oficial é parcial — uma parte favorece, outra não: Sentença julgou liminarmente improcedente o pedido inicial.",
+      "riscos": [
+        "17ª Câmara Cível · 29/09/2020. A ementa oficial é parcial — uma parte favorece, outra não: Sentença julgou liminarmente improcedente o pedido inicial."
+      ]
     },
     "fontes": {
       "titulo": "acervo_interno",
@@ -2859,21 +3830,21 @@ export const ACERVO_REAL: Caso[] = [
       "resumo": "acervo_interno",
       "tese": "acervo_interno",
       "atualizacao": "acervo_interno",
-      "chance": "indisponivel",
-      "votos": "indisponivel",
+      "chance": "tjpr",
+      "votos": "tjpr",
       "peticoes": "acervo_interno",
-      "contratos": "indisponivel",
+      "contratos": "acervo_interno",
       "documentos": "acervo_interno",
       "decisoes": "acervo_interno",
       "modelos": "indisponivel",
       "historico": "acervo_interno",
       "prazos": "acervo_interno",
-      "teses": "indisponivel",
-      "resultados": "indisponivel",
+      "teses": "acervo_interno",
+      "resultados": "acervo_interno",
       "conversas": "indisponivel",
-      "jurisprudencias": "acervo_interno",
-      "dissidios": "indisponivel",
-      "jurimetria": "indisponivel"
+      "jurisprudencias": "tjpr",
+      "dissidios": "acervo_interno",
+      "jurimetria": "tjpr"
     }
   },
   {
@@ -2883,7 +3854,7 @@ export const ACERVO_REAL: Caso[] = [
     "subtema": "Procedimento Comum Cível",
     "processNumber": "9000008-02.2012.8.16.0026",
     "court": "TJPR",
-    "chamber": "CAMPO LARGO - 1ª VARA CÍVEL E DA FAZENDA PÚBLICA",
+    "chamber": "Campo largo - 1ª vara cível e da fazenda pública",
     "status": "TRANSITADO_EM_JULGADO",
     "cliente": "Parte autora (sigilo)",
     "partes": [
@@ -2896,16 +3867,16 @@ export const ACERVO_REAL: Caso[] = [
         "nome": "Parte ré (sigilo)"
       }
     ],
-    "resumo": "Procedimento Comum Cível perante CAMPO LARGO - 1ª VARA CÍVEL E DA FAZENDA PÚBLICA (TJPR). Assunto(s) DataJud: Contratos Bancários.",
-    "tese": "Indisponível no DataJud (capa/andamentos apenas).",
+    "resumo": "Procedimento comum cível perante campo largo - 1ª vara cível e da fazenda pública (tjpr). Assunto(s) datajud: contratos bancários.",
+    "tese": "Ação revisional de contrato bancário garantido por alienação fiduciária. Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
     "atualizacao": "01/09/2026",
-    "chance": 0,
-    "chanceRotulo": "indisponível sem modelo oficial",
-    "chanceTexto": "indisponível sem modelo oficial",
+    "chance": 50,
+    "chanceRotulo": "recorte descritivo TJPR",
+    "chanceTexto": "Com base em 1 ementa(s) oficial(is) do portal TJPR neste recorte: 0 a favor, 0 contra, 1 divergente(s). Índice descritivo (favor +½ divergente).",
     "votos": {
       "for": 0,
       "against": 0,
-      "diverge": 0
+      "diverge": 3
     },
     "peticoes": [
       {
@@ -2957,7 +3928,16 @@ export const ACERVO_REAL: Caso[] = [
         "resumo": "Andamento DataJud: Petição em 12/03/2020."
       }
     ],
-    "contratos": [],
+    "contratos": [
+      {
+        "id": "ctr-capa",
+        "titulo": "Contratos Bancários",
+        "tipo": "Capa do processo",
+        "data": "01/09/2026",
+        "origem": "TJPR",
+        "resumo": "Procedimento comum cível perante campo largo - 1ª vara cível e da fazenda pública (tjpr). Assunto(s) datajud: contratos bancários."
+      }
+    ],
     "documentos": [
       {
         "id": "57",
@@ -3153,11 +4133,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 5,
         "calendar": "uteis",
         "status": "vencido",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para prestar esclarecimentos sobre os pontos indicados pelo juízo.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-01",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-01"
       },
       {
         "id": "34",
@@ -3167,11 +4146,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 10,
         "calendar": "uteis",
         "status": "a_vencer",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para juntar os documentos solicitados pelo juízo.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-02",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-02"
       },
       {
         "id": "60",
@@ -3181,11 +4159,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 15,
         "calendar": "uteis",
         "status": "aberto",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para especificar as provas pretendidas e justificar sua pertinência.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-10",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-10"
       },
       {
         "id": "86",
@@ -3195,55 +4172,221 @@ export const ACERVO_REAL: Caso[] = [
         "days": 15,
         "calendar": "uteis",
         "status": "cumprido",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para apresentar manifestação sobre documento juntado aos autos.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-08-14",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real. Cumprimento fictício registrado apenas para demonstrar o filtro da tela."
+        "startedAt": "2026-08-14"
       }
     ],
-    "teses": [],
-    "resultados": [],
-    "conversas": [],
-    "jurisprudencias": [
+    "teses": [
       {
-        "id": "8",
-        "processNumber": "90000080220128160026",
-        "acordao": "[NÃO OFICIAL] Referência de capa 9000008-02.2012.8.16.0026",
-        "court": "TJPR",
-        "chamber": "CAMPO LARGO - 1ª VARA CÍVEL E DA FAZENDA PÚBLICA",
-        "reporter": "Não informado",
-        "date": "01/09/2026",
-        "status": "TRANSITADO_EM_JULGADO",
-        "alignment": "diverge",
-        "ementa": "",
-        "pontos": [],
-        "essencial": {
-          "resumo": "",
-          "itens": []
-        },
-        "fortalecer": {
-          "resumo": "",
-          "itens": []
-        },
-        "blindar": {
-          "resumo": "",
-          "itens": []
-        },
-        "contrapor": {
-          "resumo": "",
-          "itens": []
-        },
-        "citavel": false,
+        "id": "34",
+        "titulo": "Contratos Bancários",
+        "uso": "Aguardar ementa oficial; até lá usar só corpus descritivo do tema.",
+        "forca": "media",
         "fonte": "acervo_interno"
       }
     ],
-    "dissidios": [],
+    "resultados": [
+      {
+        "id": "57",
+        "titulo": "5ª Câmara Cível · 16/11/2020",
+        "desfecho": "Ação revisional de contrato bancário garantido por alienação fiduciária. Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+        "aprendizado": "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples."
+      },
+      {
+        "id": "58",
+        "titulo": "18ª Câmara Cível · 06/04/2020",
+        "desfecho": "ALIENAÇÃO FIDUCIÁRIA. JUROS REMUNERATÓRIOS. AUSÊNCIA DE ABUSIVIDADE. CAPITALIZAÇÃO DE JUROS PACTUADA. tarifa de registro DO CONTRATO E GRAVAME ELETRÔNICO.",
+        "aprendizado": "18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES."
+      },
+      {
+        "id": "59",
+        "titulo": "1ª Turma Recursal · 14/06/2021",
+        "desfecho": "Ementa: recurso inominado. Ação de revisão contratual c/c repetição de indébito. Contrato de financiamento. Alegação de cobrança abusiva de juros remuneratórios.",
+        "aprendizado": "1ª Turma Recursal · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida."
+      }
+    ],
+    "conversas": [],
+    "jurisprudencias": [
+      {
+        "id": "57",
+        "processNumber": "90000080220128160026",
+        "acordao": "TJPR-4100000015299901 (tema)",
+        "court": "TJPR",
+        "chamber": "5ª Câmara Cível",
+        "reporter": "Nilson Mizuta Desembargador",
+        "date": "16/11/2020",
+        "status": "SENTENCIADO",
+        "alignment": "diverge",
+        "ementa": "Apelação cível. Ação revisional de contrato bancário garantido por alienação fiduciária. Procedência. Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples. Ajuizamento do cumprimento de sentença. Impugnação ao cumprimento de sentença. Alegação de excesso e pedido de compensação (vinte parcelas não pagas de um total de 36). Concordância entre as partes quanto ao não pagamento das 20 parcelas. Várias memórias de cálculos elaboradas. Homologação do último cálculo que incluiu a compensação entre os créditos de ambas as partes. Sentença que acolhe a impugnação ao cumprimento de sentença. Mérito do apelo. Pedido de prestação de contas quanto à venda do bem nestes autos. Não acolhimento. Etapa que deve ocorrer nos respectivos autos de busca e apreensão (art. 2º do decreto-lei nº 911/1969). Precedentes do stj e tjpr. Impossibilidade de determinação de adequação do rito nesta instância. Compensação entre saldo devedor do contrato e os valores cobrados indevidamente reconhecidos na ação revisional. Legalidade. Possibilidade de compensação de valores ainda que a sentença ou o acórdão não tenham assim determinado. Inteligência do art. 368 do código civil. Não existe qualquer vedação legal para que se dê a compensação se a apelante e o apelado são reciprocamente credores e devedores entre si. Precedentes.1. A prestação de contas é fase prevista no caput do art. 2º, do decreto-lei nº 911/1969, todavia, esta deve ser requerida nos respectivos autos da ação de busca e apreensão, conforme já decidiu o superior tribunal de justiça: “ação de prestação de contas. Interesse processual. Alienação fiduciária. Busca e apreensão. Leilão extrajudicial. Veiculo automotor. (..) no caso de alienação extrajudicial de veículo automotor regida pelo art. 2º do decreto-lei n. 911/1969 - redação anterior à lei n. 13.043/2014 -, tem o devedor interesse processual na ação de prestação de contas, quanto aos valores decorrentes da venda e à correta imputação no débito (saldo remanescente). (...).” (stj - resp 1678525/sp, rel. Ministro antonio carlos ferreira, quarta turma, julgado em 05/10/2017, dje 09/10/2017)2. Faz-se possível a compensação de valores entre os créditos ainda pendentes do financiamento do veículo e aqueles reconhecidos em ação revisional como abusivos, conforme este e. Tribunal de justiça já decidiu: “(...) compensação de valores é a forma preferencial de pagamento desde que não exista qualquer vedação legal acerca da sua possibilidade. Apesar de não haver previsão de compensação em fase de conhecimento, não existe qualquer vedação acerca da sua impossibilidade em fase de execução, eis que se trata de dívida líquida, certa e exigível.” (tjpr - 18ª c.cível - 9000062-36.2018.8.16.0000 - curitiba - rel.: juíza subst. 2ºgrau denise antunes - j. 13.03.2019)recurso não provido.",
+        "pontos": [],
+        "essencial": {
+          "resumo": "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+          "itens": [
+            "Ação revisional de contrato bancário garantido por alienação fiduciária.",
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+            "Ajuizamento do cumprimento de sentença.",
+            "Impugnação ao cumprimento de sentença."
+          ]
+        },
+        "fortalecer": {
+          "resumo": "Use só a parte do julgado que favorece o pedido e isole o restante.",
+          "itens": [
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples."
+          ]
+        },
+        "blindar": {
+          "resumo": "Onde a parte contrária pode apoiar o ataque, segundo a ementa oficial.",
+          "itens": [
+            "Ação revisional de contrato bancário garantido por alienação fiduciária.",
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+            "Ajuizamento do cumprimento de sentença."
+          ]
+        },
+        "contrapor": {
+          "resumo": "Como limitar o alcance deste julgado: o dispositivo oficial e o contexto da câmara.",
+          "itens": [
+            "Ação revisional de contrato bancário garantido por alienação fiduciária.",
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+            "Ajuizamento do cumprimento de sentença."
+          ]
+        },
+        "citavel": true,
+        "fonte": "tjpr",
+        "relacao": "precedente_tema"
+      },
+      {
+        "id": "58",
+        "processNumber": "90000080220128160026",
+        "acordao": "TJPR-4100000012641161 (tema)",
+        "court": "TJPR",
+        "chamber": "18ª Câmara Cível",
+        "reporter": "Marcelo Gobbo Dalla Dea Desembargador",
+        "date": "06/04/2020",
+        "status": "SENTENCIADO",
+        "alignment": "diverge",
+        "ementa": "APELAÇÃO CÍVEL. AÇÃO REVISIONAL. ALIENAÇÃO FIDUCIÁRIA. JUROS REMUNERATÓRIOS. AUSÊNCIA DE ABUSIVIDADE. CAPITALIZAÇÃO DE JUROS PACTUADA. tarifa de registro DO CONTRATO E GRAVAME ELETRÔNICO. LEGALIDADE. SEGURO PROTEÇÃO. VENDA CASADA. ABUSIVIDADE. COMISSÃO DE PERMANÊNCIA. INEXISTÊNCIA. DEVOLUÇÃO NA FORMA SIMPLES. SUCUMBÊNCIA REDISTRIBUÍDA. RECURSO CONHECIDO E PARCIALMENTE PROVIDO.1. É livre a pactuação dos juros remuneratórios através do posicionamento jurisprudencial do Superior Tribunal de Justiça, de forma que a sua limitação ao patamar acima de 12% ao ano não indica abusividade. 2. O Superior Tribunal de Justiça firmou entendimento no RESP 973827 de que a capitalização é válida desde que expressamente pactuada.3. É permitida a capitalização de juros, sendo autorizada pelo Superior Tribunal de Justiça nos REsp 1251331 e 1255573, julgados pelo rito do artigo 543-C do Código de Processo Civil/73.4. É passível de repasse ao consumidor o custo referente à tarifa de registro do contrato de financiamento de veículo com cláusula de garantia fiduciária, desde que a cobrança pelo registro do contrato corresponda a um serviço efetivamente prestado e que o valor não se mostre abusivo.5. Nos contratos bancários em geral, o consumidor não pode ser compelido a contratar seguro com a instituição financeira ou com seguradora por ela indicada (STJ – Recurso Especial Repetitivo nº 1.639.259/SP e nº 1.639.320/SP - Tema 972).6. Nos contratos de concessão de crédito, a importância cobrada a título de comissão de permanência não poderá ultrapassar a soma dos encargos remuneratórios e moratórios previstos no contrato, ou seja: a) juros remuneratórios à taxa média de mercado, não podendo ultrapassar o percentual contratado para o período de normalidade da operação; b) juros moratórios até o limite de 12% ao ano; e c) multa contratual limitada a 2% do valor da prestação, nos termos do art. 52. § 1º, do CDC.",
+        "pontos": [],
+        "essencial": {
+          "resumo": "18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES.",
+          "itens": [
+            "Alienação fiduciária.",
+            "Juros remuneratórios.",
+            "Ausência de abusividade.",
+            "Capitalização de juros pactuada."
+          ]
+        },
+        "fortalecer": {
+          "resumo": "Use só a parte do julgado que favorece o pedido e isole o restante.",
+          "itens": [
+            "Alienação fiduciária.",
+            "Juros remuneratórios.",
+            "Ausência de abusividade."
+          ]
+        },
+        "blindar": {
+          "resumo": "Onde a parte contrária pode apoiar o ataque, segundo a ementa oficial.",
+          "itens": [
+            "Alienação fiduciária.",
+            "Juros remuneratórios.",
+            "Ausência de abusividade."
+          ]
+        },
+        "contrapor": {
+          "resumo": "Como limitar o alcance deste julgado: o dispositivo oficial e o contexto da câmara.",
+          "itens": [
+            "Alienação fiduciária.",
+            "Juros remuneratórios.",
+            "Ausência de abusividade."
+          ]
+        },
+        "citavel": true,
+        "fonte": "tjpr",
+        "relacao": "precedente_tema"
+      },
+      {
+        "id": "59",
+        "processNumber": "90000080220128160026",
+        "acordao": "TJPR-2100000014800751 (tema)",
+        "court": "TJPR",
+        "chamber": "1ª Turma Recursal",
+        "reporter": "Melissa de Azevedo Olivas Juíza de Direito da Turma Recursal dos Juízaados Especiais",
+        "date": "14/06/2021",
+        "status": "SENTENCIADO",
+        "alignment": "diverge",
+        "ementa": "Ementa: recurso inominado. Ação de revisão contratual c/c repetição de indébito. Direito bancário. Contrato de financiamento. Alegação de cobrança abusiva de juros remuneratórios. Taxa média acima da praticada no mercado. Recálculo que necessita de cálculos complexos. Incompetência dos juizados especiais. Tarifa de registro. Ausência de prova da prestação do serviço. Restituição devida. Sentença parcialmente reformada. Recurso da parte autora conhecido e parcialmente provido.",
+        "pontos": [],
+        "essencial": {
+          "resumo": "1ª Turma Recursal · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida.",
+          "itens": [
+            "Ementa: recurso inominado.",
+            "Ação de revisão contratual c/c repetição de indébito.",
+            "Contrato de financiamento.",
+            "Alegação de cobrança abusiva de juros remuneratórios."
+          ]
+        },
+        "fortalecer": {
+          "resumo": "Use só a parte do julgado que favorece o pedido e isole o restante.",
+          "itens": [
+            "Ementa: recurso inominado.",
+            "Ação de revisão contratual c/c repetição de indébito.",
+            "Contrato de financiamento."
+          ]
+        },
+        "blindar": {
+          "resumo": "Onde a parte contrária pode apoiar o ataque, segundo a ementa oficial.",
+          "itens": [
+            "Ementa: recurso inominado.",
+            "Ação de revisão contratual c/c repetição de indébito.",
+            "Contrato de financiamento."
+          ]
+        },
+        "contrapor": {
+          "resumo": "Como limitar o alcance deste julgado: o dispositivo oficial e o contexto da câmara.",
+          "itens": [
+            "Ementa: recurso inominado.",
+            "Ação de revisão contratual c/c repetição de indébito.",
+            "Contrato de financiamento."
+          ]
+        },
+        "citavel": true,
+        "fonte": "tjpr",
+        "relacao": "precedente_tema"
+      }
+    ],
+    "dissidios": [
+      {
+        "camara": "5ª Câmara Cível",
+        "orientacao": "Neste órgão: 0 a favor, 0 contra, 1 divergente.",
+        "versus": "diverge",
+        "nota": "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+        "fonte": "acervo_interno"
+      },
+      {
+        "camara": "18ª Câmara Cível",
+        "orientacao": "Neste órgão: 0 a favor, 0 contra, 1 divergente.",
+        "versus": "diverge",
+        "nota": "18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES.",
+        "fonte": "acervo_interno"
+      },
+      {
+        "camara": "1ª Turma Recursal",
+        "orientacao": "Neste órgão: 0 a favor, 0 contra, 1 divergente.",
+        "versus": "diverge",
+        "nota": "1ª Turma Recursal · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida.",
+        "fonte": "acervo_interno"
+      }
+    ],
     "jurimetria": {
-      "amostra": 0,
-      "padrao": "",
-      "interno": "",
-      "riscos": []
+      "amostra": 3,
+      "padrao": "No recorte oficial deste caso há 3 acórdãos do TJPR (5ª Câmara Cível, 18ª Câmara Cível, 1ª Turma Recursal). Distribuição: 0 a favor, 0 contra, 3 divergente.",
+      "interno": "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples. 18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES. 1ª Turma Recursal · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida.",
+      "riscos": [
+        "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+        "18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES.",
+        "1ª Turma Recursal · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida."
+      ]
     },
     "fontes": {
       "titulo": "acervo_interno",
@@ -3258,21 +4401,21 @@ export const ACERVO_REAL: Caso[] = [
       "resumo": "acervo_interno",
       "tese": "acervo_interno",
       "atualizacao": "acervo_interno",
-      "chance": "indisponivel",
-      "votos": "indisponivel",
+      "chance": "tjpr",
+      "votos": "tjpr",
       "peticoes": "acervo_interno",
-      "contratos": "indisponivel",
+      "contratos": "acervo_interno",
       "documentos": "acervo_interno",
       "decisoes": "acervo_interno",
       "modelos": "indisponivel",
       "historico": "acervo_interno",
       "prazos": "acervo_interno",
-      "teses": "indisponivel",
-      "resultados": "indisponivel",
+      "teses": "acervo_interno",
+      "resultados": "acervo_interno",
       "conversas": "indisponivel",
-      "jurisprudencias": "acervo_interno",
-      "dissidios": "indisponivel",
-      "jurimetria": "indisponivel"
+      "jurisprudencias": "tjpr",
+      "dissidios": "acervo_interno",
+      "jurimetria": "tjpr"
     }
   },
   {
@@ -3282,7 +4425,7 @@ export const ACERVO_REAL: Caso[] = [
     "subtema": "Cautelar Inominada",
     "processNumber": "9000009-31.2010.8.16.0034",
     "court": "TJPR",
-    "chamber": "PIRAQUARA - VARA CÍVEL E DA FAZENDA PÚBLICA",
+    "chamber": "Piraquara - vara cível e da fazenda pública",
     "status": "SENTENCIADO",
     "cliente": "Parte autora (sigilo)",
     "partes": [
@@ -3295,16 +4438,16 @@ export const ACERVO_REAL: Caso[] = [
         "nome": "Parte ré (sigilo)"
       }
     ],
-    "resumo": "Cautelar Inominada perante PIRAQUARA - VARA CÍVEL E DA FAZENDA PÚBLICA (TJPR). Assunto(s) DataJud: Espécies de Contratos.",
-    "tese": "Indisponível no DataJud (capa/andamentos apenas).",
+    "resumo": "Cautelar inominada perante piraquara - vara cível e da fazenda pública (tjpr). Assunto(s) datajud: espécies de contratos.",
+    "tese": "Ação revisional de contrato bancário garantido por alienação fiduciária. Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
     "atualizacao": "08/07/2026",
-    "chance": 0,
-    "chanceRotulo": "indisponível sem modelo oficial",
-    "chanceTexto": "indisponível sem modelo oficial",
+    "chance": 29,
+    "chanceRotulo": "recorte descritivo TJPR",
+    "chanceTexto": "Com base em 14 ementa(s) oficial(is) do portal TJPR neste recorte: 1 a favor, 7 contra, 6 divergente(s). Índice descritivo (favor +½ divergente).",
     "votos": {
       "for": 0,
       "against": 0,
-      "diverge": 0
+      "diverge": 3
     },
     "peticoes": [
       {
@@ -3372,7 +4515,16 @@ export const ACERVO_REAL: Caso[] = [
         "resumo": "Andamento DataJud: Petição em 07/02/2018."
       }
     ],
-    "contratos": [],
+    "contratos": [
+      {
+        "id": "ctr-capa",
+        "titulo": "Espécies de Contratos",
+        "tipo": "Capa do processo",
+        "data": "08/07/2026",
+        "origem": "TJPR",
+        "resumo": "Cautelar inominada perante piraquara - vara cível e da fazenda pública (tjpr). Assunto(s) datajud: espécies de contratos."
+      }
+    ],
     "documentos": [
       {
         "id": "65",
@@ -3560,11 +4712,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 5,
         "calendar": "uteis",
         "status": "vencido",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para prestar esclarecimentos sobre os pontos indicados pelo juízo.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-01",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-01"
       },
       {
         "id": "35",
@@ -3574,11 +4725,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 10,
         "calendar": "uteis",
         "status": "a_vencer",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para juntar os documentos solicitados pelo juízo.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-02",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-02"
       },
       {
         "id": "61",
@@ -3588,11 +4738,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 15,
         "calendar": "uteis",
         "status": "aberto",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para especificar as provas pretendidas e justificar sua pertinência.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-10",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-10"
       },
       {
         "id": "87",
@@ -3602,55 +4751,221 @@ export const ACERVO_REAL: Caso[] = [
         "days": 15,
         "calendar": "uteis",
         "status": "cumprido",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para apresentar manifestação sobre documento juntado aos autos.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-08-14",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real. Cumprimento fictício registrado apenas para demonstrar o filtro da tela."
+        "startedAt": "2026-08-14"
       }
     ],
-    "teses": [],
-    "resultados": [],
-    "conversas": [],
-    "jurisprudencias": [
+    "teses": [
       {
-        "id": "9",
-        "processNumber": "90000093120108160034",
-        "acordao": "[NÃO OFICIAL] Referência de capa 9000009-31.2010.8.16.0034",
-        "court": "TJPR",
-        "chamber": "PIRAQUARA - VARA CÍVEL E DA FAZENDA PÚBLICA",
-        "reporter": "Não informado",
-        "date": "08/07/2026",
-        "status": "SENTENCIADO",
-        "alignment": "diverge",
-        "ementa": "",
-        "pontos": [],
-        "essencial": {
-          "resumo": "",
-          "itens": []
-        },
-        "fortalecer": {
-          "resumo": "",
-          "itens": []
-        },
-        "blindar": {
-          "resumo": "",
-          "itens": []
-        },
-        "contrapor": {
-          "resumo": "",
-          "itens": []
-        },
-        "citavel": false,
+        "id": "35",
+        "titulo": "Espécies de Contratos",
+        "uso": "Aguardar ementa oficial; até lá usar só corpus descritivo do tema.",
+        "forca": "baixa",
         "fonte": "acervo_interno"
       }
     ],
-    "dissidios": [],
+    "resultados": [
+      {
+        "id": "60",
+        "titulo": "5ª Câmara Cível · 16/11/2020",
+        "desfecho": "Ação revisional de contrato bancário garantido por alienação fiduciária. Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+        "aprendizado": "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples."
+      },
+      {
+        "id": "61",
+        "titulo": "18ª Câmara Cível · 06/04/2020",
+        "desfecho": "ALIENAÇÃO FIDUCIÁRIA. JUROS REMUNERATÓRIOS. AUSÊNCIA DE ABUSIVIDADE. CAPITALIZAÇÃO DE JUROS PACTUADA. tarifa de registro DO CONTRATO E GRAVAME ELETRÔNICO.",
+        "aprendizado": "18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES."
+      },
+      {
+        "id": "62",
+        "titulo": "1ª Turma Recursal · 14/06/2021",
+        "desfecho": "Ementa: recurso inominado. Ação de revisão contratual c/c repetição de indébito. Contrato de financiamento. Alegação de cobrança abusiva de juros remuneratórios.",
+        "aprendizado": "1ª Turma Recursal · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida."
+      }
+    ],
+    "conversas": [],
+    "jurisprudencias": [
+      {
+        "id": "60",
+        "processNumber": "90000093120108160034",
+        "acordao": "TJPR-4100000015299901 (tema)",
+        "court": "TJPR",
+        "chamber": "5ª Câmara Cível",
+        "reporter": "Nilson Mizuta Desembargador",
+        "date": "16/11/2020",
+        "status": "SENTENCIADO",
+        "alignment": "diverge",
+        "ementa": "Apelação cível. Ação revisional de contrato bancário garantido por alienação fiduciária. Procedência. Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples. Ajuizamento do cumprimento de sentença. Impugnação ao cumprimento de sentença. Alegação de excesso e pedido de compensação (vinte parcelas não pagas de um total de 36). Concordância entre as partes quanto ao não pagamento das 20 parcelas. Várias memórias de cálculos elaboradas. Homologação do último cálculo que incluiu a compensação entre os créditos de ambas as partes. Sentença que acolhe a impugnação ao cumprimento de sentença. Mérito do apelo. Pedido de prestação de contas quanto à venda do bem nestes autos. Não acolhimento. Etapa que deve ocorrer nos respectivos autos de busca e apreensão (art. 2º do decreto-lei nº 911/1969). Precedentes do stj e tjpr. Impossibilidade de determinação de adequação do rito nesta instância. Compensação entre saldo devedor do contrato e os valores cobrados indevidamente reconhecidos na ação revisional. Legalidade. Possibilidade de compensação de valores ainda que a sentença ou o acórdão não tenham assim determinado. Inteligência do art. 368 do código civil. Não existe qualquer vedação legal para que se dê a compensação se a apelante e o apelado são reciprocamente credores e devedores entre si. Precedentes.1. A prestação de contas é fase prevista no caput do art. 2º, do decreto-lei nº 911/1969, todavia, esta deve ser requerida nos respectivos autos da ação de busca e apreensão, conforme já decidiu o superior tribunal de justiça: “ação de prestação de contas. Interesse processual. Alienação fiduciária. Busca e apreensão. Leilão extrajudicial. Veiculo automotor. (..) no caso de alienação extrajudicial de veículo automotor regida pelo art. 2º do decreto-lei n. 911/1969 - redação anterior à lei n. 13.043/2014 -, tem o devedor interesse processual na ação de prestação de contas, quanto aos valores decorrentes da venda e à correta imputação no débito (saldo remanescente). (...).” (stj - resp 1678525/sp, rel. Ministro antonio carlos ferreira, quarta turma, julgado em 05/10/2017, dje 09/10/2017)2. Faz-se possível a compensação de valores entre os créditos ainda pendentes do financiamento do veículo e aqueles reconhecidos em ação revisional como abusivos, conforme este e. Tribunal de justiça já decidiu: “(...) compensação de valores é a forma preferencial de pagamento desde que não exista qualquer vedação legal acerca da sua possibilidade. Apesar de não haver previsão de compensação em fase de conhecimento, não existe qualquer vedação acerca da sua impossibilidade em fase de execução, eis que se trata de dívida líquida, certa e exigível.” (tjpr - 18ª c.cível - 9000062-36.2018.8.16.0000 - curitiba - rel.: juíza subst. 2ºgrau denise antunes - j. 13.03.2019)recurso não provido.",
+        "pontos": [],
+        "essencial": {
+          "resumo": "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+          "itens": [
+            "Ação revisional de contrato bancário garantido por alienação fiduciária.",
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+            "Ajuizamento do cumprimento de sentença.",
+            "Impugnação ao cumprimento de sentença."
+          ]
+        },
+        "fortalecer": {
+          "resumo": "Use só a parte do julgado que favorece o pedido e isole o restante.",
+          "itens": [
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples."
+          ]
+        },
+        "blindar": {
+          "resumo": "Onde a parte contrária pode apoiar o ataque, segundo a ementa oficial.",
+          "itens": [
+            "Ação revisional de contrato bancário garantido por alienação fiduciária.",
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+            "Ajuizamento do cumprimento de sentença."
+          ]
+        },
+        "contrapor": {
+          "resumo": "Como limitar o alcance deste julgado: o dispositivo oficial e o contexto da câmara.",
+          "itens": [
+            "Ação revisional de contrato bancário garantido por alienação fiduciária.",
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+            "Ajuizamento do cumprimento de sentença."
+          ]
+        },
+        "citavel": true,
+        "fonte": "tjpr",
+        "relacao": "precedente_tema"
+      },
+      {
+        "id": "61",
+        "processNumber": "90000093120108160034",
+        "acordao": "TJPR-4100000012641161 (tema)",
+        "court": "TJPR",
+        "chamber": "18ª Câmara Cível",
+        "reporter": "Marcelo Gobbo Dalla Dea Desembargador",
+        "date": "06/04/2020",
+        "status": "SENTENCIADO",
+        "alignment": "diverge",
+        "ementa": "APELAÇÃO CÍVEL. AÇÃO REVISIONAL. ALIENAÇÃO FIDUCIÁRIA. JUROS REMUNERATÓRIOS. AUSÊNCIA DE ABUSIVIDADE. CAPITALIZAÇÃO DE JUROS PACTUADA. tarifa de registro DO CONTRATO E GRAVAME ELETRÔNICO. LEGALIDADE. SEGURO PROTEÇÃO. VENDA CASADA. ABUSIVIDADE. COMISSÃO DE PERMANÊNCIA. INEXISTÊNCIA. DEVOLUÇÃO NA FORMA SIMPLES. SUCUMBÊNCIA REDISTRIBUÍDA. RECURSO CONHECIDO E PARCIALMENTE PROVIDO.1. É livre a pactuação dos juros remuneratórios através do posicionamento jurisprudencial do Superior Tribunal de Justiça, de forma que a sua limitação ao patamar acima de 12% ao ano não indica abusividade. 2. O Superior Tribunal de Justiça firmou entendimento no RESP 973827 de que a capitalização é válida desde que expressamente pactuada.3. É permitida a capitalização de juros, sendo autorizada pelo Superior Tribunal de Justiça nos REsp 1251331 e 1255573, julgados pelo rito do artigo 543-C do Código de Processo Civil/73.4. É passível de repasse ao consumidor o custo referente à tarifa de registro do contrato de financiamento de veículo com cláusula de garantia fiduciária, desde que a cobrança pelo registro do contrato corresponda a um serviço efetivamente prestado e que o valor não se mostre abusivo.5. Nos contratos bancários em geral, o consumidor não pode ser compelido a contratar seguro com a instituição financeira ou com seguradora por ela indicada (STJ – Recurso Especial Repetitivo nº 1.639.259/SP e nº 1.639.320/SP - Tema 972).6. Nos contratos de concessão de crédito, a importância cobrada a título de comissão de permanência não poderá ultrapassar a soma dos encargos remuneratórios e moratórios previstos no contrato, ou seja: a) juros remuneratórios à taxa média de mercado, não podendo ultrapassar o percentual contratado para o período de normalidade da operação; b) juros moratórios até o limite de 12% ao ano; e c) multa contratual limitada a 2% do valor da prestação, nos termos do art. 52. § 1º, do CDC.",
+        "pontos": [],
+        "essencial": {
+          "resumo": "18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES.",
+          "itens": [
+            "Alienação fiduciária.",
+            "Juros remuneratórios.",
+            "Ausência de abusividade.",
+            "Capitalização de juros pactuada."
+          ]
+        },
+        "fortalecer": {
+          "resumo": "Use só a parte do julgado que favorece o pedido e isole o restante.",
+          "itens": [
+            "Alienação fiduciária.",
+            "Juros remuneratórios.",
+            "Ausência de abusividade."
+          ]
+        },
+        "blindar": {
+          "resumo": "Onde a parte contrária pode apoiar o ataque, segundo a ementa oficial.",
+          "itens": [
+            "Alienação fiduciária.",
+            "Juros remuneratórios.",
+            "Ausência de abusividade."
+          ]
+        },
+        "contrapor": {
+          "resumo": "Como limitar o alcance deste julgado: o dispositivo oficial e o contexto da câmara.",
+          "itens": [
+            "Alienação fiduciária.",
+            "Juros remuneratórios.",
+            "Ausência de abusividade."
+          ]
+        },
+        "citavel": true,
+        "fonte": "tjpr",
+        "relacao": "precedente_tema"
+      },
+      {
+        "id": "62",
+        "processNumber": "90000093120108160034",
+        "acordao": "TJPR-2100000014800751 (tema)",
+        "court": "TJPR",
+        "chamber": "1ª Turma Recursal",
+        "reporter": "Melissa de Azevedo Olivas Juíza de Direito da Turma Recursal dos Juízaados Especiais",
+        "date": "14/06/2021",
+        "status": "SENTENCIADO",
+        "alignment": "diverge",
+        "ementa": "Ementa: recurso inominado. Ação de revisão contratual c/c repetição de indébito. Direito bancário. Contrato de financiamento. Alegação de cobrança abusiva de juros remuneratórios. Taxa média acima da praticada no mercado. Recálculo que necessita de cálculos complexos. Incompetência dos juizados especiais. Tarifa de registro. Ausência de prova da prestação do serviço. Restituição devida. Sentença parcialmente reformada. Recurso da parte autora conhecido e parcialmente provido.",
+        "pontos": [],
+        "essencial": {
+          "resumo": "1ª Turma Recursal · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida.",
+          "itens": [
+            "Ementa: recurso inominado.",
+            "Ação de revisão contratual c/c repetição de indébito.",
+            "Contrato de financiamento.",
+            "Alegação de cobrança abusiva de juros remuneratórios."
+          ]
+        },
+        "fortalecer": {
+          "resumo": "Use só a parte do julgado que favorece o pedido e isole o restante.",
+          "itens": [
+            "Ementa: recurso inominado.",
+            "Ação de revisão contratual c/c repetição de indébito.",
+            "Contrato de financiamento."
+          ]
+        },
+        "blindar": {
+          "resumo": "Onde a parte contrária pode apoiar o ataque, segundo a ementa oficial.",
+          "itens": [
+            "Ementa: recurso inominado.",
+            "Ação de revisão contratual c/c repetição de indébito.",
+            "Contrato de financiamento."
+          ]
+        },
+        "contrapor": {
+          "resumo": "Como limitar o alcance deste julgado: o dispositivo oficial e o contexto da câmara.",
+          "itens": [
+            "Ementa: recurso inominado.",
+            "Ação de revisão contratual c/c repetição de indébito.",
+            "Contrato de financiamento."
+          ]
+        },
+        "citavel": true,
+        "fonte": "tjpr",
+        "relacao": "precedente_tema"
+      }
+    ],
+    "dissidios": [
+      {
+        "camara": "5ª Câmara Cível",
+        "orientacao": "Neste órgão: 0 a favor, 0 contra, 1 divergente.",
+        "versus": "diverge",
+        "nota": "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+        "fonte": "acervo_interno"
+      },
+      {
+        "camara": "18ª Câmara Cível",
+        "orientacao": "Neste órgão: 0 a favor, 0 contra, 1 divergente.",
+        "versus": "diverge",
+        "nota": "18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES.",
+        "fonte": "acervo_interno"
+      },
+      {
+        "camara": "1ª Turma Recursal",
+        "orientacao": "Neste órgão: 0 a favor, 0 contra, 1 divergente.",
+        "versus": "diverge",
+        "nota": "1ª Turma Recursal · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida.",
+        "fonte": "acervo_interno"
+      }
+    ],
     "jurimetria": {
-      "amostra": 0,
-      "padrao": "",
-      "interno": "",
-      "riscos": []
+      "amostra": 3,
+      "padrao": "No recorte oficial deste caso há 3 acórdãos do TJPR (5ª Câmara Cível, 18ª Câmara Cível, 1ª Turma Recursal). Distribuição: 0 a favor, 0 contra, 3 divergente.",
+      "interno": "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples. 18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES. 1ª Turma Recursal · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida.",
+      "riscos": [
+        "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+        "18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES.",
+        "1ª Turma Recursal · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida."
+      ]
     },
     "fontes": {
       "titulo": "acervo_interno",
@@ -3665,21 +4980,21 @@ export const ACERVO_REAL: Caso[] = [
       "resumo": "acervo_interno",
       "tese": "acervo_interno",
       "atualizacao": "acervo_interno",
-      "chance": "indisponivel",
-      "votos": "indisponivel",
+      "chance": "tjpr",
+      "votos": "tjpr",
       "peticoes": "acervo_interno",
-      "contratos": "indisponivel",
+      "contratos": "acervo_interno",
       "documentos": "acervo_interno",
       "decisoes": "acervo_interno",
       "modelos": "indisponivel",
       "historico": "acervo_interno",
       "prazos": "acervo_interno",
-      "teses": "indisponivel",
-      "resultados": "indisponivel",
+      "teses": "acervo_interno",
+      "resultados": "acervo_interno",
       "conversas": "indisponivel",
-      "jurisprudencias": "acervo_interno",
-      "dissidios": "indisponivel",
-      "jurimetria": "indisponivel"
+      "jurisprudencias": "tjpr",
+      "dissidios": "acervo_interno",
+      "jurimetria": "tjpr"
     }
   },
   {
@@ -3689,7 +5004,7 @@ export const ACERVO_REAL: Caso[] = [
     "subtema": "Procedimento Comum Cível",
     "processNumber": "9000010-09.2011.8.16.0025",
     "court": "TJPR",
-    "chamber": "ARAUCÁRIA - 1ª VARA CÍVEL E DA FAZENDA PÚBLICA",
+    "chamber": "Araucária - 1ª vara cível e da fazenda pública",
     "status": "TRANSITADO_EM_JULGADO",
     "cliente": "Parte autora (sigilo)",
     "partes": [
@@ -3702,16 +5017,16 @@ export const ACERVO_REAL: Caso[] = [
         "nome": "Parte ré (sigilo)"
       }
     ],
-    "resumo": "Procedimento Comum Cível perante ARAUCÁRIA - 1ª VARA CÍVEL E DA FAZENDA PÚBLICA (TJPR). Assunto(s) DataJud: Arrendamento Mercantil.",
-    "tese": "Indisponível no DataJud (capa/andamentos apenas).",
+    "resumo": "Procedimento comum cível perante araucária - 1ª vara cível e da fazenda pública (tjpr). Assunto(s) datajud: arrendamento mercantil.",
+    "tese": "Arrendamento mercantil. Reintegração de posse e revisional de contrato julgadas conjuntamente. prescrição relativa ao pedido de restituição das tarifas.",
     "atualizacao": "01/09/2026",
-    "chance": 0,
-    "chanceRotulo": "indisponível sem modelo oficial",
-    "chanceTexto": "indisponível sem modelo oficial",
+    "chance": 17,
+    "chanceRotulo": "recorte descritivo TJPR",
+    "chanceTexto": "Com base em 3 ementa(s) oficial(is) do portal TJPR neste recorte: 0 a favor, 2 contra, 1 divergente(s). Índice descritivo (favor +½ divergente).",
     "votos": {
       "for": 0,
-      "against": 0,
-      "diverge": 0
+      "against": 1,
+      "diverge": 2
     },
     "peticoes": [
       {
@@ -3779,7 +5094,16 @@ export const ACERVO_REAL: Caso[] = [
         "resumo": "Andamento DataJud: Petição em 31/03/2017."
       }
     ],
-    "contratos": [],
+    "contratos": [
+      {
+        "id": "ctr-capa",
+        "titulo": "Arrendamento Mercantil",
+        "tipo": "Capa do processo",
+        "data": "01/09/2026",
+        "origem": "TJPR",
+        "resumo": "Procedimento comum cível perante araucária - 1ª vara cível e da fazenda pública (tjpr). Assunto(s) datajud: arrendamento mercantil."
+      }
+    ],
     "documentos": [
       {
         "id": "73",
@@ -3967,11 +5291,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 5,
         "calendar": "uteis",
         "status": "vencido",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para prestar esclarecimentos sobre os pontos indicados pelo juízo.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-01",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-01"
       },
       {
         "id": "36",
@@ -3981,11 +5304,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 10,
         "calendar": "uteis",
         "status": "a_vencer",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para juntar os documentos solicitados pelo juízo.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-02",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-02"
       },
       {
         "id": "62",
@@ -3995,11 +5317,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 15,
         "calendar": "uteis",
         "status": "aberto",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para especificar as provas pretendidas e justificar sua pertinência.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-10",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-10"
       },
       {
         "id": "88",
@@ -4009,55 +5330,212 @@ export const ACERVO_REAL: Caso[] = [
         "days": 15,
         "calendar": "uteis",
         "status": "cumprido",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para apresentar manifestação sobre documento juntado aos autos.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-08-14",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real. Cumprimento fictício registrado apenas para demonstrar o filtro da tela."
+        "startedAt": "2026-08-14"
       }
     ],
-    "teses": [],
-    "resultados": [],
-    "conversas": [],
-    "jurisprudencias": [
+    "teses": [
       {
-        "id": "10",
-        "processNumber": "90000100920118160025",
-        "acordao": "[NÃO OFICIAL] Referência de capa 9000010-09.2011.8.16.0025",
-        "court": "TJPR",
-        "chamber": "ARAUCÁRIA - 1ª VARA CÍVEL E DA FAZENDA PÚBLICA",
-        "reporter": "Não informado",
-        "date": "01/09/2026",
-        "status": "TRANSITADO_EM_JULGADO",
-        "alignment": "diverge",
-        "ementa": "",
-        "pontos": [],
-        "essencial": {
-          "resumo": "",
-          "itens": []
-        },
-        "fortalecer": {
-          "resumo": "",
-          "itens": []
-        },
-        "blindar": {
-          "resumo": "",
-          "itens": []
-        },
-        "contrapor": {
-          "resumo": "",
-          "itens": []
-        },
-        "citavel": false,
+        "id": "36",
+        "titulo": "Arrendamento Mercantil",
+        "uso": "Aguardar ementa oficial; até lá usar só corpus descritivo do tema.",
+        "forca": "baixa",
         "fonte": "acervo_interno"
       }
     ],
-    "dissidios": [],
+    "resultados": [
+      {
+        "id": "63",
+        "titulo": "17ª Câmara Cível · 14/06/2021",
+        "desfecho": "Arrendamento mercantil. Reintegração de posse e revisional de contrato julgadas conjuntamente. prescrição relativa ao pedido de restituição das tarifas.",
+        "aprendizado": "17ª Câmara Cível · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: prescrição relativa ao pedido de restituição das tarifas."
+      },
+      {
+        "id": "64",
+        "titulo": "18ª Câmara Cível · 26/07/2021",
+        "desfecho": "Recurso de apelação – ação de revisão de cláusulas contratuais c/c repetição de indébito - contrato de arrendamento mercantil – capitalização – possibilidade - constitucionalidade - taxa anual de juros superior ao duodécuplo da taxa mensal.",
+        "aprendizado": "18ª Câmara Cível · 26/07/2021. A ementa oficial fecha contra o pedido: Súmula 539 e 541 do stj – tarifa de cadastro - gravame eletronico - contrato celebrados antes de 25.02.2011 - cobrança lícita - comissão de permanência cumulada com demais encargos - inexistência de estipulação de comissão de permanência – restituição do valor cobrado em dobro – indevido - recurso de apelação conhecido e não provido."
+      },
+      {
+        "id": "65",
+        "titulo": "2ª Turma Recursal · 18/09/2020",
+        "desfecho": "Bancário ação revisional. Contrato de financiamento. Cobrança de tarifas e encargos contratuais. Validade da cobrança condicionada ao atendimento dos parâmetros estabelecidos pelo superior tribunal de justiça.",
+        "aprendizado": "2ª Turma Recursal · 18/09/2020. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida."
+      }
+    ],
+    "conversas": [],
+    "jurisprudencias": [
+      {
+        "id": "63",
+        "processNumber": "90000100920118160025",
+        "acordao": "TJPR-4100000016033031 (tema)",
+        "court": "TJPR",
+        "chamber": "17ª Câmara Cível",
+        "reporter": "Fernando Paulino da Silva Wolff Filho Desembargador",
+        "date": "14/06/2021",
+        "status": "SENTENCIADO",
+        "alignment": "diverge",
+        "ementa": "Arrendamento mercantil. Reintegração de posse e revisional de contrato julgadas conjuntamente. (1) prescrição relativa ao pedido de restituição das tarifas. Inocorrência. Direito pessoal. Prazo prescricional de 10 anos (art. 205 do cc). Precedentes do stj. (2) devolução do vrg. Valor que corresponde ao preço a ser pago pelo arrendatário, caso exerça a opção de compra do bem, ou ao mínimo garantido ao arrendador, caso o arrendatário não opte pela compra. Resolução do contrato por inadimplemento, com o consequente retorno das partes ao status quo ante. Vrg que deve ser devolvido ao arrendatário no limite da diferença entre o vrg pago antecipadamente somado ao valor da venda do bem a terceiro e o vrg previsto contratualmente. Inteligência da súmula 564 do stj. Contraprestações devidas e não pagas até a reintegração do bem que devem ser descontadas do montante a ser devolvido a título de vrg. (3) tarifa de registro. Questão decidida pelo stj em julgamento de recurso repetitivo (resp n.º 1.578.553/sp). Tema 958/stj. Onerosidade excessiva não verificada. Prestação do servço devidamente comprovada. Documento do veículo que consta as devidas anotações. Abusividade não configurada. (4) seguro de proteção financeira. Enunciado nº 6 da 17ª e 18º câmaras cíveis do tjpr. Tema repetitivo nº 972/stj. Cobrança possível desde que não tenha configurado venda casada. Elementos dos autos que apontam para a contratação do seguro como uma mera faculdade do autor. Autor que, de acordo com o quadro c4, poderia ou não contratar o seguro e, contratando-o, teria a liberdade para escolher a seguradora. (5) serviço de terceiros. Tema submetido ao crivo do stj em sede de recurso repetitivo (resp no 1.578.553/sp). Cobrança permitida quando devidamente especificados e prestados os serviços. Análise do caso concreto. Requisitos preenchidos. Validade da cobrança. (6) honorários advocatícios. Redução. Possibilidade apenas na ação revisional (autos nº 9000006-45.2014.8.16.0193).apelo 1, desprovido.apelo 2, parcialmente provido",
+        "pontos": [],
+        "essencial": {
+          "resumo": "17ª Câmara Cível · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: prescrição relativa ao pedido de restituição das tarifas.",
+          "itens": [
+            "Arrendamento mercantil.",
+            "Reintegração de posse e revisional de contrato julgadas conjuntamente.",
+            "prescrição relativa ao pedido de restituição das tarifas.",
+            "Prazo prescricional de 10 anos (art. 205 do cc)."
+          ]
+        },
+        "fortalecer": {
+          "resumo": "Use só a parte do julgado que favorece o pedido e isole o restante.",
+          "itens": [
+            "prescrição relativa ao pedido de restituição das tarifas."
+          ]
+        },
+        "blindar": {
+          "resumo": "Onde a parte contrária pode apoiar o ataque, segundo a ementa oficial.",
+          "itens": [
+            "Arrendamento mercantil.",
+            "Reintegração de posse e revisional de contrato julgadas conjuntamente.",
+            "prescrição relativa ao pedido de restituição das tarifas."
+          ]
+        },
+        "contrapor": {
+          "resumo": "Como limitar o alcance deste julgado: o dispositivo oficial e o contexto da câmara.",
+          "itens": [
+            "Arrendamento mercantil.",
+            "Reintegração de posse e revisional de contrato julgadas conjuntamente.",
+            "prescrição relativa ao pedido de restituição das tarifas."
+          ]
+        },
+        "citavel": true,
+        "fonte": "tjpr",
+        "relacao": "precedente_tema"
+      },
+      {
+        "id": "64",
+        "processNumber": "90000100920118160025",
+        "acordao": "TJPR-4100000016926271 (tema)",
+        "court": "TJPR",
+        "chamber": "18ª Câmara Cível",
+        "reporter": "Ana Paula Kaled Accioly Rodrigues da Costa Juíza de Direito Substituto em Segundo Grau",
+        "date": "26/07/2021",
+        "status": "SENTENCIADO",
+        "alignment": "against",
+        "ementa": "Recurso de apelação – ação de revisão de cláusulas contratuais c/c repetição de indébito - contrato de arrendamento mercantil – capitalização – possibilidade - constitucionalidade - taxa anual de juros superior ao duodécuplo da taxa mensal. Súmula 539 e 541 do stj – tarifa de cadastro - gravame eletronico - contrato celebrados antes de 25.02.2011 - cobrança lícita - comissão de permanência cumulada com demais encargos - inexistência de estipulação de comissão de permanência – restituição do valor cobrado em dobro – indevido - recurso de apelação conhecido e não provido.",
+        "pontos": [],
+        "essencial": {
+          "resumo": "18ª Câmara Cível · 26/07/2021. A ementa oficial fecha contra o pedido: Súmula 539 e 541 do stj – tarifa de cadastro - gravame eletronico - contrato celebrados antes de 25.02.2011 - cobrança lícita - comissão de permanência cumulada com demais encargos - inexistência de estipulação de comissão de permanência – restituição do valor cobrado em dobro – indevido - recurso de apelação conhecido e não provido.",
+          "itens": [
+            "Recurso de apelação – ação de revisão de cláusulas contratuais c/c repetição de indébito - contrato de arrendamento mercantil – capitalização – possibilidade - constitucionalidade - taxa anual de juros superior ao duodécuplo da taxa mensal.",
+            "Súmula 539 e 541 do stj – tarifa de cadastro - gravame eletronico - contrato celebrados antes de 25.02.2011 - cobrança lícita - comissão de permanência cumulada com demais encargos - inexistência de estipulação de comissão de permanência – restituição do valor cobrado em dobro – indevido - recurso de apelação conhecido e não provido."
+          ]
+        },
+        "fortalecer": {
+          "resumo": "Este julgado fecha contra. Sirva-se dele para saber o que o tribunal já recusou.",
+          "itens": [
+            "Súmula 539 e 541 do stj – tarifa de cadastro - gravame eletronico - contrato celebrados antes de 25.02.2011 - cobrança lícita - comissão de permanência cumulada com demais encargos - inexistência de estipulação de comissão de permanência – restituição do valor cobrado em dobro – indevido - recurso de apelação conhecido e não provido."
+          ]
+        },
+        "blindar": {
+          "resumo": "Onde a parte contrária pode apoiar o ataque, segundo a ementa oficial.",
+          "itens": [
+            "Súmula 539 e 541 do stj – tarifa de cadastro - gravame eletronico - contrato celebrados antes de 25.02.2011 - cobrança lícita - comissão de permanência cumulada com demais encargos - inexistência de estipulação de comissão de permanência – restituição do valor cobrado em dobro – indevido - recurso de apelação conhecido e não provido."
+          ]
+        },
+        "contrapor": {
+          "resumo": "Como limitar o alcance deste julgado: o dispositivo oficial e o contexto da câmara.",
+          "itens": [
+            "Recurso de apelação – ação de revisão de cláusulas contratuais c/c repetição de indébito - contrato de arrendamento mercantil – capitalização – possibilidade - constitucionalidade - taxa anual de juros superior ao duodécuplo da taxa mensal.",
+            "Súmula 539 e 541 do stj – tarifa de cadastro - gravame eletronico - contrato celebrados antes de 25.02.2011 - cobrança lícita - comissão de permanência cumulada com demais encargos - inexistência de estipulação de comissão de permanência – restituição do valor cobrado em dobro – indevido - recurso de apelação conhecido e não provido."
+          ]
+        },
+        "citavel": true,
+        "fonte": "tjpr",
+        "relacao": "precedente_tema"
+      },
+      {
+        "id": "65",
+        "processNumber": "90000100920118160025",
+        "acordao": "TJPR-2100000003545351 (tema)",
+        "court": "TJPR",
+        "chamber": "2ª Turma Recursal",
+        "reporter": "Fernanda Bernert Michielin Juíza de Direito Substituto",
+        "date": "18/09/2020",
+        "status": "SENTENCIADO",
+        "alignment": "diverge",
+        "ementa": "Recurso inominado. Bancário ação revisional. Contrato de financiamento. Cobrança de tarifas e encargos contratuais. Validade da cobrança condicionada ao atendimento dos parâmetros estabelecidos pelo superior tribunal de justiça. Jurisprudência consolidada. Valor residual garantido (vrg). Soma do vrg antecipado pelo arrendatário e do valor de venda superior ao valor do vrg pactuado. Aplicação da súmula nº. 564 do stj. Ausência de comprovação do valor de venda do bem. Restituição devida. Sentença parcialmente reformada. Recurso conhecido e parcialmente provido.",
+        "pontos": [],
+        "essencial": {
+          "resumo": "2ª Turma Recursal · 18/09/2020. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida.",
+          "itens": [
+            "Bancário ação revisional.",
+            "Contrato de financiamento.",
+            "Cobrança de tarifas e encargos contratuais.",
+            "Validade da cobrança condicionada ao atendimento dos parâmetros estabelecidos pelo superior tribunal de justiça."
+          ]
+        },
+        "fortalecer": {
+          "resumo": "Use só a parte do julgado que favorece o pedido e isole o restante.",
+          "itens": [
+            "Cobrança de tarifas e encargos contratuais."
+          ]
+        },
+        "blindar": {
+          "resumo": "Onde a parte contrária pode apoiar o ataque, segundo a ementa oficial.",
+          "itens": [
+            "Bancário ação revisional.",
+            "Contrato de financiamento.",
+            "Cobrança de tarifas e encargos contratuais."
+          ]
+        },
+        "contrapor": {
+          "resumo": "Como limitar o alcance deste julgado: o dispositivo oficial e o contexto da câmara.",
+          "itens": [
+            "Bancário ação revisional.",
+            "Contrato de financiamento.",
+            "Cobrança de tarifas e encargos contratuais."
+          ]
+        },
+        "citavel": true,
+        "fonte": "tjpr",
+        "relacao": "precedente_tema"
+      }
+    ],
+    "dissidios": [
+      {
+        "camara": "17ª Câmara Cível",
+        "orientacao": "Neste órgão: 0 a favor, 0 contra, 1 divergente.",
+        "versus": "diverge",
+        "nota": "17ª Câmara Cível · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: prescrição relativa ao pedido de restituição das tarifas.",
+        "fonte": "acervo_interno"
+      },
+      {
+        "camara": "18ª Câmara Cível",
+        "orientacao": "Neste órgão: 0 a favor, 1 contra, 0 divergente.",
+        "versus": "against",
+        "nota": "18ª Câmara Cível · 26/07/2021. A ementa oficial fecha contra o pedido: Súmula 539 e 541 do stj – tarifa de cadastro - gravame eletronico - contrato celebrados antes de 25.02.2011 - cobrança lícita - comissão de permanência cumulada com demais encargos - inexistência de estipulação de comissão de permanência – restituição do valor cobrado em dobro – indevido - recurso de apelação conhecido e não provido.",
+        "fonte": "acervo_interno"
+      },
+      {
+        "camara": "2ª Turma Recursal",
+        "orientacao": "Neste órgão: 0 a favor, 0 contra, 1 divergente.",
+        "versus": "diverge",
+        "nota": "2ª Turma Recursal · 18/09/2020. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida.",
+        "fonte": "acervo_interno"
+      }
+    ],
     "jurimetria": {
-      "amostra": 0,
-      "padrao": "",
-      "interno": "",
-      "riscos": []
+      "amostra": 3,
+      "padrao": "No recorte oficial deste caso há 3 acórdãos do TJPR (17ª Câmara Cível, 18ª Câmara Cível, 2ª Turma Recursal). Distribuição: 0 a favor, 1 contra, 2 divergente.",
+      "interno": "17ª Câmara Cível · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: prescrição relativa ao pedido de restituição das tarifas. 18ª Câmara Cível · 26/07/2021. A ementa oficial fecha contra o pedido: Súmula 539 e 541 do stj – tarifa de cadastro - gravame eletronico - contrato celebrados antes de 25.02.2011 - cobrança lícita - comissão de permanência cumulada com demais encargos - inexistência de estipulação de comissão de permanência – restituição do valor cobrado em dobro – indevido - recurso de apelação conhecido e não provido. 2ª Turma Recursal · 18/09/2020. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida.",
+      "riscos": [
+        "17ª Câmara Cível · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: prescrição relativa ao pedido de restituição das tarifas.",
+        "18ª Câmara Cível · 26/07/2021. A ementa oficial fecha contra o pedido: Súmula 539 e 541 do stj – tarifa de cadastro - gravame eletronico - contrato celebrados antes de 25.02.2011 - cobrança lícita - comissão de permanência cumulada com demais encargos - inexistência de estipulação de comissão de permanência – restituição do valor cobrado em dobro – indevido - recurso de apelação conhecido e não provido.",
+        "2ª Turma Recursal · 18/09/2020. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida."
+      ]
     },
     "fontes": {
       "titulo": "acervo_interno",
@@ -4072,21 +5550,21 @@ export const ACERVO_REAL: Caso[] = [
       "resumo": "acervo_interno",
       "tese": "acervo_interno",
       "atualizacao": "acervo_interno",
-      "chance": "indisponivel",
-      "votos": "indisponivel",
+      "chance": "tjpr",
+      "votos": "tjpr",
       "peticoes": "acervo_interno",
-      "contratos": "indisponivel",
+      "contratos": "acervo_interno",
       "documentos": "acervo_interno",
       "decisoes": "acervo_interno",
       "modelos": "indisponivel",
       "historico": "acervo_interno",
       "prazos": "acervo_interno",
-      "teses": "indisponivel",
-      "resultados": "indisponivel",
+      "teses": "acervo_interno",
+      "resultados": "acervo_interno",
       "conversas": "indisponivel",
-      "jurisprudencias": "acervo_interno",
-      "dissidios": "indisponivel",
-      "jurimetria": "indisponivel"
+      "jurisprudencias": "tjpr",
+      "dissidios": "acervo_interno",
+      "jurimetria": "tjpr"
     }
   },
   {
@@ -4096,7 +5574,7 @@ export const ACERVO_REAL: Caso[] = [
     "subtema": "Execução Fiscal",
     "processNumber": "9000011-54.2025.8.16.0202",
     "court": "TJPR",
-    "chamber": "SÃO JOSÉ DOS PINHAIS - VARA DA FAZENDA PÚBLICA",
+    "chamber": "São josé dos pinhais - vara da fazenda pública",
     "status": "TRANSITADO_EM_JULGADO",
     "cliente": "Parte autora (sigilo)",
     "partes": [
@@ -4109,16 +5587,16 @@ export const ACERVO_REAL: Caso[] = [
         "nome": "Parte ré (sigilo)"
       }
     ],
-    "resumo": "Execução Fiscal perante SÃO JOSÉ DOS PINHAIS - VARA DA FAZENDA PÚBLICA (TJPR). Assunto(s) DataJud: Dívida Ativa (Execução Fiscal).",
-    "tese": "Indisponível no DataJud (capa/andamentos apenas).",
+    "resumo": "Execução fiscal perante são josé dos pinhais - vara da fazenda pública (tjpr). Assunto(s) datajud: dívida ativa (execução fiscal).",
+    "tese": "Ação revisional de contrato bancário garantido por alienação fiduciária. Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
     "atualizacao": "10/06/2026",
-    "chance": 0,
-    "chanceRotulo": "indisponível sem modelo oficial",
-    "chanceTexto": "indisponível sem modelo oficial",
+    "chance": 50,
+    "chanceRotulo": "recorte descritivo TJPR",
+    "chanceTexto": "Com base em 1 ementa(s) oficial(is) do portal TJPR neste recorte: 0 a favor, 0 contra, 1 divergente(s). Índice descritivo (favor +½ divergente).",
     "votos": {
-      "for": 0,
-      "against": 0,
-      "diverge": 0
+      "for": 1,
+      "against": 1,
+      "diverge": 1
     },
     "peticoes": [
       {
@@ -4302,11 +5780,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 5,
         "calendar": "uteis",
         "status": "vencido",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para prestar esclarecimentos sobre os pontos indicados pelo juízo.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-01",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-01"
       },
       {
         "id": "37",
@@ -4316,11 +5793,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 10,
         "calendar": "uteis",
         "status": "a_vencer",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para juntar os documentos solicitados pelo juízo.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-02",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-02"
       },
       {
         "id": "63",
@@ -4330,11 +5806,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 15,
         "calendar": "uteis",
         "status": "aberto",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para especificar as provas pretendidas e justificar sua pertinência.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-10",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-10"
       },
       {
         "id": "89",
@@ -4344,55 +5819,216 @@ export const ACERVO_REAL: Caso[] = [
         "days": 15,
         "calendar": "uteis",
         "status": "cumprido",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para apresentar manifestação sobre documento juntado aos autos.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-08-14",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real. Cumprimento fictício registrado apenas para demonstrar o filtro da tela."
+        "startedAt": "2026-08-14"
       }
     ],
-    "teses": [],
-    "resultados": [],
-    "conversas": [],
-    "jurisprudencias": [
+    "teses": [
       {
-        "id": "11",
-        "processNumber": "90000115420258160202",
-        "acordao": "[NÃO OFICIAL] Referência de capa 9000011-54.2025.8.16.0202",
-        "court": "TJPR",
-        "chamber": "SÃO JOSÉ DOS PINHAIS - VARA DA FAZENDA PÚBLICA",
-        "reporter": "Não informado",
-        "date": "10/06/2026",
-        "status": "TRANSITADO_EM_JULGADO",
-        "alignment": "diverge",
-        "ementa": "",
-        "pontos": [],
-        "essencial": {
-          "resumo": "",
-          "itens": []
-        },
-        "fortalecer": {
-          "resumo": "",
-          "itens": []
-        },
-        "blindar": {
-          "resumo": "",
-          "itens": []
-        },
-        "contrapor": {
-          "resumo": "",
-          "itens": []
-        },
-        "citavel": false,
+        "id": "37",
+        "titulo": "Dívida Ativa (Execução Fiscal)",
+        "uso": "Aguardar ementa oficial; até lá usar só corpus descritivo do tema.",
+        "forca": "media",
         "fonte": "acervo_interno"
       }
     ],
-    "dissidios": [],
+    "resultados": [
+      {
+        "id": "66",
+        "titulo": "5ª Câmara Cível · 16/11/2020",
+        "desfecho": "Ação revisional de contrato bancário garantido por alienação fiduciária. Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+        "aprendizado": "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples."
+      },
+      {
+        "id": "67",
+        "titulo": "18ª Câmara Cível · 25/05/2020",
+        "desfecho": "Ação revisional de contrato de financiamento bancário em sede de cumprimento de sentença.",
+        "aprendizado": "18ª Câmara Cível · 25/05/2020. A ementa oficial acolhe o sentido do pedido: Decisão transitada em julgado que concluiu pela exclusão dos juros de forma capitalizada, impossibilidade de cobrança cumulada da comissão de permanência com outros encargos, inexistência da mora, diante da presença de encargos abusivos e pela necessidade de restituição do valor cobrado indevidamente de forma simples."
+      },
+      {
+        "id": "68",
+        "titulo": "17ª Câmara Cível · 28/06/2021",
+        "desfecho": "Cumprimento de sentença em ação revisional de contrato de arrendamento mercantil. Sentença que não acolheu a impugnação ao cumprimento de sentença e homologou o cálculo apresentado pelo perito.",
+        "aprendizado": "17ª Câmara Cível · 28/06/2021. A ementa oficial fecha contra o pedido: Recurso conhecido e não provido."
+      }
+    ],
+    "conversas": [],
+    "jurisprudencias": [
+      {
+        "id": "66",
+        "processNumber": "90000115420258160202",
+        "acordao": "TJPR-4100000015299901 (tema)",
+        "court": "TJPR",
+        "chamber": "5ª Câmara Cível",
+        "reporter": "Nilson Mizuta Desembargador",
+        "date": "16/11/2020",
+        "status": "SENTENCIADO",
+        "alignment": "diverge",
+        "ementa": "Apelação cível. Ação revisional de contrato bancário garantido por alienação fiduciária. Procedência. Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples. Ajuizamento do cumprimento de sentença. Impugnação ao cumprimento de sentença. Alegação de excesso e pedido de compensação (vinte parcelas não pagas de um total de 36). Concordância entre as partes quanto ao não pagamento das 20 parcelas. Várias memórias de cálculos elaboradas. Homologação do último cálculo que incluiu a compensação entre os créditos de ambas as partes. Sentença que acolhe a impugnação ao cumprimento de sentença. Mérito do apelo. Pedido de prestação de contas quanto à venda do bem nestes autos. Não acolhimento. Etapa que deve ocorrer nos respectivos autos de busca e apreensão (art. 2º do decreto-lei nº 911/1969). Precedentes do stj e tjpr. Impossibilidade de determinação de adequação do rito nesta instância. Compensação entre saldo devedor do contrato e os valores cobrados indevidamente reconhecidos na ação revisional. Legalidade. Possibilidade de compensação de valores ainda que a sentença ou o acórdão não tenham assim determinado. Inteligência do art. 368 do código civil. Não existe qualquer vedação legal para que se dê a compensação se a apelante e o apelado são reciprocamente credores e devedores entre si. Precedentes.1. A prestação de contas é fase prevista no caput do art. 2º, do decreto-lei nº 911/1969, todavia, esta deve ser requerida nos respectivos autos da ação de busca e apreensão, conforme já decidiu o superior tribunal de justiça: “ação de prestação de contas. Interesse processual. Alienação fiduciária. Busca e apreensão. Leilão extrajudicial. Veiculo automotor. (..) no caso de alienação extrajudicial de veículo automotor regida pelo art. 2º do decreto-lei n. 911/1969 - redação anterior à lei n. 13.043/2014 -, tem o devedor interesse processual na ação de prestação de contas, quanto aos valores decorrentes da venda e à correta imputação no débito (saldo remanescente). (...).” (stj - resp 1678525/sp, rel. Ministro antonio carlos ferreira, quarta turma, julgado em 05/10/2017, dje 09/10/2017)2. Faz-se possível a compensação de valores entre os créditos ainda pendentes do financiamento do veículo e aqueles reconhecidos em ação revisional como abusivos, conforme este e. Tribunal de justiça já decidiu: “(...) compensação de valores é a forma preferencial de pagamento desde que não exista qualquer vedação legal acerca da sua possibilidade. Apesar de não haver previsão de compensação em fase de conhecimento, não existe qualquer vedação acerca da sua impossibilidade em fase de execução, eis que se trata de dívida líquida, certa e exigível.” (tjpr - 18ª c.cível - 9000062-36.2018.8.16.0000 - curitiba - rel.: juíza subst. 2ºgrau denise antunes - j. 13.03.2019)recurso não provido.",
+        "pontos": [],
+        "essencial": {
+          "resumo": "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+          "itens": [
+            "Ação revisional de contrato bancário garantido por alienação fiduciária.",
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+            "Ajuizamento do cumprimento de sentença.",
+            "Impugnação ao cumprimento de sentença."
+          ]
+        },
+        "fortalecer": {
+          "resumo": "Use só a parte do julgado que favorece o pedido e isole o restante.",
+          "itens": [
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples."
+          ]
+        },
+        "blindar": {
+          "resumo": "Onde a parte contrária pode apoiar o ataque, segundo a ementa oficial.",
+          "itens": [
+            "Ação revisional de contrato bancário garantido por alienação fiduciária.",
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+            "Ajuizamento do cumprimento de sentença."
+          ]
+        },
+        "contrapor": {
+          "resumo": "Como limitar o alcance deste julgado: o dispositivo oficial e o contexto da câmara.",
+          "itens": [
+            "Ação revisional de contrato bancário garantido por alienação fiduciária.",
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+            "Ajuizamento do cumprimento de sentença."
+          ]
+        },
+        "citavel": true,
+        "fonte": "tjpr",
+        "relacao": "precedente_tema"
+      },
+      {
+        "id": "67",
+        "processNumber": "90000115420258160202",
+        "acordao": "TJPR-4100000013018371 (tema)",
+        "court": "TJPR",
+        "chamber": "18ª Câmara Cível",
+        "reporter": "Pericles Bellusci de Batista Pereira Desembargador",
+        "date": "25/05/2020",
+        "status": "SENTENCIADO",
+        "alignment": "for",
+        "ementa": "Apelação cível. Ação revisional de contrato de financiamento bancário em sede de cumprimento de sentença. Decisão transitada em julgado que concluiu pela exclusão dos juros de forma capitalizada, impossibilidade de cobrança cumulada da comissão de permanência com outros encargos, inexistência da mora, diante da presença de encargos abusivos e pela necessidade de restituição do valor cobrado indevidamente de forma simples. Perito contábil que concluiu pela existência de saldo em favor do autor/exequente. Diversas insurgências da instituição financeira. Sentença que homologou a perícia, mas extinguiu a execução considerando a inexistência de saldo em favor do exequente. Insurgência. Divergência nos cálculos das partes. Inclusão da comissão de permanência e cômputo dos saldos. Conclusão correta da perícia contábil. Comissão de permanência somente devida em caso de subsistir mora. Decisão transitada em julgado que afastou a mora, sendo inaplicável cláusula válida relativa à comissão de permanência. Saldo contratual calculado a partir da posição do saldo devedor na planilha da instituição financeira e não pela simples soma das parcelas em aberto. - no caso, a decisão transitada em julgado, agora em sede de execução, concluiu: (i) pela exclusão dos juros de forma capitalizada; (ii) pela impossibilidade de cobrança cumulada da comissão de permanência com outros encargos; (iii) inexistência da mora, diante da presença de encargos abusivos; (iv) pela necessidade de restituição do valor cobrado indevidamente de forma simples.- a despeito da decisão ter concluído pela legalidade de cobrança da comissão de permanência de forma isolada, isto é, sem a cumulação com outros encargos, a mesma decisão entendeu inexistir mora por parte do autor, ora exequente, diante da cobrança pela instituição financeira de juros de forma capitalizada que tornavam inexigíveis os pagamentos da maneira com que eram cobrados, nesse sentido, inexistindo a mora, não se mostra aplicável a comissão de permanência, ainda que a sua cláusula fosse válida e eficaz, notadamente porque inexiste seu fato gerador.- sobre o valor alegadamente devido pelo contrato, não há que se acolher o raciocínio da instituição financeira que somou individualmente as parcelas 25 a 36 atualizando-as e acrescendo de juros, correto o cálculo do perito que partiu da posição do saldo devedor no momento do vencimento da 25ª parcela e deduziu o montante devido em favor do autor.recurso de apelação provido.",
+        "pontos": [],
+        "essencial": {
+          "resumo": "18ª Câmara Cível · 25/05/2020. A ementa oficial acolhe o sentido do pedido: Decisão transitada em julgado que concluiu pela exclusão dos juros de forma capitalizada, impossibilidade de cobrança cumulada da comissão de permanência com outros encargos, inexistência da mora, diante da presença de encargos abusivos e pela necessidade de restituição do valor cobrado indevidamente de forma simples.",
+          "itens": [
+            "Ação revisional de contrato de financiamento bancário em sede de cumprimento de sentença.",
+            "Decisão transitada em julgado que concluiu pela exclusão dos juros de forma capitalizada, impossibilidade de cobrança cumulada da comissão de permanência com outros encargos, inexistência da mora, diante da presença de encargos abusivos e pela necessidade de restituição do valor cobrado indevidamente de forma simples.",
+            "Perito contábil que concluiu pela existência de saldo em favor do autor/exequente.",
+            "Diversas insurgências da instituição financeira."
+          ]
+        },
+        "fortalecer": {
+          "resumo": "O que este acórdão oficial já reconheceu e pode ir para a peça.",
+          "itens": [
+            "Decisão transitada em julgado que concluiu pela exclusão dos juros de forma capitalizada, impossibilidade de cobrança cumulada da comissão de permanência com outros encargos, inexistência da mora, diante da presença de encargos abusivos e pela necessidade de restituição do valor cobrado indevidamente de forma simples."
+          ]
+        },
+        "blindar": {
+          "resumo": "Onde a parte contrária pode apoiar o ataque, segundo a ementa oficial.",
+          "itens": [
+            "Ação revisional de contrato de financiamento bancário em sede de cumprimento de sentença.",
+            "Decisão transitada em julgado que concluiu pela exclusão dos juros de forma capitalizada, impossibilidade de cobrança cumulada da comissão de permanência com outros encargos, inexistência da mora, diante da presença de encargos abusivos e pela necessidade de restituição do valor cobrado indevidamente de forma simples.",
+            "Perito contábil que concluiu pela existência de saldo em favor do autor/exequente."
+          ]
+        },
+        "contrapor": {
+          "resumo": "Se citarem este julgado contra você, volte ao dispositivo oficial e à identidade do caso.",
+          "itens": [
+            "Ação revisional de contrato de financiamento bancário em sede de cumprimento de sentença.",
+            "Decisão transitada em julgado que concluiu pela exclusão dos juros de forma capitalizada, impossibilidade de cobrança cumulada da comissão de permanência com outros encargos, inexistência da mora, diante da presença de encargos abusivos e pela necessidade de restituição do valor cobrado indevidamente de forma simples.",
+            "Perito contábil que concluiu pela existência de saldo em favor do autor/exequente."
+          ]
+        },
+        "citavel": true,
+        "fonte": "tjpr",
+        "relacao": "precedente_tema"
+      },
+      {
+        "id": "68",
+        "processNumber": "90000115420258160202",
+        "acordao": "TJPR-4100000011019221 (tema)",
+        "court": "TJPR",
+        "chamber": "17ª Câmara Cível",
+        "reporter": "Pedro Luis Sanson Corat Juiz de Direito Substituto em Segundo Grau",
+        "date": "28/06/2021",
+        "status": "SENTENCIADO",
+        "alignment": "against",
+        "ementa": "Apelação cível. Cumprimento de sentença em ação revisional de contrato de arrendamento mercantil. Sentença que não acolheu a impugnação ao cumprimento de sentença e homologou o cálculo apresentado pelo perito. Recurso do executado. Alegação de excesso de execução. Não acolhimento. Impugnação que deve indicar não só o valor que o impugnante entenda correto, mas também evidenciar a incorreção do cálculo impugnado. Inexistência de provas relativamente ao equívoco nos cálculos. Metodologia utilizada pelo executado não atende ao comando sentencial e viola a coisa julgada. Cumprimento de sentença que obrigatoriamente deve respeitar os limites do título executivo judicial. Precedentes. Alegação de uso de método (gauss) não autorizado. Ausência de demonstração da utilização do referido método. Argumentos genéricos que não merecem acolhimento. Recurso conhecido e não provido.",
+        "pontos": [],
+        "essencial": {
+          "resumo": "17ª Câmara Cível · 28/06/2021. A ementa oficial fecha contra o pedido: Recurso conhecido e não provido.",
+          "itens": [
+            "Cumprimento de sentença em ação revisional de contrato de arrendamento mercantil.",
+            "Sentença que não acolheu a impugnação ao cumprimento de sentença e homologou o cálculo apresentado pelo perito.",
+            "Recurso do executado.",
+            "Alegação de excesso de execução."
+          ]
+        },
+        "fortalecer": {
+          "resumo": "Este julgado fecha contra. Sirva-se dele para saber o que o tribunal já recusou.",
+          "itens": [
+            "Sentença que não acolheu a impugnação ao cumprimento de sentença e homologou o cálculo apresentado pelo perito."
+          ]
+        },
+        "blindar": {
+          "resumo": "Onde a parte contrária pode apoiar o ataque, segundo a ementa oficial.",
+          "itens": [
+            "Cumprimento de sentença em ação revisional de contrato de arrendamento mercantil.",
+            "Sentença que não acolheu a impugnação ao cumprimento de sentença e homologou o cálculo apresentado pelo perito.",
+            "Recurso do executado."
+          ]
+        },
+        "contrapor": {
+          "resumo": "Como limitar o alcance deste julgado: o dispositivo oficial e o contexto da câmara.",
+          "itens": [
+            "Cumprimento de sentença em ação revisional de contrato de arrendamento mercantil.",
+            "Sentença que não acolheu a impugnação ao cumprimento de sentença e homologou o cálculo apresentado pelo perito.",
+            "Recurso do executado."
+          ]
+        },
+        "citavel": true,
+        "fonte": "tjpr",
+        "relacao": "precedente_tema"
+      }
+    ],
+    "dissidios": [
+      {
+        "camara": "5ª Câmara Cível",
+        "orientacao": "Neste órgão: 0 a favor, 0 contra, 1 divergente.",
+        "versus": "diverge",
+        "nota": "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+        "fonte": "acervo_interno"
+      },
+      {
+        "camara": "18ª Câmara Cível",
+        "orientacao": "Neste órgão: 1 a favor, 0 contra, 0 divergente.",
+        "versus": "for",
+        "nota": "18ª Câmara Cível · 25/05/2020. A ementa oficial acolhe o sentido do pedido: Decisão transitada em julgado que concluiu pela exclusão dos juros de forma capitalizada, impossibilidade de cobrança cumulada da comissão de permanência com outros encargos, inexistência da mora, diante da presença de encargos abusivos e pela necessidade de restituição do valor cobrado indevidamente de forma simples.",
+        "fonte": "acervo_interno"
+      },
+      {
+        "camara": "17ª Câmara Cível",
+        "orientacao": "Neste órgão: 0 a favor, 1 contra, 0 divergente.",
+        "versus": "against",
+        "nota": "17ª Câmara Cível · 28/06/2021. A ementa oficial fecha contra o pedido: Recurso conhecido e não provido.",
+        "fonte": "acervo_interno"
+      }
+    ],
     "jurimetria": {
-      "amostra": 0,
-      "padrao": "",
-      "interno": "",
-      "riscos": []
+      "amostra": 3,
+      "padrao": "No recorte oficial deste caso há 3 acórdãos do TJPR (5ª Câmara Cível, 18ª Câmara Cível, 17ª Câmara Cível). Distribuição: 1 a favor, 1 contra, 1 divergente.",
+      "interno": "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples. 18ª Câmara Cível · 25/05/2020. A ementa oficial acolhe o sentido do pedido: Decisão transitada em julgado que concluiu pela exclusão dos juros de forma capitalizada, impossibilidade de cobrança cumulada da comissão de permanência com outros encargos, inexistência da mora, diante da presença de encargos abusivos e pela necessidade de restituição do valor cobrado indevidamente de forma simples. 17ª Câmara Cível · 28/06/2021. A ementa oficial fecha contra o pedido: Recurso conhecido e não provido.",
+      "riscos": [
+        "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+        "17ª Câmara Cível · 28/06/2021. A ementa oficial fecha contra o pedido: Recurso conhecido e não provido."
+      ]
     },
     "fontes": {
       "titulo": "acervo_interno",
@@ -4407,8 +6043,8 @@ export const ACERVO_REAL: Caso[] = [
       "resumo": "acervo_interno",
       "tese": "acervo_interno",
       "atualizacao": "acervo_interno",
-      "chance": "indisponivel",
-      "votos": "indisponivel",
+      "chance": "tjpr",
+      "votos": "tjpr",
       "peticoes": "acervo_interno",
       "contratos": "indisponivel",
       "documentos": "acervo_interno",
@@ -4416,12 +6052,12 @@ export const ACERVO_REAL: Caso[] = [
       "modelos": "indisponivel",
       "historico": "acervo_interno",
       "prazos": "acervo_interno",
-      "teses": "indisponivel",
-      "resultados": "indisponivel",
+      "teses": "acervo_interno",
+      "resultados": "acervo_interno",
       "conversas": "indisponivel",
-      "jurisprudencias": "acervo_interno",
-      "dissidios": "indisponivel",
-      "jurimetria": "indisponivel"
+      "jurisprudencias": "tjpr",
+      "dissidios": "acervo_interno",
+      "jurimetria": "tjpr"
     }
   },
   {
@@ -4431,7 +6067,7 @@ export const ACERVO_REAL: Caso[] = [
     "subtema": "Apelação Cível",
     "processNumber": "9000012-95.2004.8.16.0001",
     "court": "TJPR",
-    "chamber": "GABINETE DO DESEMBARGADOR PERICLES BELLUSCI DE BATISTA PEREIRA",
+    "chamber": "Gabinete do desembargador pericles bellusci de batista pereira",
     "status": "BAIXADO",
     "cliente": "Parte autora (sigilo)",
     "partes": [
@@ -4444,14 +6080,14 @@ export const ACERVO_REAL: Caso[] = [
         "nome": "Parte ré (sigilo)"
       }
     ],
-    "resumo": "Apelação Cível perante GABINETE DO DESEMBARGADOR PERICLES BELLUSCI DE BATISTA PEREIRA (TJPR). Assunto(s) DataJud: Compromisso; Compromisso.",
-    "tese": "Indisponível no DataJud (capa/andamentos apenas).",
+    "resumo": "Apelação cível perante gabinete do desembargador pericles bellusci de batista pereira (tjpr). Assunto(s) datajud: compromisso; compromisso.",
+    "tese": "Ação revisional de contrato de financiamento bancário em sede de cumprimento de sentença.",
     "atualizacao": "01/09/2026",
-    "chance": 0,
-    "chanceRotulo": "indisponível sem modelo oficial",
-    "chanceTexto": "indisponível sem modelo oficial",
+    "chance": 99,
+    "chanceRotulo": "recorte descritivo TJPR",
+    "chanceTexto": "Com base em 1 ementa(s) oficial(is) do portal TJPR neste recorte: 1 a favor, 0 contra, 0 divergente(s). Índice descritivo (favor +½ divergente).",
     "votos": {
-      "for": 0,
+      "for": 1,
       "against": 0,
       "diverge": 0
     },
@@ -4626,11 +6262,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 5,
         "calendar": "uteis",
         "status": "vencido",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para prestar esclarecimentos sobre os pontos indicados pelo juízo.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-01",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-01"
       },
       {
         "id": "38",
@@ -4640,11 +6275,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 10,
         "calendar": "uteis",
         "status": "a_vencer",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para juntar os documentos solicitados pelo juízo.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-02",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-02"
       },
       {
         "id": "64",
@@ -4654,11 +6288,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 15,
         "calendar": "uteis",
         "status": "aberto",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para especificar as provas pretendidas e justificar sua pertinência.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-10",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-10"
       },
       {
         "id": "90",
@@ -4668,54 +6301,91 @@ export const ACERVO_REAL: Caso[] = [
         "days": 15,
         "calendar": "uteis",
         "status": "cumprido",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para apresentar manifestação sobre documento juntado aos autos.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-08-14",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real. Cumprimento fictício registrado apenas para demonstrar o filtro da tela."
+        "startedAt": "2026-08-14"
       }
     ],
-    "teses": [],
-    "resultados": [],
-    "conversas": [],
-    "jurisprudencias": [
+    "teses": [
       {
-        "id": "12",
-        "processNumber": "90000129520048160001",
-        "acordao": "[NÃO OFICIAL] Referência de capa 9000012-95.2004.8.16.0001",
-        "court": "TJPR",
-        "chamber": "GABINETE DO DESEMBARGADOR PERICLES BELLUSCI DE BATISTA PEREIRA",
-        "reporter": "Não informado",
-        "date": "01/09/2026",
-        "status": "BAIXADO",
-        "alignment": "diverge",
-        "ementa": "",
-        "pontos": [],
-        "essencial": {
-          "resumo": "",
-          "itens": []
-        },
-        "fortalecer": {
-          "resumo": "",
-          "itens": []
-        },
-        "blindar": {
-          "resumo": "",
-          "itens": []
-        },
-        "contrapor": {
-          "resumo": "",
-          "itens": []
-        },
-        "citavel": false,
+        "id": "tese-oficial-0",
+        "titulo": "Apelação Cível",
+        "uso": "18ª Câmara Cível · 25/05/2020. A ementa oficial acolhe o sentido do pedido: Decisão transitada em julgado que concluiu pela exclusão dos juros de forma capitalizada, impossibilidade de cobrança cumulada da comissão de permanência com outros encargos, inexistência da mora, diante da presença de encargos abusivos e pela necessidade de restituição do valor cobrado indevidamente de forma simples.",
+        "forca": "alta",
         "fonte": "acervo_interno"
       }
     ],
-    "dissidios": [],
+    "resultados": [
+      {
+        "id": "30",
+        "titulo": "18ª Câmara Cível · 25/05/2020",
+        "desfecho": "Ação revisional de contrato de financiamento bancário em sede de cumprimento de sentença.",
+        "aprendizado": "18ª Câmara Cível · 25/05/2020. A ementa oficial acolhe o sentido do pedido: Decisão transitada em julgado que concluiu pela exclusão dos juros de forma capitalizada, impossibilidade de cobrança cumulada da comissão de permanência com outros encargos, inexistência da mora, diante da presença de encargos abusivos e pela necessidade de restituição do valor cobrado indevidamente de forma simples."
+      }
+    ],
+    "conversas": [],
+    "jurisprudencias": [
+      {
+        "id": "30",
+        "processNumber": "90000129520048160001",
+        "acordao": "TJPR-4100000013018371",
+        "court": "TJPR",
+        "chamber": "18ª Câmara Cível",
+        "reporter": "Pericles Bellusci de Batista Pereira Desembargador",
+        "date": "25/05/2020",
+        "status": "SENTENCIADO",
+        "alignment": "for",
+        "ementa": "Apelação cível. Ação revisional de contrato de financiamento bancário em sede de cumprimento de sentença. Decisão transitada em julgado que concluiu pela exclusão dos juros de forma capitalizada, impossibilidade de cobrança cumulada da comissão de permanência com outros encargos, inexistência da mora, diante da presença de encargos abusivos e pela necessidade de restituição do valor cobrado indevidamente de forma simples. Perito contábil que concluiu pela existência de saldo em favor do autor/exequente. Diversas insurgências da instituição financeira. Sentença que homologou a perícia, mas extinguiu a execução considerando a inexistência de saldo em favor do exequente. Insurgência. Divergência nos cálculos das partes. Inclusão da comissão de permanência e cômputo dos saldos. Conclusão correta da perícia contábil. Comissão de permanência somente devida em caso de subsistir mora. Decisão transitada em julgado que afastou a mora, sendo inaplicável cláusula válida relativa à comissão de permanência. Saldo contratual calculado a partir da posição do saldo devedor na planilha da instituição financeira e não pela simples soma das parcelas em aberto. - no caso, a decisão transitada em julgado, agora em sede de execução, concluiu: (i) pela exclusão dos juros de forma capitalizada; (ii) pela impossibilidade de cobrança cumulada da comissão de permanência com outros encargos; (iii) inexistência da mora, diante da presença de encargos abusivos; (iv) pela necessidade de restituição do valor cobrado indevidamente de forma simples.- a despeito da decisão ter concluído pela legalidade de cobrança da comissão de permanência de forma isolada, isto é, sem a cumulação com outros encargos, a mesma decisão entendeu inexistir mora por parte do autor, ora exequente, diante da cobrança pela instituição financeira de juros de forma capitalizada que tornavam inexigíveis os pagamentos da maneira com que eram cobrados, nesse sentido, inexistindo a mora, não se mostra aplicável a comissão de permanência, ainda que a sua cláusula fosse válida e eficaz, notadamente porque inexiste seu fato gerador.- sobre o valor alegadamente devido pelo contrato, não há que se acolher o raciocínio da instituição financeira que somou individualmente as parcelas 25 a 36 atualizando-as e acrescendo de juros, correto o cálculo do perito que partiu da posição do saldo devedor no momento do vencimento da 25ª parcela e deduziu o montante devido em favor do autor.recurso de apelação provido.",
+        "pontos": [],
+        "essencial": {
+          "resumo": "18ª Câmara Cível · 25/05/2020. A ementa oficial acolhe o sentido do pedido: Decisão transitada em julgado que concluiu pela exclusão dos juros de forma capitalizada, impossibilidade de cobrança cumulada da comissão de permanência com outros encargos, inexistência da mora, diante da presença de encargos abusivos e pela necessidade de restituição do valor cobrado indevidamente de forma simples.",
+          "itens": [
+            "Ação revisional de contrato de financiamento bancário em sede de cumprimento de sentença.",
+            "Decisão transitada em julgado que concluiu pela exclusão dos juros de forma capitalizada, impossibilidade de cobrança cumulada da comissão de permanência com outros encargos, inexistência da mora, diante da presença de encargos abusivos e pela necessidade de restituição do valor cobrado indevidamente de forma simples.",
+            "Perito contábil que concluiu pela existência de saldo em favor do autor/exequente.",
+            "Diversas insurgências da instituição financeira."
+          ]
+        },
+        "fortalecer": {
+          "resumo": "O que este acórdão oficial já reconheceu e pode ir para a peça.",
+          "itens": [
+            "Decisão transitada em julgado que concluiu pela exclusão dos juros de forma capitalizada, impossibilidade de cobrança cumulada da comissão de permanência com outros encargos, inexistência da mora, diante da presença de encargos abusivos e pela necessidade de restituição do valor cobrado indevidamente de forma simples."
+          ]
+        },
+        "blindar": {
+          "resumo": "Onde a parte contrária pode apoiar o ataque, segundo a ementa oficial.",
+          "itens": [
+            "Ação revisional de contrato de financiamento bancário em sede de cumprimento de sentença.",
+            "Decisão transitada em julgado que concluiu pela exclusão dos juros de forma capitalizada, impossibilidade de cobrança cumulada da comissão de permanência com outros encargos, inexistência da mora, diante da presença de encargos abusivos e pela necessidade de restituição do valor cobrado indevidamente de forma simples.",
+            "Perito contábil que concluiu pela existência de saldo em favor do autor/exequente."
+          ]
+        },
+        "contrapor": {
+          "resumo": "Se citarem este julgado contra você, volte ao dispositivo oficial e à identidade do caso.",
+          "itens": [
+            "Ação revisional de contrato de financiamento bancário em sede de cumprimento de sentença.",
+            "Decisão transitada em julgado que concluiu pela exclusão dos juros de forma capitalizada, impossibilidade de cobrança cumulada da comissão de permanência com outros encargos, inexistência da mora, diante da presença de encargos abusivos e pela necessidade de restituição do valor cobrado indevidamente de forma simples.",
+            "Perito contábil que concluiu pela existência de saldo em favor do autor/exequente."
+          ]
+        },
+        "citavel": true,
+        "fonte": "tjpr"
+      }
+    ],
+    "dissidios": [
+      {
+        "camara": "18ª Câmara Cível",
+        "orientacao": "Neste órgão: 1 a favor, 0 contra, 0 divergente.",
+        "versus": "for",
+        "nota": "18ª Câmara Cível · 25/05/2020. A ementa oficial acolhe o sentido do pedido: Decisão transitada em julgado que concluiu pela exclusão dos juros de forma capitalizada, impossibilidade de cobrança cumulada da comissão de permanência com outros encargos, inexistência da mora, diante da presença de encargos abusivos e pela necessidade de restituição do valor cobrado indevidamente de forma simples.",
+        "fonte": "acervo_interno"
+      }
+    ],
     "jurimetria": {
-      "amostra": 0,
-      "padrao": "",
-      "interno": "",
+      "amostra": 1,
+      "padrao": "No recorte oficial deste caso há 1 acórdão do TJPR (18ª Câmara Cível). Distribuição: 1 a favor, 0 contra, 0 divergente.",
+      "interno": "18ª Câmara Cível · 25/05/2020. A ementa oficial acolhe o sentido do pedido: Decisão transitada em julgado que concluiu pela exclusão dos juros de forma capitalizada, impossibilidade de cobrança cumulada da comissão de permanência com outros encargos, inexistência da mora, diante da presença de encargos abusivos e pela necessidade de restituição do valor cobrado indevidamente de forma simples.",
       "riscos": []
     },
     "fontes": {
@@ -4731,8 +6401,8 @@ export const ACERVO_REAL: Caso[] = [
       "resumo": "acervo_interno",
       "tese": "acervo_interno",
       "atualizacao": "acervo_interno",
-      "chance": "indisponivel",
-      "votos": "indisponivel",
+      "chance": "tjpr",
+      "votos": "tjpr",
       "peticoes": "indisponivel",
       "contratos": "indisponivel",
       "documentos": "acervo_interno",
@@ -4740,12 +6410,12 @@ export const ACERVO_REAL: Caso[] = [
       "modelos": "indisponivel",
       "historico": "acervo_interno",
       "prazos": "acervo_interno",
-      "teses": "indisponivel",
-      "resultados": "indisponivel",
+      "teses": "acervo_interno",
+      "resultados": "acervo_interno",
       "conversas": "indisponivel",
-      "jurisprudencias": "acervo_interno",
-      "dissidios": "indisponivel",
-      "jurimetria": "indisponivel"
+      "jurisprudencias": "tjpr",
+      "dissidios": "acervo_interno",
+      "jurimetria": "tjpr"
     }
   },
   {
@@ -4755,7 +6425,7 @@ export const ACERVO_REAL: Caso[] = [
     "subtema": "Cumprimento de sentença",
     "processNumber": "9000013-92.2010.8.16.0026",
     "court": "TJPR",
-    "chamber": "CAMPO LARGO - 1ª VARA CÍVEL E DA FAZENDA PÚBLICA",
+    "chamber": "Campo largo - 1ª vara cível e da fazenda pública",
     "status": "SENTENCIADO",
     "cliente": "Parte autora (sigilo)",
     "partes": [
@@ -4768,16 +6438,16 @@ export const ACERVO_REAL: Caso[] = [
         "nome": "Parte ré (sigilo)"
       }
     ],
-    "resumo": "Cumprimento de sentença perante CAMPO LARGO - 1ª VARA CÍVEL E DA FAZENDA PÚBLICA (TJPR). Assunto(s) DataJud: Espécies de Contratos.",
-    "tese": "Indisponível no DataJud (capa/andamentos apenas).",
+    "resumo": "Cumprimento de sentença perante campo largo - 1ª vara cível e da fazenda pública (tjpr). Assunto(s) datajud: espécies de contratos.",
+    "tese": "Ação revisional de contrato bancário garantido por alienação fiduciária. Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
     "atualizacao": "01/09/2026",
-    "chance": 0,
-    "chanceRotulo": "indisponível sem modelo oficial",
-    "chanceTexto": "indisponível sem modelo oficial",
+    "chance": 29,
+    "chanceRotulo": "recorte descritivo TJPR",
+    "chanceTexto": "Com base em 14 ementa(s) oficial(is) do portal TJPR neste recorte: 1 a favor, 7 contra, 6 divergente(s). Índice descritivo (favor +½ divergente).",
     "votos": {
       "for": 0,
       "against": 0,
-      "diverge": 0
+      "diverge": 3
     },
     "peticoes": [
       {
@@ -4845,7 +6515,16 @@ export const ACERVO_REAL: Caso[] = [
         "resumo": "Andamento DataJud: Petição em 27/06/2016."
       }
     ],
-    "contratos": [],
+    "contratos": [
+      {
+        "id": "ctr-capa",
+        "titulo": "Espécies de Contratos",
+        "tipo": "Capa do processo",
+        "data": "01/09/2026",
+        "origem": "TJPR",
+        "resumo": "Cumprimento de sentença perante campo largo - 1ª vara cível e da fazenda pública (tjpr). Assunto(s) datajud: espécies de contratos."
+      }
+    ],
     "documentos": [
       {
         "id": "94",
@@ -5073,11 +6752,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 5,
         "calendar": "uteis",
         "status": "vencido",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para prestar esclarecimentos sobre os pontos indicados pelo juízo.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-01",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-01"
       },
       {
         "id": "39",
@@ -5087,11 +6765,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 10,
         "calendar": "uteis",
         "status": "a_vencer",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para juntar os documentos solicitados pelo juízo.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-02",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-02"
       },
       {
         "id": "65",
@@ -5101,11 +6778,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 15,
         "calendar": "uteis",
         "status": "aberto",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para especificar as provas pretendidas e justificar sua pertinência.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-10",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-10"
       },
       {
         "id": "91",
@@ -5115,55 +6791,221 @@ export const ACERVO_REAL: Caso[] = [
         "days": 15,
         "calendar": "uteis",
         "status": "cumprido",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para apresentar manifestação sobre documento juntado aos autos.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-08-14",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real. Cumprimento fictício registrado apenas para demonstrar o filtro da tela."
+        "startedAt": "2026-08-14"
       }
     ],
-    "teses": [],
-    "resultados": [],
-    "conversas": [],
-    "jurisprudencias": [
+    "teses": [
       {
-        "id": "13",
-        "processNumber": "90000139220108160026",
-        "acordao": "[NÃO OFICIAL] Referência de capa 9000013-92.2010.8.16.0026",
-        "court": "TJPR",
-        "chamber": "CAMPO LARGO - 1ª VARA CÍVEL E DA FAZENDA PÚBLICA",
-        "reporter": "Não informado",
-        "date": "01/09/2026",
-        "status": "SENTENCIADO",
-        "alignment": "diverge",
-        "ementa": "",
-        "pontos": [],
-        "essencial": {
-          "resumo": "",
-          "itens": []
-        },
-        "fortalecer": {
-          "resumo": "",
-          "itens": []
-        },
-        "blindar": {
-          "resumo": "",
-          "itens": []
-        },
-        "contrapor": {
-          "resumo": "",
-          "itens": []
-        },
-        "citavel": false,
+        "id": "39",
+        "titulo": "Espécies de Contratos",
+        "uso": "Aguardar ementa oficial; até lá usar só corpus descritivo do tema.",
+        "forca": "baixa",
         "fonte": "acervo_interno"
       }
     ],
-    "dissidios": [],
+    "resultados": [
+      {
+        "id": "69",
+        "titulo": "5ª Câmara Cível · 16/11/2020",
+        "desfecho": "Ação revisional de contrato bancário garantido por alienação fiduciária. Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+        "aprendizado": "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples."
+      },
+      {
+        "id": "70",
+        "titulo": "18ª Câmara Cível · 06/04/2020",
+        "desfecho": "ALIENAÇÃO FIDUCIÁRIA. JUROS REMUNERATÓRIOS. AUSÊNCIA DE ABUSIVIDADE. CAPITALIZAÇÃO DE JUROS PACTUADA. tarifa de registro DO CONTRATO E GRAVAME ELETRÔNICO.",
+        "aprendizado": "18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES."
+      },
+      {
+        "id": "71",
+        "titulo": "1ª Turma Recursal · 14/06/2021",
+        "desfecho": "Ementa: recurso inominado. Ação de revisão contratual c/c repetição de indébito. Contrato de financiamento. Alegação de cobrança abusiva de juros remuneratórios.",
+        "aprendizado": "1ª Turma Recursal · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida."
+      }
+    ],
+    "conversas": [],
+    "jurisprudencias": [
+      {
+        "id": "69",
+        "processNumber": "90000139220108160026",
+        "acordao": "TJPR-4100000015299901 (tema)",
+        "court": "TJPR",
+        "chamber": "5ª Câmara Cível",
+        "reporter": "Nilson Mizuta Desembargador",
+        "date": "16/11/2020",
+        "status": "SENTENCIADO",
+        "alignment": "diverge",
+        "ementa": "Apelação cível. Ação revisional de contrato bancário garantido por alienação fiduciária. Procedência. Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples. Ajuizamento do cumprimento de sentença. Impugnação ao cumprimento de sentença. Alegação de excesso e pedido de compensação (vinte parcelas não pagas de um total de 36). Concordância entre as partes quanto ao não pagamento das 20 parcelas. Várias memórias de cálculos elaboradas. Homologação do último cálculo que incluiu a compensação entre os créditos de ambas as partes. Sentença que acolhe a impugnação ao cumprimento de sentença. Mérito do apelo. Pedido de prestação de contas quanto à venda do bem nestes autos. Não acolhimento. Etapa que deve ocorrer nos respectivos autos de busca e apreensão (art. 2º do decreto-lei nº 911/1969). Precedentes do stj e tjpr. Impossibilidade de determinação de adequação do rito nesta instância. Compensação entre saldo devedor do contrato e os valores cobrados indevidamente reconhecidos na ação revisional. Legalidade. Possibilidade de compensação de valores ainda que a sentença ou o acórdão não tenham assim determinado. Inteligência do art. 368 do código civil. Não existe qualquer vedação legal para que se dê a compensação se a apelante e o apelado são reciprocamente credores e devedores entre si. Precedentes.1. A prestação de contas é fase prevista no caput do art. 2º, do decreto-lei nº 911/1969, todavia, esta deve ser requerida nos respectivos autos da ação de busca e apreensão, conforme já decidiu o superior tribunal de justiça: “ação de prestação de contas. Interesse processual. Alienação fiduciária. Busca e apreensão. Leilão extrajudicial. Veiculo automotor. (..) no caso de alienação extrajudicial de veículo automotor regida pelo art. 2º do decreto-lei n. 911/1969 - redação anterior à lei n. 13.043/2014 -, tem o devedor interesse processual na ação de prestação de contas, quanto aos valores decorrentes da venda e à correta imputação no débito (saldo remanescente). (...).” (stj - resp 1678525/sp, rel. Ministro antonio carlos ferreira, quarta turma, julgado em 05/10/2017, dje 09/10/2017)2. Faz-se possível a compensação de valores entre os créditos ainda pendentes do financiamento do veículo e aqueles reconhecidos em ação revisional como abusivos, conforme este e. Tribunal de justiça já decidiu: “(...) compensação de valores é a forma preferencial de pagamento desde que não exista qualquer vedação legal acerca da sua possibilidade. Apesar de não haver previsão de compensação em fase de conhecimento, não existe qualquer vedação acerca da sua impossibilidade em fase de execução, eis que se trata de dívida líquida, certa e exigível.” (tjpr - 18ª c.cível - 9000062-36.2018.8.16.0000 - curitiba - rel.: juíza subst. 2ºgrau denise antunes - j. 13.03.2019)recurso não provido.",
+        "pontos": [],
+        "essencial": {
+          "resumo": "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+          "itens": [
+            "Ação revisional de contrato bancário garantido por alienação fiduciária.",
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+            "Ajuizamento do cumprimento de sentença.",
+            "Impugnação ao cumprimento de sentença."
+          ]
+        },
+        "fortalecer": {
+          "resumo": "Use só a parte do julgado que favorece o pedido e isole o restante.",
+          "itens": [
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples."
+          ]
+        },
+        "blindar": {
+          "resumo": "Onde a parte contrária pode apoiar o ataque, segundo a ementa oficial.",
+          "itens": [
+            "Ação revisional de contrato bancário garantido por alienação fiduciária.",
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+            "Ajuizamento do cumprimento de sentença."
+          ]
+        },
+        "contrapor": {
+          "resumo": "Como limitar o alcance deste julgado: o dispositivo oficial e o contexto da câmara.",
+          "itens": [
+            "Ação revisional de contrato bancário garantido por alienação fiduciária.",
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+            "Ajuizamento do cumprimento de sentença."
+          ]
+        },
+        "citavel": true,
+        "fonte": "tjpr",
+        "relacao": "precedente_tema"
+      },
+      {
+        "id": "70",
+        "processNumber": "90000139220108160026",
+        "acordao": "TJPR-4100000012641161 (tema)",
+        "court": "TJPR",
+        "chamber": "18ª Câmara Cível",
+        "reporter": "Marcelo Gobbo Dalla Dea Desembargador",
+        "date": "06/04/2020",
+        "status": "SENTENCIADO",
+        "alignment": "diverge",
+        "ementa": "APELAÇÃO CÍVEL. AÇÃO REVISIONAL. ALIENAÇÃO FIDUCIÁRIA. JUROS REMUNERATÓRIOS. AUSÊNCIA DE ABUSIVIDADE. CAPITALIZAÇÃO DE JUROS PACTUADA. tarifa de registro DO CONTRATO E GRAVAME ELETRÔNICO. LEGALIDADE. SEGURO PROTEÇÃO. VENDA CASADA. ABUSIVIDADE. COMISSÃO DE PERMANÊNCIA. INEXISTÊNCIA. DEVOLUÇÃO NA FORMA SIMPLES. SUCUMBÊNCIA REDISTRIBUÍDA. RECURSO CONHECIDO E PARCIALMENTE PROVIDO.1. É livre a pactuação dos juros remuneratórios através do posicionamento jurisprudencial do Superior Tribunal de Justiça, de forma que a sua limitação ao patamar acima de 12% ao ano não indica abusividade. 2. O Superior Tribunal de Justiça firmou entendimento no RESP 973827 de que a capitalização é válida desde que expressamente pactuada.3. É permitida a capitalização de juros, sendo autorizada pelo Superior Tribunal de Justiça nos REsp 1251331 e 1255573, julgados pelo rito do artigo 543-C do Código de Processo Civil/73.4. É passível de repasse ao consumidor o custo referente à tarifa de registro do contrato de financiamento de veículo com cláusula de garantia fiduciária, desde que a cobrança pelo registro do contrato corresponda a um serviço efetivamente prestado e que o valor não se mostre abusivo.5. Nos contratos bancários em geral, o consumidor não pode ser compelido a contratar seguro com a instituição financeira ou com seguradora por ela indicada (STJ – Recurso Especial Repetitivo nº 1.639.259/SP e nº 1.639.320/SP - Tema 972).6. Nos contratos de concessão de crédito, a importância cobrada a título de comissão de permanência não poderá ultrapassar a soma dos encargos remuneratórios e moratórios previstos no contrato, ou seja: a) juros remuneratórios à taxa média de mercado, não podendo ultrapassar o percentual contratado para o período de normalidade da operação; b) juros moratórios até o limite de 12% ao ano; e c) multa contratual limitada a 2% do valor da prestação, nos termos do art. 52. § 1º, do CDC.",
+        "pontos": [],
+        "essencial": {
+          "resumo": "18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES.",
+          "itens": [
+            "Alienação fiduciária.",
+            "Juros remuneratórios.",
+            "Ausência de abusividade.",
+            "Capitalização de juros pactuada."
+          ]
+        },
+        "fortalecer": {
+          "resumo": "Use só a parte do julgado que favorece o pedido e isole o restante.",
+          "itens": [
+            "Alienação fiduciária.",
+            "Juros remuneratórios.",
+            "Ausência de abusividade."
+          ]
+        },
+        "blindar": {
+          "resumo": "Onde a parte contrária pode apoiar o ataque, segundo a ementa oficial.",
+          "itens": [
+            "Alienação fiduciária.",
+            "Juros remuneratórios.",
+            "Ausência de abusividade."
+          ]
+        },
+        "contrapor": {
+          "resumo": "Como limitar o alcance deste julgado: o dispositivo oficial e o contexto da câmara.",
+          "itens": [
+            "Alienação fiduciária.",
+            "Juros remuneratórios.",
+            "Ausência de abusividade."
+          ]
+        },
+        "citavel": true,
+        "fonte": "tjpr",
+        "relacao": "precedente_tema"
+      },
+      {
+        "id": "71",
+        "processNumber": "90000139220108160026",
+        "acordao": "TJPR-2100000014800751 (tema)",
+        "court": "TJPR",
+        "chamber": "1ª Turma Recursal",
+        "reporter": "Melissa de Azevedo Olivas Juíza de Direito da Turma Recursal dos Juízaados Especiais",
+        "date": "14/06/2021",
+        "status": "SENTENCIADO",
+        "alignment": "diverge",
+        "ementa": "Ementa: recurso inominado. Ação de revisão contratual c/c repetição de indébito. Direito bancário. Contrato de financiamento. Alegação de cobrança abusiva de juros remuneratórios. Taxa média acima da praticada no mercado. Recálculo que necessita de cálculos complexos. Incompetência dos juizados especiais. Tarifa de registro. Ausência de prova da prestação do serviço. Restituição devida. Sentença parcialmente reformada. Recurso da parte autora conhecido e parcialmente provido.",
+        "pontos": [],
+        "essencial": {
+          "resumo": "1ª Turma Recursal · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida.",
+          "itens": [
+            "Ementa: recurso inominado.",
+            "Ação de revisão contratual c/c repetição de indébito.",
+            "Contrato de financiamento.",
+            "Alegação de cobrança abusiva de juros remuneratórios."
+          ]
+        },
+        "fortalecer": {
+          "resumo": "Use só a parte do julgado que favorece o pedido e isole o restante.",
+          "itens": [
+            "Ementa: recurso inominado.",
+            "Ação de revisão contratual c/c repetição de indébito.",
+            "Contrato de financiamento."
+          ]
+        },
+        "blindar": {
+          "resumo": "Onde a parte contrária pode apoiar o ataque, segundo a ementa oficial.",
+          "itens": [
+            "Ementa: recurso inominado.",
+            "Ação de revisão contratual c/c repetição de indébito.",
+            "Contrato de financiamento."
+          ]
+        },
+        "contrapor": {
+          "resumo": "Como limitar o alcance deste julgado: o dispositivo oficial e o contexto da câmara.",
+          "itens": [
+            "Ementa: recurso inominado.",
+            "Ação de revisão contratual c/c repetição de indébito.",
+            "Contrato de financiamento."
+          ]
+        },
+        "citavel": true,
+        "fonte": "tjpr",
+        "relacao": "precedente_tema"
+      }
+    ],
+    "dissidios": [
+      {
+        "camara": "5ª Câmara Cível",
+        "orientacao": "Neste órgão: 0 a favor, 0 contra, 1 divergente.",
+        "versus": "diverge",
+        "nota": "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+        "fonte": "acervo_interno"
+      },
+      {
+        "camara": "18ª Câmara Cível",
+        "orientacao": "Neste órgão: 0 a favor, 0 contra, 1 divergente.",
+        "versus": "diverge",
+        "nota": "18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES.",
+        "fonte": "acervo_interno"
+      },
+      {
+        "camara": "1ª Turma Recursal",
+        "orientacao": "Neste órgão: 0 a favor, 0 contra, 1 divergente.",
+        "versus": "diverge",
+        "nota": "1ª Turma Recursal · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida.",
+        "fonte": "acervo_interno"
+      }
+    ],
     "jurimetria": {
-      "amostra": 0,
-      "padrao": "",
-      "interno": "",
-      "riscos": []
+      "amostra": 3,
+      "padrao": "No recorte oficial deste caso há 3 acórdãos do TJPR (5ª Câmara Cível, 18ª Câmara Cível, 1ª Turma Recursal). Distribuição: 0 a favor, 0 contra, 3 divergente.",
+      "interno": "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples. 18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES. 1ª Turma Recursal · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida.",
+      "riscos": [
+        "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+        "18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES.",
+        "1ª Turma Recursal · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida."
+      ]
     },
     "fontes": {
       "titulo": "acervo_interno",
@@ -5178,21 +7020,21 @@ export const ACERVO_REAL: Caso[] = [
       "resumo": "acervo_interno",
       "tese": "acervo_interno",
       "atualizacao": "acervo_interno",
-      "chance": "indisponivel",
-      "votos": "indisponivel",
+      "chance": "tjpr",
+      "votos": "tjpr",
       "peticoes": "acervo_interno",
-      "contratos": "indisponivel",
+      "contratos": "acervo_interno",
       "documentos": "acervo_interno",
       "decisoes": "acervo_interno",
       "modelos": "indisponivel",
       "historico": "acervo_interno",
       "prazos": "acervo_interno",
-      "teses": "indisponivel",
-      "resultados": "indisponivel",
+      "teses": "acervo_interno",
+      "resultados": "acervo_interno",
       "conversas": "indisponivel",
-      "jurisprudencias": "acervo_interno",
-      "dissidios": "indisponivel",
-      "jurimetria": "indisponivel"
+      "jurisprudencias": "tjpr",
+      "dissidios": "acervo_interno",
+      "jurimetria": "tjpr"
     }
   },
   {
@@ -5202,7 +7044,7 @@ export const ACERVO_REAL: Caso[] = [
     "subtema": "Cumprimento de sentença",
     "processNumber": "9000014-77.2010.8.16.0026",
     "court": "TJPR",
-    "chamber": "CAMPO LARGO - 1ª VARA CÍVEL E DA FAZENDA PÚBLICA",
+    "chamber": "Campo largo - 1ª vara cível e da fazenda pública",
     "status": "SENTENCIADO",
     "cliente": "Parte autora (sigilo)",
     "partes": [
@@ -5216,15 +7058,15 @@ export const ACERVO_REAL: Caso[] = [
       }
     ],
     "resumo": "Cumprimento de sentença perante CAMPO LARGO - 1ª VARA CÍVEL E DA FAZENDA PÚBLICA (TJPR). Assunto(s) DataJud: Causas Supervenientes à Sentença.",
-    "tese": "Indisponível no DataJud (capa/andamentos apenas).",
+    "tese": "Ação revisional de contrato de financiamento bancário em sede de cumprimento de sentença.",
     "atualizacao": "10/06/2026",
-    "chance": 0,
-    "chanceRotulo": "indisponível sem modelo oficial",
-    "chanceTexto": "indisponível sem modelo oficial",
+    "chance": 29,
+    "chanceRotulo": "recorte descritivo TJPR",
+    "chanceTexto": "Com base em 14 ementa(s) oficial(is) do portal TJPR neste recorte: 1 a favor, 7 contra, 6 divergente(s). Índice descritivo (favor +½ divergente).",
     "votos": {
-      "for": 0,
-      "against": 0,
-      "diverge": 0
+      "for": 1,
+      "against": 1,
+      "diverge": 1
     },
     "peticoes": [
       {
@@ -5528,11 +7370,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 5,
         "calendar": "uteis",
         "status": "vencido",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para prestar esclarecimentos sobre os pontos indicados pelo juízo.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-01",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-01"
       },
       {
         "id": "40",
@@ -5542,11 +7383,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 10,
         "calendar": "uteis",
         "status": "a_vencer",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para juntar os documentos solicitados pelo juízo.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-02",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-02"
       },
       {
         "id": "66",
@@ -5556,11 +7396,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 15,
         "calendar": "uteis",
         "status": "aberto",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para especificar as provas pretendidas e justificar sua pertinência.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-10",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-10"
       },
       {
         "id": "92",
@@ -5570,55 +7409,205 @@ export const ACERVO_REAL: Caso[] = [
         "days": 15,
         "calendar": "uteis",
         "status": "cumprido",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para apresentar manifestação sobre documento juntado aos autos.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-08-14",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real. Cumprimento fictício registrado apenas para demonstrar o filtro da tela."
+        "startedAt": "2026-08-14"
       }
     ],
-    "teses": [],
-    "resultados": [],
-    "conversas": [],
-    "jurisprudencias": [
+    "teses": [
       {
-        "id": "14",
-        "processNumber": "90000147720108160026",
-        "acordao": "[NÃO OFICIAL] Referência de capa 9000014-77.2010.8.16.0026",
-        "court": "TJPR",
-        "chamber": "CAMPO LARGO - 1ª VARA CÍVEL E DA FAZENDA PÚBLICA",
-        "reporter": "Não informado",
-        "date": "10/06/2026",
-        "status": "SENTENCIADO",
-        "alignment": "diverge",
-        "ementa": "",
-        "pontos": [],
-        "essencial": {
-          "resumo": "",
-          "itens": []
-        },
-        "fortalecer": {
-          "resumo": "",
-          "itens": []
-        },
-        "blindar": {
-          "resumo": "",
-          "itens": []
-        },
-        "contrapor": {
-          "resumo": "",
-          "itens": []
-        },
-        "citavel": false,
+        "id": "40",
+        "titulo": "Causas Supervenientes à Sentença",
+        "uso": "Aguardar ementa oficial; até lá usar só corpus descritivo do tema.",
+        "forca": "baixa",
         "fonte": "acervo_interno"
       }
     ],
-    "dissidios": [],
+    "resultados": [
+      {
+        "id": "72",
+        "titulo": "18ª Câmara Cível · 25/05/2020",
+        "desfecho": "Ação revisional de contrato de financiamento bancário em sede de cumprimento de sentença.",
+        "aprendizado": "18ª Câmara Cível · 25/05/2020. A ementa oficial acolhe o sentido do pedido: Decisão transitada em julgado que concluiu pela exclusão dos juros de forma capitalizada, impossibilidade de cobrança cumulada da comissão de permanência com outros encargos, inexistência da mora, diante da presença de encargos abusivos e pela necessidade de restituição do valor cobrado indevidamente de forma simples."
+      },
+      {
+        "id": "73",
+        "titulo": "5ª Câmara Cível · 18/10/2022",
+        "desfecho": "Costa neto (em regime de substituição ao desembargador ramon de medeiros nogueira).",
+        "aprendizado": "5ª Câmara Cível · 18/10/2022. A ementa oficial fecha contra o pedido: Apelação cível – ação de rescisão contratual em fase de cumprimento de sentença – decisão interlocutória que rejeitou a impugnação apresentada – não cabimento do recurso interposto – decisum que não extingue a execução – recurso cabível – agravo de instrumento – impossibilidade de aplicação do princípio da fungibilidade recursal – erro grosseiro – recurso não conhecido."
+      },
+      {
+        "id": "74",
+        "titulo": "5ª Câmara Cível · 16/11/2020",
+        "desfecho": "Ação revisional de contrato bancário garantido por alienação fiduciária. Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+        "aprendizado": "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples."
+      }
+    ],
+    "conversas": [],
+    "jurisprudencias": [
+      {
+        "id": "72",
+        "processNumber": "90000147720108160026",
+        "acordao": "TJPR-4100000013018371 (tema)",
+        "court": "TJPR",
+        "chamber": "18ª Câmara Cível",
+        "reporter": "Pericles Bellusci de Batista Pereira Desembargador",
+        "date": "25/05/2020",
+        "status": "SENTENCIADO",
+        "alignment": "for",
+        "ementa": "Apelação cível. Ação revisional de contrato de financiamento bancário em sede de cumprimento de sentença. Decisão transitada em julgado que concluiu pela exclusão dos juros de forma capitalizada, impossibilidade de cobrança cumulada da comissão de permanência com outros encargos, inexistência da mora, diante da presença de encargos abusivos e pela necessidade de restituição do valor cobrado indevidamente de forma simples. Perito contábil que concluiu pela existência de saldo em favor do autor/exequente. Diversas insurgências da instituição financeira. Sentença que homologou a perícia, mas extinguiu a execução considerando a inexistência de saldo em favor do exequente. Insurgência. Divergência nos cálculos das partes. Inclusão da comissão de permanência e cômputo dos saldos. Conclusão correta da perícia contábil. Comissão de permanência somente devida em caso de subsistir mora. Decisão transitada em julgado que afastou a mora, sendo inaplicável cláusula válida relativa à comissão de permanência. Saldo contratual calculado a partir da posição do saldo devedor na planilha da instituição financeira e não pela simples soma das parcelas em aberto. - no caso, a decisão transitada em julgado, agora em sede de execução, concluiu: (i) pela exclusão dos juros de forma capitalizada; (ii) pela impossibilidade de cobrança cumulada da comissão de permanência com outros encargos; (iii) inexistência da mora, diante da presença de encargos abusivos; (iv) pela necessidade de restituição do valor cobrado indevidamente de forma simples.- a despeito da decisão ter concluído pela legalidade de cobrança da comissão de permanência de forma isolada, isto é, sem a cumulação com outros encargos, a mesma decisão entendeu inexistir mora por parte do autor, ora exequente, diante da cobrança pela instituição financeira de juros de forma capitalizada que tornavam inexigíveis os pagamentos da maneira com que eram cobrados, nesse sentido, inexistindo a mora, não se mostra aplicável a comissão de permanência, ainda que a sua cláusula fosse válida e eficaz, notadamente porque inexiste seu fato gerador.- sobre o valor alegadamente devido pelo contrato, não há que se acolher o raciocínio da instituição financeira que somou individualmente as parcelas 25 a 36 atualizando-as e acrescendo de juros, correto o cálculo do perito que partiu da posição do saldo devedor no momento do vencimento da 25ª parcela e deduziu o montante devido em favor do autor.recurso de apelação provido.",
+        "pontos": [],
+        "essencial": {
+          "resumo": "18ª Câmara Cível · 25/05/2020. A ementa oficial acolhe o sentido do pedido: Decisão transitada em julgado que concluiu pela exclusão dos juros de forma capitalizada, impossibilidade de cobrança cumulada da comissão de permanência com outros encargos, inexistência da mora, diante da presença de encargos abusivos e pela necessidade de restituição do valor cobrado indevidamente de forma simples.",
+          "itens": [
+            "Ação revisional de contrato de financiamento bancário em sede de cumprimento de sentença.",
+            "Decisão transitada em julgado que concluiu pela exclusão dos juros de forma capitalizada, impossibilidade de cobrança cumulada da comissão de permanência com outros encargos, inexistência da mora, diante da presença de encargos abusivos e pela necessidade de restituição do valor cobrado indevidamente de forma simples.",
+            "Perito contábil que concluiu pela existência de saldo em favor do autor/exequente.",
+            "Diversas insurgências da instituição financeira."
+          ]
+        },
+        "fortalecer": {
+          "resumo": "O que este acórdão oficial já reconheceu e pode ir para a peça.",
+          "itens": [
+            "Decisão transitada em julgado que concluiu pela exclusão dos juros de forma capitalizada, impossibilidade de cobrança cumulada da comissão de permanência com outros encargos, inexistência da mora, diante da presença de encargos abusivos e pela necessidade de restituição do valor cobrado indevidamente de forma simples."
+          ]
+        },
+        "blindar": {
+          "resumo": "Onde a parte contrária pode apoiar o ataque, segundo a ementa oficial.",
+          "itens": [
+            "Ação revisional de contrato de financiamento bancário em sede de cumprimento de sentença.",
+            "Decisão transitada em julgado que concluiu pela exclusão dos juros de forma capitalizada, impossibilidade de cobrança cumulada da comissão de permanência com outros encargos, inexistência da mora, diante da presença de encargos abusivos e pela necessidade de restituição do valor cobrado indevidamente de forma simples.",
+            "Perito contábil que concluiu pela existência de saldo em favor do autor/exequente."
+          ]
+        },
+        "contrapor": {
+          "resumo": "Se citarem este julgado contra você, volte ao dispositivo oficial e à identidade do caso.",
+          "itens": [
+            "Ação revisional de contrato de financiamento bancário em sede de cumprimento de sentença.",
+            "Decisão transitada em julgado que concluiu pela exclusão dos juros de forma capitalizada, impossibilidade de cobrança cumulada da comissão de permanência com outros encargos, inexistência da mora, diante da presença de encargos abusivos e pela necessidade de restituição do valor cobrado indevidamente de forma simples.",
+            "Perito contábil que concluiu pela existência de saldo em favor do autor/exequente."
+          ]
+        },
+        "citavel": true,
+        "fonte": "tjpr",
+        "relacao": "precedente_tema"
+      },
+      {
+        "id": "73",
+        "processNumber": "90000147720108160026",
+        "acordao": "TJPR-4100000022240782 (tema)",
+        "court": "TJPR",
+        "chamber": "5ª Câmara Cível",
+        "reporter": "Antonio Franco Ferreira da Costa Neto Desembargador",
+        "date": "18/10/2022",
+        "status": "SENTENCIADO",
+        "alignment": "against",
+        "ementa": "Costa neto (em regime de substituição ao desembargador ramon de medeiros nogueira). Apelação cível – ação de rescisão contratual em fase de cumprimento de sentença – decisão interlocutória que rejeitou a impugnação apresentada – não cabimento do recurso interposto – decisum que não extingue a execução – recurso cabível – agravo de instrumento – impossibilidade de aplicação do princípio da fungibilidade recursal – erro grosseiro – recurso não conhecido.",
+        "pontos": [],
+        "essencial": {
+          "resumo": "5ª Câmara Cível · 18/10/2022. A ementa oficial fecha contra o pedido: Apelação cível – ação de rescisão contratual em fase de cumprimento de sentença – decisão interlocutória que rejeitou a impugnação apresentada – não cabimento do recurso interposto – decisum que não extingue a execução – recurso cabível – agravo de instrumento – impossibilidade de aplicação do princípio da fungibilidade recursal – erro grosseiro – recurso não conhecido.",
+          "itens": [
+            "Costa neto (em regime de substituição ao desembargador ramon de medeiros nogueira).",
+            "Apelação cível – ação de rescisão contratual em fase de cumprimento de sentença – decisão interlocutória que rejeitou a impugnação apresentada – não cabimento do recurso interposto – decisum que não extingue a execução – recurso cabível – agravo de instrumento – impossibilidade de aplicação do princípio da fungibilidade recursal – erro grosseiro – recurso não conhecido."
+          ]
+        },
+        "fortalecer": {
+          "resumo": "Este julgado fecha contra. Sirva-se dele para saber o que o tribunal já recusou.",
+          "itens": [
+            "Costa neto (em regime de substituição ao desembargador ramon de medeiros nogueira).",
+            "Apelação cível – ação de rescisão contratual em fase de cumprimento de sentença – decisão interlocutória que rejeitou a impugnação apresentada – não cabimento do recurso interposto – decisum que não extingue a execução – recurso cabível – agravo de instrumento – impossibilidade de aplicação do princípio da fungibilidade recursal – erro grosseiro – recurso não conhecido."
+          ]
+        },
+        "blindar": {
+          "resumo": "Onde a parte contrária pode apoiar o ataque, segundo a ementa oficial.",
+          "itens": [
+            "Apelação cível – ação de rescisão contratual em fase de cumprimento de sentença – decisão interlocutória que rejeitou a impugnação apresentada – não cabimento do recurso interposto – decisum que não extingue a execução – recurso cabível – agravo de instrumento – impossibilidade de aplicação do princípio da fungibilidade recursal – erro grosseiro – recurso não conhecido."
+          ]
+        },
+        "contrapor": {
+          "resumo": "Como limitar o alcance deste julgado: o dispositivo oficial e o contexto da câmara.",
+          "itens": [
+            "Costa neto (em regime de substituição ao desembargador ramon de medeiros nogueira).",
+            "Apelação cível – ação de rescisão contratual em fase de cumprimento de sentença – decisão interlocutória que rejeitou a impugnação apresentada – não cabimento do recurso interposto – decisum que não extingue a execução – recurso cabível – agravo de instrumento – impossibilidade de aplicação do princípio da fungibilidade recursal – erro grosseiro – recurso não conhecido."
+          ]
+        },
+        "citavel": true,
+        "fonte": "tjpr",
+        "relacao": "precedente_tema"
+      },
+      {
+        "id": "74",
+        "processNumber": "90000147720108160026",
+        "acordao": "TJPR-4100000015299901 (tema)",
+        "court": "TJPR",
+        "chamber": "5ª Câmara Cível",
+        "reporter": "Nilson Mizuta Desembargador",
+        "date": "16/11/2020",
+        "status": "SENTENCIADO",
+        "alignment": "diverge",
+        "ementa": "Apelação cível. Ação revisional de contrato bancário garantido por alienação fiduciária. Procedência. Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples. Ajuizamento do cumprimento de sentença. Impugnação ao cumprimento de sentença. Alegação de excesso e pedido de compensação (vinte parcelas não pagas de um total de 36). Concordância entre as partes quanto ao não pagamento das 20 parcelas. Várias memórias de cálculos elaboradas. Homologação do último cálculo que incluiu a compensação entre os créditos de ambas as partes. Sentença que acolhe a impugnação ao cumprimento de sentença. Mérito do apelo. Pedido de prestação de contas quanto à venda do bem nestes autos. Não acolhimento. Etapa que deve ocorrer nos respectivos autos de busca e apreensão (art. 2º do decreto-lei nº 911/1969). Precedentes do stj e tjpr. Impossibilidade de determinação de adequação do rito nesta instância. Compensação entre saldo devedor do contrato e os valores cobrados indevidamente reconhecidos na ação revisional. Legalidade. Possibilidade de compensação de valores ainda que a sentença ou o acórdão não tenham assim determinado. Inteligência do art. 368 do código civil. Não existe qualquer vedação legal para que se dê a compensação se a apelante e o apelado são reciprocamente credores e devedores entre si. Precedentes.1. A prestação de contas é fase prevista no caput do art. 2º, do decreto-lei nº 911/1969, todavia, esta deve ser requerida nos respectivos autos da ação de busca e apreensão, conforme já decidiu o superior tribunal de justiça: “ação de prestação de contas. Interesse processual. Alienação fiduciária. Busca e apreensão. Leilão extrajudicial. Veiculo automotor. (..) no caso de alienação extrajudicial de veículo automotor regida pelo art. 2º do decreto-lei n. 911/1969 - redação anterior à lei n. 13.043/2014 -, tem o devedor interesse processual na ação de prestação de contas, quanto aos valores decorrentes da venda e à correta imputação no débito (saldo remanescente). (...).” (stj - resp 1678525/sp, rel. Ministro antonio carlos ferreira, quarta turma, julgado em 05/10/2017, dje 09/10/2017)2. Faz-se possível a compensação de valores entre os créditos ainda pendentes do financiamento do veículo e aqueles reconhecidos em ação revisional como abusivos, conforme este e. Tribunal de justiça já decidiu: “(...) compensação de valores é a forma preferencial de pagamento desde que não exista qualquer vedação legal acerca da sua possibilidade. Apesar de não haver previsão de compensação em fase de conhecimento, não existe qualquer vedação acerca da sua impossibilidade em fase de execução, eis que se trata de dívida líquida, certa e exigível.” (tjpr - 18ª c.cível - 9000062-36.2018.8.16.0000 - curitiba - rel.: juíza subst. 2ºgrau denise antunes - j. 13.03.2019)recurso não provido.",
+        "pontos": [],
+        "essencial": {
+          "resumo": "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+          "itens": [
+            "Ação revisional de contrato bancário garantido por alienação fiduciária.",
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+            "Ajuizamento do cumprimento de sentença.",
+            "Impugnação ao cumprimento de sentença."
+          ]
+        },
+        "fortalecer": {
+          "resumo": "Use só a parte do julgado que favorece o pedido e isole o restante.",
+          "itens": [
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples."
+          ]
+        },
+        "blindar": {
+          "resumo": "Onde a parte contrária pode apoiar o ataque, segundo a ementa oficial.",
+          "itens": [
+            "Ação revisional de contrato bancário garantido por alienação fiduciária.",
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+            "Ajuizamento do cumprimento de sentença."
+          ]
+        },
+        "contrapor": {
+          "resumo": "Como limitar o alcance deste julgado: o dispositivo oficial e o contexto da câmara.",
+          "itens": [
+            "Ação revisional de contrato bancário garantido por alienação fiduciária.",
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+            "Ajuizamento do cumprimento de sentença."
+          ]
+        },
+        "citavel": true,
+        "fonte": "tjpr",
+        "relacao": "precedente_tema"
+      }
+    ],
+    "dissidios": [
+      {
+        "camara": "18ª Câmara Cível",
+        "orientacao": "Neste órgão: 1 a favor, 0 contra, 0 divergente.",
+        "versus": "for",
+        "nota": "18ª Câmara Cível · 25/05/2020. A ementa oficial acolhe o sentido do pedido: Decisão transitada em julgado que concluiu pela exclusão dos juros de forma capitalizada, impossibilidade de cobrança cumulada da comissão de permanência com outros encargos, inexistência da mora, diante da presença de encargos abusivos e pela necessidade de restituição do valor cobrado indevidamente de forma simples.",
+        "fonte": "acervo_interno"
+      },
+      {
+        "camara": "5ª Câmara Cível",
+        "orientacao": "Neste órgão: 0 a favor, 1 contra, 1 divergente.",
+        "versus": "against",
+        "nota": "5ª Câmara Cível · 18/10/2022. A ementa oficial fecha contra o pedido: Apelação cível – ação de rescisão contratual em fase de cumprimento de sentença – decisão interlocutória que rejeitou a impugnação apresentada – não cabimento do recurso interposto – decisum que não extingue a execução – recurso cabível – agravo de instrumento – impossibilidade de aplicação do princípio da fungibilidade recursal – erro grosseiro – recurso não conhecido.",
+        "fonte": "acervo_interno"
+      }
+    ],
     "jurimetria": {
-      "amostra": 0,
-      "padrao": "",
-      "interno": "",
-      "riscos": []
+      "amostra": 3,
+      "padrao": "No recorte oficial deste caso há 3 acórdãos do TJPR (18ª Câmara Cível, 5ª Câmara Cível). Distribuição: 1 a favor, 1 contra, 1 divergente.",
+      "interno": "18ª Câmara Cível · 25/05/2020. A ementa oficial acolhe o sentido do pedido: Decisão transitada em julgado que concluiu pela exclusão dos juros de forma capitalizada, impossibilidade de cobrança cumulada da comissão de permanência com outros encargos, inexistência da mora, diante da presença de encargos abusivos e pela necessidade de restituição do valor cobrado indevidamente de forma simples. 5ª Câmara Cível · 18/10/2022. A ementa oficial fecha contra o pedido: Apelação cível – ação de rescisão contratual em fase de cumprimento de sentença – decisão interlocutória que rejeitou a impugnação apresentada – não cabimento do recurso interposto – decisum que não extingue a execução – recurso cabível – agravo de instrumento – impossibilidade de aplicação do princípio da fungibilidade recursal – erro grosseiro – recurso não conhecido. 5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+      "riscos": [
+        "5ª Câmara Cível · 18/10/2022. A ementa oficial fecha contra o pedido: Apelação cível – ação de rescisão contratual em fase de cumprimento de sentença – decisão interlocutória que rejeitou a impugnação apresentada – não cabimento do recurso interposto – decisum que não extingue a execução – recurso cabível – agravo de instrumento – impossibilidade de aplicação do princípio da fungibilidade recursal – erro grosseiro – recurso não conhecido.",
+        "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples."
+      ]
     },
     "fontes": {
       "titulo": "acervo_interno",
@@ -5633,8 +7622,8 @@ export const ACERVO_REAL: Caso[] = [
       "resumo": "acervo_interno",
       "tese": "acervo_interno",
       "atualizacao": "acervo_interno",
-      "chance": "indisponivel",
-      "votos": "indisponivel",
+      "chance": "tjpr",
+      "votos": "tjpr",
       "peticoes": "acervo_interno",
       "contratos": "indisponivel",
       "documentos": "acervo_interno",
@@ -5642,12 +7631,12 @@ export const ACERVO_REAL: Caso[] = [
       "modelos": "indisponivel",
       "historico": "acervo_interno",
       "prazos": "acervo_interno",
-      "teses": "indisponivel",
-      "resultados": "indisponivel",
+      "teses": "acervo_interno",
+      "resultados": "acervo_interno",
       "conversas": "indisponivel",
-      "jurisprudencias": "acervo_interno",
-      "dissidios": "indisponivel",
-      "jurimetria": "indisponivel"
+      "jurisprudencias": "tjpr",
+      "dissidios": "acervo_interno",
+      "jurimetria": "tjpr"
     }
   },
   {
@@ -5657,7 +7646,7 @@ export const ACERVO_REAL: Caso[] = [
     "subtema": "Cumprimento de sentença",
     "processNumber": "9000015-53.2004.8.16.0194",
     "court": "TJPR",
-    "chamber": "CURITIBA - 12ª VARA CÍVEL",
+    "chamber": "Curitiba - 12ª vara cível",
     "status": "TRANSITADO_EM_JULGADO",
     "cliente": "Parte autora (sigilo)",
     "partes": [
@@ -5671,15 +7660,15 @@ export const ACERVO_REAL: Caso[] = [
       }
     ],
     "resumo": "Cumprimento de sentença perante CURITIBA - 12ª VARA CÍVEL (TJPR). Assunto(s) DataJud: Contratos Bancários.",
-    "tese": "Indisponível no DataJud (capa/andamentos apenas).",
+    "tese": "Ação revisional de contrato bancário garantido por alienação fiduciária. Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
     "atualizacao": "01/09/2026",
-    "chance": 0,
-    "chanceRotulo": "indisponível sem modelo oficial",
-    "chanceTexto": "indisponível sem modelo oficial",
+    "chance": 50,
+    "chanceRotulo": "recorte descritivo TJPR",
+    "chanceTexto": "Com base em 1 ementa(s) oficial(is) do portal TJPR neste recorte: 0 a favor, 0 contra, 1 divergente(s). Índice descritivo (favor +½ divergente).",
     "votos": {
       "for": 0,
       "against": 0,
-      "diverge": 0
+      "diverge": 3
     },
     "peticoes": [
       {
@@ -5747,7 +7736,16 @@ export const ACERVO_REAL: Caso[] = [
         "resumo": "Andamento DataJud: Petição em 10/05/2017."
       }
     ],
-    "contratos": [],
+    "contratos": [
+      {
+        "id": "ctr-capa",
+        "titulo": "Contratos Bancários",
+        "tipo": "Capa do processo",
+        "data": "01/09/2026",
+        "origem": "TJPR",
+        "resumo": "Cumprimento de sentença perante CURITIBA - 12ª VARA CÍVEL (TJPR). Assunto(s) DataJud: Contratos Bancários."
+      }
+    ],
     "documentos": [
       {
         "id": "110",
@@ -5927,11 +7925,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 5,
         "calendar": "uteis",
         "status": "vencido",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para prestar esclarecimentos sobre os pontos indicados pelo juízo.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-01",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-01"
       },
       {
         "id": "41",
@@ -5941,11 +7938,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 10,
         "calendar": "uteis",
         "status": "a_vencer",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para juntar os documentos solicitados pelo juízo.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-02",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-02"
       },
       {
         "id": "67",
@@ -5955,11 +7951,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 15,
         "calendar": "uteis",
         "status": "aberto",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para especificar as provas pretendidas e justificar sua pertinência.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-10",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-10"
       },
       {
         "id": "93",
@@ -5969,55 +7964,221 @@ export const ACERVO_REAL: Caso[] = [
         "days": 15,
         "calendar": "uteis",
         "status": "cumprido",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para apresentar manifestação sobre documento juntado aos autos.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-08-14",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real. Cumprimento fictício registrado apenas para demonstrar o filtro da tela."
+        "startedAt": "2026-08-14"
       }
     ],
-    "teses": [],
-    "resultados": [],
-    "conversas": [],
-    "jurisprudencias": [
+    "teses": [
       {
-        "id": "15",
-        "processNumber": "90000155320048160194",
-        "acordao": "[NÃO OFICIAL] Referência de capa 9000015-53.2004.8.16.0194",
-        "court": "TJPR",
-        "chamber": "CURITIBA - 12ª VARA CÍVEL",
-        "reporter": "Não informado",
-        "date": "01/09/2026",
-        "status": "TRANSITADO_EM_JULGADO",
-        "alignment": "diverge",
-        "ementa": "",
-        "pontos": [],
-        "essencial": {
-          "resumo": "",
-          "itens": []
-        },
-        "fortalecer": {
-          "resumo": "",
-          "itens": []
-        },
-        "blindar": {
-          "resumo": "",
-          "itens": []
-        },
-        "contrapor": {
-          "resumo": "",
-          "itens": []
-        },
-        "citavel": false,
+        "id": "41",
+        "titulo": "Contratos Bancários",
+        "uso": "Aguardar ementa oficial; até lá usar só corpus descritivo do tema.",
+        "forca": "media",
         "fonte": "acervo_interno"
       }
     ],
-    "dissidios": [],
+    "resultados": [
+      {
+        "id": "75",
+        "titulo": "5ª Câmara Cível · 16/11/2020",
+        "desfecho": "Ação revisional de contrato bancário garantido por alienação fiduciária. Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+        "aprendizado": "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples."
+      },
+      {
+        "id": "76",
+        "titulo": "18ª Câmara Cível · 06/04/2020",
+        "desfecho": "ALIENAÇÃO FIDUCIÁRIA. JUROS REMUNERATÓRIOS. AUSÊNCIA DE ABUSIVIDADE. CAPITALIZAÇÃO DE JUROS PACTUADA. tarifa de registro DO CONTRATO E GRAVAME ELETRÔNICO.",
+        "aprendizado": "18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES."
+      },
+      {
+        "id": "77",
+        "titulo": "1ª Turma Recursal · 14/06/2021",
+        "desfecho": "Ementa: recurso inominado. Ação de revisão contratual c/c repetição de indébito. Contrato de financiamento. Alegação de cobrança abusiva de juros remuneratórios.",
+        "aprendizado": "1ª Turma Recursal · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida."
+      }
+    ],
+    "conversas": [],
+    "jurisprudencias": [
+      {
+        "id": "75",
+        "processNumber": "90000155320048160194",
+        "acordao": "TJPR-4100000015299901 (tema)",
+        "court": "TJPR",
+        "chamber": "5ª Câmara Cível",
+        "reporter": "Nilson Mizuta Desembargador",
+        "date": "16/11/2020",
+        "status": "SENTENCIADO",
+        "alignment": "diverge",
+        "ementa": "Apelação cível. Ação revisional de contrato bancário garantido por alienação fiduciária. Procedência. Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples. Ajuizamento do cumprimento de sentença. Impugnação ao cumprimento de sentença. Alegação de excesso e pedido de compensação (vinte parcelas não pagas de um total de 36). Concordância entre as partes quanto ao não pagamento das 20 parcelas. Várias memórias de cálculos elaboradas. Homologação do último cálculo que incluiu a compensação entre os créditos de ambas as partes. Sentença que acolhe a impugnação ao cumprimento de sentença. Mérito do apelo. Pedido de prestação de contas quanto à venda do bem nestes autos. Não acolhimento. Etapa que deve ocorrer nos respectivos autos de busca e apreensão (art. 2º do decreto-lei nº 911/1969). Precedentes do stj e tjpr. Impossibilidade de determinação de adequação do rito nesta instância. Compensação entre saldo devedor do contrato e os valores cobrados indevidamente reconhecidos na ação revisional. Legalidade. Possibilidade de compensação de valores ainda que a sentença ou o acórdão não tenham assim determinado. Inteligência do art. 368 do código civil. Não existe qualquer vedação legal para que se dê a compensação se a apelante e o apelado são reciprocamente credores e devedores entre si. Precedentes.1. A prestação de contas é fase prevista no caput do art. 2º, do decreto-lei nº 911/1969, todavia, esta deve ser requerida nos respectivos autos da ação de busca e apreensão, conforme já decidiu o superior tribunal de justiça: “ação de prestação de contas. Interesse processual. Alienação fiduciária. Busca e apreensão. Leilão extrajudicial. Veiculo automotor. (..) no caso de alienação extrajudicial de veículo automotor regida pelo art. 2º do decreto-lei n. 911/1969 - redação anterior à lei n. 13.043/2014 -, tem o devedor interesse processual na ação de prestação de contas, quanto aos valores decorrentes da venda e à correta imputação no débito (saldo remanescente). (...).” (stj - resp 1678525/sp, rel. Ministro antonio carlos ferreira, quarta turma, julgado em 05/10/2017, dje 09/10/2017)2. Faz-se possível a compensação de valores entre os créditos ainda pendentes do financiamento do veículo e aqueles reconhecidos em ação revisional como abusivos, conforme este e. Tribunal de justiça já decidiu: “(...) compensação de valores é a forma preferencial de pagamento desde que não exista qualquer vedação legal acerca da sua possibilidade. Apesar de não haver previsão de compensação em fase de conhecimento, não existe qualquer vedação acerca da sua impossibilidade em fase de execução, eis que se trata de dívida líquida, certa e exigível.” (tjpr - 18ª c.cível - 9000062-36.2018.8.16.0000 - curitiba - rel.: juíza subst. 2ºgrau denise antunes - j. 13.03.2019)recurso não provido.",
+        "pontos": [],
+        "essencial": {
+          "resumo": "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+          "itens": [
+            "Ação revisional de contrato bancário garantido por alienação fiduciária.",
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+            "Ajuizamento do cumprimento de sentença.",
+            "Impugnação ao cumprimento de sentença."
+          ]
+        },
+        "fortalecer": {
+          "resumo": "Use só a parte do julgado que favorece o pedido e isole o restante.",
+          "itens": [
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples."
+          ]
+        },
+        "blindar": {
+          "resumo": "Onde a parte contrária pode apoiar o ataque, segundo a ementa oficial.",
+          "itens": [
+            "Ação revisional de contrato bancário garantido por alienação fiduciária.",
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+            "Ajuizamento do cumprimento de sentença."
+          ]
+        },
+        "contrapor": {
+          "resumo": "Como limitar o alcance deste julgado: o dispositivo oficial e o contexto da câmara.",
+          "itens": [
+            "Ação revisional de contrato bancário garantido por alienação fiduciária.",
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+            "Ajuizamento do cumprimento de sentença."
+          ]
+        },
+        "citavel": true,
+        "fonte": "tjpr",
+        "relacao": "precedente_tema"
+      },
+      {
+        "id": "76",
+        "processNumber": "90000155320048160194",
+        "acordao": "TJPR-4100000012641161 (tema)",
+        "court": "TJPR",
+        "chamber": "18ª Câmara Cível",
+        "reporter": "Marcelo Gobbo Dalla Dea Desembargador",
+        "date": "06/04/2020",
+        "status": "SENTENCIADO",
+        "alignment": "diverge",
+        "ementa": "APELAÇÃO CÍVEL. AÇÃO REVISIONAL. ALIENAÇÃO FIDUCIÁRIA. JUROS REMUNERATÓRIOS. AUSÊNCIA DE ABUSIVIDADE. CAPITALIZAÇÃO DE JUROS PACTUADA. tarifa de registro DO CONTRATO E GRAVAME ELETRÔNICO. LEGALIDADE. SEGURO PROTEÇÃO. VENDA CASADA. ABUSIVIDADE. COMISSÃO DE PERMANÊNCIA. INEXISTÊNCIA. DEVOLUÇÃO NA FORMA SIMPLES. SUCUMBÊNCIA REDISTRIBUÍDA. RECURSO CONHECIDO E PARCIALMENTE PROVIDO.1. É livre a pactuação dos juros remuneratórios através do posicionamento jurisprudencial do Superior Tribunal de Justiça, de forma que a sua limitação ao patamar acima de 12% ao ano não indica abusividade. 2. O Superior Tribunal de Justiça firmou entendimento no RESP 973827 de que a capitalização é válida desde que expressamente pactuada.3. É permitida a capitalização de juros, sendo autorizada pelo Superior Tribunal de Justiça nos REsp 1251331 e 1255573, julgados pelo rito do artigo 543-C do Código de Processo Civil/73.4. É passível de repasse ao consumidor o custo referente à tarifa de registro do contrato de financiamento de veículo com cláusula de garantia fiduciária, desde que a cobrança pelo registro do contrato corresponda a um serviço efetivamente prestado e que o valor não se mostre abusivo.5. Nos contratos bancários em geral, o consumidor não pode ser compelido a contratar seguro com a instituição financeira ou com seguradora por ela indicada (STJ – Recurso Especial Repetitivo nº 1.639.259/SP e nº 1.639.320/SP - Tema 972).6. Nos contratos de concessão de crédito, a importância cobrada a título de comissão de permanência não poderá ultrapassar a soma dos encargos remuneratórios e moratórios previstos no contrato, ou seja: a) juros remuneratórios à taxa média de mercado, não podendo ultrapassar o percentual contratado para o período de normalidade da operação; b) juros moratórios até o limite de 12% ao ano; e c) multa contratual limitada a 2% do valor da prestação, nos termos do art. 52. § 1º, do CDC.",
+        "pontos": [],
+        "essencial": {
+          "resumo": "18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES.",
+          "itens": [
+            "Alienação fiduciária.",
+            "Juros remuneratórios.",
+            "Ausência de abusividade.",
+            "Capitalização de juros pactuada."
+          ]
+        },
+        "fortalecer": {
+          "resumo": "Use só a parte do julgado que favorece o pedido e isole o restante.",
+          "itens": [
+            "Alienação fiduciária.",
+            "Juros remuneratórios.",
+            "Ausência de abusividade."
+          ]
+        },
+        "blindar": {
+          "resumo": "Onde a parte contrária pode apoiar o ataque, segundo a ementa oficial.",
+          "itens": [
+            "Alienação fiduciária.",
+            "Juros remuneratórios.",
+            "Ausência de abusividade."
+          ]
+        },
+        "contrapor": {
+          "resumo": "Como limitar o alcance deste julgado: o dispositivo oficial e o contexto da câmara.",
+          "itens": [
+            "Alienação fiduciária.",
+            "Juros remuneratórios.",
+            "Ausência de abusividade."
+          ]
+        },
+        "citavel": true,
+        "fonte": "tjpr",
+        "relacao": "precedente_tema"
+      },
+      {
+        "id": "77",
+        "processNumber": "90000155320048160194",
+        "acordao": "TJPR-2100000014800751 (tema)",
+        "court": "TJPR",
+        "chamber": "1ª Turma Recursal",
+        "reporter": "Melissa de Azevedo Olivas Juíza de Direito da Turma Recursal dos Juízaados Especiais",
+        "date": "14/06/2021",
+        "status": "SENTENCIADO",
+        "alignment": "diverge",
+        "ementa": "Ementa: recurso inominado. Ação de revisão contratual c/c repetição de indébito. Direito bancário. Contrato de financiamento. Alegação de cobrança abusiva de juros remuneratórios. Taxa média acima da praticada no mercado. Recálculo que necessita de cálculos complexos. Incompetência dos juizados especiais. Tarifa de registro. Ausência de prova da prestação do serviço. Restituição devida. Sentença parcialmente reformada. Recurso da parte autora conhecido e parcialmente provido.",
+        "pontos": [],
+        "essencial": {
+          "resumo": "1ª Turma Recursal · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida.",
+          "itens": [
+            "Ementa: recurso inominado.",
+            "Ação de revisão contratual c/c repetição de indébito.",
+            "Contrato de financiamento.",
+            "Alegação de cobrança abusiva de juros remuneratórios."
+          ]
+        },
+        "fortalecer": {
+          "resumo": "Use só a parte do julgado que favorece o pedido e isole o restante.",
+          "itens": [
+            "Ementa: recurso inominado.",
+            "Ação de revisão contratual c/c repetição de indébito.",
+            "Contrato de financiamento."
+          ]
+        },
+        "blindar": {
+          "resumo": "Onde a parte contrária pode apoiar o ataque, segundo a ementa oficial.",
+          "itens": [
+            "Ementa: recurso inominado.",
+            "Ação de revisão contratual c/c repetição de indébito.",
+            "Contrato de financiamento."
+          ]
+        },
+        "contrapor": {
+          "resumo": "Como limitar o alcance deste julgado: o dispositivo oficial e o contexto da câmara.",
+          "itens": [
+            "Ementa: recurso inominado.",
+            "Ação de revisão contratual c/c repetição de indébito.",
+            "Contrato de financiamento."
+          ]
+        },
+        "citavel": true,
+        "fonte": "tjpr",
+        "relacao": "precedente_tema"
+      }
+    ],
+    "dissidios": [
+      {
+        "camara": "5ª Câmara Cível",
+        "orientacao": "Neste órgão: 0 a favor, 0 contra, 1 divergente.",
+        "versus": "diverge",
+        "nota": "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+        "fonte": "acervo_interno"
+      },
+      {
+        "camara": "18ª Câmara Cível",
+        "orientacao": "Neste órgão: 0 a favor, 0 contra, 1 divergente.",
+        "versus": "diverge",
+        "nota": "18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES.",
+        "fonte": "acervo_interno"
+      },
+      {
+        "camara": "1ª Turma Recursal",
+        "orientacao": "Neste órgão: 0 a favor, 0 contra, 1 divergente.",
+        "versus": "diverge",
+        "nota": "1ª Turma Recursal · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida.",
+        "fonte": "acervo_interno"
+      }
+    ],
     "jurimetria": {
-      "amostra": 0,
-      "padrao": "",
-      "interno": "",
-      "riscos": []
+      "amostra": 3,
+      "padrao": "No recorte oficial deste caso há 3 acórdãos do TJPR (5ª Câmara Cível, 18ª Câmara Cível, 1ª Turma Recursal). Distribuição: 0 a favor, 0 contra, 3 divergente.",
+      "interno": "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples. 18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES. 1ª Turma Recursal · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida.",
+      "riscos": [
+        "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+        "18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES.",
+        "1ª Turma Recursal · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida."
+      ]
     },
     "fontes": {
       "titulo": "acervo_interno",
@@ -6032,21 +8193,21 @@ export const ACERVO_REAL: Caso[] = [
       "resumo": "acervo_interno",
       "tese": "acervo_interno",
       "atualizacao": "acervo_interno",
-      "chance": "indisponivel",
-      "votos": "indisponivel",
+      "chance": "tjpr",
+      "votos": "tjpr",
       "peticoes": "acervo_interno",
-      "contratos": "indisponivel",
+      "contratos": "acervo_interno",
       "documentos": "acervo_interno",
       "decisoes": "acervo_interno",
       "modelos": "indisponivel",
       "historico": "acervo_interno",
       "prazos": "acervo_interno",
-      "teses": "indisponivel",
-      "resultados": "indisponivel",
+      "teses": "acervo_interno",
+      "resultados": "acervo_interno",
       "conversas": "indisponivel",
-      "jurisprudencias": "acervo_interno",
-      "dissidios": "indisponivel",
-      "jurimetria": "indisponivel"
+      "jurisprudencias": "tjpr",
+      "dissidios": "acervo_interno",
+      "jurimetria": "tjpr"
     }
   },
   {
@@ -6056,7 +8217,7 @@ export const ACERVO_REAL: Caso[] = [
     "subtema": "Cumprimento de sentença",
     "processNumber": "9000016-13.2011.8.16.0026",
     "court": "TJPR",
-    "chamber": "CAMPO LARGO - 1ª VARA CÍVEL E DA FAZENDA PÚBLICA",
+    "chamber": "Campo largo - 1ª vara cível e da fazenda pública",
     "status": "TRANSITADO_EM_JULGADO",
     "cliente": "Parte autora (sigilo)",
     "partes": [
@@ -6069,16 +8230,16 @@ export const ACERVO_REAL: Caso[] = [
         "nome": "Parte ré (sigilo)"
       }
     ],
-    "resumo": "Cumprimento de sentença perante CAMPO LARGO - 1ª VARA CÍVEL E DA FAZENDA PÚBLICA (TJPR). Assunto(s) DataJud: Contratos Bancários.",
-    "tese": "Indisponível no DataJud (capa/andamentos apenas).",
+    "resumo": "Cumprimento de sentença perante campo largo - 1ª vara cível e da fazenda pública (tjpr). Assunto(s) datajud: contratos bancários.",
+    "tese": "Ação revisional de contrato bancário garantido por alienação fiduciária. Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
     "atualizacao": "10/06/2026",
-    "chance": 0,
-    "chanceRotulo": "indisponível sem modelo oficial",
-    "chanceTexto": "indisponível sem modelo oficial",
+    "chance": 50,
+    "chanceRotulo": "recorte descritivo TJPR",
+    "chanceTexto": "Com base em 1 ementa(s) oficial(is) do portal TJPR neste recorte: 0 a favor, 0 contra, 1 divergente(s). Índice descritivo (favor +½ divergente).",
     "votos": {
       "for": 0,
       "against": 0,
-      "diverge": 0
+      "diverge": 3
     },
     "peticoes": [
       {
@@ -6146,7 +8307,16 @@ export const ACERVO_REAL: Caso[] = [
         "resumo": "Andamento DataJud: Petição em 04/09/2019."
       }
     ],
-    "contratos": [],
+    "contratos": [
+      {
+        "id": "ctr-capa",
+        "titulo": "Contratos Bancários",
+        "tipo": "Capa do processo",
+        "data": "10/06/2026",
+        "origem": "TJPR",
+        "resumo": "Cumprimento de sentença perante campo largo - 1ª vara cível e da fazenda pública (tjpr). Assunto(s) datajud: contratos bancários."
+      }
+    ],
     "documentos": [
       {
         "id": "118",
@@ -6374,11 +8544,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 5,
         "calendar": "uteis",
         "status": "vencido",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para prestar esclarecimentos sobre os pontos indicados pelo juízo.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-01",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-01"
       },
       {
         "id": "42",
@@ -6388,11 +8557,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 10,
         "calendar": "uteis",
         "status": "a_vencer",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para juntar os documentos solicitados pelo juízo.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-02",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-02"
       },
       {
         "id": "68",
@@ -6402,11 +8570,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 15,
         "calendar": "uteis",
         "status": "aberto",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para especificar as provas pretendidas e justificar sua pertinência.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-10",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-10"
       },
       {
         "id": "94",
@@ -6416,55 +8583,221 @@ export const ACERVO_REAL: Caso[] = [
         "days": 15,
         "calendar": "uteis",
         "status": "cumprido",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para apresentar manifestação sobre documento juntado aos autos.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-08-14",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real. Cumprimento fictício registrado apenas para demonstrar o filtro da tela."
+        "startedAt": "2026-08-14"
       }
     ],
-    "teses": [],
-    "resultados": [],
-    "conversas": [],
-    "jurisprudencias": [
+    "teses": [
       {
-        "id": "16",
-        "processNumber": "90000161320118160026",
-        "acordao": "[NÃO OFICIAL] Referência de capa 9000016-13.2011.8.16.0026",
-        "court": "TJPR",
-        "chamber": "CAMPO LARGO - 1ª VARA CÍVEL E DA FAZENDA PÚBLICA",
-        "reporter": "Não informado",
-        "date": "10/06/2026",
-        "status": "TRANSITADO_EM_JULGADO",
-        "alignment": "diverge",
-        "ementa": "",
-        "pontos": [],
-        "essencial": {
-          "resumo": "",
-          "itens": []
-        },
-        "fortalecer": {
-          "resumo": "",
-          "itens": []
-        },
-        "blindar": {
-          "resumo": "",
-          "itens": []
-        },
-        "contrapor": {
-          "resumo": "",
-          "itens": []
-        },
-        "citavel": false,
+        "id": "42",
+        "titulo": "Contratos Bancários",
+        "uso": "Aguardar ementa oficial; até lá usar só corpus descritivo do tema.",
+        "forca": "media",
         "fonte": "acervo_interno"
       }
     ],
-    "dissidios": [],
+    "resultados": [
+      {
+        "id": "78",
+        "titulo": "5ª Câmara Cível · 16/11/2020",
+        "desfecho": "Ação revisional de contrato bancário garantido por alienação fiduciária. Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+        "aprendizado": "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples."
+      },
+      {
+        "id": "79",
+        "titulo": "18ª Câmara Cível · 06/04/2020",
+        "desfecho": "ALIENAÇÃO FIDUCIÁRIA. JUROS REMUNERATÓRIOS. AUSÊNCIA DE ABUSIVIDADE. CAPITALIZAÇÃO DE JUROS PACTUADA. tarifa de registro DO CONTRATO E GRAVAME ELETRÔNICO.",
+        "aprendizado": "18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES."
+      },
+      {
+        "id": "80",
+        "titulo": "1ª Turma Recursal · 14/06/2021",
+        "desfecho": "Ementa: recurso inominado. Ação de revisão contratual c/c repetição de indébito. Contrato de financiamento. Alegação de cobrança abusiva de juros remuneratórios.",
+        "aprendizado": "1ª Turma Recursal · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida."
+      }
+    ],
+    "conversas": [],
+    "jurisprudencias": [
+      {
+        "id": "78",
+        "processNumber": "90000161320118160026",
+        "acordao": "TJPR-4100000015299901 (tema)",
+        "court": "TJPR",
+        "chamber": "5ª Câmara Cível",
+        "reporter": "Nilson Mizuta Desembargador",
+        "date": "16/11/2020",
+        "status": "SENTENCIADO",
+        "alignment": "diverge",
+        "ementa": "Apelação cível. Ação revisional de contrato bancário garantido por alienação fiduciária. Procedência. Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples. Ajuizamento do cumprimento de sentença. Impugnação ao cumprimento de sentença. Alegação de excesso e pedido de compensação (vinte parcelas não pagas de um total de 36). Concordância entre as partes quanto ao não pagamento das 20 parcelas. Várias memórias de cálculos elaboradas. Homologação do último cálculo que incluiu a compensação entre os créditos de ambas as partes. Sentença que acolhe a impugnação ao cumprimento de sentença. Mérito do apelo. Pedido de prestação de contas quanto à venda do bem nestes autos. Não acolhimento. Etapa que deve ocorrer nos respectivos autos de busca e apreensão (art. 2º do decreto-lei nº 911/1969). Precedentes do stj e tjpr. Impossibilidade de determinação de adequação do rito nesta instância. Compensação entre saldo devedor do contrato e os valores cobrados indevidamente reconhecidos na ação revisional. Legalidade. Possibilidade de compensação de valores ainda que a sentença ou o acórdão não tenham assim determinado. Inteligência do art. 368 do código civil. Não existe qualquer vedação legal para que se dê a compensação se a apelante e o apelado são reciprocamente credores e devedores entre si. Precedentes.1. A prestação de contas é fase prevista no caput do art. 2º, do decreto-lei nº 911/1969, todavia, esta deve ser requerida nos respectivos autos da ação de busca e apreensão, conforme já decidiu o superior tribunal de justiça: “ação de prestação de contas. Interesse processual. Alienação fiduciária. Busca e apreensão. Leilão extrajudicial. Veiculo automotor. (..) no caso de alienação extrajudicial de veículo automotor regida pelo art. 2º do decreto-lei n. 911/1969 - redação anterior à lei n. 13.043/2014 -, tem o devedor interesse processual na ação de prestação de contas, quanto aos valores decorrentes da venda e à correta imputação no débito (saldo remanescente). (...).” (stj - resp 1678525/sp, rel. Ministro antonio carlos ferreira, quarta turma, julgado em 05/10/2017, dje 09/10/2017)2. Faz-se possível a compensação de valores entre os créditos ainda pendentes do financiamento do veículo e aqueles reconhecidos em ação revisional como abusivos, conforme este e. Tribunal de justiça já decidiu: “(...) compensação de valores é a forma preferencial de pagamento desde que não exista qualquer vedação legal acerca da sua possibilidade. Apesar de não haver previsão de compensação em fase de conhecimento, não existe qualquer vedação acerca da sua impossibilidade em fase de execução, eis que se trata de dívida líquida, certa e exigível.” (tjpr - 18ª c.cível - 9000062-36.2018.8.16.0000 - curitiba - rel.: juíza subst. 2ºgrau denise antunes - j. 13.03.2019)recurso não provido.",
+        "pontos": [],
+        "essencial": {
+          "resumo": "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+          "itens": [
+            "Ação revisional de contrato bancário garantido por alienação fiduciária.",
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+            "Ajuizamento do cumprimento de sentença.",
+            "Impugnação ao cumprimento de sentença."
+          ]
+        },
+        "fortalecer": {
+          "resumo": "Use só a parte do julgado que favorece o pedido e isole o restante.",
+          "itens": [
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples."
+          ]
+        },
+        "blindar": {
+          "resumo": "Onde a parte contrária pode apoiar o ataque, segundo a ementa oficial.",
+          "itens": [
+            "Ação revisional de contrato bancário garantido por alienação fiduciária.",
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+            "Ajuizamento do cumprimento de sentença."
+          ]
+        },
+        "contrapor": {
+          "resumo": "Como limitar o alcance deste julgado: o dispositivo oficial e o contexto da câmara.",
+          "itens": [
+            "Ação revisional de contrato bancário garantido por alienação fiduciária.",
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+            "Ajuizamento do cumprimento de sentença."
+          ]
+        },
+        "citavel": true,
+        "fonte": "tjpr",
+        "relacao": "precedente_tema"
+      },
+      {
+        "id": "79",
+        "processNumber": "90000161320118160026",
+        "acordao": "TJPR-4100000012641161 (tema)",
+        "court": "TJPR",
+        "chamber": "18ª Câmara Cível",
+        "reporter": "Marcelo Gobbo Dalla Dea Desembargador",
+        "date": "06/04/2020",
+        "status": "SENTENCIADO",
+        "alignment": "diverge",
+        "ementa": "APELAÇÃO CÍVEL. AÇÃO REVISIONAL. ALIENAÇÃO FIDUCIÁRIA. JUROS REMUNERATÓRIOS. AUSÊNCIA DE ABUSIVIDADE. CAPITALIZAÇÃO DE JUROS PACTUADA. tarifa de registro DO CONTRATO E GRAVAME ELETRÔNICO. LEGALIDADE. SEGURO PROTEÇÃO. VENDA CASADA. ABUSIVIDADE. COMISSÃO DE PERMANÊNCIA. INEXISTÊNCIA. DEVOLUÇÃO NA FORMA SIMPLES. SUCUMBÊNCIA REDISTRIBUÍDA. RECURSO CONHECIDO E PARCIALMENTE PROVIDO.1. É livre a pactuação dos juros remuneratórios através do posicionamento jurisprudencial do Superior Tribunal de Justiça, de forma que a sua limitação ao patamar acima de 12% ao ano não indica abusividade. 2. O Superior Tribunal de Justiça firmou entendimento no RESP 973827 de que a capitalização é válida desde que expressamente pactuada.3. É permitida a capitalização de juros, sendo autorizada pelo Superior Tribunal de Justiça nos REsp 1251331 e 1255573, julgados pelo rito do artigo 543-C do Código de Processo Civil/73.4. É passível de repasse ao consumidor o custo referente à tarifa de registro do contrato de financiamento de veículo com cláusula de garantia fiduciária, desde que a cobrança pelo registro do contrato corresponda a um serviço efetivamente prestado e que o valor não se mostre abusivo.5. Nos contratos bancários em geral, o consumidor não pode ser compelido a contratar seguro com a instituição financeira ou com seguradora por ela indicada (STJ – Recurso Especial Repetitivo nº 1.639.259/SP e nº 1.639.320/SP - Tema 972).6. Nos contratos de concessão de crédito, a importância cobrada a título de comissão de permanência não poderá ultrapassar a soma dos encargos remuneratórios e moratórios previstos no contrato, ou seja: a) juros remuneratórios à taxa média de mercado, não podendo ultrapassar o percentual contratado para o período de normalidade da operação; b) juros moratórios até o limite de 12% ao ano; e c) multa contratual limitada a 2% do valor da prestação, nos termos do art. 52. § 1º, do CDC.",
+        "pontos": [],
+        "essencial": {
+          "resumo": "18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES.",
+          "itens": [
+            "Alienação fiduciária.",
+            "Juros remuneratórios.",
+            "Ausência de abusividade.",
+            "Capitalização de juros pactuada."
+          ]
+        },
+        "fortalecer": {
+          "resumo": "Use só a parte do julgado que favorece o pedido e isole o restante.",
+          "itens": [
+            "Alienação fiduciária.",
+            "Juros remuneratórios.",
+            "Ausência de abusividade."
+          ]
+        },
+        "blindar": {
+          "resumo": "Onde a parte contrária pode apoiar o ataque, segundo a ementa oficial.",
+          "itens": [
+            "Alienação fiduciária.",
+            "Juros remuneratórios.",
+            "Ausência de abusividade."
+          ]
+        },
+        "contrapor": {
+          "resumo": "Como limitar o alcance deste julgado: o dispositivo oficial e o contexto da câmara.",
+          "itens": [
+            "Alienação fiduciária.",
+            "Juros remuneratórios.",
+            "Ausência de abusividade."
+          ]
+        },
+        "citavel": true,
+        "fonte": "tjpr",
+        "relacao": "precedente_tema"
+      },
+      {
+        "id": "80",
+        "processNumber": "90000161320118160026",
+        "acordao": "TJPR-2100000014800751 (tema)",
+        "court": "TJPR",
+        "chamber": "1ª Turma Recursal",
+        "reporter": "Melissa de Azevedo Olivas Juíza de Direito da Turma Recursal dos Juízaados Especiais",
+        "date": "14/06/2021",
+        "status": "SENTENCIADO",
+        "alignment": "diverge",
+        "ementa": "Ementa: recurso inominado. Ação de revisão contratual c/c repetição de indébito. Direito bancário. Contrato de financiamento. Alegação de cobrança abusiva de juros remuneratórios. Taxa média acima da praticada no mercado. Recálculo que necessita de cálculos complexos. Incompetência dos juizados especiais. Tarifa de registro. Ausência de prova da prestação do serviço. Restituição devida. Sentença parcialmente reformada. Recurso da parte autora conhecido e parcialmente provido.",
+        "pontos": [],
+        "essencial": {
+          "resumo": "1ª Turma Recursal · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida.",
+          "itens": [
+            "Ementa: recurso inominado.",
+            "Ação de revisão contratual c/c repetição de indébito.",
+            "Contrato de financiamento.",
+            "Alegação de cobrança abusiva de juros remuneratórios."
+          ]
+        },
+        "fortalecer": {
+          "resumo": "Use só a parte do julgado que favorece o pedido e isole o restante.",
+          "itens": [
+            "Ementa: recurso inominado.",
+            "Ação de revisão contratual c/c repetição de indébito.",
+            "Contrato de financiamento."
+          ]
+        },
+        "blindar": {
+          "resumo": "Onde a parte contrária pode apoiar o ataque, segundo a ementa oficial.",
+          "itens": [
+            "Ementa: recurso inominado.",
+            "Ação de revisão contratual c/c repetição de indébito.",
+            "Contrato de financiamento."
+          ]
+        },
+        "contrapor": {
+          "resumo": "Como limitar o alcance deste julgado: o dispositivo oficial e o contexto da câmara.",
+          "itens": [
+            "Ementa: recurso inominado.",
+            "Ação de revisão contratual c/c repetição de indébito.",
+            "Contrato de financiamento."
+          ]
+        },
+        "citavel": true,
+        "fonte": "tjpr",
+        "relacao": "precedente_tema"
+      }
+    ],
+    "dissidios": [
+      {
+        "camara": "5ª Câmara Cível",
+        "orientacao": "Neste órgão: 0 a favor, 0 contra, 1 divergente.",
+        "versus": "diverge",
+        "nota": "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+        "fonte": "acervo_interno"
+      },
+      {
+        "camara": "18ª Câmara Cível",
+        "orientacao": "Neste órgão: 0 a favor, 0 contra, 1 divergente.",
+        "versus": "diverge",
+        "nota": "18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES.",
+        "fonte": "acervo_interno"
+      },
+      {
+        "camara": "1ª Turma Recursal",
+        "orientacao": "Neste órgão: 0 a favor, 0 contra, 1 divergente.",
+        "versus": "diverge",
+        "nota": "1ª Turma Recursal · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida.",
+        "fonte": "acervo_interno"
+      }
+    ],
     "jurimetria": {
-      "amostra": 0,
-      "padrao": "",
-      "interno": "",
-      "riscos": []
+      "amostra": 3,
+      "padrao": "No recorte oficial deste caso há 3 acórdãos do TJPR (5ª Câmara Cível, 18ª Câmara Cível, 1ª Turma Recursal). Distribuição: 0 a favor, 0 contra, 3 divergente.",
+      "interno": "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples. 18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES. 1ª Turma Recursal · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida.",
+      "riscos": [
+        "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+        "18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES.",
+        "1ª Turma Recursal · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida."
+      ]
     },
     "fontes": {
       "titulo": "acervo_interno",
@@ -6479,21 +8812,21 @@ export const ACERVO_REAL: Caso[] = [
       "resumo": "acervo_interno",
       "tese": "acervo_interno",
       "atualizacao": "acervo_interno",
-      "chance": "indisponivel",
-      "votos": "indisponivel",
+      "chance": "tjpr",
+      "votos": "tjpr",
       "peticoes": "acervo_interno",
-      "contratos": "indisponivel",
+      "contratos": "acervo_interno",
       "documentos": "acervo_interno",
       "decisoes": "acervo_interno",
       "modelos": "indisponivel",
       "historico": "acervo_interno",
       "prazos": "acervo_interno",
-      "teses": "indisponivel",
-      "resultados": "indisponivel",
+      "teses": "acervo_interno",
+      "resultados": "acervo_interno",
       "conversas": "indisponivel",
-      "jurisprudencias": "acervo_interno",
-      "dissidios": "indisponivel",
-      "jurimetria": "indisponivel"
+      "jurisprudencias": "tjpr",
+      "dissidios": "acervo_interno",
+      "jurimetria": "tjpr"
     }
   },
   {
@@ -6503,7 +8836,7 @@ export const ACERVO_REAL: Caso[] = [
     "subtema": "Procedimento Comum Cível",
     "processNumber": "9000017-08.2010.8.16.0034",
     "court": "TJPR",
-    "chamber": "PIRAQUARA - VARA CÍVEL E DA FAZENDA PÚBLICA",
+    "chamber": "Piraquara - vara cível e da fazenda pública",
     "status": "TRANSITADO_EM_JULGADO",
     "cliente": "Parte autora (sigilo)",
     "partes": [
@@ -6516,16 +8849,16 @@ export const ACERVO_REAL: Caso[] = [
         "nome": "Parte ré (sigilo)"
       }
     ],
-    "resumo": "Procedimento Comum Cível perante PIRAQUARA - VARA CÍVEL E DA FAZENDA PÚBLICA (TJPR). Assunto(s) DataJud: Espécies de Contratos.",
-    "tese": "Indisponível no DataJud (capa/andamentos apenas).",
+    "resumo": "Procedimento comum cível perante piraquara - vara cível e da fazenda pública (tjpr). Assunto(s) datajud: espécies de contratos.",
+    "tese": "Ação revisional de contrato bancário garantido por alienação fiduciária. Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
     "atualizacao": "10/06/2026",
-    "chance": 0,
-    "chanceRotulo": "indisponível sem modelo oficial",
-    "chanceTexto": "indisponível sem modelo oficial",
+    "chance": 29,
+    "chanceRotulo": "recorte descritivo TJPR",
+    "chanceTexto": "Com base em 14 ementa(s) oficial(is) do portal TJPR neste recorte: 1 a favor, 7 contra, 6 divergente(s). Índice descritivo (favor +½ divergente).",
     "votos": {
       "for": 0,
       "against": 0,
-      "diverge": 0
+      "diverge": 3
     },
     "peticoes": [
       {
@@ -6593,7 +8926,16 @@ export const ACERVO_REAL: Caso[] = [
         "resumo": "Andamento DataJud: Petição em 01/04/2020."
       }
     ],
-    "contratos": [],
+    "contratos": [
+      {
+        "id": "ctr-capa",
+        "titulo": "Espécies de Contratos",
+        "tipo": "Capa do processo",
+        "data": "10/06/2026",
+        "origem": "TJPR",
+        "resumo": "Procedimento comum cível perante piraquara - vara cível e da fazenda pública (tjpr). Assunto(s) datajud: espécies de contratos."
+      }
+    ],
     "documentos": [
       {
         "id": "126",
@@ -6773,11 +9115,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 5,
         "calendar": "uteis",
         "status": "vencido",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para prestar esclarecimentos sobre os pontos indicados pelo juízo.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-01",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-01"
       },
       {
         "id": "43",
@@ -6787,11 +9128,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 10,
         "calendar": "uteis",
         "status": "a_vencer",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para juntar os documentos solicitados pelo juízo.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-02",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-02"
       },
       {
         "id": "69",
@@ -6801,11 +9141,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 15,
         "calendar": "uteis",
         "status": "aberto",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para especificar as provas pretendidas e justificar sua pertinência.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-10",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-10"
       },
       {
         "id": "95",
@@ -6815,55 +9154,221 @@ export const ACERVO_REAL: Caso[] = [
         "days": 15,
         "calendar": "uteis",
         "status": "cumprido",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para apresentar manifestação sobre documento juntado aos autos.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-08-14",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real. Cumprimento fictício registrado apenas para demonstrar o filtro da tela."
+        "startedAt": "2026-08-14"
       }
     ],
-    "teses": [],
-    "resultados": [],
-    "conversas": [],
-    "jurisprudencias": [
+    "teses": [
       {
-        "id": "17",
-        "processNumber": "90000170820108160034",
-        "acordao": "[NÃO OFICIAL] Referência de capa 9000017-08.2010.8.16.0034",
-        "court": "TJPR",
-        "chamber": "PIRAQUARA - VARA CÍVEL E DA FAZENDA PÚBLICA",
-        "reporter": "Não informado",
-        "date": "10/06/2026",
-        "status": "TRANSITADO_EM_JULGADO",
-        "alignment": "diverge",
-        "ementa": "",
-        "pontos": [],
-        "essencial": {
-          "resumo": "",
-          "itens": []
-        },
-        "fortalecer": {
-          "resumo": "",
-          "itens": []
-        },
-        "blindar": {
-          "resumo": "",
-          "itens": []
-        },
-        "contrapor": {
-          "resumo": "",
-          "itens": []
-        },
-        "citavel": false,
+        "id": "43",
+        "titulo": "Espécies de Contratos",
+        "uso": "Aguardar ementa oficial; até lá usar só corpus descritivo do tema.",
+        "forca": "baixa",
         "fonte": "acervo_interno"
       }
     ],
-    "dissidios": [],
+    "resultados": [
+      {
+        "id": "81",
+        "titulo": "5ª Câmara Cível · 16/11/2020",
+        "desfecho": "Ação revisional de contrato bancário garantido por alienação fiduciária. Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+        "aprendizado": "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples."
+      },
+      {
+        "id": "82",
+        "titulo": "18ª Câmara Cível · 06/04/2020",
+        "desfecho": "ALIENAÇÃO FIDUCIÁRIA. JUROS REMUNERATÓRIOS. AUSÊNCIA DE ABUSIVIDADE. CAPITALIZAÇÃO DE JUROS PACTUADA. tarifa de registro DO CONTRATO E GRAVAME ELETRÔNICO.",
+        "aprendizado": "18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES."
+      },
+      {
+        "id": "83",
+        "titulo": "1ª Turma Recursal · 14/06/2021",
+        "desfecho": "Ementa: recurso inominado. Ação de revisão contratual c/c repetição de indébito. Contrato de financiamento. Alegação de cobrança abusiva de juros remuneratórios.",
+        "aprendizado": "1ª Turma Recursal · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida."
+      }
+    ],
+    "conversas": [],
+    "jurisprudencias": [
+      {
+        "id": "81",
+        "processNumber": "90000170820108160034",
+        "acordao": "TJPR-4100000015299901 (tema)",
+        "court": "TJPR",
+        "chamber": "5ª Câmara Cível",
+        "reporter": "Nilson Mizuta Desembargador",
+        "date": "16/11/2020",
+        "status": "SENTENCIADO",
+        "alignment": "diverge",
+        "ementa": "Apelação cível. Ação revisional de contrato bancário garantido por alienação fiduciária. Procedência. Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples. Ajuizamento do cumprimento de sentença. Impugnação ao cumprimento de sentença. Alegação de excesso e pedido de compensação (vinte parcelas não pagas de um total de 36). Concordância entre as partes quanto ao não pagamento das 20 parcelas. Várias memórias de cálculos elaboradas. Homologação do último cálculo que incluiu a compensação entre os créditos de ambas as partes. Sentença que acolhe a impugnação ao cumprimento de sentença. Mérito do apelo. Pedido de prestação de contas quanto à venda do bem nestes autos. Não acolhimento. Etapa que deve ocorrer nos respectivos autos de busca e apreensão (art. 2º do decreto-lei nº 911/1969). Precedentes do stj e tjpr. Impossibilidade de determinação de adequação do rito nesta instância. Compensação entre saldo devedor do contrato e os valores cobrados indevidamente reconhecidos na ação revisional. Legalidade. Possibilidade de compensação de valores ainda que a sentença ou o acórdão não tenham assim determinado. Inteligência do art. 368 do código civil. Não existe qualquer vedação legal para que se dê a compensação se a apelante e o apelado são reciprocamente credores e devedores entre si. Precedentes.1. A prestação de contas é fase prevista no caput do art. 2º, do decreto-lei nº 911/1969, todavia, esta deve ser requerida nos respectivos autos da ação de busca e apreensão, conforme já decidiu o superior tribunal de justiça: “ação de prestação de contas. Interesse processual. Alienação fiduciária. Busca e apreensão. Leilão extrajudicial. Veiculo automotor. (..) no caso de alienação extrajudicial de veículo automotor regida pelo art. 2º do decreto-lei n. 911/1969 - redação anterior à lei n. 13.043/2014 -, tem o devedor interesse processual na ação de prestação de contas, quanto aos valores decorrentes da venda e à correta imputação no débito (saldo remanescente). (...).” (stj - resp 1678525/sp, rel. Ministro antonio carlos ferreira, quarta turma, julgado em 05/10/2017, dje 09/10/2017)2. Faz-se possível a compensação de valores entre os créditos ainda pendentes do financiamento do veículo e aqueles reconhecidos em ação revisional como abusivos, conforme este e. Tribunal de justiça já decidiu: “(...) compensação de valores é a forma preferencial de pagamento desde que não exista qualquer vedação legal acerca da sua possibilidade. Apesar de não haver previsão de compensação em fase de conhecimento, não existe qualquer vedação acerca da sua impossibilidade em fase de execução, eis que se trata de dívida líquida, certa e exigível.” (tjpr - 18ª c.cível - 9000062-36.2018.8.16.0000 - curitiba - rel.: juíza subst. 2ºgrau denise antunes - j. 13.03.2019)recurso não provido.",
+        "pontos": [],
+        "essencial": {
+          "resumo": "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+          "itens": [
+            "Ação revisional de contrato bancário garantido por alienação fiduciária.",
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+            "Ajuizamento do cumprimento de sentença.",
+            "Impugnação ao cumprimento de sentença."
+          ]
+        },
+        "fortalecer": {
+          "resumo": "Use só a parte do julgado que favorece o pedido e isole o restante.",
+          "itens": [
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples."
+          ]
+        },
+        "blindar": {
+          "resumo": "Onde a parte contrária pode apoiar o ataque, segundo a ementa oficial.",
+          "itens": [
+            "Ação revisional de contrato bancário garantido por alienação fiduciária.",
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+            "Ajuizamento do cumprimento de sentença."
+          ]
+        },
+        "contrapor": {
+          "resumo": "Como limitar o alcance deste julgado: o dispositivo oficial e o contexto da câmara.",
+          "itens": [
+            "Ação revisional de contrato bancário garantido por alienação fiduciária.",
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+            "Ajuizamento do cumprimento de sentença."
+          ]
+        },
+        "citavel": true,
+        "fonte": "tjpr",
+        "relacao": "precedente_tema"
+      },
+      {
+        "id": "82",
+        "processNumber": "90000170820108160034",
+        "acordao": "TJPR-4100000012641161 (tema)",
+        "court": "TJPR",
+        "chamber": "18ª Câmara Cível",
+        "reporter": "Marcelo Gobbo Dalla Dea Desembargador",
+        "date": "06/04/2020",
+        "status": "SENTENCIADO",
+        "alignment": "diverge",
+        "ementa": "APELAÇÃO CÍVEL. AÇÃO REVISIONAL. ALIENAÇÃO FIDUCIÁRIA. JUROS REMUNERATÓRIOS. AUSÊNCIA DE ABUSIVIDADE. CAPITALIZAÇÃO DE JUROS PACTUADA. tarifa de registro DO CONTRATO E GRAVAME ELETRÔNICO. LEGALIDADE. SEGURO PROTEÇÃO. VENDA CASADA. ABUSIVIDADE. COMISSÃO DE PERMANÊNCIA. INEXISTÊNCIA. DEVOLUÇÃO NA FORMA SIMPLES. SUCUMBÊNCIA REDISTRIBUÍDA. RECURSO CONHECIDO E PARCIALMENTE PROVIDO.1. É livre a pactuação dos juros remuneratórios através do posicionamento jurisprudencial do Superior Tribunal de Justiça, de forma que a sua limitação ao patamar acima de 12% ao ano não indica abusividade. 2. O Superior Tribunal de Justiça firmou entendimento no RESP 973827 de que a capitalização é válida desde que expressamente pactuada.3. É permitida a capitalização de juros, sendo autorizada pelo Superior Tribunal de Justiça nos REsp 1251331 e 1255573, julgados pelo rito do artigo 543-C do Código de Processo Civil/73.4. É passível de repasse ao consumidor o custo referente à tarifa de registro do contrato de financiamento de veículo com cláusula de garantia fiduciária, desde que a cobrança pelo registro do contrato corresponda a um serviço efetivamente prestado e que o valor não se mostre abusivo.5. Nos contratos bancários em geral, o consumidor não pode ser compelido a contratar seguro com a instituição financeira ou com seguradora por ela indicada (STJ – Recurso Especial Repetitivo nº 1.639.259/SP e nº 1.639.320/SP - Tema 972).6. Nos contratos de concessão de crédito, a importância cobrada a título de comissão de permanência não poderá ultrapassar a soma dos encargos remuneratórios e moratórios previstos no contrato, ou seja: a) juros remuneratórios à taxa média de mercado, não podendo ultrapassar o percentual contratado para o período de normalidade da operação; b) juros moratórios até o limite de 12% ao ano; e c) multa contratual limitada a 2% do valor da prestação, nos termos do art. 52. § 1º, do CDC.",
+        "pontos": [],
+        "essencial": {
+          "resumo": "18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES.",
+          "itens": [
+            "Alienação fiduciária.",
+            "Juros remuneratórios.",
+            "Ausência de abusividade.",
+            "Capitalização de juros pactuada."
+          ]
+        },
+        "fortalecer": {
+          "resumo": "Use só a parte do julgado que favorece o pedido e isole o restante.",
+          "itens": [
+            "Alienação fiduciária.",
+            "Juros remuneratórios.",
+            "Ausência de abusividade."
+          ]
+        },
+        "blindar": {
+          "resumo": "Onde a parte contrária pode apoiar o ataque, segundo a ementa oficial.",
+          "itens": [
+            "Alienação fiduciária.",
+            "Juros remuneratórios.",
+            "Ausência de abusividade."
+          ]
+        },
+        "contrapor": {
+          "resumo": "Como limitar o alcance deste julgado: o dispositivo oficial e o contexto da câmara.",
+          "itens": [
+            "Alienação fiduciária.",
+            "Juros remuneratórios.",
+            "Ausência de abusividade."
+          ]
+        },
+        "citavel": true,
+        "fonte": "tjpr",
+        "relacao": "precedente_tema"
+      },
+      {
+        "id": "83",
+        "processNumber": "90000170820108160034",
+        "acordao": "TJPR-2100000014800751 (tema)",
+        "court": "TJPR",
+        "chamber": "1ª Turma Recursal",
+        "reporter": "Melissa de Azevedo Olivas Juíza de Direito da Turma Recursal dos Juízaados Especiais",
+        "date": "14/06/2021",
+        "status": "SENTENCIADO",
+        "alignment": "diverge",
+        "ementa": "Ementa: recurso inominado. Ação de revisão contratual c/c repetição de indébito. Direito bancário. Contrato de financiamento. Alegação de cobrança abusiva de juros remuneratórios. Taxa média acima da praticada no mercado. Recálculo que necessita de cálculos complexos. Incompetência dos juizados especiais. Tarifa de registro. Ausência de prova da prestação do serviço. Restituição devida. Sentença parcialmente reformada. Recurso da parte autora conhecido e parcialmente provido.",
+        "pontos": [],
+        "essencial": {
+          "resumo": "1ª Turma Recursal · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida.",
+          "itens": [
+            "Ementa: recurso inominado.",
+            "Ação de revisão contratual c/c repetição de indébito.",
+            "Contrato de financiamento.",
+            "Alegação de cobrança abusiva de juros remuneratórios."
+          ]
+        },
+        "fortalecer": {
+          "resumo": "Use só a parte do julgado que favorece o pedido e isole o restante.",
+          "itens": [
+            "Ementa: recurso inominado.",
+            "Ação de revisão contratual c/c repetição de indébito.",
+            "Contrato de financiamento."
+          ]
+        },
+        "blindar": {
+          "resumo": "Onde a parte contrária pode apoiar o ataque, segundo a ementa oficial.",
+          "itens": [
+            "Ementa: recurso inominado.",
+            "Ação de revisão contratual c/c repetição de indébito.",
+            "Contrato de financiamento."
+          ]
+        },
+        "contrapor": {
+          "resumo": "Como limitar o alcance deste julgado: o dispositivo oficial e o contexto da câmara.",
+          "itens": [
+            "Ementa: recurso inominado.",
+            "Ação de revisão contratual c/c repetição de indébito.",
+            "Contrato de financiamento."
+          ]
+        },
+        "citavel": true,
+        "fonte": "tjpr",
+        "relacao": "precedente_tema"
+      }
+    ],
+    "dissidios": [
+      {
+        "camara": "5ª Câmara Cível",
+        "orientacao": "Neste órgão: 0 a favor, 0 contra, 1 divergente.",
+        "versus": "diverge",
+        "nota": "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+        "fonte": "acervo_interno"
+      },
+      {
+        "camara": "18ª Câmara Cível",
+        "orientacao": "Neste órgão: 0 a favor, 0 contra, 1 divergente.",
+        "versus": "diverge",
+        "nota": "18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES.",
+        "fonte": "acervo_interno"
+      },
+      {
+        "camara": "1ª Turma Recursal",
+        "orientacao": "Neste órgão: 0 a favor, 0 contra, 1 divergente.",
+        "versus": "diverge",
+        "nota": "1ª Turma Recursal · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida.",
+        "fonte": "acervo_interno"
+      }
+    ],
     "jurimetria": {
-      "amostra": 0,
-      "padrao": "",
-      "interno": "",
-      "riscos": []
+      "amostra": 3,
+      "padrao": "No recorte oficial deste caso há 3 acórdãos do TJPR (5ª Câmara Cível, 18ª Câmara Cível, 1ª Turma Recursal). Distribuição: 0 a favor, 0 contra, 3 divergente.",
+      "interno": "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples. 18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES. 1ª Turma Recursal · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida.",
+      "riscos": [
+        "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+        "18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES.",
+        "1ª Turma Recursal · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida."
+      ]
     },
     "fontes": {
       "titulo": "acervo_interno",
@@ -6878,21 +9383,21 @@ export const ACERVO_REAL: Caso[] = [
       "resumo": "acervo_interno",
       "tese": "acervo_interno",
       "atualizacao": "acervo_interno",
-      "chance": "indisponivel",
-      "votos": "indisponivel",
+      "chance": "tjpr",
+      "votos": "tjpr",
       "peticoes": "acervo_interno",
-      "contratos": "indisponivel",
+      "contratos": "acervo_interno",
       "documentos": "acervo_interno",
       "decisoes": "acervo_interno",
       "modelos": "indisponivel",
       "historico": "acervo_interno",
       "prazos": "acervo_interno",
-      "teses": "indisponivel",
-      "resultados": "indisponivel",
+      "teses": "acervo_interno",
+      "resultados": "acervo_interno",
       "conversas": "indisponivel",
-      "jurisprudencias": "acervo_interno",
-      "dissidios": "indisponivel",
-      "jurimetria": "indisponivel"
+      "jurisprudencias": "tjpr",
+      "dissidios": "acervo_interno",
+      "jurimetria": "tjpr"
     }
   },
   {
@@ -6902,7 +9407,7 @@ export const ACERVO_REAL: Caso[] = [
     "subtema": "Cumprimento de sentença",
     "processNumber": "9000018-88.2016.8.16.0193",
     "court": "TJPR",
-    "chamber": "COLOMBO - 1ª VARA CÍVEL",
+    "chamber": "Colombo - 1ª vara cível",
     "status": "SENTENCIADO",
     "cliente": "Parte autora (sigilo)",
     "partes": [
@@ -6916,15 +9421,15 @@ export const ACERVO_REAL: Caso[] = [
       }
     ],
     "resumo": "Cumprimento de sentença perante COLOMBO - 1ª VARA CÍVEL (TJPR). Assunto(s) DataJud: Causas Supervenientes à Sentença.",
-    "tese": "Indisponível no DataJud (capa/andamentos apenas).",
+    "tese": "Costa neto (em regime de substituição ao desembargador ramon de medeiros nogueira).",
     "atualizacao": "01/09/2026",
-    "chance": 0,
-    "chanceRotulo": "indisponível sem modelo oficial",
-    "chanceTexto": "indisponível sem modelo oficial",
+    "chance": 25,
+    "chanceRotulo": "recorte descritivo TJPR",
+    "chanceTexto": "Com base em 2 ementa(s) oficial(is) do portal TJPR neste recorte: 0 a favor, 1 contra, 1 divergente(s). Índice descritivo (favor +½ divergente).",
     "votos": {
       "for": 0,
-      "against": 0,
-      "diverge": 0
+      "against": 1,
+      "diverge": 1
     },
     "peticoes": [
       {
@@ -7228,11 +9733,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 5,
         "calendar": "uteis",
         "status": "vencido",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para prestar esclarecimentos sobre os pontos indicados pelo juízo.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-01",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-01"
       },
       {
         "id": "44",
@@ -7242,11 +9746,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 10,
         "calendar": "uteis",
         "status": "a_vencer",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para juntar os documentos solicitados pelo juízo.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-02",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-02"
       },
       {
         "id": "70",
@@ -7256,11 +9759,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 15,
         "calendar": "uteis",
         "status": "aberto",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para especificar as provas pretendidas e justificar sua pertinência.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-10",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-10"
       },
       {
         "id": "96",
@@ -7270,55 +9772,150 @@ export const ACERVO_REAL: Caso[] = [
         "days": 15,
         "calendar": "uteis",
         "status": "cumprido",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para apresentar manifestação sobre documento juntado aos autos.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-08-14",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real. Cumprimento fictício registrado apenas para demonstrar o filtro da tela."
+        "startedAt": "2026-08-14"
       }
     ],
-    "teses": [],
-    "resultados": [],
-    "conversas": [],
-    "jurisprudencias": [
+    "teses": [
       {
-        "id": "18",
-        "processNumber": "90000188820168160193",
-        "acordao": "[NÃO OFICIAL] Referência de capa 9000018-88.2016.8.16.0193",
-        "court": "TJPR",
-        "chamber": "COLOMBO - 1ª VARA CÍVEL",
-        "reporter": "Não informado",
-        "date": "01/09/2026",
-        "status": "SENTENCIADO",
-        "alignment": "diverge",
-        "ementa": "",
-        "pontos": [],
-        "essencial": {
-          "resumo": "",
-          "itens": []
-        },
-        "fortalecer": {
-          "resumo": "",
-          "itens": []
-        },
-        "blindar": {
-          "resumo": "",
-          "itens": []
-        },
-        "contrapor": {
-          "resumo": "",
-          "itens": []
-        },
-        "citavel": false,
+        "id": "tese-oficial-0",
+        "titulo": "Cumprimento de sentença",
+        "uso": "5ª Câmara Cível · 18/10/2022. A ementa oficial fecha contra o pedido: Apelação cível – ação de rescisão contratual em fase de cumprimento de sentença – decisão interlocutória que rejeitou a impugnação apresentada – não cabimento do recurso interposto – decisum que não extingue a execução – recurso cabível – agravo de instrumento – impossibilidade de aplicação do princípio da fungibilidade recursal – erro grosseiro – recurso não conhecido.",
+        "forca": "baixa",
+        "fonte": "acervo_interno"
+      },
+      {
+        "id": "tese-oficial-1",
+        "titulo": "Cumprimento de sentença",
+        "uso": "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+        "forca": "media",
         "fonte": "acervo_interno"
       }
     ],
-    "dissidios": [],
+    "resultados": [
+      {
+        "id": "31",
+        "titulo": "5ª Câmara Cível · 18/10/2022",
+        "desfecho": "Costa neto (em regime de substituição ao desembargador ramon de medeiros nogueira).",
+        "aprendizado": "5ª Câmara Cível · 18/10/2022. A ementa oficial fecha contra o pedido: Apelação cível – ação de rescisão contratual em fase de cumprimento de sentença – decisão interlocutória que rejeitou a impugnação apresentada – não cabimento do recurso interposto – decisum que não extingue a execução – recurso cabível – agravo de instrumento – impossibilidade de aplicação do princípio da fungibilidade recursal – erro grosseiro – recurso não conhecido."
+      },
+      {
+        "id": "32",
+        "titulo": "5ª Câmara Cível · 16/11/2020",
+        "desfecho": "Ação revisional de contrato bancário garantido por alienação fiduciária. Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+        "aprendizado": "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples."
+      }
+    ],
+    "conversas": [],
+    "jurisprudencias": [
+      {
+        "id": "31",
+        "processNumber": "90000188820168160193",
+        "acordao": "TJPR-4100000022240782",
+        "court": "TJPR",
+        "chamber": "5ª Câmara Cível",
+        "reporter": "Antonio Franco Ferreira da Costa Neto Desembargador",
+        "date": "18/10/2022",
+        "status": "SENTENCIADO",
+        "alignment": "against",
+        "ementa": "Costa neto (em regime de substituição ao desembargador ramon de medeiros nogueira). Apelação cível – ação de rescisão contratual em fase de cumprimento de sentença – decisão interlocutória que rejeitou a impugnação apresentada – não cabimento do recurso interposto – decisum que não extingue a execução – recurso cabível – agravo de instrumento – impossibilidade de aplicação do princípio da fungibilidade recursal – erro grosseiro – recurso não conhecido.",
+        "pontos": [],
+        "essencial": {
+          "resumo": "5ª Câmara Cível · 18/10/2022. A ementa oficial fecha contra o pedido: Apelação cível – ação de rescisão contratual em fase de cumprimento de sentença – decisão interlocutória que rejeitou a impugnação apresentada – não cabimento do recurso interposto – decisum que não extingue a execução – recurso cabível – agravo de instrumento – impossibilidade de aplicação do princípio da fungibilidade recursal – erro grosseiro – recurso não conhecido.",
+          "itens": [
+            "Costa neto (em regime de substituição ao desembargador ramon de medeiros nogueira).",
+            "Apelação cível – ação de rescisão contratual em fase de cumprimento de sentença – decisão interlocutória que rejeitou a impugnação apresentada – não cabimento do recurso interposto – decisum que não extingue a execução – recurso cabível – agravo de instrumento – impossibilidade de aplicação do princípio da fungibilidade recursal – erro grosseiro – recurso não conhecido."
+          ]
+        },
+        "fortalecer": {
+          "resumo": "Este julgado fecha contra. Sirva-se dele para saber o que o tribunal já recusou.",
+          "itens": [
+            "Costa neto (em regime de substituição ao desembargador ramon de medeiros nogueira).",
+            "Apelação cível – ação de rescisão contratual em fase de cumprimento de sentença – decisão interlocutória que rejeitou a impugnação apresentada – não cabimento do recurso interposto – decisum que não extingue a execução – recurso cabível – agravo de instrumento – impossibilidade de aplicação do princípio da fungibilidade recursal – erro grosseiro – recurso não conhecido."
+          ]
+        },
+        "blindar": {
+          "resumo": "Onde a parte contrária pode apoiar o ataque, segundo a ementa oficial.",
+          "itens": [
+            "Apelação cível – ação de rescisão contratual em fase de cumprimento de sentença – decisão interlocutória que rejeitou a impugnação apresentada – não cabimento do recurso interposto – decisum que não extingue a execução – recurso cabível – agravo de instrumento – impossibilidade de aplicação do princípio da fungibilidade recursal – erro grosseiro – recurso não conhecido."
+          ]
+        },
+        "contrapor": {
+          "resumo": "Como limitar o alcance deste julgado: o dispositivo oficial e o contexto da câmara.",
+          "itens": [
+            "Costa neto (em regime de substituição ao desembargador ramon de medeiros nogueira).",
+            "Apelação cível – ação de rescisão contratual em fase de cumprimento de sentença – decisão interlocutória que rejeitou a impugnação apresentada – não cabimento do recurso interposto – decisum que não extingue a execução – recurso cabível – agravo de instrumento – impossibilidade de aplicação do princípio da fungibilidade recursal – erro grosseiro – recurso não conhecido."
+          ]
+        },
+        "citavel": true,
+        "fonte": "tjpr"
+      },
+      {
+        "id": "32",
+        "processNumber": "90000188820168160193",
+        "acordao": "TJPR-4100000015299901",
+        "court": "TJPR",
+        "chamber": "5ª Câmara Cível",
+        "reporter": "Nilson Mizuta Desembargador",
+        "date": "16/11/2020",
+        "status": "SENTENCIADO",
+        "alignment": "diverge",
+        "ementa": "Apelação cível. Ação revisional de contrato bancário garantido por alienação fiduciária. Procedência. Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples. Ajuizamento do cumprimento de sentença. Impugnação ao cumprimento de sentença. Alegação de excesso e pedido de compensação (vinte parcelas não pagas de um total de 36). Concordância entre as partes quanto ao não pagamento das 20 parcelas. Várias memórias de cálculos elaboradas. Homologação do último cálculo que incluiu a compensação entre os créditos de ambas as partes. Sentença que acolhe a impugnação ao cumprimento de sentença. Mérito do apelo. Pedido de prestação de contas quanto à venda do bem nestes autos. Não acolhimento. Etapa que deve ocorrer nos respectivos autos de busca e apreensão (art. 2º do decreto-lei nº 911/1969). Precedentes do stj e tjpr. Impossibilidade de determinação de adequação do rito nesta instância. Compensação entre saldo devedor do contrato e os valores cobrados indevidamente reconhecidos na ação revisional. Legalidade. Possibilidade de compensação de valores ainda que a sentença ou o acórdão não tenham assim determinado. Inteligência do art. 368 do código civil. Não existe qualquer vedação legal para que se dê a compensação se a apelante e o apelado são reciprocamente credores e devedores entre si. Precedentes.1. A prestação de contas é fase prevista no caput do art. 2º, do decreto-lei nº 911/1969, todavia, esta deve ser requerida nos respectivos autos da ação de busca e apreensão, conforme já decidiu o superior tribunal de justiça: “ação de prestação de contas. Interesse processual. Alienação fiduciária. Busca e apreensão. Leilão extrajudicial. Veiculo automotor. (..) no caso de alienação extrajudicial de veículo automotor regida pelo art. 2º do decreto-lei n. 911/1969 - redação anterior à lei n. 13.043/2014 -, tem o devedor interesse processual na ação de prestação de contas, quanto aos valores decorrentes da venda e à correta imputação no débito (saldo remanescente). (...).” (stj - resp 1678525/sp, rel. Ministro antonio carlos ferreira, quarta turma, julgado em 05/10/2017, dje 09/10/2017)2. Faz-se possível a compensação de valores entre os créditos ainda pendentes do financiamento do veículo e aqueles reconhecidos em ação revisional como abusivos, conforme este e. Tribunal de justiça já decidiu: “(...) compensação de valores é a forma preferencial de pagamento desde que não exista qualquer vedação legal acerca da sua possibilidade. Apesar de não haver previsão de compensação em fase de conhecimento, não existe qualquer vedação acerca da sua impossibilidade em fase de execução, eis que se trata de dívida líquida, certa e exigível.” (tjpr - 18ª c.cível - 9000062-36.2018.8.16.0000 - curitiba - rel.: juíza subst. 2ºgrau denise antunes - j. 13.03.2019)recurso não provido.",
+        "pontos": [],
+        "essencial": {
+          "resumo": "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+          "itens": [
+            "Ação revisional de contrato bancário garantido por alienação fiduciária.",
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+            "Ajuizamento do cumprimento de sentença.",
+            "Impugnação ao cumprimento de sentença."
+          ]
+        },
+        "fortalecer": {
+          "resumo": "Use só a parte do julgado que favorece o pedido e isole o restante.",
+          "itens": [
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples."
+          ]
+        },
+        "blindar": {
+          "resumo": "Onde a parte contrária pode apoiar o ataque, segundo a ementa oficial.",
+          "itens": [
+            "Ação revisional de contrato bancário garantido por alienação fiduciária.",
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+            "Ajuizamento do cumprimento de sentença."
+          ]
+        },
+        "contrapor": {
+          "resumo": "Como limitar o alcance deste julgado: o dispositivo oficial e o contexto da câmara.",
+          "itens": [
+            "Ação revisional de contrato bancário garantido por alienação fiduciária.",
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+            "Ajuizamento do cumprimento de sentença."
+          ]
+        },
+        "citavel": true,
+        "fonte": "tjpr"
+      }
+    ],
+    "dissidios": [
+      {
+        "camara": "5ª Câmara Cível",
+        "orientacao": "Neste órgão: 0 a favor, 1 contra, 1 divergente.",
+        "versus": "against",
+        "nota": "5ª Câmara Cível · 18/10/2022. A ementa oficial fecha contra o pedido: Apelação cível – ação de rescisão contratual em fase de cumprimento de sentença – decisão interlocutória que rejeitou a impugnação apresentada – não cabimento do recurso interposto – decisum que não extingue a execução – recurso cabível – agravo de instrumento – impossibilidade de aplicação do princípio da fungibilidade recursal – erro grosseiro – recurso não conhecido.",
+        "fonte": "acervo_interno"
+      }
+    ],
     "jurimetria": {
-      "amostra": 0,
-      "padrao": "",
-      "interno": "",
-      "riscos": []
+      "amostra": 2,
+      "padrao": "No recorte oficial deste caso há 2 acórdãos do TJPR (5ª Câmara Cível). Distribuição: 0 a favor, 1 contra, 1 divergente.",
+      "interno": "5ª Câmara Cível · 18/10/2022. A ementa oficial fecha contra o pedido: Apelação cível – ação de rescisão contratual em fase de cumprimento de sentença – decisão interlocutória que rejeitou a impugnação apresentada – não cabimento do recurso interposto – decisum que não extingue a execução – recurso cabível – agravo de instrumento – impossibilidade de aplicação do princípio da fungibilidade recursal – erro grosseiro – recurso não conhecido. 5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+      "riscos": [
+        "5ª Câmara Cível · 18/10/2022. A ementa oficial fecha contra o pedido: Apelação cível – ação de rescisão contratual em fase de cumprimento de sentença – decisão interlocutória que rejeitou a impugnação apresentada – não cabimento do recurso interposto – decisum que não extingue a execução – recurso cabível – agravo de instrumento – impossibilidade de aplicação do princípio da fungibilidade recursal – erro grosseiro – recurso não conhecido.",
+        "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples."
+      ]
     },
     "fontes": {
       "titulo": "acervo_interno",
@@ -7333,8 +9930,8 @@ export const ACERVO_REAL: Caso[] = [
       "resumo": "acervo_interno",
       "tese": "acervo_interno",
       "atualizacao": "acervo_interno",
-      "chance": "indisponivel",
-      "votos": "indisponivel",
+      "chance": "tjpr",
+      "votos": "tjpr",
       "peticoes": "acervo_interno",
       "contratos": "indisponivel",
       "documentos": "acervo_interno",
@@ -7342,12 +9939,12 @@ export const ACERVO_REAL: Caso[] = [
       "modelos": "indisponivel",
       "historico": "acervo_interno",
       "prazos": "acervo_interno",
-      "teses": "indisponivel",
-      "resultados": "indisponivel",
+      "teses": "acervo_interno",
+      "resultados": "acervo_interno",
       "conversas": "indisponivel",
-      "jurisprudencias": "acervo_interno",
-      "dissidios": "indisponivel",
-      "jurimetria": "indisponivel"
+      "jurisprudencias": "tjpr",
+      "dissidios": "acervo_interno",
+      "jurimetria": "tjpr"
     }
   },
   {
@@ -7357,7 +9954,7 @@ export const ACERVO_REAL: Caso[] = [
     "subtema": "Procedimento Comum Cível",
     "processNumber": "9000019-08.2010.8.16.0024",
     "court": "TJPR",
-    "chamber": "ALMIRANTE TAMANDARÉ - 2ª VARA CÍVEL E DA FAZENDA PÚBLICA",
+    "chamber": "Almirante tamandaré - 2ª vara cível e da fazenda pública",
     "status": "TRANSITADO_EM_JULGADO",
     "cliente": "Parte autora (sigilo)",
     "partes": [
@@ -7370,16 +9967,16 @@ export const ACERVO_REAL: Caso[] = [
         "nome": "Parte ré (sigilo)"
       }
     ],
-    "resumo": "Procedimento Comum Cível perante ALMIRANTE TAMANDARÉ - 2ª VARA CÍVEL E DA FAZENDA PÚBLICA (TJPR). Assunto(s) DataJud: Contratos Bancários.",
-    "tese": "Indisponível no DataJud (capa/andamentos apenas).",
+    "resumo": "Procedimento comum cível perante almirante tamandaré - 2ª vara cível e da fazenda pública (tjpr). Assunto(s) datajud: contratos bancários.",
+    "tese": "Ação revisional de contrato bancário garantido por alienação fiduciária. Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
     "atualizacao": "01/09/2026",
-    "chance": 0,
-    "chanceRotulo": "indisponível sem modelo oficial",
-    "chanceTexto": "indisponível sem modelo oficial",
+    "chance": 50,
+    "chanceRotulo": "recorte descritivo TJPR",
+    "chanceTexto": "Com base em 1 ementa(s) oficial(is) do portal TJPR neste recorte: 0 a favor, 0 contra, 1 divergente(s). Índice descritivo (favor +½ divergente).",
     "votos": {
       "for": 0,
       "against": 0,
-      "diverge": 0
+      "diverge": 3
     },
     "peticoes": [
       {
@@ -7447,7 +10044,16 @@ export const ACERVO_REAL: Caso[] = [
         "resumo": "Andamento DataJud: Petição em 14/06/2021."
       }
     ],
-    "contratos": [],
+    "contratos": [
+      {
+        "id": "ctr-capa",
+        "titulo": "Contratos Bancários",
+        "tipo": "Capa do processo",
+        "data": "01/09/2026",
+        "origem": "TJPR",
+        "resumo": "Procedimento comum cível perante almirante tamandaré - 2ª vara cível e da fazenda pública (tjpr). Assunto(s) datajud: contratos bancários."
+      }
+    ],
     "documentos": [
       {
         "id": "142",
@@ -7619,11 +10225,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 5,
         "calendar": "uteis",
         "status": "vencido",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para prestar esclarecimentos sobre os pontos indicados pelo juízo.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-01",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-01"
       },
       {
         "id": "45",
@@ -7633,11 +10238,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 10,
         "calendar": "uteis",
         "status": "a_vencer",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para juntar os documentos solicitados pelo juízo.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-02",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-02"
       },
       {
         "id": "71",
@@ -7647,11 +10251,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 15,
         "calendar": "uteis",
         "status": "aberto",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para especificar as provas pretendidas e justificar sua pertinência.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-10",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-10"
       },
       {
         "id": "97",
@@ -7661,55 +10264,221 @@ export const ACERVO_REAL: Caso[] = [
         "days": 15,
         "calendar": "uteis",
         "status": "cumprido",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para apresentar manifestação sobre documento juntado aos autos.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-08-14",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real. Cumprimento fictício registrado apenas para demonstrar o filtro da tela."
+        "startedAt": "2026-08-14"
       }
     ],
-    "teses": [],
-    "resultados": [],
-    "conversas": [],
-    "jurisprudencias": [
+    "teses": [
       {
-        "id": "19",
-        "processNumber": "90000190820108160024",
-        "acordao": "[NÃO OFICIAL] Referência de capa 9000019-08.2010.8.16.0024",
-        "court": "TJPR",
-        "chamber": "ALMIRANTE TAMANDARÉ - 2ª VARA CÍVEL E DA FAZENDA PÚBLICA",
-        "reporter": "Não informado",
-        "date": "01/09/2026",
-        "status": "TRANSITADO_EM_JULGADO",
-        "alignment": "diverge",
-        "ementa": "",
-        "pontos": [],
-        "essencial": {
-          "resumo": "",
-          "itens": []
-        },
-        "fortalecer": {
-          "resumo": "",
-          "itens": []
-        },
-        "blindar": {
-          "resumo": "",
-          "itens": []
-        },
-        "contrapor": {
-          "resumo": "",
-          "itens": []
-        },
-        "citavel": false,
+        "id": "45",
+        "titulo": "Contratos Bancários",
+        "uso": "Aguardar ementa oficial; até lá usar só corpus descritivo do tema.",
+        "forca": "media",
         "fonte": "acervo_interno"
       }
     ],
-    "dissidios": [],
+    "resultados": [
+      {
+        "id": "84",
+        "titulo": "5ª Câmara Cível · 16/11/2020",
+        "desfecho": "Ação revisional de contrato bancário garantido por alienação fiduciária. Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+        "aprendizado": "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples."
+      },
+      {
+        "id": "85",
+        "titulo": "18ª Câmara Cível · 06/04/2020",
+        "desfecho": "ALIENAÇÃO FIDUCIÁRIA. JUROS REMUNERATÓRIOS. AUSÊNCIA DE ABUSIVIDADE. CAPITALIZAÇÃO DE JUROS PACTUADA. tarifa de registro DO CONTRATO E GRAVAME ELETRÔNICO.",
+        "aprendizado": "18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES."
+      },
+      {
+        "id": "86",
+        "titulo": "1ª Turma Recursal · 14/06/2021",
+        "desfecho": "Ementa: recurso inominado. Ação de revisão contratual c/c repetição de indébito. Contrato de financiamento. Alegação de cobrança abusiva de juros remuneratórios.",
+        "aprendizado": "1ª Turma Recursal · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida."
+      }
+    ],
+    "conversas": [],
+    "jurisprudencias": [
+      {
+        "id": "84",
+        "processNumber": "90000190820108160024",
+        "acordao": "TJPR-4100000015299901 (tema)",
+        "court": "TJPR",
+        "chamber": "5ª Câmara Cível",
+        "reporter": "Nilson Mizuta Desembargador",
+        "date": "16/11/2020",
+        "status": "SENTENCIADO",
+        "alignment": "diverge",
+        "ementa": "Apelação cível. Ação revisional de contrato bancário garantido por alienação fiduciária. Procedência. Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples. Ajuizamento do cumprimento de sentença. Impugnação ao cumprimento de sentença. Alegação de excesso e pedido de compensação (vinte parcelas não pagas de um total de 36). Concordância entre as partes quanto ao não pagamento das 20 parcelas. Várias memórias de cálculos elaboradas. Homologação do último cálculo que incluiu a compensação entre os créditos de ambas as partes. Sentença que acolhe a impugnação ao cumprimento de sentença. Mérito do apelo. Pedido de prestação de contas quanto à venda do bem nestes autos. Não acolhimento. Etapa que deve ocorrer nos respectivos autos de busca e apreensão (art. 2º do decreto-lei nº 911/1969). Precedentes do stj e tjpr. Impossibilidade de determinação de adequação do rito nesta instância. Compensação entre saldo devedor do contrato e os valores cobrados indevidamente reconhecidos na ação revisional. Legalidade. Possibilidade de compensação de valores ainda que a sentença ou o acórdão não tenham assim determinado. Inteligência do art. 368 do código civil. Não existe qualquer vedação legal para que se dê a compensação se a apelante e o apelado são reciprocamente credores e devedores entre si. Precedentes.1. A prestação de contas é fase prevista no caput do art. 2º, do decreto-lei nº 911/1969, todavia, esta deve ser requerida nos respectivos autos da ação de busca e apreensão, conforme já decidiu o superior tribunal de justiça: “ação de prestação de contas. Interesse processual. Alienação fiduciária. Busca e apreensão. Leilão extrajudicial. Veiculo automotor. (..) no caso de alienação extrajudicial de veículo automotor regida pelo art. 2º do decreto-lei n. 911/1969 - redação anterior à lei n. 13.043/2014 -, tem o devedor interesse processual na ação de prestação de contas, quanto aos valores decorrentes da venda e à correta imputação no débito (saldo remanescente). (...).” (stj - resp 1678525/sp, rel. Ministro antonio carlos ferreira, quarta turma, julgado em 05/10/2017, dje 09/10/2017)2. Faz-se possível a compensação de valores entre os créditos ainda pendentes do financiamento do veículo e aqueles reconhecidos em ação revisional como abusivos, conforme este e. Tribunal de justiça já decidiu: “(...) compensação de valores é a forma preferencial de pagamento desde que não exista qualquer vedação legal acerca da sua possibilidade. Apesar de não haver previsão de compensação em fase de conhecimento, não existe qualquer vedação acerca da sua impossibilidade em fase de execução, eis que se trata de dívida líquida, certa e exigível.” (tjpr - 18ª c.cível - 9000062-36.2018.8.16.0000 - curitiba - rel.: juíza subst. 2ºgrau denise antunes - j. 13.03.2019)recurso não provido.",
+        "pontos": [],
+        "essencial": {
+          "resumo": "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+          "itens": [
+            "Ação revisional de contrato bancário garantido por alienação fiduciária.",
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+            "Ajuizamento do cumprimento de sentença.",
+            "Impugnação ao cumprimento de sentença."
+          ]
+        },
+        "fortalecer": {
+          "resumo": "Use só a parte do julgado que favorece o pedido e isole o restante.",
+          "itens": [
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples."
+          ]
+        },
+        "blindar": {
+          "resumo": "Onde a parte contrária pode apoiar o ataque, segundo a ementa oficial.",
+          "itens": [
+            "Ação revisional de contrato bancário garantido por alienação fiduciária.",
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+            "Ajuizamento do cumprimento de sentença."
+          ]
+        },
+        "contrapor": {
+          "resumo": "Como limitar o alcance deste julgado: o dispositivo oficial e o contexto da câmara.",
+          "itens": [
+            "Ação revisional de contrato bancário garantido por alienação fiduciária.",
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+            "Ajuizamento do cumprimento de sentença."
+          ]
+        },
+        "citavel": true,
+        "fonte": "tjpr",
+        "relacao": "precedente_tema"
+      },
+      {
+        "id": "85",
+        "processNumber": "90000190820108160024",
+        "acordao": "TJPR-4100000012641161 (tema)",
+        "court": "TJPR",
+        "chamber": "18ª Câmara Cível",
+        "reporter": "Marcelo Gobbo Dalla Dea Desembargador",
+        "date": "06/04/2020",
+        "status": "SENTENCIADO",
+        "alignment": "diverge",
+        "ementa": "APELAÇÃO CÍVEL. AÇÃO REVISIONAL. ALIENAÇÃO FIDUCIÁRIA. JUROS REMUNERATÓRIOS. AUSÊNCIA DE ABUSIVIDADE. CAPITALIZAÇÃO DE JUROS PACTUADA. tarifa de registro DO CONTRATO E GRAVAME ELETRÔNICO. LEGALIDADE. SEGURO PROTEÇÃO. VENDA CASADA. ABUSIVIDADE. COMISSÃO DE PERMANÊNCIA. INEXISTÊNCIA. DEVOLUÇÃO NA FORMA SIMPLES. SUCUMBÊNCIA REDISTRIBUÍDA. RECURSO CONHECIDO E PARCIALMENTE PROVIDO.1. É livre a pactuação dos juros remuneratórios através do posicionamento jurisprudencial do Superior Tribunal de Justiça, de forma que a sua limitação ao patamar acima de 12% ao ano não indica abusividade. 2. O Superior Tribunal de Justiça firmou entendimento no RESP 973827 de que a capitalização é válida desde que expressamente pactuada.3. É permitida a capitalização de juros, sendo autorizada pelo Superior Tribunal de Justiça nos REsp 1251331 e 1255573, julgados pelo rito do artigo 543-C do Código de Processo Civil/73.4. É passível de repasse ao consumidor o custo referente à tarifa de registro do contrato de financiamento de veículo com cláusula de garantia fiduciária, desde que a cobrança pelo registro do contrato corresponda a um serviço efetivamente prestado e que o valor não se mostre abusivo.5. Nos contratos bancários em geral, o consumidor não pode ser compelido a contratar seguro com a instituição financeira ou com seguradora por ela indicada (STJ – Recurso Especial Repetitivo nº 1.639.259/SP e nº 1.639.320/SP - Tema 972).6. Nos contratos de concessão de crédito, a importância cobrada a título de comissão de permanência não poderá ultrapassar a soma dos encargos remuneratórios e moratórios previstos no contrato, ou seja: a) juros remuneratórios à taxa média de mercado, não podendo ultrapassar o percentual contratado para o período de normalidade da operação; b) juros moratórios até o limite de 12% ao ano; e c) multa contratual limitada a 2% do valor da prestação, nos termos do art. 52. § 1º, do CDC.",
+        "pontos": [],
+        "essencial": {
+          "resumo": "18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES.",
+          "itens": [
+            "Alienação fiduciária.",
+            "Juros remuneratórios.",
+            "Ausência de abusividade.",
+            "Capitalização de juros pactuada."
+          ]
+        },
+        "fortalecer": {
+          "resumo": "Use só a parte do julgado que favorece o pedido e isole o restante.",
+          "itens": [
+            "Alienação fiduciária.",
+            "Juros remuneratórios.",
+            "Ausência de abusividade."
+          ]
+        },
+        "blindar": {
+          "resumo": "Onde a parte contrária pode apoiar o ataque, segundo a ementa oficial.",
+          "itens": [
+            "Alienação fiduciária.",
+            "Juros remuneratórios.",
+            "Ausência de abusividade."
+          ]
+        },
+        "contrapor": {
+          "resumo": "Como limitar o alcance deste julgado: o dispositivo oficial e o contexto da câmara.",
+          "itens": [
+            "Alienação fiduciária.",
+            "Juros remuneratórios.",
+            "Ausência de abusividade."
+          ]
+        },
+        "citavel": true,
+        "fonte": "tjpr",
+        "relacao": "precedente_tema"
+      },
+      {
+        "id": "86",
+        "processNumber": "90000190820108160024",
+        "acordao": "TJPR-2100000014800751 (tema)",
+        "court": "TJPR",
+        "chamber": "1ª Turma Recursal",
+        "reporter": "Melissa de Azevedo Olivas Juíza de Direito da Turma Recursal dos Juízaados Especiais",
+        "date": "14/06/2021",
+        "status": "SENTENCIADO",
+        "alignment": "diverge",
+        "ementa": "Ementa: recurso inominado. Ação de revisão contratual c/c repetição de indébito. Direito bancário. Contrato de financiamento. Alegação de cobrança abusiva de juros remuneratórios. Taxa média acima da praticada no mercado. Recálculo que necessita de cálculos complexos. Incompetência dos juizados especiais. Tarifa de registro. Ausência de prova da prestação do serviço. Restituição devida. Sentença parcialmente reformada. Recurso da parte autora conhecido e parcialmente provido.",
+        "pontos": [],
+        "essencial": {
+          "resumo": "1ª Turma Recursal · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida.",
+          "itens": [
+            "Ementa: recurso inominado.",
+            "Ação de revisão contratual c/c repetição de indébito.",
+            "Contrato de financiamento.",
+            "Alegação de cobrança abusiva de juros remuneratórios."
+          ]
+        },
+        "fortalecer": {
+          "resumo": "Use só a parte do julgado que favorece o pedido e isole o restante.",
+          "itens": [
+            "Ementa: recurso inominado.",
+            "Ação de revisão contratual c/c repetição de indébito.",
+            "Contrato de financiamento."
+          ]
+        },
+        "blindar": {
+          "resumo": "Onde a parte contrária pode apoiar o ataque, segundo a ementa oficial.",
+          "itens": [
+            "Ementa: recurso inominado.",
+            "Ação de revisão contratual c/c repetição de indébito.",
+            "Contrato de financiamento."
+          ]
+        },
+        "contrapor": {
+          "resumo": "Como limitar o alcance deste julgado: o dispositivo oficial e o contexto da câmara.",
+          "itens": [
+            "Ementa: recurso inominado.",
+            "Ação de revisão contratual c/c repetição de indébito.",
+            "Contrato de financiamento."
+          ]
+        },
+        "citavel": true,
+        "fonte": "tjpr",
+        "relacao": "precedente_tema"
+      }
+    ],
+    "dissidios": [
+      {
+        "camara": "5ª Câmara Cível",
+        "orientacao": "Neste órgão: 0 a favor, 0 contra, 1 divergente.",
+        "versus": "diverge",
+        "nota": "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+        "fonte": "acervo_interno"
+      },
+      {
+        "camara": "18ª Câmara Cível",
+        "orientacao": "Neste órgão: 0 a favor, 0 contra, 1 divergente.",
+        "versus": "diverge",
+        "nota": "18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES.",
+        "fonte": "acervo_interno"
+      },
+      {
+        "camara": "1ª Turma Recursal",
+        "orientacao": "Neste órgão: 0 a favor, 0 contra, 1 divergente.",
+        "versus": "diverge",
+        "nota": "1ª Turma Recursal · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida.",
+        "fonte": "acervo_interno"
+      }
+    ],
     "jurimetria": {
-      "amostra": 0,
-      "padrao": "",
-      "interno": "",
-      "riscos": []
+      "amostra": 3,
+      "padrao": "No recorte oficial deste caso há 3 acórdãos do TJPR (5ª Câmara Cível, 18ª Câmara Cível, 1ª Turma Recursal). Distribuição: 0 a favor, 0 contra, 3 divergente.",
+      "interno": "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples. 18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES. 1ª Turma Recursal · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida.",
+      "riscos": [
+        "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+        "18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES.",
+        "1ª Turma Recursal · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida."
+      ]
     },
     "fontes": {
       "titulo": "acervo_interno",
@@ -7724,21 +10493,21 @@ export const ACERVO_REAL: Caso[] = [
       "resumo": "acervo_interno",
       "tese": "acervo_interno",
       "atualizacao": "acervo_interno",
-      "chance": "indisponivel",
-      "votos": "indisponivel",
+      "chance": "tjpr",
+      "votos": "tjpr",
       "peticoes": "acervo_interno",
-      "contratos": "indisponivel",
+      "contratos": "acervo_interno",
       "documentos": "acervo_interno",
       "decisoes": "acervo_interno",
       "modelos": "indisponivel",
       "historico": "acervo_interno",
       "prazos": "acervo_interno",
-      "teses": "indisponivel",
-      "resultados": "indisponivel",
+      "teses": "acervo_interno",
+      "resultados": "acervo_interno",
       "conversas": "indisponivel",
-      "jurisprudencias": "acervo_interno",
-      "dissidios": "indisponivel",
-      "jurimetria": "indisponivel"
+      "jurisprudencias": "tjpr",
+      "dissidios": "acervo_interno",
+      "jurimetria": "tjpr"
     }
   },
   {
@@ -7748,7 +10517,7 @@ export const ACERVO_REAL: Caso[] = [
     "subtema": "Procedimento Comum Cível",
     "processNumber": "9000020-90.2010.8.16.0024",
     "court": "TJPR",
-    "chamber": "ALMIRANTE TAMANDARÉ - 1ª VARA CÍVEL E DA FAZENDA PÚBLICA",
+    "chamber": "Almirante tamandaré - 1ª vara cível e da fazenda pública",
     "status": "TRANSITADO_EM_JULGADO",
     "cliente": "Parte autora (sigilo)",
     "partes": [
@@ -7761,16 +10530,16 @@ export const ACERVO_REAL: Caso[] = [
         "nome": "Parte ré (sigilo)"
       }
     ],
-    "resumo": "Procedimento Comum Cível perante ALMIRANTE TAMANDARÉ - 1ª VARA CÍVEL E DA FAZENDA PÚBLICA (TJPR). Assunto(s) DataJud: Espécies de Contratos.",
-    "tese": "Indisponível no DataJud (capa/andamentos apenas).",
+    "resumo": "Procedimento comum cível perante almirante tamandaré - 1ª vara cível e da fazenda pública (tjpr). Assunto(s) datajud: espécies de contratos.",
+    "tese": "Ação revisional de contrato bancário garantido por alienação fiduciária. Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
     "atualizacao": "01/09/2026",
-    "chance": 0,
-    "chanceRotulo": "indisponível sem modelo oficial",
-    "chanceTexto": "indisponível sem modelo oficial",
+    "chance": 29,
+    "chanceRotulo": "recorte descritivo TJPR",
+    "chanceTexto": "Com base em 14 ementa(s) oficial(is) do portal TJPR neste recorte: 1 a favor, 7 contra, 6 divergente(s). Índice descritivo (favor +½ divergente).",
     "votos": {
       "for": 0,
       "against": 0,
-      "diverge": 0
+      "diverge": 3
     },
     "peticoes": [
       {
@@ -7830,7 +10599,16 @@ export const ACERVO_REAL: Caso[] = [
         "resumo": "Andamento DataJud: Petição em 03/02/2020."
       }
     ],
-    "contratos": [],
+    "contratos": [
+      {
+        "id": "ctr-capa",
+        "titulo": "Espécies de Contratos",
+        "tipo": "Capa do processo",
+        "data": "01/09/2026",
+        "origem": "TJPR",
+        "resumo": "Procedimento comum cível perante almirante tamandaré - 1ª vara cível e da fazenda pública (tjpr). Assunto(s) datajud: espécies de contratos."
+      }
+    ],
     "documentos": [
       {
         "id": "150",
@@ -7994,11 +10772,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 5,
         "calendar": "uteis",
         "status": "vencido",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para prestar esclarecimentos sobre os pontos indicados pelo juízo.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-01",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-01"
       },
       {
         "id": "46",
@@ -8008,11 +10785,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 10,
         "calendar": "uteis",
         "status": "a_vencer",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para juntar os documentos solicitados pelo juízo.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-02",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-02"
       },
       {
         "id": "72",
@@ -8022,11 +10798,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 15,
         "calendar": "uteis",
         "status": "aberto",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para especificar as provas pretendidas e justificar sua pertinência.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-10",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-10"
       },
       {
         "id": "98",
@@ -8036,55 +10811,221 @@ export const ACERVO_REAL: Caso[] = [
         "days": 15,
         "calendar": "uteis",
         "status": "cumprido",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para apresentar manifestação sobre documento juntado aos autos.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-08-14",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real. Cumprimento fictício registrado apenas para demonstrar o filtro da tela."
+        "startedAt": "2026-08-14"
       }
     ],
-    "teses": [],
-    "resultados": [],
-    "conversas": [],
-    "jurisprudencias": [
+    "teses": [
       {
-        "id": "20",
-        "processNumber": "90000209020108160024",
-        "acordao": "[NÃO OFICIAL] Referência de capa 9000020-90.2010.8.16.0024",
-        "court": "TJPR",
-        "chamber": "ALMIRANTE TAMANDARÉ - 1ª VARA CÍVEL E DA FAZENDA PÚBLICA",
-        "reporter": "Não informado",
-        "date": "01/09/2026",
-        "status": "TRANSITADO_EM_JULGADO",
-        "alignment": "diverge",
-        "ementa": "",
-        "pontos": [],
-        "essencial": {
-          "resumo": "",
-          "itens": []
-        },
-        "fortalecer": {
-          "resumo": "",
-          "itens": []
-        },
-        "blindar": {
-          "resumo": "",
-          "itens": []
-        },
-        "contrapor": {
-          "resumo": "",
-          "itens": []
-        },
-        "citavel": false,
+        "id": "46",
+        "titulo": "Espécies de Contratos",
+        "uso": "Aguardar ementa oficial; até lá usar só corpus descritivo do tema.",
+        "forca": "baixa",
         "fonte": "acervo_interno"
       }
     ],
-    "dissidios": [],
+    "resultados": [
+      {
+        "id": "87",
+        "titulo": "5ª Câmara Cível · 16/11/2020",
+        "desfecho": "Ação revisional de contrato bancário garantido por alienação fiduciária. Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+        "aprendizado": "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples."
+      },
+      {
+        "id": "88",
+        "titulo": "18ª Câmara Cível · 06/04/2020",
+        "desfecho": "ALIENAÇÃO FIDUCIÁRIA. JUROS REMUNERATÓRIOS. AUSÊNCIA DE ABUSIVIDADE. CAPITALIZAÇÃO DE JUROS PACTUADA. tarifa de registro DO CONTRATO E GRAVAME ELETRÔNICO.",
+        "aprendizado": "18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES."
+      },
+      {
+        "id": "89",
+        "titulo": "1ª Turma Recursal · 14/06/2021",
+        "desfecho": "Ementa: recurso inominado. Ação de revisão contratual c/c repetição de indébito. Contrato de financiamento. Alegação de cobrança abusiva de juros remuneratórios.",
+        "aprendizado": "1ª Turma Recursal · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida."
+      }
+    ],
+    "conversas": [],
+    "jurisprudencias": [
+      {
+        "id": "87",
+        "processNumber": "90000209020108160024",
+        "acordao": "TJPR-4100000015299901 (tema)",
+        "court": "TJPR",
+        "chamber": "5ª Câmara Cível",
+        "reporter": "Nilson Mizuta Desembargador",
+        "date": "16/11/2020",
+        "status": "SENTENCIADO",
+        "alignment": "diverge",
+        "ementa": "Apelação cível. Ação revisional de contrato bancário garantido por alienação fiduciária. Procedência. Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples. Ajuizamento do cumprimento de sentença. Impugnação ao cumprimento de sentença. Alegação de excesso e pedido de compensação (vinte parcelas não pagas de um total de 36). Concordância entre as partes quanto ao não pagamento das 20 parcelas. Várias memórias de cálculos elaboradas. Homologação do último cálculo que incluiu a compensação entre os créditos de ambas as partes. Sentença que acolhe a impugnação ao cumprimento de sentença. Mérito do apelo. Pedido de prestação de contas quanto à venda do bem nestes autos. Não acolhimento. Etapa que deve ocorrer nos respectivos autos de busca e apreensão (art. 2º do decreto-lei nº 911/1969). Precedentes do stj e tjpr. Impossibilidade de determinação de adequação do rito nesta instância. Compensação entre saldo devedor do contrato e os valores cobrados indevidamente reconhecidos na ação revisional. Legalidade. Possibilidade de compensação de valores ainda que a sentença ou o acórdão não tenham assim determinado. Inteligência do art. 368 do código civil. Não existe qualquer vedação legal para que se dê a compensação se a apelante e o apelado são reciprocamente credores e devedores entre si. Precedentes.1. A prestação de contas é fase prevista no caput do art. 2º, do decreto-lei nº 911/1969, todavia, esta deve ser requerida nos respectivos autos da ação de busca e apreensão, conforme já decidiu o superior tribunal de justiça: “ação de prestação de contas. Interesse processual. Alienação fiduciária. Busca e apreensão. Leilão extrajudicial. Veiculo automotor. (..) no caso de alienação extrajudicial de veículo automotor regida pelo art. 2º do decreto-lei n. 911/1969 - redação anterior à lei n. 13.043/2014 -, tem o devedor interesse processual na ação de prestação de contas, quanto aos valores decorrentes da venda e à correta imputação no débito (saldo remanescente). (...).” (stj - resp 1678525/sp, rel. Ministro antonio carlos ferreira, quarta turma, julgado em 05/10/2017, dje 09/10/2017)2. Faz-se possível a compensação de valores entre os créditos ainda pendentes do financiamento do veículo e aqueles reconhecidos em ação revisional como abusivos, conforme este e. Tribunal de justiça já decidiu: “(...) compensação de valores é a forma preferencial de pagamento desde que não exista qualquer vedação legal acerca da sua possibilidade. Apesar de não haver previsão de compensação em fase de conhecimento, não existe qualquer vedação acerca da sua impossibilidade em fase de execução, eis que se trata de dívida líquida, certa e exigível.” (tjpr - 18ª c.cível - 9000062-36.2018.8.16.0000 - curitiba - rel.: juíza subst. 2ºgrau denise antunes - j. 13.03.2019)recurso não provido.",
+        "pontos": [],
+        "essencial": {
+          "resumo": "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+          "itens": [
+            "Ação revisional de contrato bancário garantido por alienação fiduciária.",
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+            "Ajuizamento do cumprimento de sentença.",
+            "Impugnação ao cumprimento de sentença."
+          ]
+        },
+        "fortalecer": {
+          "resumo": "Use só a parte do julgado que favorece o pedido e isole o restante.",
+          "itens": [
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples."
+          ]
+        },
+        "blindar": {
+          "resumo": "Onde a parte contrária pode apoiar o ataque, segundo a ementa oficial.",
+          "itens": [
+            "Ação revisional de contrato bancário garantido por alienação fiduciária.",
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+            "Ajuizamento do cumprimento de sentença."
+          ]
+        },
+        "contrapor": {
+          "resumo": "Como limitar o alcance deste julgado: o dispositivo oficial e o contexto da câmara.",
+          "itens": [
+            "Ação revisional de contrato bancário garantido por alienação fiduciária.",
+            "Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+            "Ajuizamento do cumprimento de sentença."
+          ]
+        },
+        "citavel": true,
+        "fonte": "tjpr",
+        "relacao": "precedente_tema"
+      },
+      {
+        "id": "88",
+        "processNumber": "90000209020108160024",
+        "acordao": "TJPR-4100000012641161 (tema)",
+        "court": "TJPR",
+        "chamber": "18ª Câmara Cível",
+        "reporter": "Marcelo Gobbo Dalla Dea Desembargador",
+        "date": "06/04/2020",
+        "status": "SENTENCIADO",
+        "alignment": "diverge",
+        "ementa": "APELAÇÃO CÍVEL. AÇÃO REVISIONAL. ALIENAÇÃO FIDUCIÁRIA. JUROS REMUNERATÓRIOS. AUSÊNCIA DE ABUSIVIDADE. CAPITALIZAÇÃO DE JUROS PACTUADA. tarifa de registro DO CONTRATO E GRAVAME ELETRÔNICO. LEGALIDADE. SEGURO PROTEÇÃO. VENDA CASADA. ABUSIVIDADE. COMISSÃO DE PERMANÊNCIA. INEXISTÊNCIA. DEVOLUÇÃO NA FORMA SIMPLES. SUCUMBÊNCIA REDISTRIBUÍDA. RECURSO CONHECIDO E PARCIALMENTE PROVIDO.1. É livre a pactuação dos juros remuneratórios através do posicionamento jurisprudencial do Superior Tribunal de Justiça, de forma que a sua limitação ao patamar acima de 12% ao ano não indica abusividade. 2. O Superior Tribunal de Justiça firmou entendimento no RESP 973827 de que a capitalização é válida desde que expressamente pactuada.3. É permitida a capitalização de juros, sendo autorizada pelo Superior Tribunal de Justiça nos REsp 1251331 e 1255573, julgados pelo rito do artigo 543-C do Código de Processo Civil/73.4. É passível de repasse ao consumidor o custo referente à tarifa de registro do contrato de financiamento de veículo com cláusula de garantia fiduciária, desde que a cobrança pelo registro do contrato corresponda a um serviço efetivamente prestado e que o valor não se mostre abusivo.5. Nos contratos bancários em geral, o consumidor não pode ser compelido a contratar seguro com a instituição financeira ou com seguradora por ela indicada (STJ – Recurso Especial Repetitivo nº 1.639.259/SP e nº 1.639.320/SP - Tema 972).6. Nos contratos de concessão de crédito, a importância cobrada a título de comissão de permanência não poderá ultrapassar a soma dos encargos remuneratórios e moratórios previstos no contrato, ou seja: a) juros remuneratórios à taxa média de mercado, não podendo ultrapassar o percentual contratado para o período de normalidade da operação; b) juros moratórios até o limite de 12% ao ano; e c) multa contratual limitada a 2% do valor da prestação, nos termos do art. 52. § 1º, do CDC.",
+        "pontos": [],
+        "essencial": {
+          "resumo": "18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES.",
+          "itens": [
+            "Alienação fiduciária.",
+            "Juros remuneratórios.",
+            "Ausência de abusividade.",
+            "Capitalização de juros pactuada."
+          ]
+        },
+        "fortalecer": {
+          "resumo": "Use só a parte do julgado que favorece o pedido e isole o restante.",
+          "itens": [
+            "Alienação fiduciária.",
+            "Juros remuneratórios.",
+            "Ausência de abusividade."
+          ]
+        },
+        "blindar": {
+          "resumo": "Onde a parte contrária pode apoiar o ataque, segundo a ementa oficial.",
+          "itens": [
+            "Alienação fiduciária.",
+            "Juros remuneratórios.",
+            "Ausência de abusividade."
+          ]
+        },
+        "contrapor": {
+          "resumo": "Como limitar o alcance deste julgado: o dispositivo oficial e o contexto da câmara.",
+          "itens": [
+            "Alienação fiduciária.",
+            "Juros remuneratórios.",
+            "Ausência de abusividade."
+          ]
+        },
+        "citavel": true,
+        "fonte": "tjpr",
+        "relacao": "precedente_tema"
+      },
+      {
+        "id": "89",
+        "processNumber": "90000209020108160024",
+        "acordao": "TJPR-2100000014800751 (tema)",
+        "court": "TJPR",
+        "chamber": "1ª Turma Recursal",
+        "reporter": "Melissa de Azevedo Olivas Juíza de Direito da Turma Recursal dos Juízaados Especiais",
+        "date": "14/06/2021",
+        "status": "SENTENCIADO",
+        "alignment": "diverge",
+        "ementa": "Ementa: recurso inominado. Ação de revisão contratual c/c repetição de indébito. Direito bancário. Contrato de financiamento. Alegação de cobrança abusiva de juros remuneratórios. Taxa média acima da praticada no mercado. Recálculo que necessita de cálculos complexos. Incompetência dos juizados especiais. Tarifa de registro. Ausência de prova da prestação do serviço. Restituição devida. Sentença parcialmente reformada. Recurso da parte autora conhecido e parcialmente provido.",
+        "pontos": [],
+        "essencial": {
+          "resumo": "1ª Turma Recursal · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida.",
+          "itens": [
+            "Ementa: recurso inominado.",
+            "Ação de revisão contratual c/c repetição de indébito.",
+            "Contrato de financiamento.",
+            "Alegação de cobrança abusiva de juros remuneratórios."
+          ]
+        },
+        "fortalecer": {
+          "resumo": "Use só a parte do julgado que favorece o pedido e isole o restante.",
+          "itens": [
+            "Ementa: recurso inominado.",
+            "Ação de revisão contratual c/c repetição de indébito.",
+            "Contrato de financiamento."
+          ]
+        },
+        "blindar": {
+          "resumo": "Onde a parte contrária pode apoiar o ataque, segundo a ementa oficial.",
+          "itens": [
+            "Ementa: recurso inominado.",
+            "Ação de revisão contratual c/c repetição de indébito.",
+            "Contrato de financiamento."
+          ]
+        },
+        "contrapor": {
+          "resumo": "Como limitar o alcance deste julgado: o dispositivo oficial e o contexto da câmara.",
+          "itens": [
+            "Ementa: recurso inominado.",
+            "Ação de revisão contratual c/c repetição de indébito.",
+            "Contrato de financiamento."
+          ]
+        },
+        "citavel": true,
+        "fonte": "tjpr",
+        "relacao": "precedente_tema"
+      }
+    ],
+    "dissidios": [
+      {
+        "camara": "5ª Câmara Cível",
+        "orientacao": "Neste órgão: 0 a favor, 0 contra, 1 divergente.",
+        "versus": "diverge",
+        "nota": "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+        "fonte": "acervo_interno"
+      },
+      {
+        "camara": "18ª Câmara Cível",
+        "orientacao": "Neste órgão: 0 a favor, 0 contra, 1 divergente.",
+        "versus": "diverge",
+        "nota": "18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES.",
+        "fonte": "acervo_interno"
+      },
+      {
+        "camara": "1ª Turma Recursal",
+        "orientacao": "Neste órgão: 0 a favor, 0 contra, 1 divergente.",
+        "versus": "diverge",
+        "nota": "1ª Turma Recursal · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida.",
+        "fonte": "acervo_interno"
+      }
+    ],
     "jurimetria": {
-      "amostra": 0,
-      "padrao": "",
-      "interno": "",
-      "riscos": []
+      "amostra": 3,
+      "padrao": "No recorte oficial deste caso há 3 acórdãos do TJPR (5ª Câmara Cível, 18ª Câmara Cível, 1ª Turma Recursal). Distribuição: 0 a favor, 0 contra, 3 divergente.",
+      "interno": "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples. 18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES. 1ª Turma Recursal · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida.",
+      "riscos": [
+        "5ª Câmara Cível · 16/11/2020. A ementa oficial é parcial — uma parte favorece, outra não: Reforma parcial em sede de apelo para reconhecer a legalidade dos juros mensais e anual, tarifa de cadastro, de registro do contrato e repetição do indébito de forma simples.",
+        "18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES.",
+        "1ª Turma Recursal · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida."
+      ]
     },
     "fontes": {
       "titulo": "acervo_interno",
@@ -8099,21 +11040,21 @@ export const ACERVO_REAL: Caso[] = [
       "resumo": "acervo_interno",
       "tese": "acervo_interno",
       "atualizacao": "acervo_interno",
-      "chance": "indisponivel",
-      "votos": "indisponivel",
+      "chance": "tjpr",
+      "votos": "tjpr",
       "peticoes": "acervo_interno",
-      "contratos": "indisponivel",
+      "contratos": "acervo_interno",
       "documentos": "acervo_interno",
       "decisoes": "acervo_interno",
       "modelos": "indisponivel",
       "historico": "acervo_interno",
       "prazos": "acervo_interno",
-      "teses": "indisponivel",
-      "resultados": "indisponivel",
+      "teses": "acervo_interno",
+      "resultados": "acervo_interno",
       "conversas": "indisponivel",
-      "jurisprudencias": "acervo_interno",
-      "dissidios": "indisponivel",
-      "jurimetria": "indisponivel"
+      "jurisprudencias": "tjpr",
+      "dissidios": "acervo_interno",
+      "jurimetria": "tjpr"
     }
   },
   {
@@ -8123,7 +11064,7 @@ export const ACERVO_REAL: Caso[] = [
     "subtema": "Procedimento Comum Cível",
     "processNumber": "9000021-60.2011.8.16.0147",
     "court": "TJPR",
-    "chamber": "RIO BRANCO DO SUL - VARA CÍVEL, DA FAZENDA PÚBLICA, ACIDENTES DO TRABALHO, REGISTROS PÚBLICOS E CORREGEDORIA DO FORO EXTRAJUDICIAL",
+    "chamber": "Rio branco do sul - vara cível, da fazenda pública, acidentes do trabalho, registros públicos e corregedoria do foro extrajudicial",
     "status": "SENTENCIADO",
     "cliente": "Parte autora (sigilo)",
     "partes": [
@@ -8136,15 +11077,15 @@ export const ACERVO_REAL: Caso[] = [
         "nome": "Parte ré (sigilo)"
       }
     ],
-    "resumo": "Procedimento Comum Cível perante RIO BRANCO DO SUL - VARA CÍVEL, DA FAZENDA PÚBLICA, ACIDENTES DO TRABALHO, REGISTROS PÚBLICOS E CORREGEDORIA DO FORO EXTRAJUDICIAL (TJPR). Assunto(s) DataJud: Arrendamento Mercantil.",
-    "tese": "Indisponível no DataJud (capa/andamentos apenas).",
+    "resumo": "Procedimento comum cível perante rio branco do sul - vara cível, da fazenda pública, acidentes do trabalho, registros públicos e corregedoria do foro extrajudicial (tjpr). Assunto(s) datajud: arrendamento mercantil.",
+    "tese": "Recurso de apelação – ação de revisão de cláusulas contratuais c/c repetição de indébito - contrato de arrendamento mercantil – capitalização – possibilidade - constitucionalidade - taxa anual de juros superior ao duodécuplo da taxa mensal.",
     "atualizacao": "01/09/2026",
-    "chance": 0,
-    "chanceRotulo": "indisponível sem modelo oficial",
-    "chanceTexto": "indisponível sem modelo oficial",
+    "chance": 1,
+    "chanceRotulo": "recorte descritivo TJPR",
+    "chanceTexto": "Com base em 1 ementa(s) oficial(is) do portal TJPR neste recorte: 0 a favor, 1 contra, 0 divergente(s). Índice descritivo (favor +½ divergente).",
     "votos": {
       "for": 0,
-      "against": 0,
+      "against": 1,
       "diverge": 0
     },
     "peticoes": [
@@ -8213,7 +11154,16 @@ export const ACERVO_REAL: Caso[] = [
         "resumo": "Andamento DataJud: Petição em 07/07/2015."
       }
     ],
-    "contratos": [],
+    "contratos": [
+      {
+        "id": "ctr-capa",
+        "titulo": "Arrendamento Mercantil",
+        "tipo": "Capa do processo",
+        "data": "01/09/2026",
+        "origem": "TJPR",
+        "resumo": "Procedimento comum cível perante rio branco do sul - vara cível, da fazenda pública, acidentes do trabalho, registros públicos e corregedoria do foro extrajudicial (tjpr)."
+      }
+    ],
     "documentos": [
       {
         "id": "158",
@@ -8417,11 +11367,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 5,
         "calendar": "uteis",
         "status": "vencido",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para prestar esclarecimentos sobre os pontos indicados pelo juízo.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-01",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-01"
       },
       {
         "id": "47",
@@ -8431,11 +11380,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 10,
         "calendar": "uteis",
         "status": "a_vencer",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para juntar os documentos solicitados pelo juízo.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-02",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-02"
       },
       {
         "id": "73",
@@ -8445,11 +11393,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 15,
         "calendar": "uteis",
         "status": "aberto",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para especificar as provas pretendidas e justificar sua pertinência.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-10",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-10"
       },
       {
         "id": "99",
@@ -8459,55 +11406,89 @@ export const ACERVO_REAL: Caso[] = [
         "days": 15,
         "calendar": "uteis",
         "status": "cumprido",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para apresentar manifestação sobre documento juntado aos autos.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-08-14",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real. Cumprimento fictício registrado apenas para demonstrar o filtro da tela."
+        "startedAt": "2026-08-14"
       }
     ],
-    "teses": [],
-    "resultados": [],
-    "conversas": [],
-    "jurisprudencias": [
+    "teses": [
       {
-        "id": "21",
-        "processNumber": "90000216020118160147",
-        "acordao": "[NÃO OFICIAL] Referência de capa 9000021-60.2011.8.16.0147",
-        "court": "TJPR",
-        "chamber": "RIO BRANCO DO SUL - VARA CÍVEL, DA FAZENDA PÚBLICA, ACIDENTES DO TRABALHO, REGISTROS PÚBLICOS E CORREGEDORIA DO FORO EXTRAJUDICIAL",
-        "reporter": "Não informado",
-        "date": "01/09/2026",
-        "status": "SENTENCIADO",
-        "alignment": "diverge",
-        "ementa": "",
-        "pontos": [],
-        "essencial": {
-          "resumo": "",
-          "itens": []
-        },
-        "fortalecer": {
-          "resumo": "",
-          "itens": []
-        },
-        "blindar": {
-          "resumo": "",
-          "itens": []
-        },
-        "contrapor": {
-          "resumo": "",
-          "itens": []
-        },
-        "citavel": false,
+        "id": "tese-oficial-0",
+        "titulo": "Procedimento Comum Cível",
+        "uso": "18ª Câmara Cível · 26/07/2021. A ementa oficial fecha contra o pedido: Súmula 539 e 541 do stj – tarifa de cadastro - gravame eletronico - contrato celebrados antes de 25.02.2011 - cobrança lícita - comissão de permanência cumulada com demais encargos - inexistência de estipulação de comissão de permanência – restituição do valor cobrado em dobro – indevido - recurso de apelação conhecido e não provido.",
+        "forca": "baixa",
         "fonte": "acervo_interno"
       }
     ],
-    "dissidios": [],
+    "resultados": [
+      {
+        "id": "33",
+        "titulo": "18ª Câmara Cível · 26/07/2021",
+        "desfecho": "Recurso de apelação – ação de revisão de cláusulas contratuais c/c repetição de indébito - contrato de arrendamento mercantil – capitalização – possibilidade - constitucionalidade - taxa anual de juros superior ao duodécuplo da taxa mensal.",
+        "aprendizado": "18ª Câmara Cível · 26/07/2021. A ementa oficial fecha contra o pedido: Súmula 539 e 541 do stj – tarifa de cadastro - gravame eletronico - contrato celebrados antes de 25.02.2011 - cobrança lícita - comissão de permanência cumulada com demais encargos - inexistência de estipulação de comissão de permanência – restituição do valor cobrado em dobro – indevido - recurso de apelação conhecido e não provido."
+      }
+    ],
+    "conversas": [],
+    "jurisprudencias": [
+      {
+        "id": "33",
+        "processNumber": "90000216020118160147",
+        "acordao": "TJPR-4100000016926271",
+        "court": "TJPR",
+        "chamber": "18ª Câmara Cível",
+        "reporter": "Ana Paula Kaled Accioly Rodrigues da Costa Juíza de Direito Substituto em Segundo Grau",
+        "date": "26/07/2021",
+        "status": "SENTENCIADO",
+        "alignment": "against",
+        "ementa": "Recurso de apelação – ação de revisão de cláusulas contratuais c/c repetição de indébito - contrato de arrendamento mercantil – capitalização – possibilidade - constitucionalidade - taxa anual de juros superior ao duodécuplo da taxa mensal. Súmula 539 e 541 do stj – tarifa de cadastro - gravame eletronico - contrato celebrados antes de 25.02.2011 - cobrança lícita - comissão de permanência cumulada com demais encargos - inexistência de estipulação de comissão de permanência – restituição do valor cobrado em dobro – indevido - recurso de apelação conhecido e não provido.",
+        "pontos": [],
+        "essencial": {
+          "resumo": "18ª Câmara Cível · 26/07/2021. A ementa oficial fecha contra o pedido: Súmula 539 e 541 do stj – tarifa de cadastro - gravame eletronico - contrato celebrados antes de 25.02.2011 - cobrança lícita - comissão de permanência cumulada com demais encargos - inexistência de estipulação de comissão de permanência – restituição do valor cobrado em dobro – indevido - recurso de apelação conhecido e não provido.",
+          "itens": [
+            "Recurso de apelação – ação de revisão de cláusulas contratuais c/c repetição de indébito - contrato de arrendamento mercantil – capitalização – possibilidade - constitucionalidade - taxa anual de juros superior ao duodécuplo da taxa mensal.",
+            "Súmula 539 e 541 do stj – tarifa de cadastro - gravame eletronico - contrato celebrados antes de 25.02.2011 - cobrança lícita - comissão de permanência cumulada com demais encargos - inexistência de estipulação de comissão de permanência – restituição do valor cobrado em dobro – indevido - recurso de apelação conhecido e não provido."
+          ]
+        },
+        "fortalecer": {
+          "resumo": "Este julgado fecha contra. Sirva-se dele para saber o que o tribunal já recusou.",
+          "itens": [
+            "Súmula 539 e 541 do stj – tarifa de cadastro - gravame eletronico - contrato celebrados antes de 25.02.2011 - cobrança lícita - comissão de permanência cumulada com demais encargos - inexistência de estipulação de comissão de permanência – restituição do valor cobrado em dobro – indevido - recurso de apelação conhecido e não provido."
+          ]
+        },
+        "blindar": {
+          "resumo": "Onde a parte contrária pode apoiar o ataque, segundo a ementa oficial.",
+          "itens": [
+            "Súmula 539 e 541 do stj – tarifa de cadastro - gravame eletronico - contrato celebrados antes de 25.02.2011 - cobrança lícita - comissão de permanência cumulada com demais encargos - inexistência de estipulação de comissão de permanência – restituição do valor cobrado em dobro – indevido - recurso de apelação conhecido e não provido."
+          ]
+        },
+        "contrapor": {
+          "resumo": "Como limitar o alcance deste julgado: o dispositivo oficial e o contexto da câmara.",
+          "itens": [
+            "Recurso de apelação – ação de revisão de cláusulas contratuais c/c repetição de indébito - contrato de arrendamento mercantil – capitalização – possibilidade - constitucionalidade - taxa anual de juros superior ao duodécuplo da taxa mensal.",
+            "Súmula 539 e 541 do stj – tarifa de cadastro - gravame eletronico - contrato celebrados antes de 25.02.2011 - cobrança lícita - comissão de permanência cumulada com demais encargos - inexistência de estipulação de comissão de permanência – restituição do valor cobrado em dobro – indevido - recurso de apelação conhecido e não provido."
+          ]
+        },
+        "citavel": true,
+        "fonte": "tjpr"
+      }
+    ],
+    "dissidios": [
+      {
+        "camara": "18ª Câmara Cível",
+        "orientacao": "Neste órgão: 0 a favor, 1 contra, 0 divergente.",
+        "versus": "against",
+        "nota": "18ª Câmara Cível · 26/07/2021. A ementa oficial fecha contra o pedido: Súmula 539 e 541 do stj – tarifa de cadastro - gravame eletronico - contrato celebrados antes de 25.02.2011 - cobrança lícita - comissão de permanência cumulada com demais encargos - inexistência de estipulação de comissão de permanência – restituição do valor cobrado em dobro – indevido - recurso de apelação conhecido e não provido.",
+        "fonte": "acervo_interno"
+      }
+    ],
     "jurimetria": {
-      "amostra": 0,
-      "padrao": "",
-      "interno": "",
-      "riscos": []
+      "amostra": 1,
+      "padrao": "No recorte oficial deste caso há 1 acórdão do TJPR (18ª Câmara Cível). Distribuição: 0 a favor, 1 contra, 0 divergente.",
+      "interno": "18ª Câmara Cível · 26/07/2021. A ementa oficial fecha contra o pedido: Súmula 539 e 541 do stj – tarifa de cadastro - gravame eletronico - contrato celebrados antes de 25.02.2011 - cobrança lícita - comissão de permanência cumulada com demais encargos - inexistência de estipulação de comissão de permanência – restituição do valor cobrado em dobro – indevido - recurso de apelação conhecido e não provido.",
+      "riscos": [
+        "18ª Câmara Cível · 26/07/2021. A ementa oficial fecha contra o pedido: Súmula 539 e 541 do stj – tarifa de cadastro - gravame eletronico - contrato celebrados antes de 25.02.2011 - cobrança lícita - comissão de permanência cumulada com demais encargos - inexistência de estipulação de comissão de permanência – restituição do valor cobrado em dobro – indevido - recurso de apelação conhecido e não provido."
+      ]
     },
     "fontes": {
       "titulo": "acervo_interno",
@@ -8522,21 +11503,21 @@ export const ACERVO_REAL: Caso[] = [
       "resumo": "acervo_interno",
       "tese": "acervo_interno",
       "atualizacao": "acervo_interno",
-      "chance": "indisponivel",
-      "votos": "indisponivel",
+      "chance": "tjpr",
+      "votos": "tjpr",
       "peticoes": "acervo_interno",
-      "contratos": "indisponivel",
+      "contratos": "acervo_interno",
       "documentos": "acervo_interno",
       "decisoes": "acervo_interno",
       "modelos": "indisponivel",
       "historico": "acervo_interno",
       "prazos": "acervo_interno",
-      "teses": "indisponivel",
-      "resultados": "indisponivel",
+      "teses": "acervo_interno",
+      "resultados": "acervo_interno",
       "conversas": "indisponivel",
-      "jurisprudencias": "acervo_interno",
-      "dissidios": "indisponivel",
-      "jurimetria": "indisponivel"
+      "jurisprudencias": "tjpr",
+      "dissidios": "acervo_interno",
+      "jurimetria": "tjpr"
     }
   },
   {
@@ -8546,7 +11527,7 @@ export const ACERVO_REAL: Caso[] = [
     "subtema": "Recurso Inominado Cível",
     "processNumber": "9000022-47.2016.8.16.0025",
     "court": "TJPR",
-    "chamber": "2ª TURMA RECURSAL DOS JUIZADOS ESPECIAIS",
+    "chamber": "2ª turma recursal dos juizados especiais",
     "status": "BAIXADO",
     "cliente": "Parte autora (sigilo)",
     "partes": [
@@ -8560,15 +11541,15 @@ export const ACERVO_REAL: Caso[] = [
       }
     ],
     "resumo": "Recurso Inominado Cível perante 2ª TURMA RECURSAL DOS JUIZADOS ESPECIAIS (TJPR). Assunto(s) DataJud: Arrendamento Mercantil.",
-    "tese": "Indisponível no DataJud (capa/andamentos apenas).",
+    "tese": "Embargos de declaração. Não verificada qualquer omissão, contradição ou obscuridade. Parte que pretende reexame da causa. Medida que possui cunho de integração e não substituição.",
     "atualizacao": "01/09/2026",
-    "chance": 0,
-    "chanceRotulo": "indisponível sem modelo oficial",
-    "chanceTexto": "indisponível sem modelo oficial",
+    "chance": 25,
+    "chanceRotulo": "recorte descritivo TJPR",
+    "chanceTexto": "Com base em 2 ementa(s) oficial(is) do portal TJPR neste recorte: 0 a favor, 1 contra, 1 divergente(s). Índice descritivo (favor +½ divergente).",
     "votos": {
       "for": 0,
-      "against": 0,
-      "diverge": 0
+      "against": 1,
+      "diverge": 1
     },
     "peticoes": [
       {
@@ -8580,7 +11561,16 @@ export const ACERVO_REAL: Caso[] = [
         "resumo": "Andamento DataJud: Petição em 23/09/2020."
       }
     ],
-    "contratos": [],
+    "contratos": [
+      {
+        "id": "ctr-capa",
+        "titulo": "Arrendamento Mercantil",
+        "tipo": "Capa do processo",
+        "data": "01/09/2026",
+        "origem": "TJPR",
+        "resumo": "Recurso Inominado Cível perante 2ª TURMA RECURSAL DOS JUIZADOS ESPECIAIS (TJPR). Assunto(s) DataJud: Arrendamento Mercantil."
+      }
+    ],
     "documentos": [
       {
         "id": "166",
@@ -8768,11 +11758,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 5,
         "calendar": "uteis",
         "status": "vencido",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para prestar esclarecimentos sobre os pontos indicados pelo juízo.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-01",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-01"
       },
       {
         "id": "48",
@@ -8782,11 +11771,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 10,
         "calendar": "uteis",
         "status": "a_vencer",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para juntar os documentos solicitados pelo juízo.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-02",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-02"
       },
       {
         "id": "74",
@@ -8796,11 +11784,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 15,
         "calendar": "uteis",
         "status": "aberto",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para especificar as provas pretendidas e justificar sua pertinência.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-10",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-10"
       },
       {
         "id": "100",
@@ -8810,55 +11797,156 @@ export const ACERVO_REAL: Caso[] = [
         "days": 15,
         "calendar": "uteis",
         "status": "cumprido",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para apresentar manifestação sobre documento juntado aos autos.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-08-14",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real. Cumprimento fictício registrado apenas para demonstrar o filtro da tela."
+        "startedAt": "2026-08-14"
       }
     ],
-    "teses": [],
-    "resultados": [],
-    "conversas": [],
-    "jurisprudencias": [
+    "teses": [
       {
-        "id": "22",
-        "processNumber": "90000224720168160025",
-        "acordao": "[NÃO OFICIAL] Referência de capa 9000022-47.2016.8.16.0025",
-        "court": "TJPR",
-        "chamber": "2ª TURMA RECURSAL DOS JUIZADOS ESPECIAIS",
-        "reporter": "Não informado",
-        "date": "01/09/2026",
-        "status": "BAIXADO",
-        "alignment": "diverge",
-        "ementa": "",
-        "pontos": [],
-        "essencial": {
-          "resumo": "",
-          "itens": []
-        },
-        "fortalecer": {
-          "resumo": "",
-          "itens": []
-        },
-        "blindar": {
-          "resumo": "",
-          "itens": []
-        },
-        "contrapor": {
-          "resumo": "",
-          "itens": []
-        },
-        "citavel": false,
+        "id": "tese-oficial-0",
+        "titulo": "Recurso Inominado Cível",
+        "uso": "2ª Turma Recursal · 02/10/2020. A ementa oficial fecha contra o pedido: Embargos de declaração rejeitados.",
+        "forca": "baixa",
+        "fonte": "acervo_interno"
+      },
+      {
+        "id": "tese-oficial-1",
+        "titulo": "Recurso Inominado Cível",
+        "uso": "2ª Turma Recursal · 18/09/2020. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida.",
+        "forca": "media",
         "fonte": "acervo_interno"
       }
     ],
-    "dissidios": [],
+    "resultados": [
+      {
+        "id": "34",
+        "titulo": "2ª Turma Recursal · 02/10/2020",
+        "desfecho": "Embargos de declaração. Não verificada qualquer omissão, contradição ou obscuridade. Parte que pretende reexame da causa. Medida que possui cunho de integração e não substituição.",
+        "aprendizado": "2ª Turma Recursal · 02/10/2020. A ementa oficial fecha contra o pedido: Embargos de declaração rejeitados."
+      },
+      {
+        "id": "35",
+        "titulo": "2ª Turma Recursal · 18/09/2020",
+        "desfecho": "Bancário ação revisional. Contrato de financiamento. Cobrança de tarifas e encargos contratuais. Validade da cobrança condicionada ao atendimento dos parâmetros estabelecidos pelo superior tribunal de justiça.",
+        "aprendizado": "2ª Turma Recursal · 18/09/2020. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida."
+      }
+    ],
+    "conversas": [],
+    "jurisprudencias": [
+      {
+        "id": "34",
+        "processNumber": "90000224720168160025",
+        "acordao": "TJPR-2100000015298901",
+        "court": "TJPR",
+        "chamber": "2ª Turma Recursal",
+        "reporter": "Fernanda Bernert Michielin Juíza de Direito Substituto",
+        "date": "02/10/2020",
+        "status": "SENTENCIADO",
+        "alignment": "against",
+        "ementa": "Embargos de declaração. Não verificada qualquer omissão, contradição ou obscuridade. Parte que pretende reexame da causa. Medida que possui cunho de integração e não substituição. Decisão mantida. Embargos de declaração rejeitados.",
+        "pontos": [],
+        "essencial": {
+          "resumo": "2ª Turma Recursal · 02/10/2020. A ementa oficial fecha contra o pedido: Embargos de declaração rejeitados.",
+          "itens": [
+            "Embargos de declaração.",
+            "Não verificada qualquer omissão, contradição ou obscuridade.",
+            "Parte que pretende reexame da causa.",
+            "Medida que possui cunho de integração e não substituição."
+          ]
+        },
+        "fortalecer": {
+          "resumo": "Este julgado fecha contra. Sirva-se dele para saber o que o tribunal já recusou.",
+          "itens": [
+            "Embargos de declaração.",
+            "Não verificada qualquer omissão, contradição ou obscuridade.",
+            "Parte que pretende reexame da causa."
+          ]
+        },
+        "blindar": {
+          "resumo": "Onde a parte contrária pode apoiar o ataque, segundo a ementa oficial.",
+          "itens": [
+            "Embargos de declaração.",
+            "Não verificada qualquer omissão, contradição ou obscuridade.",
+            "Parte que pretende reexame da causa."
+          ]
+        },
+        "contrapor": {
+          "resumo": "Como limitar o alcance deste julgado: o dispositivo oficial e o contexto da câmara.",
+          "itens": [
+            "Embargos de declaração.",
+            "Não verificada qualquer omissão, contradição ou obscuridade.",
+            "Parte que pretende reexame da causa."
+          ]
+        },
+        "citavel": true,
+        "fonte": "tjpr"
+      },
+      {
+        "id": "35",
+        "processNumber": "90000224720168160025",
+        "acordao": "TJPR-2100000003545351",
+        "court": "TJPR",
+        "chamber": "2ª Turma Recursal",
+        "reporter": "Fernanda Bernert Michielin Juíza de Direito Substituto",
+        "date": "18/09/2020",
+        "status": "SENTENCIADO",
+        "alignment": "diverge",
+        "ementa": "Recurso inominado. Bancário ação revisional. Contrato de financiamento. Cobrança de tarifas e encargos contratuais. Validade da cobrança condicionada ao atendimento dos parâmetros estabelecidos pelo superior tribunal de justiça. Jurisprudência consolidada. Valor residual garantido (vrg). Soma do vrg antecipado pelo arrendatário e do valor de venda superior ao valor do vrg pactuado. Aplicação da súmula nº. 564 do stj. Ausência de comprovação do valor de venda do bem. Restituição devida. Sentença parcialmente reformada. Recurso conhecido e parcialmente provido.",
+        "pontos": [],
+        "essencial": {
+          "resumo": "2ª Turma Recursal · 18/09/2020. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida.",
+          "itens": [
+            "Bancário ação revisional.",
+            "Contrato de financiamento.",
+            "Cobrança de tarifas e encargos contratuais.",
+            "Validade da cobrança condicionada ao atendimento dos parâmetros estabelecidos pelo superior tribunal de justiça."
+          ]
+        },
+        "fortalecer": {
+          "resumo": "Use só a parte do julgado que favorece o pedido e isole o restante.",
+          "itens": [
+            "Cobrança de tarifas e encargos contratuais."
+          ]
+        },
+        "blindar": {
+          "resumo": "Onde a parte contrária pode apoiar o ataque, segundo a ementa oficial.",
+          "itens": [
+            "Bancário ação revisional.",
+            "Contrato de financiamento.",
+            "Cobrança de tarifas e encargos contratuais."
+          ]
+        },
+        "contrapor": {
+          "resumo": "Como limitar o alcance deste julgado: o dispositivo oficial e o contexto da câmara.",
+          "itens": [
+            "Bancário ação revisional.",
+            "Contrato de financiamento.",
+            "Cobrança de tarifas e encargos contratuais."
+          ]
+        },
+        "citavel": true,
+        "fonte": "tjpr"
+      }
+    ],
+    "dissidios": [
+      {
+        "camara": "2ª Turma Recursal",
+        "orientacao": "Neste órgão: 0 a favor, 1 contra, 1 divergente.",
+        "versus": "against",
+        "nota": "2ª Turma Recursal · 02/10/2020. A ementa oficial fecha contra o pedido: Embargos de declaração rejeitados.",
+        "fonte": "acervo_interno"
+      }
+    ],
     "jurimetria": {
-      "amostra": 0,
-      "padrao": "",
-      "interno": "",
-      "riscos": []
+      "amostra": 2,
+      "padrao": "No recorte oficial deste caso há 2 acórdãos do TJPR (2ª Turma Recursal). Distribuição: 0 a favor, 1 contra, 1 divergente.",
+      "interno": "2ª Turma Recursal · 02/10/2020. A ementa oficial fecha contra o pedido: Embargos de declaração rejeitados. 2ª Turma Recursal · 18/09/2020. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida.",
+      "riscos": [
+        "2ª Turma Recursal · 02/10/2020. A ementa oficial fecha contra o pedido: Embargos de declaração rejeitados.",
+        "2ª Turma Recursal · 18/09/2020. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida."
+      ]
     },
     "fontes": {
       "titulo": "acervo_interno",
@@ -8873,21 +11961,21 @@ export const ACERVO_REAL: Caso[] = [
       "resumo": "acervo_interno",
       "tese": "acervo_interno",
       "atualizacao": "acervo_interno",
-      "chance": "indisponivel",
-      "votos": "indisponivel",
+      "chance": "tjpr",
+      "votos": "tjpr",
       "peticoes": "acervo_interno",
-      "contratos": "indisponivel",
+      "contratos": "acervo_interno",
       "documentos": "acervo_interno",
       "decisoes": "acervo_interno",
       "modelos": "indisponivel",
       "historico": "acervo_interno",
       "prazos": "acervo_interno",
-      "teses": "indisponivel",
-      "resultados": "indisponivel",
+      "teses": "acervo_interno",
+      "resultados": "acervo_interno",
       "conversas": "indisponivel",
-      "jurisprudencias": "acervo_interno",
-      "dissidios": "indisponivel",
-      "jurimetria": "indisponivel"
+      "jurisprudencias": "tjpr",
+      "dissidios": "acervo_interno",
+      "jurimetria": "tjpr"
     }
   },
   {
@@ -8897,7 +11985,7 @@ export const ACERVO_REAL: Caso[] = [
     "subtema": "Procedimento Comum Cível",
     "processNumber": "9000023-08.2019.8.16.0193",
     "court": "TJPR",
-    "chamber": "COLOMBO - 1ª VARA CÍVEL",
+    "chamber": "Colombo - 1ª vara cível",
     "status": "SENTENCIADO",
     "cliente": "Parte autora (sigilo)",
     "partes": [
@@ -8911,15 +11999,15 @@ export const ACERVO_REAL: Caso[] = [
       }
     ],
     "resumo": "Procedimento Comum Cível perante COLOMBO - 1ª VARA CÍVEL (TJPR). Assunto(s) DataJud: Contratos Bancários.",
-    "tese": "Indisponível no DataJud (capa/andamentos apenas).",
+    "tese": "Ação revisional de contrato. Alienação fiduciária. Impugnação ao cumprimento de sentença. Alegado excesso de execução. Incidência de juros remuneratórios reflexos sobre a tarifa declarada abusiva pela sentença.",
     "atualizacao": "01/09/2026",
-    "chance": 0,
-    "chanceRotulo": "indisponível sem modelo oficial",
-    "chanceTexto": "indisponível sem modelo oficial",
+    "chance": 25,
+    "chanceRotulo": "recorte descritivo TJPR",
+    "chanceTexto": "Com base em 2 ementa(s) oficial(is) do portal TJPR neste recorte: 0 a favor, 1 contra, 1 divergente(s). Índice descritivo (favor +½ divergente).",
     "votos": {
       "for": 0,
-      "against": 0,
-      "diverge": 0
+      "against": 1,
+      "diverge": 1
     },
     "peticoes": [
       {
@@ -8987,7 +12075,16 @@ export const ACERVO_REAL: Caso[] = [
         "resumo": "Andamento DataJud: Petição em 17/02/2020."
       }
     ],
-    "contratos": [],
+    "contratos": [
+      {
+        "id": "ctr-capa",
+        "titulo": "Contratos Bancários",
+        "tipo": "Capa do processo",
+        "data": "01/09/2026",
+        "origem": "TJPR",
+        "resumo": "Procedimento Comum Cível perante COLOMBO - 1ª VARA CÍVEL (TJPR). Assunto(s) DataJud: Contratos Bancários."
+      }
+    ],
     "documentos": [
       {
         "id": "174",
@@ -9215,11 +12312,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 5,
         "calendar": "uteis",
         "status": "vencido",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para prestar esclarecimentos sobre os pontos indicados pelo juízo.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-01",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-01"
       },
       {
         "id": "49",
@@ -9229,11 +12325,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 10,
         "calendar": "uteis",
         "status": "a_vencer",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para juntar os documentos solicitados pelo juízo.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-02",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-02"
       },
       {
         "id": "75",
@@ -9243,11 +12338,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 15,
         "calendar": "uteis",
         "status": "aberto",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para especificar as provas pretendidas e justificar sua pertinência.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-10",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-10"
       },
       {
         "id": "101",
@@ -9257,55 +12351,158 @@ export const ACERVO_REAL: Caso[] = [
         "days": 15,
         "calendar": "uteis",
         "status": "cumprido",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para apresentar manifestação sobre documento juntado aos autos.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-08-14",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real. Cumprimento fictício registrado apenas para demonstrar o filtro da tela."
+        "startedAt": "2026-08-14"
       }
     ],
-    "teses": [],
-    "resultados": [],
-    "conversas": [],
-    "jurisprudencias": [
+    "teses": [
       {
-        "id": "23",
-        "processNumber": "90000230820198160193",
-        "acordao": "[NÃO OFICIAL] Referência de capa 9000023-08.2019.8.16.0193",
-        "court": "TJPR",
-        "chamber": "COLOMBO - 1ª VARA CÍVEL",
-        "reporter": "Não informado",
-        "date": "01/09/2026",
-        "status": "SENTENCIADO",
-        "alignment": "diverge",
-        "ementa": "",
-        "pontos": [],
-        "essencial": {
-          "resumo": "",
-          "itens": []
-        },
-        "fortalecer": {
-          "resumo": "",
-          "itens": []
-        },
-        "blindar": {
-          "resumo": "",
-          "itens": []
-        },
-        "contrapor": {
-          "resumo": "",
-          "itens": []
-        },
-        "citavel": false,
+        "id": "tese-oficial-0",
+        "titulo": "Procedimento Comum Cível",
+        "uso": "18ª Câmara Cível · 03/05/2021. A ementa oficial fecha contra o pedido: Recurso conhecido e provido.",
+        "forca": "baixa",
+        "fonte": "acervo_interno"
+      },
+      {
+        "id": "tese-oficial-1",
+        "titulo": "Procedimento Comum Cível",
+        "uso": "18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES.",
+        "forca": "media",
         "fonte": "acervo_interno"
       }
     ],
-    "dissidios": [],
+    "resultados": [
+      {
+        "id": "36",
+        "titulo": "18ª Câmara Cível · 03/05/2021",
+        "desfecho": "Ação revisional de contrato. Alienação fiduciária. Impugnação ao cumprimento de sentença. Alegado excesso de execução. Incidência de juros remuneratórios reflexos sobre a tarifa declarada abusiva pela sentença.",
+        "aprendizado": "18ª Câmara Cível · 03/05/2021. A ementa oficial fecha contra o pedido: Recurso conhecido e provido."
+      },
+      {
+        "id": "37",
+        "titulo": "18ª Câmara Cível · 06/04/2020",
+        "desfecho": "ALIENAÇÃO FIDUCIÁRIA. JUROS REMUNERATÓRIOS. AUSÊNCIA DE ABUSIVIDADE. CAPITALIZAÇÃO DE JUROS PACTUADA. tarifa de registro DO CONTRATO E GRAVAME ELETRÔNICO.",
+        "aprendizado": "18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES."
+      }
+    ],
+    "conversas": [],
+    "jurisprudencias": [
+      {
+        "id": "36",
+        "processNumber": "90000230820198160193",
+        "acordao": "TJPR-4100000016690231",
+        "court": "TJPR",
+        "chamber": "18ª Câmara Cível",
+        "reporter": "Marcelo Gobbo Dalla Dea Desembargador",
+        "date": "03/05/2021",
+        "status": "SENTENCIADO",
+        "alignment": "against",
+        "ementa": "Apelação cível. Ação revisional de contrato. Alienação fiduciária. Impugnação ao cumprimento de sentença. Acolhimento. Alegado excesso de execução. Incidência de juros remuneratórios reflexos sobre a tarifa declarada abusiva pela sentença. Possibilidade, sob pena de enriquecimento sem causa. Encargos acessórios que devem seguir a sorte do principal. Ausência de ofensa à coisa julgada. Recurso conhecido e provido.",
+        "pontos": [],
+        "essencial": {
+          "resumo": "18ª Câmara Cível · 03/05/2021. A ementa oficial fecha contra o pedido: Recurso conhecido e provido.",
+          "itens": [
+            "Ação revisional de contrato.",
+            "Alienação fiduciária.",
+            "Impugnação ao cumprimento de sentença.",
+            "Alegado excesso de execução."
+          ]
+        },
+        "fortalecer": {
+          "resumo": "Este julgado fecha contra. Sirva-se dele para saber o que o tribunal já recusou.",
+          "itens": [
+            "Ação revisional de contrato.",
+            "Alienação fiduciária.",
+            "Impugnação ao cumprimento de sentença."
+          ]
+        },
+        "blindar": {
+          "resumo": "Onde a parte contrária pode apoiar o ataque, segundo a ementa oficial.",
+          "itens": [
+            "Ação revisional de contrato.",
+            "Alienação fiduciária.",
+            "Impugnação ao cumprimento de sentença."
+          ]
+        },
+        "contrapor": {
+          "resumo": "Como limitar o alcance deste julgado: o dispositivo oficial e o contexto da câmara.",
+          "itens": [
+            "Ação revisional de contrato.",
+            "Alienação fiduciária.",
+            "Impugnação ao cumprimento de sentença."
+          ]
+        },
+        "citavel": true,
+        "fonte": "tjpr"
+      },
+      {
+        "id": "37",
+        "processNumber": "90000230820198160193",
+        "acordao": "TJPR-4100000012641161",
+        "court": "TJPR",
+        "chamber": "18ª Câmara Cível",
+        "reporter": "Marcelo Gobbo Dalla Dea Desembargador",
+        "date": "06/04/2020",
+        "status": "SENTENCIADO",
+        "alignment": "diverge",
+        "ementa": "APELAÇÃO CÍVEL. AÇÃO REVISIONAL. ALIENAÇÃO FIDUCIÁRIA. JUROS REMUNERATÓRIOS. AUSÊNCIA DE ABUSIVIDADE. CAPITALIZAÇÃO DE JUROS PACTUADA. tarifa de registro DO CONTRATO E GRAVAME ELETRÔNICO. LEGALIDADE. SEGURO PROTEÇÃO. VENDA CASADA. ABUSIVIDADE. COMISSÃO DE PERMANÊNCIA. INEXISTÊNCIA. DEVOLUÇÃO NA FORMA SIMPLES. SUCUMBÊNCIA REDISTRIBUÍDA. RECURSO CONHECIDO E PARCIALMENTE PROVIDO.1. É livre a pactuação dos juros remuneratórios através do posicionamento jurisprudencial do Superior Tribunal de Justiça, de forma que a sua limitação ao patamar acima de 12% ao ano não indica abusividade. 2. O Superior Tribunal de Justiça firmou entendimento no RESP 973827 de que a capitalização é válida desde que expressamente pactuada.3. É permitida a capitalização de juros, sendo autorizada pelo Superior Tribunal de Justiça nos REsp 1251331 e 1255573, julgados pelo rito do artigo 543-C do Código de Processo Civil/73.4. É passível de repasse ao consumidor o custo referente à tarifa de registro do contrato de financiamento de veículo com cláusula de garantia fiduciária, desde que a cobrança pelo registro do contrato corresponda a um serviço efetivamente prestado e que o valor não se mostre abusivo.5. Nos contratos bancários em geral, o consumidor não pode ser compelido a contratar seguro com a instituição financeira ou com seguradora por ela indicada (STJ – Recurso Especial Repetitivo nº 1.639.259/SP e nº 1.639.320/SP - Tema 972).6. Nos contratos de concessão de crédito, a importância cobrada a título de comissão de permanência não poderá ultrapassar a soma dos encargos remuneratórios e moratórios previstos no contrato, ou seja: a) juros remuneratórios à taxa média de mercado, não podendo ultrapassar o percentual contratado para o período de normalidade da operação; b) juros moratórios até o limite de 12% ao ano; e c) multa contratual limitada a 2% do valor da prestação, nos termos do art. 52. § 1º, do CDC.",
+        "pontos": [],
+        "essencial": {
+          "resumo": "18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES.",
+          "itens": [
+            "Alienação fiduciária.",
+            "Juros remuneratórios.",
+            "Ausência de abusividade.",
+            "Capitalização de juros pactuada."
+          ]
+        },
+        "fortalecer": {
+          "resumo": "Use só a parte do julgado que favorece o pedido e isole o restante.",
+          "itens": [
+            "Alienação fiduciária.",
+            "Juros remuneratórios.",
+            "Ausência de abusividade."
+          ]
+        },
+        "blindar": {
+          "resumo": "Onde a parte contrária pode apoiar o ataque, segundo a ementa oficial.",
+          "itens": [
+            "Alienação fiduciária.",
+            "Juros remuneratórios.",
+            "Ausência de abusividade."
+          ]
+        },
+        "contrapor": {
+          "resumo": "Como limitar o alcance deste julgado: o dispositivo oficial e o contexto da câmara.",
+          "itens": [
+            "Alienação fiduciária.",
+            "Juros remuneratórios.",
+            "Ausência de abusividade."
+          ]
+        },
+        "citavel": true,
+        "fonte": "tjpr"
+      }
+    ],
+    "dissidios": [
+      {
+        "camara": "18ª Câmara Cível",
+        "orientacao": "Neste órgão: 0 a favor, 1 contra, 1 divergente.",
+        "versus": "against",
+        "nota": "18ª Câmara Cível · 03/05/2021. A ementa oficial fecha contra o pedido: Recurso conhecido e provido.",
+        "fonte": "acervo_interno"
+      }
+    ],
     "jurimetria": {
-      "amostra": 0,
-      "padrao": "",
-      "interno": "",
-      "riscos": []
+      "amostra": 2,
+      "padrao": "No recorte oficial deste caso há 2 acórdãos do TJPR (18ª Câmara Cível). Distribuição: 0 a favor, 1 contra, 1 divergente.",
+      "interno": "18ª Câmara Cível · 03/05/2021. A ementa oficial fecha contra o pedido: Recurso conhecido e provido. 18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES.",
+      "riscos": [
+        "18ª Câmara Cível · 03/05/2021. A ementa oficial fecha contra o pedido: Recurso conhecido e provido.",
+        "18ª Câmara Cível · 06/04/2020. A ementa oficial é parcial — uma parte favorece, outra não: DEVOLUÇÃO NA FORMA SIMPLES."
+      ]
     },
     "fontes": {
       "titulo": "acervo_interno",
@@ -9320,21 +12517,21 @@ export const ACERVO_REAL: Caso[] = [
       "resumo": "acervo_interno",
       "tese": "acervo_interno",
       "atualizacao": "acervo_interno",
-      "chance": "indisponivel",
-      "votos": "indisponivel",
+      "chance": "tjpr",
+      "votos": "tjpr",
       "peticoes": "acervo_interno",
-      "contratos": "indisponivel",
+      "contratos": "acervo_interno",
       "documentos": "acervo_interno",
       "decisoes": "acervo_interno",
       "modelos": "indisponivel",
       "historico": "acervo_interno",
       "prazos": "acervo_interno",
-      "teses": "indisponivel",
-      "resultados": "indisponivel",
+      "teses": "acervo_interno",
+      "resultados": "acervo_interno",
       "conversas": "indisponivel",
-      "jurisprudencias": "acervo_interno",
-      "dissidios": "indisponivel",
-      "jurimetria": "indisponivel"
+      "jurisprudencias": "tjpr",
+      "dissidios": "acervo_interno",
+      "jurimetria": "tjpr"
     }
   },
   {
@@ -9344,7 +12541,7 @@ export const ACERVO_REAL: Caso[] = [
     "subtema": "Apelação Cível",
     "processNumber": "9000024-95.2016.8.16.0193",
     "court": "TJPR",
-    "chamber": "GABINETE DO JUIZ DE DIREITO SUBSTITUTO EM 2º GRAU PEDRO LUIS SANSON CORAT",
+    "chamber": "Gabinete do juiz de direito substituto em 2º grau pedro luis sanson corat",
     "status": "BAIXADO",
     "cliente": "Parte autora (sigilo)",
     "partes": [
@@ -9357,19 +12554,28 @@ export const ACERVO_REAL: Caso[] = [
         "nome": "Parte ré (sigilo)"
       }
     ],
-    "resumo": "Apelação Cível perante GABINETE DO JUIZ DE DIREITO SUBSTITUTO EM 2º GRAU PEDRO LUIS SANSON CORAT (TJPR). Assunto(s) DataJud: Contratos Bancários.",
-    "tese": "Indisponível no DataJud (capa/andamentos apenas).",
+    "resumo": "Apelação cível perante gabinete do juiz de direito substituto em 2º grau pedro luis sanson corat (tjpr). Assunto(s) datajud: contratos bancários.",
+    "tese": "Cumprimento de sentença em ação revisional de contrato de arrendamento mercantil. Sentença que não acolheu a impugnação ao cumprimento de sentença e homologou o cálculo apresentado pelo perito.",
     "atualizacao": "01/09/2026",
-    "chance": 0,
-    "chanceRotulo": "indisponível sem modelo oficial",
-    "chanceTexto": "indisponível sem modelo oficial",
+    "chance": 1,
+    "chanceRotulo": "recorte descritivo TJPR",
+    "chanceTexto": "Com base em 1 ementa(s) oficial(is) do portal TJPR neste recorte: 0 a favor, 1 contra, 0 divergente(s). Índice descritivo (favor +½ divergente).",
     "votos": {
       "for": 0,
-      "against": 0,
+      "against": 1,
       "diverge": 0
     },
     "peticoes": [],
-    "contratos": [],
+    "contratos": [
+      {
+        "id": "ctr-capa",
+        "titulo": "Contratos Bancários",
+        "tipo": "Capa do processo",
+        "data": "01/09/2026",
+        "origem": "TJPR",
+        "resumo": "Apelação cível perante gabinete do juiz de direito substituto em 2º grau pedro luis sanson corat (tjpr). Assunto(s) datajud: contratos bancários."
+      }
+    ],
     "documentos": [
       {
         "id": "182",
@@ -9549,11 +12755,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 5,
         "calendar": "uteis",
         "status": "vencido",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para prestar esclarecimentos sobre os pontos indicados pelo juízo.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-01",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-01"
       },
       {
         "id": "50",
@@ -9563,11 +12768,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 10,
         "calendar": "uteis",
         "status": "a_vencer",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para juntar os documentos solicitados pelo juízo.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-02",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-02"
       },
       {
         "id": "76",
@@ -9577,11 +12781,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 15,
         "calendar": "uteis",
         "status": "aberto",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para especificar as provas pretendidas e justificar sua pertinência.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-10",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-10"
       },
       {
         "id": "102",
@@ -9591,55 +12794,94 @@ export const ACERVO_REAL: Caso[] = [
         "days": 15,
         "calendar": "uteis",
         "status": "cumprido",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para apresentar manifestação sobre documento juntado aos autos.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-08-14",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real. Cumprimento fictício registrado apenas para demonstrar o filtro da tela."
+        "startedAt": "2026-08-14"
       }
     ],
-    "teses": [],
-    "resultados": [],
-    "conversas": [],
-    "jurisprudencias": [
+    "teses": [
       {
-        "id": "24",
-        "processNumber": "90000249520168160193",
-        "acordao": "[NÃO OFICIAL] Referência de capa 9000024-95.2016.8.16.0193",
-        "court": "TJPR",
-        "chamber": "GABINETE DO JUIZ DE DIREITO SUBSTITUTO EM 2º GRAU PEDRO LUIS SANSON CORAT",
-        "reporter": "Não informado",
-        "date": "01/09/2026",
-        "status": "BAIXADO",
-        "alignment": "diverge",
-        "ementa": "",
-        "pontos": [],
-        "essencial": {
-          "resumo": "",
-          "itens": []
-        },
-        "fortalecer": {
-          "resumo": "",
-          "itens": []
-        },
-        "blindar": {
-          "resumo": "",
-          "itens": []
-        },
-        "contrapor": {
-          "resumo": "",
-          "itens": []
-        },
-        "citavel": false,
+        "id": "tese-oficial-0",
+        "titulo": "Apelação Cível",
+        "uso": "17ª Câmara Cível · 28/06/2021. A ementa oficial fecha contra o pedido: Recurso conhecido e não provido.",
+        "forca": "baixa",
         "fonte": "acervo_interno"
       }
     ],
-    "dissidios": [],
+    "resultados": [
+      {
+        "id": "38",
+        "titulo": "17ª Câmara Cível · 28/06/2021",
+        "desfecho": "Cumprimento de sentença em ação revisional de contrato de arrendamento mercantil. Sentença que não acolheu a impugnação ao cumprimento de sentença e homologou o cálculo apresentado pelo perito.",
+        "aprendizado": "17ª Câmara Cível · 28/06/2021. A ementa oficial fecha contra o pedido: Recurso conhecido e não provido."
+      }
+    ],
+    "conversas": [],
+    "jurisprudencias": [
+      {
+        "id": "38",
+        "processNumber": "90000249520168160193",
+        "acordao": "TJPR-4100000011019221",
+        "court": "TJPR",
+        "chamber": "17ª Câmara Cível",
+        "reporter": "Pedro Luis Sanson Corat Juiz de Direito Substituto em Segundo Grau",
+        "date": "28/06/2021",
+        "status": "SENTENCIADO",
+        "alignment": "against",
+        "ementa": "Apelação cível. Cumprimento de sentença em ação revisional de contrato de arrendamento mercantil. Sentença que não acolheu a impugnação ao cumprimento de sentença e homologou o cálculo apresentado pelo perito. Recurso do executado. Alegação de excesso de execução. Não acolhimento. Impugnação que deve indicar não só o valor que o impugnante entenda correto, mas também evidenciar a incorreção do cálculo impugnado. Inexistência de provas relativamente ao equívoco nos cálculos. Metodologia utilizada pelo executado não atende ao comando sentencial e viola a coisa julgada. Cumprimento de sentença que obrigatoriamente deve respeitar os limites do título executivo judicial. Precedentes. Alegação de uso de método (gauss) não autorizado. Ausência de demonstração da utilização do referido método. Argumentos genéricos que não merecem acolhimento. Recurso conhecido e não provido.",
+        "pontos": [],
+        "essencial": {
+          "resumo": "17ª Câmara Cível · 28/06/2021. A ementa oficial fecha contra o pedido: Recurso conhecido e não provido.",
+          "itens": [
+            "Cumprimento de sentença em ação revisional de contrato de arrendamento mercantil.",
+            "Sentença que não acolheu a impugnação ao cumprimento de sentença e homologou o cálculo apresentado pelo perito.",
+            "Recurso do executado.",
+            "Alegação de excesso de execução."
+          ]
+        },
+        "fortalecer": {
+          "resumo": "Este julgado fecha contra. Sirva-se dele para saber o que o tribunal já recusou.",
+          "itens": [
+            "Sentença que não acolheu a impugnação ao cumprimento de sentença e homologou o cálculo apresentado pelo perito."
+          ]
+        },
+        "blindar": {
+          "resumo": "Onde a parte contrária pode apoiar o ataque, segundo a ementa oficial.",
+          "itens": [
+            "Cumprimento de sentença em ação revisional de contrato de arrendamento mercantil.",
+            "Sentença que não acolheu a impugnação ao cumprimento de sentença e homologou o cálculo apresentado pelo perito.",
+            "Recurso do executado."
+          ]
+        },
+        "contrapor": {
+          "resumo": "Como limitar o alcance deste julgado: o dispositivo oficial e o contexto da câmara.",
+          "itens": [
+            "Cumprimento de sentença em ação revisional de contrato de arrendamento mercantil.",
+            "Sentença que não acolheu a impugnação ao cumprimento de sentença e homologou o cálculo apresentado pelo perito.",
+            "Recurso do executado."
+          ]
+        },
+        "citavel": true,
+        "fonte": "tjpr"
+      }
+    ],
+    "dissidios": [
+      {
+        "camara": "17ª Câmara Cível",
+        "orientacao": "Neste órgão: 0 a favor, 1 contra, 0 divergente.",
+        "versus": "against",
+        "nota": "17ª Câmara Cível · 28/06/2021. A ementa oficial fecha contra o pedido: Recurso conhecido e não provido.",
+        "fonte": "acervo_interno"
+      }
+    ],
     "jurimetria": {
-      "amostra": 0,
-      "padrao": "",
-      "interno": "",
-      "riscos": []
+      "amostra": 1,
+      "padrao": "No recorte oficial deste caso há 1 acórdão do TJPR (17ª Câmara Cível). Distribuição: 0 a favor, 1 contra, 0 divergente.",
+      "interno": "17ª Câmara Cível · 28/06/2021. A ementa oficial fecha contra o pedido: Recurso conhecido e não provido.",
+      "riscos": [
+        "17ª Câmara Cível · 28/06/2021. A ementa oficial fecha contra o pedido: Recurso conhecido e não provido."
+      ]
     },
     "fontes": {
       "titulo": "acervo_interno",
@@ -9654,21 +12896,21 @@ export const ACERVO_REAL: Caso[] = [
       "resumo": "acervo_interno",
       "tese": "acervo_interno",
       "atualizacao": "acervo_interno",
-      "chance": "indisponivel",
-      "votos": "indisponivel",
+      "chance": "tjpr",
+      "votos": "tjpr",
       "peticoes": "indisponivel",
-      "contratos": "indisponivel",
+      "contratos": "acervo_interno",
       "documentos": "acervo_interno",
       "decisoes": "acervo_interno",
       "modelos": "indisponivel",
       "historico": "acervo_interno",
       "prazos": "acervo_interno",
-      "teses": "indisponivel",
-      "resultados": "indisponivel",
+      "teses": "acervo_interno",
+      "resultados": "acervo_interno",
       "conversas": "indisponivel",
-      "jurisprudencias": "acervo_interno",
-      "dissidios": "indisponivel",
-      "jurimetria": "indisponivel"
+      "jurisprudencias": "tjpr",
+      "dissidios": "acervo_interno",
+      "jurimetria": "tjpr"
     }
   },
   {
@@ -9678,7 +12920,7 @@ export const ACERVO_REAL: Caso[] = [
     "subtema": "Recurso Inominado Cível",
     "processNumber": "9000025-19.2018.8.16.0029",
     "court": "TJPR",
-    "chamber": "3ª TURMA RECURSAL DOS JUIZADOS ESPECIAIS",
+    "chamber": "3ª turma recursal dos juizados especiais",
     "status": "BAIXADO",
     "cliente": "Parte autora (sigilo)",
     "partes": [
@@ -9691,15 +12933,15 @@ export const ACERVO_REAL: Caso[] = [
         "nome": "Parte ré (sigilo)"
       }
     ],
-    "resumo": "Recurso Inominado Cível perante 3ª TURMA RECURSAL DOS JUIZADOS ESPECIAIS (TJPR). Assunto(s) DataJud: Pagamento Indevido.",
-    "tese": "Indisponível no DataJud (capa/andamentos apenas).",
+    "resumo": "Recurso inominado cível perante 3ª turma recursal dos juizados especiais (tjpr). Assunto(s) datajud: pagamento indevido.",
+    "tese": "Instituição financeira. Ação revisional de contrato. Financiamento de veículo. Complexidade de causa não verificada. Desnecessidade de perícia contábil.",
     "atualizacao": "01/09/2026",
-    "chance": 0,
-    "chanceRotulo": "indisponível sem modelo oficial",
-    "chanceTexto": "indisponível sem modelo oficial",
+    "chance": 1,
+    "chanceRotulo": "recorte descritivo TJPR",
+    "chanceTexto": "Com base em 1 ementa(s) oficial(is) do portal TJPR neste recorte: 0 a favor, 1 contra, 0 divergente(s). Índice descritivo (favor +½ divergente).",
     "votos": {
       "for": 0,
-      "against": 0,
+      "against": 1,
       "diverge": 0
     },
     "peticoes": [],
@@ -9876,11 +13118,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 5,
         "calendar": "uteis",
         "status": "vencido",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para prestar esclarecimentos sobre os pontos indicados pelo juízo.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-01",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-01"
       },
       {
         "id": "51",
@@ -9890,11 +13131,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 10,
         "calendar": "uteis",
         "status": "a_vencer",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para juntar os documentos solicitados pelo juízo.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-02",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-02"
       },
       {
         "id": "77",
@@ -9904,11 +13144,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 15,
         "calendar": "uteis",
         "status": "aberto",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para especificar as provas pretendidas e justificar sua pertinência.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-10",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-10"
       },
       {
         "id": "103",
@@ -9918,55 +13157,96 @@ export const ACERVO_REAL: Caso[] = [
         "days": 15,
         "calendar": "uteis",
         "status": "cumprido",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para apresentar manifestação sobre documento juntado aos autos.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-08-14",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real. Cumprimento fictício registrado apenas para demonstrar o filtro da tela."
+        "startedAt": "2026-08-14"
       }
     ],
-    "teses": [],
-    "resultados": [],
-    "conversas": [],
-    "jurisprudencias": [
+    "teses": [
       {
-        "id": "25",
-        "processNumber": "90000251920188160029",
-        "acordao": "[NÃO OFICIAL] Referência de capa 9000025-19.2018.8.16.0029",
-        "court": "TJPR",
-        "chamber": "3ª TURMA RECURSAL DOS JUIZADOS ESPECIAIS",
-        "reporter": "Não informado",
-        "date": "01/09/2026",
-        "status": "BAIXADO",
-        "alignment": "diverge",
-        "ementa": "",
-        "pontos": [],
-        "essencial": {
-          "resumo": "",
-          "itens": []
-        },
-        "fortalecer": {
-          "resumo": "",
-          "itens": []
-        },
-        "blindar": {
-          "resumo": "",
-          "itens": []
-        },
-        "contrapor": {
-          "resumo": "",
-          "itens": []
-        },
-        "citavel": false,
+        "id": "tese-oficial-0",
+        "titulo": "Recurso Inominado Cível",
+        "uso": "3ª Turma Recursal · 26/03/2021. A ementa oficial fecha contra o pedido: Recursos conhecidos e desprovidos.",
+        "forca": "baixa",
         "fonte": "acervo_interno"
       }
     ],
-    "dissidios": [],
+    "resultados": [
+      {
+        "id": "39",
+        "titulo": "3ª Turma Recursal · 26/03/2021",
+        "desfecho": "Instituição financeira. Ação revisional de contrato. Financiamento de veículo. Complexidade de causa não verificada. Desnecessidade de perícia contábil.",
+        "aprendizado": "3ª Turma Recursal · 26/03/2021. A ementa oficial fecha contra o pedido: Recursos conhecidos e desprovidos."
+      }
+    ],
+    "conversas": [],
+    "jurisprudencias": [
+      {
+        "id": "39",
+        "processNumber": "90000251920188160029",
+        "acordao": "TJPR-2100000015115481",
+        "court": "TJPR",
+        "chamber": "3ª Turma Recursal",
+        "reporter": "Fernando Swain Ganem Juiz de Direito da Turma Recursal dos Juizados Especiais",
+        "date": "26/03/2021",
+        "status": "SENTENCIADO",
+        "alignment": "against",
+        "ementa": "Instituição financeira. Ação revisional de contrato. Financiamento de veículo. Complexidade de causa não verificada. Desnecessidade de perícia contábil. Alegação de abusividade dos juros remuneratórios. Não acolhimento. Taxa pactuada que não supera uma vez e meia à média de mercado. Regularidade na cobrança da “tarifa de registro de contrato”. Comprovação da efetiva realização do serviço. Descabimento de repetição com incidência dos juros remuneratórios. Aplicação do tema 968 do stj. Alegação de cobrança de comissão de permanência cumulada com encargos de mora. Ausência de contratação e de cobrança a tal título. Pedido que não comporta acolhimento. Sentença mantida. Recursos conhecidos e desprovidos.",
+        "pontos": [],
+        "essencial": {
+          "resumo": "3ª Turma Recursal · 26/03/2021. A ementa oficial fecha contra o pedido: Recursos conhecidos e desprovidos.",
+          "itens": [
+            "Instituição financeira.",
+            "Ação revisional de contrato.",
+            "Financiamento de veículo.",
+            "Complexidade de causa não verificada."
+          ]
+        },
+        "fortalecer": {
+          "resumo": "Este julgado fecha contra. Sirva-se dele para saber o que o tribunal já recusou.",
+          "itens": [
+            "Instituição financeira.",
+            "Ação revisional de contrato.",
+            "Financiamento de veículo."
+          ]
+        },
+        "blindar": {
+          "resumo": "Onde a parte contrária pode apoiar o ataque, segundo a ementa oficial.",
+          "itens": [
+            "Instituição financeira.",
+            "Ação revisional de contrato.",
+            "Financiamento de veículo."
+          ]
+        },
+        "contrapor": {
+          "resumo": "Como limitar o alcance deste julgado: o dispositivo oficial e o contexto da câmara.",
+          "itens": [
+            "Instituição financeira.",
+            "Ação revisional de contrato.",
+            "Financiamento de veículo."
+          ]
+        },
+        "citavel": true,
+        "fonte": "tjpr"
+      }
+    ],
+    "dissidios": [
+      {
+        "camara": "3ª Turma Recursal",
+        "orientacao": "Neste órgão: 0 a favor, 1 contra, 0 divergente.",
+        "versus": "against",
+        "nota": "3ª Turma Recursal · 26/03/2021. A ementa oficial fecha contra o pedido: Recursos conhecidos e desprovidos.",
+        "fonte": "acervo_interno"
+      }
+    ],
     "jurimetria": {
-      "amostra": 0,
-      "padrao": "",
-      "interno": "",
-      "riscos": []
+      "amostra": 1,
+      "padrao": "No recorte oficial deste caso há 1 acórdão do TJPR (3ª Turma Recursal). Distribuição: 0 a favor, 1 contra, 0 divergente.",
+      "interno": "3ª Turma Recursal · 26/03/2021. A ementa oficial fecha contra o pedido: Recursos conhecidos e desprovidos.",
+      "riscos": [
+        "3ª Turma Recursal · 26/03/2021. A ementa oficial fecha contra o pedido: Recursos conhecidos e desprovidos."
+      ]
     },
     "fontes": {
       "titulo": "acervo_interno",
@@ -9981,8 +13261,8 @@ export const ACERVO_REAL: Caso[] = [
       "resumo": "acervo_interno",
       "tese": "acervo_interno",
       "atualizacao": "acervo_interno",
-      "chance": "indisponivel",
-      "votos": "indisponivel",
+      "chance": "tjpr",
+      "votos": "tjpr",
       "peticoes": "indisponivel",
       "contratos": "indisponivel",
       "documentos": "acervo_interno",
@@ -9990,12 +13270,12 @@ export const ACERVO_REAL: Caso[] = [
       "modelos": "indisponivel",
       "historico": "acervo_interno",
       "prazos": "acervo_interno",
-      "teses": "indisponivel",
-      "resultados": "indisponivel",
+      "teses": "acervo_interno",
+      "resultados": "acervo_interno",
       "conversas": "indisponivel",
-      "jurisprudencias": "acervo_interno",
-      "dissidios": "indisponivel",
-      "jurimetria": "indisponivel"
+      "jurisprudencias": "tjpr",
+      "dissidios": "acervo_interno",
+      "jurimetria": "tjpr"
     }
   },
   {
@@ -10005,7 +13285,7 @@ export const ACERVO_REAL: Caso[] = [
     "subtema": "Recurso Inominado Cível",
     "processNumber": "9000026-04.2018.8.16.0029",
     "court": "TJPR",
-    "chamber": "1ª TURMA RECURSAL DOS JUIZADOS ESPECIAIS",
+    "chamber": "1ª turma recursal dos juizados especiais",
     "status": "BAIXADO",
     "cliente": "Parte autora (sigilo)",
     "partes": [
@@ -10018,16 +13298,16 @@ export const ACERVO_REAL: Caso[] = [
         "nome": "Parte ré (sigilo)"
       }
     ],
-    "resumo": "Recurso Inominado Cível perante 1ª TURMA RECURSAL DOS JUIZADOS ESPECIAIS (TJPR). Assunto(s) DataJud: Pagamento Indevido.",
-    "tese": "Indisponível no DataJud (capa/andamentos apenas).",
+    "resumo": "Recurso inominado cível perante 1ª turma recursal dos juizados especiais (tjpr). Assunto(s) datajud: pagamento indevido.",
+    "tese": "Ementa: recurso inominado. Ação de revisão contratual c/c repetição de indébito. Contrato de financiamento. Alegação de cobrança abusiva de juros remuneratórios.",
     "atualizacao": "01/09/2026",
-    "chance": 0,
-    "chanceRotulo": "indisponível sem modelo oficial",
-    "chanceTexto": "indisponível sem modelo oficial",
+    "chance": 50,
+    "chanceRotulo": "recorte descritivo TJPR",
+    "chanceTexto": "Com base em 1 ementa(s) oficial(is) do portal TJPR neste recorte: 0 a favor, 0 contra, 1 divergente(s). Índice descritivo (favor +½ divergente).",
     "votos": {
       "for": 0,
       "against": 0,
-      "diverge": 0
+      "diverge": 1
     },
     "peticoes": [
       {
@@ -10204,11 +13484,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 5,
         "calendar": "uteis",
         "status": "vencido",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para prestar esclarecimentos sobre os pontos indicados pelo juízo.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-01",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-01"
       },
       {
         "id": "52",
@@ -10218,11 +13497,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 10,
         "calendar": "uteis",
         "status": "a_vencer",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para juntar os documentos solicitados pelo juízo.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-02",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-02"
       },
       {
         "id": "78",
@@ -10232,11 +13510,10 @@ export const ACERVO_REAL: Caso[] = [
         "days": 15,
         "calendar": "uteis",
         "status": "aberto",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para especificar as provas pretendidas e justificar sua pertinência.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-09-10",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real."
+        "startedAt": "2026-09-10"
       },
       {
         "id": "104",
@@ -10246,55 +13523,96 @@ export const ACERVO_REAL: Caso[] = [
         "days": 15,
         "calendar": "uteis",
         "status": "cumprido",
-        "owner": "Equipe jurídica — demonstração",
+        "owner": "Equipe jurídica",
         "trigger": "Intimação judicial simulada para apresentar manifestação sobre documento juntado aos autos.",
         "gatilhoFonte": "acervo_interno",
-        "startedAt": "2026-08-14",
-        "notes": "[DEMO_PRAZOS_INTIMACAO_V1] Dados fictícios para demonstração; não representam intimação recebida do Judiciário. Datas simuladas com segunda a sexta, sem feriados ou suspensões; não utilizar como prazo judicial real. Cumprimento fictício registrado apenas para demonstrar o filtro da tela."
+        "startedAt": "2026-08-14"
       }
     ],
-    "teses": [],
-    "resultados": [],
-    "conversas": [],
-    "jurisprudencias": [
+    "teses": [
       {
-        "id": "26",
-        "processNumber": "90000260420188160029",
-        "acordao": "[NÃO OFICIAL] Referência de capa 9000026-04.2018.8.16.0029",
-        "court": "TJPR",
-        "chamber": "1ª TURMA RECURSAL DOS JUIZADOS ESPECIAIS",
-        "reporter": "Não informado",
-        "date": "01/09/2026",
-        "status": "BAIXADO",
-        "alignment": "diverge",
-        "ementa": "",
-        "pontos": [],
-        "essencial": {
-          "resumo": "",
-          "itens": []
-        },
-        "fortalecer": {
-          "resumo": "",
-          "itens": []
-        },
-        "blindar": {
-          "resumo": "",
-          "itens": []
-        },
-        "contrapor": {
-          "resumo": "",
-          "itens": []
-        },
-        "citavel": false,
+        "id": "tese-oficial-0",
+        "titulo": "Recurso Inominado Cível",
+        "uso": "1ª Turma Recursal · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida.",
+        "forca": "media",
         "fonte": "acervo_interno"
       }
     ],
-    "dissidios": [],
+    "resultados": [
+      {
+        "id": "40",
+        "titulo": "1ª Turma Recursal · 14/06/2021",
+        "desfecho": "Ementa: recurso inominado. Ação de revisão contratual c/c repetição de indébito. Contrato de financiamento. Alegação de cobrança abusiva de juros remuneratórios.",
+        "aprendizado": "1ª Turma Recursal · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida."
+      }
+    ],
+    "conversas": [],
+    "jurisprudencias": [
+      {
+        "id": "40",
+        "processNumber": "90000260420188160029",
+        "acordao": "TJPR-2100000014800751",
+        "court": "TJPR",
+        "chamber": "1ª Turma Recursal",
+        "reporter": "Melissa de Azevedo Olivas Juíza de Direito da Turma Recursal dos Juízaados Especiais",
+        "date": "14/06/2021",
+        "status": "SENTENCIADO",
+        "alignment": "diverge",
+        "ementa": "Ementa: recurso inominado. Ação de revisão contratual c/c repetição de indébito. Direito bancário. Contrato de financiamento. Alegação de cobrança abusiva de juros remuneratórios. Taxa média acima da praticada no mercado. Recálculo que necessita de cálculos complexos. Incompetência dos juizados especiais. Tarifa de registro. Ausência de prova da prestação do serviço. Restituição devida. Sentença parcialmente reformada. Recurso da parte autora conhecido e parcialmente provido.",
+        "pontos": [],
+        "essencial": {
+          "resumo": "1ª Turma Recursal · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida.",
+          "itens": [
+            "Ementa: recurso inominado.",
+            "Ação de revisão contratual c/c repetição de indébito.",
+            "Contrato de financiamento.",
+            "Alegação de cobrança abusiva de juros remuneratórios."
+          ]
+        },
+        "fortalecer": {
+          "resumo": "Use só a parte do julgado que favorece o pedido e isole o restante.",
+          "itens": [
+            "Ementa: recurso inominado.",
+            "Ação de revisão contratual c/c repetição de indébito.",
+            "Contrato de financiamento."
+          ]
+        },
+        "blindar": {
+          "resumo": "Onde a parte contrária pode apoiar o ataque, segundo a ementa oficial.",
+          "itens": [
+            "Ementa: recurso inominado.",
+            "Ação de revisão contratual c/c repetição de indébito.",
+            "Contrato de financiamento."
+          ]
+        },
+        "contrapor": {
+          "resumo": "Como limitar o alcance deste julgado: o dispositivo oficial e o contexto da câmara.",
+          "itens": [
+            "Ementa: recurso inominado.",
+            "Ação de revisão contratual c/c repetição de indébito.",
+            "Contrato de financiamento."
+          ]
+        },
+        "citavel": true,
+        "fonte": "tjpr"
+      }
+    ],
+    "dissidios": [
+      {
+        "camara": "1ª Turma Recursal",
+        "orientacao": "Neste órgão: 0 a favor, 0 contra, 1 divergente.",
+        "versus": "diverge",
+        "nota": "1ª Turma Recursal · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida.",
+        "fonte": "acervo_interno"
+      }
+    ],
     "jurimetria": {
-      "amostra": 0,
-      "padrao": "",
-      "interno": "",
-      "riscos": []
+      "amostra": 1,
+      "padrao": "No recorte oficial deste caso há 1 acórdão do TJPR (1ª Turma Recursal). Distribuição: 0 a favor, 0 contra, 1 divergente.",
+      "interno": "1ª Turma Recursal · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida.",
+      "riscos": [
+        "1ª Turma Recursal · 14/06/2021. A ementa oficial é parcial — uma parte favorece, outra não: Restituição devida."
+      ]
     },
     "fontes": {
       "titulo": "acervo_interno",
@@ -10309,8 +13627,8 @@ export const ACERVO_REAL: Caso[] = [
       "resumo": "acervo_interno",
       "tese": "acervo_interno",
       "atualizacao": "acervo_interno",
-      "chance": "indisponivel",
-      "votos": "indisponivel",
+      "chance": "tjpr",
+      "votos": "tjpr",
       "peticoes": "acervo_interno",
       "contratos": "indisponivel",
       "documentos": "acervo_interno",
@@ -10318,12 +13636,12 @@ export const ACERVO_REAL: Caso[] = [
       "modelos": "indisponivel",
       "historico": "acervo_interno",
       "prazos": "acervo_interno",
-      "teses": "indisponivel",
-      "resultados": "indisponivel",
+      "teses": "acervo_interno",
+      "resultados": "acervo_interno",
       "conversas": "indisponivel",
-      "jurisprudencias": "acervo_interno",
-      "dissidios": "indisponivel",
-      "jurimetria": "indisponivel"
+      "jurisprudencias": "tjpr",
+      "dissidios": "acervo_interno",
+      "jurimetria": "tjpr"
     }
   }
 ];

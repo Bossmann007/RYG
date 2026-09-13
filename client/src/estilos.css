@@ -1469,3 +1469,90 @@ main {
     flex-direction: column;
   }
 }
+
+.voto-motivo {
+  margin: 8px 0 18px;
+}
+
+.voto-motivo .olho {
+  margin-bottom: 10px;
+}
+
+.voto-card {
+  margin-bottom: 10px;
+}
+
+.voto-card.for {
+  border-left: 4px solid var(--favor);
+}
+
+.voto-card.against {
+  border-left: 4px solid var(--contra);
+}
+
+.voto-card.diverge {
+  border-left: 4px solid var(--diverge);
+}
+
+.voto-card-meta {
+  margin: 0 0 6px;
+  color: var(--vinho);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.lista-modelos {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.lista-modelos li {
+  background: var(--papel);
+  border: 1px solid var(--linha);
+  border-radius: var(--raio-sm);
+  padding: 18px 20px;
+  box-shadow: var(--sombra);
+}
+
+.modelo-topo {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.modelo-topo strong {
+  display: block;
+  margin: 8px 0 4px;
+}
+
+.modelo-topo p {
+  margin: 0;
+  color: var(--texto-suave);
+}
+
+.modelo-acoes {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.modelo-corpo {
+  margin: 16px 0 0;
+  padding: 16px 18px;
+  background: var(--creme);
+  border-radius: 14px;
+  white-space: pre-wrap;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--texto);
+}
+
+.tese-destaque,
+.ementa,
+.bloco-resumo {
+  line-height: 1.55;
+}

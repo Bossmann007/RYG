@@ -1,7 +1,7 @@
 {
   "name": "openlegalai",
   "version": "1.0.0",
-  "description": "OpenLegalAI — demo de pesquisa jurídica com dissídio de câmaras",
+  "description": "OpenLegalAI — workspace jurídico da Mafinni Advogados",
   "private": true,
   "scripts": {
     "typecheck:gateway": "npm --prefix privacy-gateway run typecheck",

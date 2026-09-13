@@ -22,25 +22,50 @@ export class TemplatesService {
     casoId?: string;
     processNumber?: string;
   }): Promise<ModeloListaItem[]> {
-    if (this.acervo.ativo() && filtroApontaParaBanco(filtro)) {
-      const docs = await this.acervo.listarDocumentos(
-        "modelos",
-        filtro,
-        "mod",
-        "Modelo"
-      );
-      return docs.map((doc) => ({
+    const doCaso =
+      this.acervo.ativo() && filtroApontaParaBanco(filtro)
+        ? await this.acervo.listarDocumentos("modelos", filtro, "mod", "Modelo")
+        : [];
+
+    if (doCaso.length) {
+      return doCaso.map((doc) => ({
         id: doc.id,
         title: doc.titulo,
-        kind: "outro" as const,
+        kind: this.kindDe(doc.tipo),
         status: "ativo" as const,
         updatedAt: doc.data,
         titulo: doc.titulo,
         tipo: doc.tipo,
         data: doc.data,
-        origem: doc.origem,
+        origem: doc.origem || "Acervo do caso",
         resumo: doc.resumo,
-      })) as ModeloListaItem[];
+        corpo: doc.resumo,
+      }));
+    }
+
+    if (this.acervo.ativo()) {
+      const escritorio = await this.acervo.listarEscritorio("modelos");
+      if (escritorio.length) {
+        return escritorio
+          .map((linha, indice) => {
+            const titulo = String(linha.titulo ?? linha.title ?? `Modelo ${indice + 1}`);
+            const corpo = String(linha.corpo ?? linha.body ?? linha.resumo ?? "");
+            return {
+              id: String(linha.id ?? `mod-${indice}`),
+              title: titulo,
+              kind: this.kindDe(String(linha.kind ?? linha.tipo ?? "")),
+              status: "ativo" as const,
+              updatedAt: String(linha.updated_at ?? linha.data ?? ""),
+              titulo,
+              tipo: this.rotuloKind(this.kindDe(String(linha.kind ?? linha.tipo ?? ""))),
+              data: String(linha.updated_at ?? linha.data ?? ""),
+              origem: "Mafinni Advogados",
+              resumo: corpo.slice(0, 280),
+              corpo,
+            };
+          })
+          .filter((item) => !filtro.kind || item.kind === filtro.kind);
+      }
     }
 
     return [...this.porId.values()]
@@ -128,6 +153,26 @@ export class TemplatesService {
     return limpas.length ? limpas : undefined;
   }
 
+  private kindDe(valor: string): ModeloKind {
+    const texto = valor
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase();
+    if (texto.includes("petic") || texto === "peticao") return "peticao";
+    if (texto.includes("parecer")) return "parecer";
+    if (texto.includes("contrat")) return "contrato";
+    if (texto.includes("email")) return "email";
+    return "outro";
+  }
+
+  private rotuloKind(kind: ModeloKind): string {
+    if (kind === "peticao") return "Petição";
+    if (kind === "parecer") return "Parecer";
+    if (kind === "contrato") return "Contrato";
+    if (kind === "email") return "E-mail";
+    return "Declaração";
+  }
+
   private paraLista(modelo: Modelo): ModeloListaItem {
     const item: ModeloListaItem = {
       id: modelo.id,
@@ -135,6 +180,12 @@ export class TemplatesService {
       kind: modelo.kind,
       status: modelo.status,
       updatedAt: modelo.updatedAt,
+      titulo: modelo.title,
+      tipo: this.rotuloKind(modelo.kind),
+      data: modelo.updatedAt.slice(0, 10),
+      origem: "Mafinni Advogados",
+      resumo: modelo.body.replace(/\s+/g, " ").trim().slice(0, 280),
+      corpo: modelo.body,
     };
 
     if (modelo.area) {

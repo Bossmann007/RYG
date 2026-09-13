@@ -10,7 +10,7 @@ export function BarraTopo({ onInicio }: Props) {
       <button className="marca" type="button" onClick={onInicio}>
         <span className="marca-selo">M</span>
         <span className="marca-texto">
-          <strong>Memória</strong>
+          <strong>OpenLegalAI</strong>
           <small>O escritório passa a ter memória</small>
         </span>
       </button>

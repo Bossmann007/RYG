@@ -1,18 +1,21 @@
 # OpenLegalAI
 
-Hackathon OAB Rush — pesquisa jurídica com **dissídios entre câmaras** e relatório de **chance + blindagem**.
+Workspace jurídico da **Mafinni Advogados**: casos do TiDB, ementas oficiais do TJPR e modelos para escrever peça.
 
-## Pitch
+## Como subir
 
-O advogado informa o **número do processo** (obrigatório) e, opcionalmente, **importa documentos**. O sistema resolve a capa, busca jurisprudências (com votos quando disponíveis), compara a **câmara do caso** com as **câmaras das juris** e entrega um relatório de **dissídios + chance/blindagem**.
+Dois terminais:
 
-## Stack
+```bash
+pnpm dev:server    # Nest em http://127.0.0.1:3000
+pnpm dev           # tela em http://localhost:8080
+```
 
-- **Client:** React + Vite (TypeScript) em `client/`
-- **Server:** NestJS (TypeScript) em `server/` — **mesma estrutura** do [buglan](https://github.com/joaozupeli/buglan) (`common`, `config`, `modules`, aliases `@common/*` / `@modules/*`, prefixo `api`)
+`DB_*` fica em `server/.env` (veja `server/.env.example`). Sem o Nest, a tela usa a cópia local do acervo.
 
 ## Documentação
 
+- [Manual de teste (o que pesquisar e o que deve aparecer)](docs/MANUAL-TESTE.md)
 - [Como contribuir, branches e versões](CONTRIBUTING.md)
 - [Visão do produto](docs/PRODUCT.md)
 - [Fluxo do usuário](docs/FLUXO.md)
@@ -20,6 +23,7 @@ O advogado informa o **número do processo** (obrigatório) e, opcionalmente, **
 - [Casos no TiDB e prova do GET /api/casos](docs/TIDB-CASOS.md)
 - [Anti-alucinação e anti-injeção](docs/ANTI-ALUCINACAO.md)
 
-## Workspace (TiDB)
+## Stack
 
-A lista de casos vem de `GET /api/casos`, não de `client/src/dados.ts`. Configure `DB_*` em `server/.env` (veja `server/.env.example`) e rode `pnpm dev:server` + `pnpm dev`. A prova `pnpm prova:casos` exige 26 casos no banco.
+- **Client:** React + Vite em `client/`
+- **Server:** NestJS em `server/` (`common`, `config`, `modules`, prefixo `/api`)

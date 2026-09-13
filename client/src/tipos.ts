@@ -99,6 +99,7 @@ export type Documento = {
   data: string;
   origem: string;
   resumo: string;
+  corpo?: string;
 };
 
 export type Andamento = {

@@ -27,6 +27,7 @@ import {
   PainelVisao,
 } from "../componentes/PaineisCaso";
 import { PainelAcervo } from "../componentes/PainelAcervo";
+import { PainelModelos } from "../componentes/PainelModelos";
 import { PainelPrazos } from "../componentes/PainelPrazos";
 import { PainelRelatorios } from "../componentes/PainelRelatorios";
 import { AbaCaso, Caso, Jurisprudencia, ROTULO_STATUS } from "../tipos";
@@ -155,13 +156,7 @@ export function DetalheCaso({ caso, onVoltar }: Props) {
             />
           )}
           {aba === "modelos" && (
-            <PainelAcervo
-              titulo="Modelos e pareceres"
-              texto="Peças do escritório reaproveitáveis."
-              casoId={caso.id}
-              processNumber={caso.processNumber}
-              recurso="modelos"
-            />
+            <PainelModelos casoId={caso.id} processNumber={caso.processNumber} />
           )}
           {aba === "historico" && <PainelHistorico caso={caso} />}
           {aba === "prazos" && <PainelPrazos caso={caso} />}

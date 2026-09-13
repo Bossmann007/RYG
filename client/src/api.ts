@@ -71,6 +71,7 @@ function comoDocumento(item: Record<string, unknown>, indice: number): Documento
     data: String(item.data ?? item.filedAt ?? item.decidedAt ?? item.updatedAt ?? ""),
     origem: String(item.origem ?? item.court ?? "Acervo interno"),
     resumo: String(item.resumo ?? item.summary ?? item.notes ?? ""),
+    corpo: item.corpo || item.body ? String(item.corpo ?? item.body) : undefined,
   };
 }
 

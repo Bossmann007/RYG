@@ -1,3 +1,4 @@
+import { fraseOficial } from "../texto";
 import {
   FonteFato,
   Jurisprudencia,
@@ -27,5 +28,5 @@ export function SeloTese({ tese }: { tese: Tese }) {
 }
 
 export function ementaExibida(item: Pick<Jurisprudencia, "citavel" | "ementa">): string {
-  return ehCitavel(item) ? item.ementa : "Não citável. Ementa oficial ausente.";
+  return ehCitavel(item) ? fraseOficial(item.ementa) : "Não citável. Ementa oficial ausente.";
 }
