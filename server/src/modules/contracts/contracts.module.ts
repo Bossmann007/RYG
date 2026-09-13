@@ -1,8 +1,8 @@
-import { ContractsController } from "@modules/contracts/contracts.controller";
-import { ContratosMemoryRepository } from "@modules/contracts/contracts.memory.repository";
-import { ContratosRepository } from "@modules/contracts/contracts.repository";
-import { ContractsService } from "@modules/contracts/contracts.service";
 import { Module } from "@nestjs/common";
+import { ContractsController } from "./contracts.controller";
+import { ContratosMemoryRepository } from "./contracts.memory.repository";
+import { ContratosRepository } from "./contracts.repository";
+import { ContractsService } from "./contracts.service";
 
 /**
  * O unico lugar que sabe de onde vem o contrato.

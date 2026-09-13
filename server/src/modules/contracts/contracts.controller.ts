@@ -1,54 +1,66 @@
-import {
-  CriarContratoDto,
-  EditarContratoDto,
-  ListarContratosDto,
-} from "@modules/contracts/contracts.dto";
-import { ContractsService } from "@modules/contracts/contracts.service";
+import { Public } from "@common/decorators/public.decorator";
 import {
   Body,
   Controller,
   Delete,
   Get,
   HttpCode,
+  HttpStatus,
   Param,
   Patch,
   Post,
   Query,
 } from "@nestjs/common";
+import {
+  CreateContratoDto,
+  ListarContratosQueryDto,
+  UpdateContratoDto,
+} from "./contracts.dto";
+import { ContractsService } from "./contracts.service";
 
 /**
- * Contratos de um caso.
- *
- * Sem `@Public()` de proposito. Contrato e peca de cliente: no dia em que um
- * guard global entrar, estas rotas devem ficar fechadas por padrao, nao abertas
- * por terem herdado um decorador copiado de outro controller.
+ * Internal trusted-zone office API. Not an MCP egress surface.
+ * Contract text stays a short summary. Do not mount these routes on the LLM path.
  */
-@Controller("contracts")
+@Controller("contratos")
 export class ContractsController {
-  constructor(private readonly contractsService: ContractsService) {}
+  constructor(private contractsService: ContractsService) {}
 
+  @Public()
   @Get()
-  listar(@Query() query: ListarContratosDto) {
-    return this.contractsService.listarPorCaso(query.casoId);
+  async listar(@Query() query: ListarContratosQueryDto) {
+    return {
+      zone: "internal",
+      contratos: await this.contractsService.listar({
+        casoId: query.casoId,
+      }),
+    };
   }
 
+  @Public()
   @Get(":id")
-  buscar(@Param("id") id: string) {
-    return this.contractsService.buscarPorId(id);
+  async obter(@Param("id") id: string) {
+    return { zone: "internal", contrato: await this.contractsService.obter(id) };
   }
 
+  @Public()
   @Post()
-  criar(@Body() dto: CriarContratoDto) {
-    return this.contractsService.criar(dto);
+  async criar(@Body() dto: CreateContratoDto) {
+    return { zone: "internal", contrato: await this.contractsService.criar(dto) };
   }
 
+  @Public()
   @Patch(":id")
-  atualizar(@Param("id") id: string, @Body() dto: EditarContratoDto) {
-    return this.contractsService.atualizar(id, dto);
+  async atualizar(@Param("id") id: string, @Body() dto: UpdateContratoDto) {
+    return {
+      zone: "internal",
+      contrato: await this.contractsService.atualizar(id, dto),
+    };
   }
 
+  @Public()
   @Delete(":id")
-  @HttpCode(204)
+  @HttpCode(HttpStatus.NO_CONTENT)
   async remover(@Param("id") id: string) {
     await this.contractsService.remover(id);
   }

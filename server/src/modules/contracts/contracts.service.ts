@@ -1,10 +1,7 @@
 import { Contrato } from "@models/contrato.model";
-import {
-  CriarContratoDto,
-  EditarContratoDto,
-} from "@modules/contracts/contracts.dto";
-import { ContratosRepository } from "@modules/contracts/contracts.repository";
 import { Injectable, NotFoundException } from "@nestjs/common";
+import { CreateContratoDto, UpdateContratoDto } from "./contracts.dto";
+import { ContratosRepository, FiltroContratos } from "./contracts.repository";
 
 const TIPO_PADRAO = "Contrato";
 
@@ -12,41 +9,46 @@ const TIPO_PADRAO = "Contrato";
 export class ContractsService {
   constructor(private readonly repositorio: ContratosRepository) {}
 
-  listarPorCaso(casoId: string): Promise<Contrato[]> {
-    return this.repositorio.listarPorCaso(casoId);
+  listar(filtro: FiltroContratos): Promise<Contrato[]> {
+    return this.repositorio.listar(filtro);
   }
 
-  async buscarPorId(id: string): Promise<Contrato> {
+  async obter(id: string): Promise<Contrato> {
     const contrato = await this.repositorio.buscarPorId(id);
+
     if (!contrato) {
-      throw new NotFoundException("Contrato nao encontrado");
+      throw new NotFoundException("Contrato não encontrado.");
     }
+
     return contrato;
   }
 
-  criar(dto: CriarContratoDto): Promise<Contrato> {
+  criar(dto: CreateContratoDto): Promise<Contrato> {
     return this.repositorio.criar({
-      casoId: dto.casoId,
-      titulo: dto.titulo,
-      tipo: dto.tipo ?? TIPO_PADRAO,
-      data: dto.data,
-      origem: dto.origem,
-      resumo: dto.resumo,
+      casoId: dto.casoId.trim(),
+      titulo: dto.titulo.trim(),
+      tipo: dto.tipo?.trim() || TIPO_PADRAO,
+      data: dto.data.trim(),
+      origem: dto.origem.trim(),
+      resumo: dto.resumo.trim(),
     });
   }
 
-  async atualizar(id: string, dto: EditarContratoDto): Promise<Contrato> {
+  async atualizar(id: string, dto: UpdateContratoDto): Promise<Contrato> {
     const atualizado = await this.repositorio.atualizar(id, dto);
+
     if (!atualizado) {
-      throw new NotFoundException("Contrato nao encontrado");
+      throw new NotFoundException("Contrato não encontrado.");
     }
+
     return atualizado;
   }
 
   async remover(id: string): Promise<void> {
     const removido = await this.repositorio.remover(id);
+
     if (!removido) {
-      throw new NotFoundException("Contrato nao encontrado");
+      throw new NotFoundException("Contrato não encontrado.");
     }
   }
 }

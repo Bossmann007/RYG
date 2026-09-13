@@ -1,76 +1,71 @@
-import {
-  IsNotEmpty,
-  IsOptional,
-  IsString,
-  MaxLength,
-} from "class-validator";
+import { IsNotEmpty, IsOptional, IsString, MaxLength } from "class-validator";
 
 const TEXTO_CURTO = 200;
 const TEXTO_LONGO = 1000;
 
-export class ListarContratosDto {
-  @IsString()
-  @IsNotEmpty({ message: "casoId e obrigatorio" })
-  @MaxLength(TEXTO_CURTO)
-  casoId: string;
-}
-
-export class CriarContratoDto {
-  @IsString()
-  @IsNotEmpty()
-  @MaxLength(TEXTO_CURTO)
-  casoId: string;
-
-  @IsString()
-  @IsNotEmpty()
-  @MaxLength(TEXTO_CURTO)
-  titulo: string;
-
-  /** Livre de proposito: o front so renderiza, nao ha enum a respeitar ainda. */
+export class ListarContratosQueryDto {
   @IsOptional()
   @IsString()
-  @MaxLength(TEXTO_CURTO)
+  @MaxLength(TEXTO_CURTO, { message: "casoId deve ter no máximo 200 caracteres." })
+  casoId?: string;
+}
+
+export class CreateContratoDto {
+  @IsString()
+  @IsNotEmpty({ message: "casoId é obrigatório." })
+  @MaxLength(TEXTO_CURTO, { message: "casoId deve ter no máximo 200 caracteres." })
+  casoId: string;
+
+  @IsString()
+  @IsNotEmpty({ message: "titulo é obrigatório." })
+  @MaxLength(TEXTO_CURTO, { message: "titulo deve ter no máximo 200 caracteres." })
+  titulo: string;
+
+  /** Livre de propósito: o front só renderiza, não há enum a respeitar ainda. */
+  @IsOptional()
+  @IsString()
+  @MaxLength(TEXTO_CURTO, { message: "tipo deve ter no máximo 200 caracteres." })
   tipo?: string;
 
   @IsString()
-  @IsNotEmpty()
-  @MaxLength(TEXTO_CURTO)
+  @IsNotEmpty({ message: "data é obrigatória." })
+  @MaxLength(TEXTO_CURTO, { message: "data deve ter no máximo 200 caracteres." })
   data: string;
 
   @IsString()
-  @IsNotEmpty()
-  @MaxLength(TEXTO_CURTO)
+  @IsNotEmpty({ message: "origem é obrigatória." })
+  @MaxLength(TEXTO_CURTO, { message: "origem deve ter no máximo 200 caracteres." })
   origem: string;
 
   @IsString()
-  @IsNotEmpty()
-  @MaxLength(TEXTO_LONGO)
+  @IsNotEmpty({ message: "resumo é obrigatório." })
+  @MaxLength(TEXTO_LONGO, { message: "resumo deve ter no máximo 1000 caracteres." })
   resumo: string;
 }
 
-export class EditarContratoDto {
+export class UpdateContratoDto {
   @IsOptional()
   @IsString()
-  @MaxLength(TEXTO_CURTO)
+  @MaxLength(TEXTO_CURTO, { message: "titulo deve ter no máximo 200 caracteres." })
   titulo?: string;
 
   @IsOptional()
   @IsString()
-  @MaxLength(TEXTO_CURTO)
+  @MaxLength(TEXTO_CURTO, { message: "tipo deve ter no máximo 200 caracteres." })
   tipo?: string;
 
   @IsOptional()
   @IsString()
-  @MaxLength(TEXTO_CURTO)
+  @MaxLength(TEXTO_CURTO, { message: "data deve ter no máximo 200 caracteres." })
   data?: string;
 
   @IsOptional()
   @IsString()
-  @MaxLength(TEXTO_CURTO)
+  @MaxLength(TEXTO_CURTO, { message: "origem deve ter no máximo 200 caracteres." })
   origem?: string;
 
   @IsOptional()
   @IsString()
-  @MaxLength(TEXTO_LONGO)
+  @MaxLength(TEXTO_LONGO, { message: "resumo deve ter no máximo 1000 caracteres." })
   resumo?: string;
 }

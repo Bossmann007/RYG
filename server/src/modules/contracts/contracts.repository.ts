@@ -4,22 +4,29 @@ import {
   NovoContrato,
 } from "@models/contrato.model";
 
+export type FiltroContratos = {
+  casoId?: string;
+};
+
 /**
  * A costura entre os endpoints e a origem dos dados.
  *
  * Hoje quem implementa isto guarda os contratos em memoria, a partir de
  * fixture. Quando o banco existir, entra uma classe nova que implementa esta
  * mesma interface e o modulo troca o provider: controller, DTO e service ficam
- * como estao. Sem esta fronteira, "ligar o banco" viraria reescrever o modulo
- * inteiro.
+ * como estao.
  *
- * Os metodos ja sao assincronos de proposito. Nenhum deles precisa disso hoje,
- * mas uma assinatura sincrona agora obrigaria a mudar service e controller no
- * dia em que o driver do banco entrar — que e exatamente o dia em que ninguem
- * quer estar mexendo em controller.
+ * Os modulos vizinhos (clients, petitions) guardam os dados no proprio service.
+ * Aqui a fronteira e separada de proposito, porque o pedido foi "banco depois":
+ * quando o driver entrar, este modulo ja tem onde encaixa-lo e serve de molde
+ * para converter os outros dois.
+ *
+ * Os metodos ja sao assincronos pelo mesmo motivo. Nenhum precisa disso hoje,
+ * mas assinatura sincrona agora obrigaria a mexer em service e controller
+ * justamente no dia da troca.
  */
 export abstract class ContratosRepository {
-  abstract listarPorCaso(casoId: string): Promise<Contrato[]>;
+  abstract listar(filtro: FiltroContratos): Promise<Contrato[]>;
 
   abstract buscarPorId(id: string): Promise<Contrato | null>;
 
