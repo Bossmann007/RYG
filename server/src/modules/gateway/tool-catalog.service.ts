@@ -96,7 +96,7 @@ export class ToolCatalogService {
         nome: "search_safe_knowledge",
         titulo: "Busca no conhecimento público",
         descricao:
-          "Procura precedentes ligados a assuntos catalogados. Acórdão publicado é fonte pública, então a ementa sai na íntegra — é a classificação da fonte que autoriza, não uma exceção da ferramenta. Itens sem ementa oficial voltam marcados como não citáveis.",
+          "Procura precedentes ligados a assuntos catalogados. Ementa só sai quando a fonte é pública e o item é citável (citavel===true e campos oficiais presentes). Sem ementa oficial o item volta nao_citavel.",
         esquema: z.object({
           assuntos: z
             .array(z.string())

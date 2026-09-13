@@ -1,7 +1,9 @@
+import { CiteStatus } from "@common/security/cite-or-silent";
 import { OrientacaoCamara } from "@models/processo.model";
 
+export type { CiteStatus };
+
 export type Alinhamento = "for" | "against" | "diverge" | "unknown";
-export type CiteStatus = "ok" | "unavailable";
 
 export type JurisprudenciaFixture = {
   id: string;
@@ -21,6 +23,7 @@ export type JurisprudenciaFixture = {
   voteSummary: string | null;
   orientation: OrientacaoCamara | null;
   relatedSubjects: string[];
+  citavel: boolean;
 };
 
 export type Jurisprudencia = JurisprudenciaFixture & {

@@ -8,6 +8,8 @@ coverage/
 *.log
 .env
 .env.*
+!.env.example
+!server/.env.example
 # Dependencies
 node_modules/
 yarn.lock

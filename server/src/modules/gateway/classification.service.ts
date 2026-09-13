@@ -32,7 +32,7 @@ export class ClassificationService {
     );
   }
 
-  /** Acórdão publicado é público: pode sair como está. */
+  /** Acórdão publicado é público. Ementa só atravessa se for citável. */
   jurisprudencia(assuntos: string[]): Rotulado<JurisprudenciaFixture[]> {
     return rotular(
       this.jurisprudenceService.buscarRelacionadas(assuntos),

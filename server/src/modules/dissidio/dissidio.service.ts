@@ -1,3 +1,5 @@
+import { citeStatusDe, ementaCitavel } from "@common/security/cite-or-silent";
+import { CHANCE_INDISPONIVEL } from "@common/security/fonte-fato";
 import {
   Alinhamento,
   Jurisprudencia,
@@ -22,11 +24,14 @@ export class DissidioService {
     itens: JurisprudenciaFixture[]
   ): Jurisprudencia[] {
     return itens.map((item) => {
-      const citeStatus =
-        item.ementaSnippet && item.orientation ? "ok" : "unavailable";
+      const citavel = ementaCitavel(item);
+      const citeStatus = citeStatusDe(item);
 
       return {
         ...item,
+        citavel,
+        ementaSnippet: citavel ? item.ementaSnippet : null,
+        orientation: citavel ? item.orientation : null,
         citeStatus,
         alignment: this.classificarAlinhamento(processo, item, citeStatus),
       };
@@ -42,7 +47,7 @@ export class DissidioService {
       court: item.court,
       orientationLabel: item.orientation
         ? ROTULO_ORIENTACAO[item.orientation]
-        : "Sem voto / ementa na fonte (cite indisponível)",
+        : "Sem voto / ementa na fonte (nao_citavel)",
       vsProcessChamber: item.alignment,
       note: this.notaLinha(processo, item),
     }));
@@ -68,41 +73,21 @@ export class DissidioService {
     processo: Processo,
     itens: Jurisprudencia[]
   ): RelatorioChance {
-    const forCount = itens.filter((item) => item.alignment === "for").length;
-    const divergeCount = itens.filter((item) => item.alignment === "diverge")
-      .length;
-    const againstCount = itens.filter((item) => item.alignment === "against")
-      .length;
-
-    let score = 38 + divergeCount * 8 + againstCount * 4 - forCount * 5;
-    score = Math.min(85, Math.max(15, score));
-
-    const label =
-      score >= 60
-        ? "Chance razoável"
-        : score >= 40
-          ? "Chance moderada"
-          : "Chance baixa na câmara do caso";
-
-    const rationale = [
-      `O advogado atua pelo consumidor. A ${processo.chamber} rejeita, em regra, a revisão quando a tarifa está no contrato.`,
-      `Pontuação ${score}/100: a linha da própria câmara e do STJ pesam contra o pedido principal; o dissídio de outras câmaras sobe um pouco a nota porque abre distinção no seguro e, em parte, na tarifa.`,
-    ].join(" ");
-
     return {
-      score,
-      label,
-      rationale,
+      score: 0,
+      label: CHANCE_INDISPONIVEL,
+      rationale: CHANCE_INDISPONIVEL,
       blindagem: this.montarBlindagem(processo, itens),
+      fonte: "indisponivel",
     };
   }
 
   private classificarAlinhamento(
     processo: Processo,
     item: JurisprudenciaFixture,
-    citeStatus: "ok" | "unavailable"
+    citeStatus: "ok" | "nao_citavel"
   ): Alinhamento {
-    if (citeStatus === "unavailable" || !item.orientation || !item.ementaSnippet) {
+    if (citeStatus === "nao_citavel" || !item.orientation || !item.ementaSnippet) {
       return "unknown";
     }
 

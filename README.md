@@ -17,3 +17,9 @@ O advogado informa o **número do processo** (obrigatório) e, opcionalmente, **
 - [Visão do produto](docs/PRODUCT.md)
 - [Fluxo do usuário](docs/FLUXO.md)
 - [Arquitetura](docs/ARCHITECTURE.md)
+- [Casos no TiDB e prova do GET /api/casos](docs/TIDB-CASOS.md)
+- [Anti-alucinação e anti-injeção](docs/ANTI-ALUCINACAO.md)
+
+## Workspace (TiDB)
+
+A lista de casos vem de `GET /api/casos`, não de `client/src/dados.ts`. Configure `DB_*` em `server/.env` (veja `server/.env.example`) e rode `pnpm dev:server` + `pnpm dev`. A prova `pnpm prova:casos` exige 26 casos no banco.

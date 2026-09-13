@@ -10,6 +10,8 @@
     "mcp:smoke": "npm --prefix privacy-gateway run mcp:smoke",
     "evidence": "npm run typecheck:gateway && npm run test:gateway && npm run demo:gateway && npm run mcp:smoke",
     "prova:acervo": "npm --prefix server run build && npm --prefix server run prova:acervo",
+    "prova:casos": "npm --prefix server run build && npm --prefix server run prova:casos",
+    "prova:anti": "npm --prefix server run build && npm --prefix server run prova:anti",
     "dev": "cd client && pnpm run dev",
     "dev:server": "cd server && pnpm run start:dev",
     "build-client": "cd client && pnpm install && pnpm run build",

@@ -1,3 +1,4 @@
+import { aplicarPoliticaAntiAlucinacao } from "./politica-caso";
 import { Caso, Documento, MembroEquipe } from "./tipos";
 
 function doc(
@@ -25,7 +26,7 @@ export const EQUIPE: MembroEquipe[] = [
   { id: "joao", nome: "João Lima", papel: "Estagiário", iniciais: "JL" },
 ];
 
-export const CASOS: Caso[] = [
+const CASOS_BRUTOS: Caso[] = [
   {
     id: "tarifas",
     titulo: "Revisão de juros e tarifas",
@@ -1506,6 +1507,8 @@ export const CASOS: Caso[] = [
     },
   },
 ];
+
+export const CASOS: Caso[] = CASOS_BRUTOS.map(aplicarPoliticaAntiAlucinacao);
 
 export function buscarCaso(id: string) {
   return CASOS.find((caso) => caso.id === id);

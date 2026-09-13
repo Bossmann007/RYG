@@ -1,7 +1,16 @@
 import { JurisprudenciaFixture } from "@models/jurisprudencia.model";
 
+function demo(item: Omit<JurisprudenciaFixture, "citavel" | "ementaSnippet" | "voteSummary">): JurisprudenciaFixture {
+  return {
+    ...item,
+    citavel: false,
+    ementaSnippet: null,
+    voteSummary: null,
+  };
+}
+
 export const JURISPRUDENCIAS_BANCARIAS: JurisprudenciaFixture[] = [
-  {
+  demo({
     id: "juris-tjsp-15-tarifa",
     processNumber: "9000065-61.2022.8.26.0100",
     acordaoNumber: "2024.001102-8",
@@ -15,17 +24,14 @@ export const JURISPRUDENCIAS_BANCARIAS: JurisprudenciaFixture[] = [
     judgmentDate: "12/03/2024",
     publicationDate: "18/03/2024",
     decisionType: "Acórdão",
-    ementaSnippet:
-      "Apelação. Contrato bancário. Financiamento de veículo. Tarifa de cadastro prevista no instrumento. Ausência de abusividade quando informada de forma clara. Recurso desprovido.",
-    voteSummary: "Unânime — negaram provimento (mantém a tarifa de cadastro).",
     orientation: "rejeita_revisao",
     relatedSubjects: [
       "Contratos bancários",
       "Tarifa de cadastro",
       "Revisão de contrato",
     ],
-  },
-  {
+  }),
+  demo({
     id: "juris-tjsp-11-prestamista",
     processNumber: "9000059-88.2021.8.26.0100",
     acordaoNumber: "2023.000887-1",
@@ -39,18 +45,14 @@ export const JURISPRUDENCIAS_BANCARIAS: JurisprudenciaFixture[] = [
     judgmentDate: "04/09/2023",
     publicationDate: "11/09/2023",
     decisionType: "Acórdão",
-    ementaSnippet:
-      "Apelação. Seguro prestamista embutido em financiamento. Venda casada. Ausência de contratação destacada. Restituição dos valores. Recurso provido.",
-    voteSummary:
-      "Maioria — deram provimento (afastam o seguro prestamista).",
     orientation: "aceita_revisao",
     relatedSubjects: [
       "Seguro prestamista",
       "Contratos bancários",
       "Revisão de contrato",
     ],
-  },
-  {
+  }),
+  demo({
     id: "juris-tjsp-37-tarifa",
     processNumber: "9000053-18.2020.8.26.0100",
     acordaoNumber: "2022.000451-4",
@@ -64,18 +66,14 @@ export const JURISPRUDENCIAS_BANCARIAS: JurisprudenciaFixture[] = [
     judgmentDate: "21/11/2022",
     publicationDate: "28/11/2022",
     decisionType: "Acórdão",
-    ementaSnippet:
-      "Tarifa de cadastro. Cobrança sem demonstração de serviço efetivo. Abusividade reconhecida. Provimento parcial para afastar a tarifa e manter os juros pactuados.",
-    voteSummary:
-      "Unânime — provimento parcial (afasta só a tarifa de cadastro).",
     orientation: "aceita_revisao",
     relatedSubjects: [
       "Tarifa de cadastro",
       "Revisão de contrato",
       "Contratos bancários",
     ],
-  },
-  {
+  }),
+  demo({
     id: "juris-stj-2secao-cadastro",
     processNumber: "9000056-16.2019.8.26.0000",
     acordaoNumber: "REsp 1.845.321/SP",
@@ -89,14 +87,10 @@ export const JURISPRUDENCIAS_BANCARIAS: JurisprudenciaFixture[] = [
     judgmentDate: "14/08/2019",
     publicationDate: "22/08/2019",
     decisionType: "Acórdão",
-    ementaSnippet:
-      "Tarifa de cadastro. Validade da cobrança no início do relacionamento, desde que pactuada. Orientação consolidada em repetitivo. Não se presume abusividade pelo só fato da cobrança.",
-    voteSummary:
-      "Maioria — validade da tarifa de cadastro se pactuada no início do contrato.",
     orientation: "rejeita_revisao",
     relatedSubjects: ["Tarifa de cadastro", "Contratos bancários"],
-  },
-  {
+  }),
+  demo({
     id: "juris-tjsp-13-juros",
     processNumber: "9000060-39.2022.8.26.0100",
     acordaoNumber: "2024.000633-9",
@@ -110,18 +104,14 @@ export const JURISPRUDENCIAS_BANCARIAS: JurisprudenciaFixture[] = [
     judgmentDate: "07/02/2024",
     publicationDate: "15/02/2024",
     decisionType: "Acórdão",
-    ementaSnippet:
-      "Financiamento veicular. Juros e encargos acessórios. Revisão parcial admitida quando o seguro prestamista é imposto sem opção real de recusa. Provimento em parte.",
-    voteSummary:
-      "Maioria — revisão parcial (afastam o seguro, mantêm os juros).",
     orientation: "aceita_revisao",
     relatedSubjects: [
       "Seguro prestamista",
       "Revisão de contrato",
       "Contratos bancários",
     ],
-  },
-  {
+  }),
+  demo({
     id: "juris-tjsp-16-contrato",
     processNumber: "9000061-58.2021.8.26.0100",
     acordaoNumber: "2023.001208-2",
@@ -135,18 +125,14 @@ export const JURISPRUDENCIAS_BANCARIAS: JurisprudenciaFixture[] = [
     judgmentDate: "19/06/2023",
     publicationDate: "26/06/2023",
     decisionType: "Acórdão",
-    ementaSnippet:
-      "Contrato bancário. Pacta sunt servanda. Tarifa de cadastro e seguro expressamente previstos. Recurso do consumidor desprovido.",
-    voteSummary:
-      "Unânime — negaram provimento (mantêm tarifa e seguro pactuados).",
     orientation: "rejeita_revisao",
     relatedSubjects: [
       "Contratos bancários",
       "Tarifa de cadastro",
       "Seguro prestamista",
     ],
-  },
-  {
+  }),
+  demo({
     id: "juris-tjsp-22-sem-ementa",
     processNumber: "9000063-57.2023.8.26.0100",
     acordaoNumber: null,
@@ -160,9 +146,7 @@ export const JURISPRUDENCIAS_BANCARIAS: JurisprudenciaFixture[] = [
     judgmentDate: "03/10/2024",
     publicationDate: null,
     decisionType: "Acórdão",
-    ementaSnippet: null,
-    voteSummary: null,
     orientation: null,
     relatedSubjects: ["Contratos bancários", "Revisão de contrato"],
-  },
+  }),
 ];

@@ -9,7 +9,9 @@ import {
   ROTULO_STATUS,
   STATUS_PROCESSO,
   StatusProcesso,
+  chanceIndisponivel,
 } from "../tipos";
+import { SeloCitacao, SeloFonte, SeloTese, ementaExibida } from "./SelosPolitica";
 
 type PropsLista = {
   titulo: string;
@@ -66,9 +68,16 @@ export function PainelVisao({
     <section className="painel visao">
       <div className="visao-grid">
         <article className="cartao-suave chance-box">
-          <AnelChance valor={caso.chance} tamanho={120} />
+          {chanceIndisponivel(caso) ? null : <AnelChance valor={caso.chance} tamanho={120} />}
           <div>
-            <p className="olho">{caso.chance}% · {caso.chanceRotulo}</p>
+            <div className="selos">
+              <SeloFonte fonte={caso.fontes?.chance || "indisponivel"} />
+            </div>
+            <p className="olho">
+              {chanceIndisponivel(caso)
+                ? caso.chanceRotulo
+                : `${caso.chance}% · ${caso.chanceRotulo}`}
+            </p>
             <p>{caso.chanceTexto}</p>
           </div>
         </article>
@@ -94,6 +103,9 @@ export function PainelVisao({
 
       <article className="cartao-suave">
         <p className="olho">Tese do caso</p>
+        <div className="selos">
+          <SeloFonte fonte={caso.fontes?.tese || "acervo_interno"} />
+        </div>
         <p className="tese-destaque">{caso.tese}</p>
         <p className="partes">
           {caso.partes.map((parte) => `${parte.papel}: ${parte.nome}`).join("  ·  ")}
@@ -120,12 +132,14 @@ export function PainelVisao({
                 <span className={`selo status-${item.status}`}>
                   {ROTULO_STATUS[item.status]}
                 </span>
+                <SeloCitacao item={item} />
+                <SeloFonte fonte={item.fonte || "acervo_interno"} />
               </div>
               <strong>{item.acordao}</strong>
               <p>
                 {item.chamber} · {item.date}
               </p>
-              <p>{item.ementa}</p>
+              <p>{ementaExibida(item)}</p>
             </button>
           </li>
         ))}
@@ -168,7 +182,10 @@ export function PainelTeses({ caso }: { caso: Caso }) {
               <strong>{tese.titulo}</strong>
               <p>{tese.uso}</p>
             </div>
-            <span className={`selo forca-${tese.forca}`}>força {tese.forca}</span>
+            <div className="selos">
+              <SeloTese tese={tese} />
+              <span className={`selo forca-${tese.forca}`}>força {tese.forca}</span>
+            </div>
           </li>
         ))}
       </ul>
@@ -205,7 +222,10 @@ export function PainelJurimetria({ caso }: { caso: Caso }) {
     <section className="painel">
       <header className="painel-cabeca">
         <h3>Jurimetria</h3>
-        <p>{caso.jurimetria.amostra} julgados semelhantes no TJPR.</p>
+        <p>
+          {caso.jurimetria.amostra} julgados semelhantes no recorte interno.
+        </p>
+        <SeloFonte fonte={caso.fontes?.jurimetria || "acervo_interno"} />
       </header>
 
       <div className="barras">
@@ -335,12 +355,14 @@ export function PainelJurisprudencia({
                   <span className={`selo status-${item.status}`}>
                     {ROTULO_STATUS[item.status]}
                   </span>
+                  <SeloCitacao item={item} />
+                  <SeloFonte fonte={item.fonte || "acervo_interno"} />
                 </div>
                 <strong>{item.acordao}</strong>
                 <p>
                   {item.chamber} · {item.date}
                 </p>
-                <p>{item.ementa}</p>
+                <p>{ementaExibida(item)}</p>
               </button>
             </li>
           ))}

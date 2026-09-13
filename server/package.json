@@ -12,7 +12,9 @@
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "prova": "node scripts/prova-declassificacao.js",
-    "prova:acervo": "node scripts/prova-acervo.js"
+    "prova:acervo": "node scripts/prova-acervo.js",
+    "prova:casos": "node scripts/prova-casos.js",
+    "prova:anti": "node --test test/anti-alucinacao.test.js"
   },
   "dependencies": {
     "@modelcontextprotocol/node": "^2",
@@ -28,6 +30,7 @@
     "helmet": "^7.0.0",
     "hono": "^4.11.4",
     "module-alias": "^2.2.3",
+    "mysql2": "^3.14.0",
     "nest-winston": "^1.9.4",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1",

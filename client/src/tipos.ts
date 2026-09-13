@@ -17,6 +17,47 @@ export type StatusProcesso =
 
 export type Alinhamento = "for" | "against" | "diverge";
 
+export const FONTES_FATO = [
+  "datajud",
+  "acervo_interno",
+  "inferencia",
+  "indisponivel",
+] as const;
+
+export type FonteFato = (typeof FONTES_FATO)[number];
+
+export const CHANCE_INDISPONIVEL = "indisponível sem modelo oficial";
+
+export type CampoFatoCaso =
+  | "titulo"
+  | "tema"
+  | "subtema"
+  | "processNumber"
+  | "court"
+  | "chamber"
+  | "status"
+  | "cliente"
+  | "partes"
+  | "resumo"
+  | "tese"
+  | "atualizacao"
+  | "chance"
+  | "votos"
+  | "peticoes"
+  | "contratos"
+  | "documentos"
+  | "decisoes"
+  | "modelos"
+  | "historico"
+  | "teses"
+  | "resultados"
+  | "conversas"
+  | "jurisprudencias"
+  | "dissidios"
+  | "jurimetria";
+
+export type ProvenienciaCaso = Record<CampoFatoCaso, FonteFato>;
+
 export type AbaCaso =
   | "visao"
   | "peticoes"
@@ -67,6 +108,7 @@ export type Tese = {
   titulo: string;
   uso: string;
   forca: "alta" | "media" | "baixa";
+  fonte?: FonteFato;
 };
 
 export type ResultadoInterno = {
@@ -108,6 +150,8 @@ export type Jurisprudencia = {
   fortalecer: BlocoAnalise;
   blindar: BlocoAnalise;
   contrapor: BlocoAnalise;
+  citavel?: boolean;
+  fonte?: FonteFato;
 };
 
 export type Dissidio = {
@@ -115,6 +159,7 @@ export type Dissidio = {
   orientacao: string;
   versus: Alinhamento;
   nota: string;
+  fonte?: FonteFato;
 };
 
 export type Caso = {
@@ -152,6 +197,7 @@ export type Caso = {
     interno: string;
     riscos: string[];
   };
+  fontes?: ProvenienciaCaso;
 };
 
 export const STATUS_PROCESSO: StatusProcesso[] = [
@@ -195,3 +241,36 @@ export const ROTULO_ALINHAMENTO: Record<Alinhamento, string> = {
   against: "Contra",
   diverge: "Divergente",
 };
+
+export const ROTULO_FONTE: Record<FonteFato, string> = {
+  datajud: "DataJud",
+  acervo_interno: "Acervo interno",
+  inferencia: "Inferência",
+  indisponivel: "Indisponível",
+};
+
+export function rotuloFonte(fonte: FonteFato): string {
+  switch (fonte) {
+    case "datajud":
+    case "acervo_interno":
+    case "inferencia":
+    case "indisponivel":
+      return ROTULO_FONTE[fonte];
+    default: {
+      const neverFonte: never = fonte;
+      return neverFonte;
+    }
+  }
+}
+
+export function ehCitavel(item: { citavel?: boolean; ementa?: string }): boolean {
+  return item.citavel === true && Boolean(item.ementa?.trim());
+}
+
+export function chanceIndisponivel(caso: Caso): boolean {
+  return (
+    caso.fontes?.chance === "indisponivel" ||
+    caso.chanceRotulo === CHANCE_INDISPONIVEL ||
+    !caso.chance
+  );
+}
