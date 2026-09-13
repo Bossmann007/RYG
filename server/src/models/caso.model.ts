@@ -1,3 +1,7 @@
+import { FonteFato, ProvenienciaCaso } from "@common/security/fonte-fato";
+
+export type { FonteFato, ProvenienciaCaso };
+
 export const STATUS_PROCESSO = [
   "DISTRIBUIDO",
   "ATIVO",
@@ -45,6 +49,7 @@ export type Tese = {
   titulo: string;
   uso: string;
   forca: ForcaTese;
+  fonte?: FonteFato;
 };
 
 export type ResultadoInterno = {
@@ -85,6 +90,8 @@ export type Jurisprudencia = {
   fortalecer: BlocoAnalise;
   blindar: BlocoAnalise;
   contrapor: BlocoAnalise;
+  citavel: boolean;
+  fonte: FonteFato;
 };
 
 export type Dissidio = {
@@ -92,6 +99,7 @@ export type Dissidio = {
   orientacao: string;
   versus: Alinhamento;
   nota: string;
+  fonte?: FonteFato;
 };
 
 export type Jurimetria = {
@@ -131,6 +139,7 @@ export type Caso = {
   jurisprudencias: Jurisprudencia[];
   dissidios: Dissidio[];
   jurimetria: Jurimetria;
+  fontes: ProvenienciaCaso;
 };
 
 export const CAMPOS_CASO = [
@@ -163,4 +172,5 @@ export const CAMPOS_CASO = [
   "jurisprudencias",
   "dissidios",
   "jurimetria",
+  "fontes",
 ] as const;

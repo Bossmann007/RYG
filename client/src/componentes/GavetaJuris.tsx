@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Jurisprudencia, ROTULO_ALINHAMENTO, ROTULO_STATUS } from "../tipos";
+import { SeloCitacao, SeloFonte, ementaExibida } from "./SelosPolitica";
 
 type AbaGaveta = "essencial" | "fortalecer" | "blindar" | "contrapor";
 
@@ -37,6 +38,8 @@ export function GavetaJuris({ item, onFechar }: Props) {
             <span className={`selo status-${item.status}`}>
               {ROTULO_STATUS[item.status]}
             </span>
+            <SeloCitacao item={item} />
+            <SeloFonte fonte={item.fonte || "acervo_interno"} />
           </div>
           <button className="botao-texto" type="button" onClick={onFechar}>
             Fechar
@@ -48,7 +51,12 @@ export function GavetaJuris({ item, onFechar }: Props) {
           {item.chamber} · {item.reporter}
         </p>
         <p className="gaveta-meta">{item.processNumber}</p>
-        <p className="ementa">{item.ementa}</p>
+        <p className="ementa">{ementaExibida(item)}</p>
+        {!item.citavel && (
+          <p className="aviso-nao-citavel">
+            Notas abaixo são acervo interno. Não são julgamento oficial.
+          </p>
+        )}
 
         <div className="pontos">
           {item.pontos.map((ponto) => (

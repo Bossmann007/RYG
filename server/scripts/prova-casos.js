@@ -95,7 +95,11 @@ function provaAssembler() {
     caso.status === "ATIVO" &&
     caso.cliente === "Maria Clara Souza" &&
     caso.partes.length === 2 &&
-    caso.chance === 72 &&
+    caso.chance === 0 &&
+    caso.chanceRotulo === "indisponível sem modelo oficial" &&
+    caso.fontes &&
+    caso.fontes.chance === "indisponivel" &&
+    caso.fontes.processNumber === "acervo_interno" &&
     caso.votos.for === 18 &&
     caso.peticoes.length === 1 &&
     caso.peticoes[0].titulo === "Petição inicial" &&

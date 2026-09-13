@@ -13,7 +13,8 @@
     "start:prod": "node dist/main",
     "prova": "node scripts/prova-declassificacao.js",
     "prova:acervo": "node scripts/prova-acervo.js",
-    "prova:casos": "node scripts/prova-casos.js"
+    "prova:casos": "node scripts/prova-casos.js",
+    "prova:anti": "node --test test/anti-alucinacao.test.js"
   },
   "dependencies": {
     "@modelcontextprotocol/node": "^2",

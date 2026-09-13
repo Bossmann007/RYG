@@ -87,20 +87,36 @@ esperaRecusa("recusa PII em qualquer campo do DTO", () => {
   poluido.resumoDeCaso(capa);
 });
 
-// 5. Fonte pública pode citar — a classificação é que autoriza.
+// 5. Fonte pública não inventa ementa. Cite-or-silent manda.
 try {
   const { JURISPRUDENCIAS_BANCARIAS } = require("../dist/fixtures/jurisprudencias");
   const publico = rotular(JURISPRUDENCIAS_BANCARIAS, "publico", "acervo:jurisprudencia");
   const conhecimento = servico.conhecimento(publico, ["Tarifa de cadastro"]);
   const comEmenta = conhecimento.conteudo.itens.filter((i) => i.ementa).length;
 
-  if (comEmenta > 0) {
-    ok("fonte pública sai com ementa integral", `${comEmenta} ementas citáveis`);
+  if (comEmenta === 0 && conhecimento.conteudo.itens.every((i) => i.citavel === false)) {
+    ok("fonte pública sem ementa oficial sai nao_citavel", `${conhecimento.conteudo.itens.length} itens`);
   } else {
-    erro("fonte pública sai com ementa integral", "nenhuma ementa saiu");
+    erro("fonte pública sem ementa oficial sai nao_citavel", `${comEmenta} ementas saíram`);
+  }
+
+  const oficial = {
+    ...JURISPRUDENCIAS_BANCARIAS[0],
+    citavel: true,
+    ementaSnippet: "Ementa oficial de teste. Não usar em peça real.",
+  };
+  const citado = servico.conhecimento(
+    rotular([oficial], "publico", "acervo:jurisprudencia"),
+    ["Tarifa de cadastro"]
+  );
+
+  if (citado.conteudo.itens[0].citavel && citado.conteudo.itens[0].ementa === oficial.ementaSnippet) {
+    ok("item público citável libera ementa oficial");
+  } else {
+    erro("item público citável libera ementa oficial", JSON.stringify(citado.conteudo.itens[0]));
   }
 } catch (e) {
-  erro("fonte pública sai com ementa integral", e.message);
+  erro("fonte pública sem ementa oficial sai nao_citavel", e.message);
 }
 
 console.log(

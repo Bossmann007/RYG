@@ -1,3 +1,5 @@
+import { aplicarPoliticaCaso } from "@common/security/caso-policy";
+import { sanitizeUntrustedText } from "@common/security/untrusted-text";
 import {
   Alinhamento,
   BlocoAnalise,
@@ -99,7 +101,7 @@ export function textoCampo(
     return valor.toLocaleDateString("pt-BR");
   }
 
-  return String(valor).trim();
+  return sanitizeUntrustedText(String(valor).trim());
 }
 
 export function cnjDigitos(valor: unknown): string {
@@ -142,7 +144,7 @@ export function montarCaso(pacote: PacoteCaso): Caso {
     textoCampo(pacote.processo, ALIASES.numeroCnj) ||
     base.id;
 
-  return {
+  return aplicarPoliticaCaso({
     id,
     titulo: textoCampo(capa, ALIASES.titulo, base.titulo),
     tema: textoCampo(capa, ALIASES.tema, base.tema),
@@ -176,7 +178,8 @@ export function montarCaso(pacote: PacoteCaso): Caso {
     jurisprudencias: jurisprudenciasDe(pacote.jurisprudencias, base.jurisprudencias),
     dissidios: dissidiosDe(pacote.dissidios, base.dissidios),
     jurimetria: jurimetriaDe(pacote.jurimetria, capa, base.jurimetria),
-  };
+    fontes: base.fontes,
+  });
 }
 
 function desempacotar(valor: unknown): unknown {
@@ -239,8 +242,15 @@ function casoDePayload(valor: unknown): Caso {
     : [];
   montado.dissidios = Array.isArray(montado.dissidios) ? montado.dissidios : [];
   montado.jurimetria = jurimetriaDe(undefined, undefined, montado.jurimetria);
+  montado.jurisprudencias = Array.isArray(montado.jurisprudencias)
+    ? montado.jurisprudencias.map((item) => ({
+        ...item,
+        citavel: item.citavel === true,
+        fonte: item.fonte || "acervo_interno",
+      }))
+    : [];
 
-  return montado;
+  return aplicarPoliticaCaso(montado);
 }
 
 function casoVazio(): Caso {
@@ -274,6 +284,34 @@ function casoVazio(): Caso {
     jurisprudencias: [],
     dissidios: [],
     jurimetria: { amostra: 0, padrao: "", interno: "", riscos: [] },
+    fontes: {
+      titulo: "indisponivel",
+      tema: "indisponivel",
+      subtema: "indisponivel",
+      processNumber: "indisponivel",
+      court: "indisponivel",
+      chamber: "indisponivel",
+      status: "acervo_interno",
+      cliente: "indisponivel",
+      partes: "indisponivel",
+      resumo: "indisponivel",
+      tese: "indisponivel",
+      atualizacao: "indisponivel",
+      chance: "indisponivel",
+      votos: "indisponivel",
+      peticoes: "indisponivel",
+      contratos: "indisponivel",
+      documentos: "indisponivel",
+      decisoes: "indisponivel",
+      modelos: "indisponivel",
+      historico: "indisponivel",
+      teses: "indisponivel",
+      resultados: "indisponivel",
+      conversas: "indisponivel",
+      jurisprudencias: "indisponivel",
+      dissidios: "indisponivel",
+      jurimetria: "indisponivel",
+    },
   };
 }
 
@@ -317,7 +355,7 @@ function listaDe(valor: unknown): unknown[] {
 
 function textosDe(valor: unknown): string[] {
   return listaDe(valor)
-    .map((item) => String(item).trim())
+    .map((item) => sanitizeUntrustedText(String(item).trim()))
     .filter(Boolean);
 }
 
@@ -481,6 +519,8 @@ function jurisprudenciasDe(linhas: Linha[], fallback: Jurisprudencia[]): Jurispr
     fortalecer: blocoDe(linha, "fortalecer"),
     blindar: blocoDe(linha, "blindar"),
     contrapor: blocoDe(linha, "contrapor"),
+    citavel: booleanDe(valorCampo(linha, ALIASES.citavel)),
+    fonte: "acervo_interno",
   }));
 }
 

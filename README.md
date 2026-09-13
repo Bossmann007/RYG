@@ -18,6 +18,7 @@ O advogado informa o **número do processo** (obrigatório) e, opcionalmente, **
 - [Fluxo do usuário](docs/FLUXO.md)
 - [Arquitetura](docs/ARCHITECTURE.md)
 - [Casos no TiDB e prova do GET /api/casos](docs/TIDB-CASOS.md)
+- [Anti-alucinação e anti-injeção](docs/ANTI-ALUCINACAO.md)
 
 ## Workspace (TiDB)
 

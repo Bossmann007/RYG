@@ -377,9 +377,25 @@ main {
 .selo.status-BAIXADO,
 .selo.status-EXTINTO,
 .selo.status-INATIVO,
-.selo.status-CANCELADO {
+.selo.status-CANCELADO,
+.selo.nao-citavel,
+.selo.fonte-acervo_interno,
+.selo.fonte-inferencia,
+.selo.fonte-indisponivel {
   background: #eee7e4;
   color: #6a5b57;
+}
+
+.selo.citavel,
+.selo.fonte-datajud {
+  background: var(--favor-fundo);
+  color: var(--favor);
+}
+
+.aviso-nao-citavel {
+  margin: 0 0 12px;
+  color: var(--texto-suave);
+  font-size: 13px;
 }
 
 .anel {
