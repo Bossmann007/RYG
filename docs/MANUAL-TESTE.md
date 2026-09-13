@@ -23,7 +23,7 @@ A lista e o detalhe vêm de `GET /api/casos` e `GET /api/casos/:id` no TiDB. Se 
 
 ## O que deve aparecer
 
-- Marca **OpenLegalAI** e escritório **Mafinni Advogados**
+- Marca **OpenLegalAI** e escritório **Zhegga Advogados Associados**
 - 26 casos do banco (direito bancário / TJPR)
 - Sem texto de “demo”, “heurística de demo” ou “dados fictícios”
 - Ementas em leitura corrida (não em caixa alta)
@@ -52,7 +52,7 @@ Cole no campo de busca:
 6. **Contratos** — instrumento apontado na capa ou nas peças oficiais do caso.
 7. **Modelos** — abra o parecer e a declaração; copie o texto.
 8. **Prazos** — dono “Equipe jurídica”, sem nota `[DEMO_...]`.
-9. **Relatórios** — exportar PDF com cabeçalho Mafinni Advogados / OpenLegalAI.
+9. **Relatórios** — exportar PDF com cabeçalho Zhegga Advogados Associados / OpenLegalAI.
 
 ## Conferir a API (opcional)
 

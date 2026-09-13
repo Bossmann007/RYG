@@ -31,7 +31,7 @@ export type CatalogoRelatorio = {
 export const CATALOGO_RELATORIOS: CatalogoRelatorio[] = [
   {
     id: "memoria",
-    titulo: "Memória do caso",
+    titulo: "OpenLegalAI do caso",
     texto: "Capa, partes, tese e o que o escritório já sabe — sem inventar chance.",
     destinatario: "Sócio e equipe do caso",
   },
@@ -98,7 +98,7 @@ export function montarRelatorio(casoBruto: Caso, id: RelatorioId): RelatorioPdf 
 
   switch (id) {
     case "memoria":
-      return { ...base, titulo: "Memória do caso", blocos: blocosMemoria(caso) };
+      return { ...base, titulo: "OpenLegalAI do caso", blocos: blocosMemoria(caso) };
     case "prazos":
       return { ...base, titulo: "Agenda de prazos", blocos: blocosPrazos(caso) };
     case "acervo":

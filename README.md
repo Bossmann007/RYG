@@ -1,6 +1,6 @@
 # OpenLegalAI
 
-Workspace jurídico da **Mafinni Advogados**: casos do TiDB, ementas oficiais do TJPR e modelos para escrever peça.
+Workspace jurídico da **Zhegga Advogados Associados**: casos do TiDB, ementas oficiais do TJPR e modelos para escrever peça.
 
 ## Como subir
 

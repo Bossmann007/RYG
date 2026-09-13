@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { ESCRITORIO } from "../dados";
 import { baixarPdf } from "../lib/pdf";
 import { hidratarPrazos } from "../prazos-escritorio";
 import {
@@ -64,7 +65,7 @@ export function PainelRelatorios({ caso }: { caso: Caso }) {
       <article className="folha" aria-label={documento.titulo}>
         <header className="folha-cabeca">
           <div>
-            <p className="olho">Vilela &amp; Prado</p>
+            <p className="olho">{ESCRITORIO.nome}</p>
             <h4>{documento.titulo}</h4>
           </div>
           <span>Uso interno</span>

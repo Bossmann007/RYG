@@ -3,7 +3,7 @@ import { aplicarPoliticaAntiAlucinacao } from "./politica-caso";
 import { Caso, MembroEquipe } from "./tipos";
 
 export const ESCRITORIO = {
-  nome: "Vilela & Prado",
+  nome: "Zhegga Advogados Associados",
   usuario: "Gustavo Vilela",
   papel: "Advogado",
   iniciais: "GV",

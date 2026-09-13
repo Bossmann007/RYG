@@ -89,7 +89,7 @@ export function DetalheCaso({ caso, onVoltar }: Props) {
       </header>
 
       <div className="detalhe-corpo">
-        <nav className="menu-caso" aria-label="Memória do caso">
+        <nav className="menu-caso" aria-label="OpenLegalAI do caso">
           {grupos.map((grupo) => (
             <div key={grupo} className="menu-grupo">
               <p>{grupo}</p>

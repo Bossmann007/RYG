@@ -59,7 +59,7 @@ export class TemplatesService {
               titulo,
               tipo: this.rotuloKind(this.kindDe(String(linha.kind ?? linha.tipo ?? ""))),
               data: String(linha.updated_at ?? linha.data ?? ""),
-              origem: "Mafinni Advogados",
+              origem: "Zhegga Advogados Associados",
               resumo: corpo.slice(0, 280),
               corpo,
             };
@@ -183,7 +183,7 @@ export class TemplatesService {
       titulo: modelo.title,
       tipo: this.rotuloKind(modelo.kind),
       data: modelo.updatedAt.slice(0, 10),
-      origem: "Mafinni Advogados",
+      origem: "Zhegga Advogados Associados",
       resumo: modelo.body.replace(/\s+/g, " ").trim().slice(0, 280),
       corpo: modelo.body,
     };

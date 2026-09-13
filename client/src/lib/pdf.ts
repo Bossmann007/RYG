@@ -146,22 +146,22 @@ function montarPdf(relatorio: RelatorioPdf): Uint8Array {
   };
 
   const cabecalho = () => {
-    ops.push({ tipo: "color", r: 0.239, g: 0.063, b: 0.114 });
-    ops.push({ tipo: "text", font: "F2", size: 11, x: MARGIN_X, y, value: "VILELA & PRADO" });
+    ops.push({ tipo: "color", r: 0.039, g: 0.102, b: 0.196 });
+    ops.push({ tipo: "text", font: "F2", size: 11, x: MARGIN_X, y, value: "ZHEGGA ADVOGADOS ASSOCIADOS" });
     ops.push({
       tipo: "text",
       font: "F1",
       size: 9,
       x: PAGE_W - MARGIN_X - 128,
       y,
-      value: "Memória  ·  uso interno",
+      value: "OpenLegalAI  ·  uso interno",
     });
     y -= 10;
     ops.push({ tipo: "rule", y });
     y -= 22;
     ops.push({ tipo: "text", font: "F2", size: 16, x: MARGIN_X, y, value: relatorio.titulo });
     y -= 16;
-    ops.push({ tipo: "color", r: 0.42, g: 0.345, b: 0.376 });
+    ops.push({ tipo: "color", r: 0.29, g: 0.376, b: 0.471 });
     for (const linha of wrap(relatorio.subtitulo, 10)) {
       ops.push({ tipo: "text", font: "F1", size: 10, x: MARGIN_X, y, value: linha });
       y -= 13;
@@ -171,7 +171,7 @@ function montarPdf(relatorio: RelatorioPdf): Uint8Array {
       y -= 12;
     }
     y -= 4;
-    ops.push({ tipo: "color", r: 0.42, g: 0.114, b: 0.196 });
+    ops.push({ tipo: "color", r: 0.102, g: 0.29, b: 0.478 });
     for (const linha of wrap(relatorio.aviso, 8)) {
       ops.push({ tipo: "text", font: "F1", size: 8, x: MARGIN_X, y, value: linha });
       y -= 11;
@@ -186,7 +186,7 @@ function montarPdf(relatorio: RelatorioPdf): Uint8Array {
   for (const bloco of relatorio.blocos) {
     garantir(36);
     if (bloco.olho) {
-      ops.push({ tipo: "color", r: 0.42, g: 0.114, b: 0.196 });
+      ops.push({ tipo: "color", r: 0.102, g: 0.29, b: 0.478 });
       ops.push({
         tipo: "text",
         font: "F2",
@@ -199,12 +199,12 @@ function montarPdf(relatorio: RelatorioPdf): Uint8Array {
     }
 
     if (bloco.titulo) {
-      ops.push({ tipo: "color", r: 0.165, g: 0.106, b: 0.129 });
+      ops.push({ tipo: "color", r: 0.063, g: 0.125, b: 0.216 });
       ops.push({ tipo: "text", font: "F2", size: 12, x: MARGIN_X, y, value: bloco.titulo });
       y -= 16;
     }
 
-    ops.push({ tipo: "color", r: 0.165, g: 0.106, b: 0.129 });
+    ops.push({ tipo: "color", r: 0.063, g: 0.125, b: 0.216 });
     for (const linha of bloco.linhas) {
       const pedacos = wrap(linha, 10);
       if (!pedacos.length) {
@@ -239,7 +239,7 @@ function streamDaPagina(
       cmds.push(`${op.r.toFixed(3)} ${op.g.toFixed(3)} ${op.b.toFixed(3)} rg`);
       cmds.push(`${op.r.toFixed(3)} ${op.g.toFixed(3)} ${op.b.toFixed(3)} RG`);
     } else if (op.tipo === "rule") {
-      cmds.push("0.42 0.114 0.196 RG");
+      cmds.push("0.102 0.290 0.478 RG");
       cmds.push("0.7 w");
       cmds.push(`${MARGIN_X.toFixed(2)} ${op.y.toFixed(2)} m`);
       cmds.push(`${(MARGIN_X + (op.width ?? WIDTH)).toFixed(2)} ${op.y.toFixed(2)} l S`);
@@ -248,7 +248,7 @@ function streamDaPagina(
     }
   }
 
-  cmds.push("0.42 0.345 0.376 rg");
+  cmds.push("0.290 0.376 0.471 rg");
   cmds.push(
     `BT /F1 8 Tf ${MARGIN_X.toFixed(2)} 32 Td (${pdfString(`${rodape}  ·  pagina ${pagina} de ${total}`)}) Tj ET`
   );

@@ -70,7 +70,7 @@ Requer-se o julgamento antecipado se a prova documental bastar, ou a perícia co
     area: "bancario",
     status: "ativo",
     tags: ["parecer", "tarifas", "tjpr"],
-    body: `PARECER INTERNO — MAFINNI ADVOGADOS
+    body: `PARECER INTERNO — ZHEGGA ADVOGADOS ASSOCIADOS
 
 Processo: [CNJ]
 Tema: revisão de tarifas e encargos em contrato bancário
