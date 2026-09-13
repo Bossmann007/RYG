@@ -1,5 +1,6 @@
 import { LoggerMiddleware } from "@common/middlewares/logger.middleware";
 import { ClientsModule } from "@modules/clients/clients.module";
+import { ContractsModule } from "@modules/contracts/contracts.module";
 import { DissidioModule } from "@modules/dissidio/dissidio.module";
 import { GatewayModule } from "@modules/gateway/gateway.module";
 import { JurisprudenceModule } from "@modules/jurisprudence/jurisprudence.module";
@@ -21,6 +22,7 @@ import { AppService } from "./app.service";
     JurisprudenceModule,
     DissidioModule,
     ResearchModule,
+    ContractsModule,
     GatewayModule,
     McpModule,
   ],
