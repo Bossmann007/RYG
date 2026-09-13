@@ -1,7 +1,7 @@
 import { Contrato, EdicaoContrato, NovoContrato } from "@models/contrato.model";
 import { Injectable } from "@nestjs/common";
 import { randomBytes } from "crypto";
-import { CONTRATOS } from "../../fixtures/contratos";
+import { CONTRATOS_INICIAIS } from "../../fixtures/contratos";
 import { ContratosRepository, FiltroContratos } from "./contracts.repository";
 
 /**
@@ -20,7 +20,7 @@ export class ContratosMemoryRepository extends ContratosRepository {
 
   constructor() {
     super();
-    this.contratos = CONTRATOS.map((contrato) => ({ ...contrato }));
+    this.contratos = CONTRATOS_INICIAIS.map((contrato) => ({ ...contrato }));
   }
 
   async listar(filtro: FiltroContratos): Promise<Contrato[]> {

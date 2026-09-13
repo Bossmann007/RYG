@@ -27,7 +27,7 @@ function contrato(
   };
 }
 
-export const CONTRATOS: Contrato[] = [
+export const CONTRATOS_INICIAIS: Contrato[] = [
   contrato(
     "tarifas",
     1,

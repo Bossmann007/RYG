@@ -1,5 +1,5 @@
 /**
- * HTTP smoke for internal clientes and peticoes routes.
+ * HTTP smoke for internal clientes, peticoes and contratos routes.
  * Run after `pnpm run build` in server/:
  *
  *   node scripts/prova-acervo.js
@@ -86,7 +86,7 @@ async function main() {
   const endereco = app.getHttpServer().address();
   const base = `http://127.0.0.1:${endereco.port}`;
 
-  console.log("\nProva HTTP do acervo interno (clientes / petições)\n");
+  console.log("\nProva HTTP do acervo interno (clientes / petições / contratos)\n");
 
   try {
     const listaClientes = await requisitar(base, "GET", "/api/clientes");
@@ -247,6 +247,112 @@ async function main() {
       ok("GET cliente removido retorna 404");
     } else {
       erro("GET cliente removido retorna 404", `${sumico.status}`);
+    }
+
+    const contratosTarifas = await requisitar(base, "GET", "/api/contratos?casoId=tarifas");
+
+    if (
+      contratosTarifas.status === 200 &&
+      contratosTarifas.json.zone === "internal" &&
+      contratosTarifas.json.contratos.length === 3 &&
+      contratosTarifas.json.contratos.every((item) => item.casoId === "tarifas")
+    ) {
+      ok("GET /api/contratos filtra por caso", "3 peças do caso tarifas");
+    } else {
+      erro("GET /api/contratos filtra por caso", JSON.stringify(contratosTarifas.json));
+    }
+
+    semPii("lista de contratos sem CPF/banco", contratosTarifas.json);
+
+    const contrato = await requisitar(base, "GET", "/api/contratos/rural-c1");
+
+    if (
+      contrato.status === 200 &&
+      contrato.json.zone === "internal" &&
+      contrato.json.contrato.casoId === "rural" &&
+      contrato.json.contrato.tipo === "Contrato"
+    ) {
+      ok("GET /api/contratos/:id", contrato.json.contrato.id);
+    } else {
+      erro("GET /api/contratos/:id", JSON.stringify(contrato.json));
+    }
+
+    semPii("contrato sem CPF/banco", contrato.json);
+
+    const contratoNovo = await requisitar(base, "POST", "/api/contratos", {
+      casoId: "tarifas",
+      titulo: "Aditivo sintético de demo",
+      data: "01/09/2026",
+      origem: "Cliente",
+      resumo: "Peça fictícia criada pela prova.",
+      cpf: "390.533.447-05",
+    });
+
+    if (
+      contratoNovo.status === 201 &&
+      contratoNovo.json.contrato.id.startsWith("ctr_") &&
+      contratoNovo.json.contrato.tipo === "Contrato" &&
+      contratoNovo.json.contrato.cpf === undefined
+    ) {
+      ok("POST /api/contratos ignora cpf extra e assume tipo", contratoNovo.json.contrato.id);
+    } else {
+      erro("POST /api/contratos ignora cpf extra e assume tipo", `${contratoNovo.status} ${JSON.stringify(contratoNovo.json)}`);
+    }
+
+    semPii("contrato criado sem CPF persistido", contratoNovo.json);
+
+    const idContratoNovo = contratoNovo.json && contratoNovo.json.contrato && contratoNovo.json.contrato.id;
+
+    const patchContrato = idContratoNovo
+      ? await requisitar(base, "PATCH", `/api/contratos/${idContratoNovo}`, {
+          resumo: "Resumo revisado pela prova.",
+          casoId: "outro-caso",
+        })
+      : { status: 0, json: null };
+
+    // casoId nao e editavel: mover contrato entre casos nao e edicao de campo.
+    if (
+      patchContrato.status === 200 &&
+      patchContrato.json.contrato.resumo === "Resumo revisado pela prova." &&
+      patchContrato.json.contrato.casoId === "tarifas"
+    ) {
+      ok("PATCH /api/contratos/:id nao move de caso", "casoId preservado");
+    } else {
+      erro("PATCH /api/contratos/:id nao move de caso", `${patchContrato.status} ${JSON.stringify(patchContrato.json)}`);
+    }
+
+    const contratoSemTitulo = await requisitar(base, "POST", "/api/contratos", {
+      casoId: "tarifas",
+      titulo: "",
+      data: "2026",
+      origem: "Cliente",
+      resumo: "Sem título não entra.",
+    });
+
+    if (contratoSemTitulo.status === 400) {
+      ok("POST /api/contratos recusa título vazio");
+    } else {
+      erro("POST /api/contratos recusa título vazio", `${contratoSemTitulo.status}`);
+    }
+
+    const apagaContrato = idContratoNovo
+      ? await requisitar(base, "DELETE", `/api/contratos/${idContratoNovo}`)
+      : { status: 0 };
+
+    if (apagaContrato.status === 204) {
+      ok("DELETE /api/contratos/:id");
+    } else {
+      erro("DELETE /api/contratos/:id", `${apagaContrato.status}`);
+    }
+
+    const contratoSumido = idContratoNovo
+      ? await requisitar(base, "GET", `/api/contratos/${idContratoNovo}`)
+      : { status: 0 };
+
+    if (contratoSumido.status === 404) {
+      ok("GET contrato removido retorna 404");
+    } else {
+      erro("GET contrato removido retorna 404", `${contratoSumido.status}`);
     }
   } finally {
     await app.close();
