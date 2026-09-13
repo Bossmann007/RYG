@@ -179,7 +179,7 @@ async function main() {
 
     const peticaoNova = await requisitar(base, "POST", "/api/peticoes", {
       clienteId: criado.json.cliente.id,
-      processNumber: "100234512202380260100",
+      processNumber: "90000644220238260100",
       title: "Manifestação de prova",
       kind: "manifestacao",
       summary: "Junta planilha sintética de recálculo das tarifas.",
@@ -222,7 +222,10 @@ async function main() {
       erro("POST /api/peticoes recusa CNJ inválido", `${cnjRuim.status}`);
     }
 
-    const apagaPeca = await requisitar(base, "DELETE", `/api/peticoes/${peticaoNova.json.peticao.id}`);
+    const idPecaNova = peticaoNova.json && peticaoNova.json.peticao && peticaoNova.json.peticao.id;
+    const apagaPeca = idPecaNova
+      ? await requisitar(base, "DELETE", `/api/peticoes/${idPecaNova}`)
+      : { status: 0 };
 
     if (apagaPeca.status === 204) {
       ok("DELETE /api/peticoes/:id");
