@@ -34,6 +34,8 @@ Commits recentes em `develop` (ordem):
 - [ ] Ementa oficial visível + selo **Citável** / **TJPR**
 - [ ] Abas preenchidas: **O essencial · Fortalecer · Blindar · Quebrar**
 - [ ] Se for precedente de tema: badge + aviso de que **não é decisão daquele CNJ**
+- [ ] Texto em sentence-case (não ALL CAPS duplicado)
+- [ ] Itens únicos (sem duplicatas visíveis)
 
 ### 4) Aba Jurimetria
 - [ ] `amostra` > 0
@@ -75,3 +77,56 @@ Commits recentes em `develop` (ordem):
 1. `git pull origin develop` + restart Nest/Vite
 2. Confirmar `server/.env` apontando pro TiDB da demo
 3. Se lista de juris vazia: API `/api/casos/:id` deve trazer `jurisprudencias[].blindar.itens`
+
+---
+
+## Chat Demo Setup
+
+### TiDB Migration
+
+Apply the chat table migration:
+
+```bash
+mysql -h <tidb-host> -P 4000 -u <user> -p <database> < migrations/20260913_create_chat.sql
+```
+
+Or via your migration runner if configured.
+
+### Environment Variable
+
+Set `CHAT_DEMO_ENABLED=true` for local loopback access:
+
+```bash
+CHAT_DEMO_ENABLED=true npm run dev
+```
+
+| Variable            | Required | Description                        |
+|---------------------|----------|------------------------------------|
+| `CHAT_DEMO_ENABLED` | Yes      | Enables chat demo routes (loopback only) |
+
+### Table Schema
+
+The `chat` table stores demo conversation messages.
+
+| Column       | Type         | Description                |
+|--------------|--------------|----------------------------|
+| `id`         | BIGINT       | Primary key (auto-increment) |
+| `case_id`    | VARCHAR(64)  | Reference to case          |
+| `author`     | VARCHAR(128) | Message author             |
+| `content`    | TEXT         | Message body               |
+| `created_at` | TIMESTAMP    | Creation timestamp         |
+
+---
+
+## UI Polish Applied (2026-09-13)
+
+### GavetaJuris Card Text
+
+- Added `textoCard` helper that sentence-cases strings when >70% uppercase
+- Deduplicates identical items in the render path (case-insensitive)
+- Applies to both `resumo` and list items in Blindar/Quebrar/Fortalecer tabs
+
+### CSS Improvements
+
+- `.lista-limpa li`: increased padding (14px 18px), better line-height (1.55), proper word-wrap
+- `.bloco-resumo`: added background, padding, rounded corners for visual consistency
