@@ -1,6 +1,5 @@
 import { Caso, ROTULO_STATUS, chanceIndisponivel } from "../tipos";
 import { AnelChance } from "./AnelChance";
-import { SeloFonte } from "./SelosPolitica";
 
 type Props = {
   caso: Caso;
@@ -24,11 +23,7 @@ export function CartaoCaso({ caso, onAbrir }: Props) {
           <p className="cartao-meta">{caso.processNumber}</p>
           <p className="cartao-meta">{caso.atualizacao}</p>
         </div>
-        {chanceIndisponivel(caso) ? (
-          <div className="selos">
-            <SeloFonte fonte={caso.fontes?.chance || "indisponivel"} />
-          </div>
-        ) : (
+        {chanceIndisponivel(caso) ? null : (
           <AnelChance valor={caso.chance} tamanho={76} />
         )}
       </div>

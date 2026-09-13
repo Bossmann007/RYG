@@ -387,7 +387,8 @@ main {
 }
 
 .selo.citavel,
-.selo.fonte-datajud {
+.selo.fonte-datajud,
+.selo.fonte-tjpr {
   background: var(--favor-fundo);
   color: var(--favor);
 }
@@ -545,8 +546,8 @@ main {
 .dissidios {
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
-  gap: 12px;
-  margin-bottom: 12px;
+  gap: 16px;
+  margin-bottom: 16px;
 }
 
 .cartao-suave,
@@ -554,17 +555,51 @@ main {
 .lista-juris button,
 .balao,
 .vazio {
-  padding: 16px 18px;
+  padding: 18px 20px;
 }
 
 .cartao-suave {
   box-shadow: var(--sombra);
 }
 
+.votos-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.votos-vazio-texto {
+  margin: 0;
+  color: var(--texto-suave);
+  font-size: 14px;
+}
+
+.jurimetria-vazio {
+  margin-bottom: 16px;
+}
+
 .chance-box {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 20px;
+  padding: 20px 22px;
+}
+
+.chance-vazia {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+}
+
+.chance-vazia .olho {
+  margin-bottom: 4px;
+}
+
+.chance-vazia-texto {
+  margin: 0;
+  color: var(--texto-suave);
+  font-size: 14px;
 }
 
 .tese-destaque {

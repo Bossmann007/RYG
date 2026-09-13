@@ -18,6 +18,7 @@ export type StatusProcesso =
 export type Alinhamento = "for" | "against" | "diverge";
 
 export const FONTES_FATO = [
+  "tjpr",
   "datajud",
   "acervo_interno",
   "inferencia",
@@ -312,6 +313,7 @@ export const ROTULO_ALINHAMENTO: Record<Alinhamento, string> = {
 };
 
 export const ROTULO_FONTE: Record<FonteFato, string> = {
+  tjpr: "TJPR",
   datajud: "DataJud",
   acervo_interno: "Acervo interno",
   inferencia: "Inferência",
@@ -320,6 +322,7 @@ export const ROTULO_FONTE: Record<FonteFato, string> = {
 
 export function rotuloFonte(fonte: FonteFato): string {
   switch (fonte) {
+    case "tjpr":
     case "datajud":
     case "acervo_interno":
     case "inferencia":

@@ -68,36 +68,45 @@ export function PainelVisao({
     <section className="painel visao">
       <div className="visao-grid">
         <article className="cartao-suave chance-box">
-          {chanceIndisponivel(caso) ? null : <AnelChance valor={caso.chance} tamanho={120} />}
-          <div>
-            <div className="selos">
-              <SeloFonte fonte={caso.fontes?.chance || "indisponivel"} />
+          {chanceIndisponivel(caso) ? (
+            <div className="chance-vazia">
+              <p className="olho">Índice descritivo</p>
+              <p className="chance-vazia-texto">Sem índice descritivo neste caso.</p>
             </div>
-            <p className="olho">
-              {chanceIndisponivel(caso)
-                ? caso.chanceRotulo
-                : `${caso.chance}% · ${caso.chanceRotulo}`}
-            </p>
-            <p>{caso.chanceTexto}</p>
-          </div>
+          ) : (
+            <>
+              <AnelChance valor={caso.chance} tamanho={120} />
+              <div>
+                <div className="selos">
+                  <SeloFonte fonte={caso.fontes?.chance || "tjpr"} />
+                </div>
+                <p className="olho">{caso.chance}% · {caso.chanceRotulo}</p>
+                <p>{caso.chanceTexto}</p>
+              </div>
+            </>
+          )}
         </article>
 
-        <article className="cartao-suave">
+        <article className="cartao-suave votos-box">
           <p className="olho">Neste recorte do TJPR</p>
-          <div className="votos">
-            <div className="voto for">
-              <strong>{caso.votos.for}</strong>
-              <span>a favor</span>
+          {caso.votos.for + caso.votos.against + caso.votos.diverge === 0 ? (
+            <p className="votos-vazio-texto">Sem votos catalogados neste recorte.</p>
+          ) : (
+            <div className="votos">
+              <div className="voto for">
+                <strong>{caso.votos.for}</strong>
+                <span>a favor</span>
+              </div>
+              <div className="voto against">
+                <strong>{caso.votos.against}</strong>
+                <span>contra</span>
+              </div>
+              <div className="voto diverge">
+                <strong>{caso.votos.diverge}</strong>
+                <span>divergente</span>
+              </div>
             </div>
-            <div className="voto against">
-              <strong>{caso.votos.against}</strong>
-              <span>contra</span>
-            </div>
-            <div className="voto diverge">
-              <strong>{caso.votos.diverge}</strong>
-              <span>divergente</span>
-            </div>
-          </div>
+          )}
         </article>
       </div>
 
@@ -217,34 +226,43 @@ export function PainelResultados({ caso }: { caso: Caso }) {
 
 export function PainelJurimetria({ caso }: { caso: Caso }) {
   const total = caso.votos.for + caso.votos.against + caso.votos.diverge;
+  const amostraValida = caso.jurimetria.amostra > 0;
 
   return (
     <section className="painel">
       <header className="painel-cabeca">
         <h3>Jurimetria</h3>
         <p>
-          {caso.jurimetria.amostra} julgados semelhantes no recorte interno.
+          {amostraValida
+            ? `${caso.jurimetria.amostra} julgados semelhantes no recorte descritivo.`
+            : "Recorte descritivo do corpus TJPR."}
         </p>
-        <SeloFonte fonte={caso.fontes?.jurimetria || "acervo_interno"} />
+        <SeloFonte fonte={caso.fontes?.jurimetria || "tjpr"} />
       </header>
 
-      <div className="barras">
-        {(["for", "against", "diverge"] as Alinhamento[]).map((chave) => {
-          const valor = caso.votos[chave];
-          const porcento = total ? Math.round((valor / total) * 100) : 0;
-          return (
-            <div key={chave} className="barra-linha">
-              <span>{ROTULO_ALINHAMENTO[chave]}</span>
-              <div className="barra">
-                <i className={chave} style={{ width: `${porcento}%` }} />
+      {total === 0 ? (
+        <div className="vazio jurimetria-vazio">
+          <p>Sem votos catalogados neste recorte.</p>
+        </div>
+      ) : (
+        <div className="barras">
+          {(["for", "against", "diverge"] as Alinhamento[]).map((chave) => {
+            const valor = caso.votos[chave];
+            const porcento = total ? Math.round((valor / total) * 100) : 0;
+            return (
+              <div key={chave} className="barra-linha">
+                <span>{ROTULO_ALINHAMENTO[chave]}</span>
+                <div className="barra">
+                  <i className={chave} style={{ width: `${porcento}%` }} />
+                </div>
+                <b>
+                  {valor} · {porcento}%
+                </b>
               </div>
-              <b>
-                {valor} · {porcento}%
-              </b>
-            </div>
-          );
-        })}
-      </div>
+            );
+          })}
+        </div>
+      )}
 
       <article className="cartao-suave">
         <p className="olho">Padrão externo</p>
