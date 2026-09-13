@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { listarCasos } from "../api";
 import { CartaoCaso } from "../componentes/CartaoCaso";
+import { Carregando } from "../componentes/Carregando";
 import { IconeBusca } from "../componentes/Icones";
 import { Caso, ROTULO_STATUS, STATUS_PROCESSO, StatusProcesso } from "../tipos";
 
@@ -116,9 +117,7 @@ export function ListaCasos({ onAbrir }: Props) {
           <p>Suba o Nest com DB_* apontando para o TiDB.</p>
         </div>
       ) : carregando ? (
-        <div className="vazio">
-          <p>Carregando casos do acervo interno.</p>
-        </div>
+        <Carregando texto="Carregando casos do acervo interno." />
       ) : filtrados.length === 0 ? (
         <div className="vazio">
           <p>Nada com esse recorte.</p>

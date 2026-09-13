@@ -12,10 +12,15 @@ import {
   Jurimetria,
   Mensagem,
   ParteProcesso,
+  Prazo,
+  PrazoCalendario,
+  PrazoKind,
+  PrazoStatus,
   ResultadoInterno,
   STATUS_PROCESSO,
   StatusProcesso,
   Tese,
+  FonteFato,
 } from "@models/caso.model";
 import { ALIASES } from "./schema-map";
 
@@ -25,12 +30,14 @@ export type PacoteCaso = {
   capa: Linha;
   processo?: Linha;
   cliente?: Linha;
+  clientes?: Linha[];
   peticoes: Linha[];
   contratos: Linha[];
   documentos: Linha[];
   decisoes: Linha[];
   modelos: Linha[];
   historico: Linha[];
+  prazos?: Linha[];
   teses: Linha[];
   resultados: Linha[];
   conversas: Linha[];
@@ -135,10 +142,10 @@ export function montarCaso(pacote: PacoteCaso): Caso {
   const base = casoDePayload(valorCampo(pacote.capa, ALIASES.payload));
   const capa = mesclarLinhas(pacote.processo, pacote.capa);
   const clienteNome =
-    textoCampo(pacote.cliente, ALIASES.cliente) ||
     textoCampo(pacote.capa, ALIASES.cliente) ||
+    textoCampo(pacote.cliente, ALIASES.cliente) ||
     base.cliente;
-
+  const partes = partesDe(capa, pacote.clientes || [], base.partes, clienteNome);
   const id =
     textoCampo(pacote.capa, ALIASES.id) ||
     textoCampo(pacote.processo, ALIASES.numeroCnj) ||
@@ -146,7 +153,11 @@ export function montarCaso(pacote: PacoteCaso): Caso {
 
   return aplicarPoliticaCaso({
     id,
-    titulo: textoCampo(capa, ALIASES.titulo, base.titulo),
+    processoId: textoCampo(pacote.processo, ALIASES.id),
+    titulo:
+      textoCampo(capa, ALIASES.titulo) ||
+      textoCampo(pacote.processo, ["classe_nome"]) ||
+      base.titulo,
     tema: textoCampo(capa, ALIASES.tema, base.tema),
     subtema: textoCampo(capa, ALIASES.subtema, base.subtema),
     processNumber: formatarCnj(
@@ -155,10 +166,13 @@ export function montarCaso(pacote: PacoteCaso): Caso {
         base.processNumber
     ),
     court: textoCampo(capa, ALIASES.court, base.court),
-    chamber: textoCampo(capa, ALIASES.chamber, base.chamber),
+    chamber:
+      textoCampo(capa, ALIASES.chamber) ||
+      textoCampo(pacote.processo, ALIASES.chamber) ||
+      base.chamber,
     status: statusDe(valorCampo(capa, ALIASES.status) ?? base.status),
     cliente: clienteNome,
-    partes: partesDe(capa, base.partes, clienteNome),
+    partes,
     resumo: textoCampo(capa, ALIASES.resumo, base.resumo),
     tese: textoCampo(capa, ALIASES.tese, base.tese),
     atualizacao: textoCampo(capa, ALIASES.atualizacao, base.atualizacao),
@@ -172,6 +186,7 @@ export function montarCaso(pacote: PacoteCaso): Caso {
     decisoes: documentosDe(pacote.decisoes, base.decisoes, "dec", "Decisão"),
     modelos: documentosDe(pacote.modelos, base.modelos, "mod", "Modelo"),
     historico: andamentosDe(pacote.historico, base.historico),
+    prazos: prazosDe(pacote.prazos || [], base.prazos),
     teses: tesesDe(pacote.teses, base.teses),
     resultados: resultadosDe(pacote.resultados, base.resultados),
     conversas: conversasDe(pacote.conversas, base.conversas),
@@ -234,6 +249,7 @@ function casoDePayload(valor: unknown): Caso {
   montado.decisoes = Array.isArray(montado.decisoes) ? montado.decisoes : [];
   montado.modelos = Array.isArray(montado.modelos) ? montado.modelos : [];
   montado.historico = Array.isArray(montado.historico) ? montado.historico : [];
+  montado.prazos = Array.isArray(montado.prazos) ? montado.prazos : [];
   montado.teses = Array.isArray(montado.teses) ? montado.teses : [];
   montado.resultados = Array.isArray(montado.resultados) ? montado.resultados : [];
   montado.conversas = Array.isArray(montado.conversas) ? montado.conversas : [];
@@ -256,6 +272,7 @@ function casoDePayload(valor: unknown): Caso {
 function casoVazio(): Caso {
   return {
     id: "",
+    processoId: "",
     titulo: "",
     tema: "",
     subtema: "",
@@ -278,6 +295,7 @@ function casoVazio(): Caso {
     decisoes: [],
     modelos: [],
     historico: [],
+    prazos: [],
     teses: [],
     resultados: [],
     conversas: [],
@@ -305,6 +323,7 @@ function casoVazio(): Caso {
       decisoes: "indisponivel",
       modelos: "indisponivel",
       historico: "indisponivel",
+      prazos: "indisponivel",
       teses: "indisponivel",
       resultados: "indisponivel",
       conversas: "indisponivel",
@@ -359,7 +378,12 @@ function textosDe(valor: unknown): string[] {
     .filter(Boolean);
 }
 
-function partesDe(capa: Linha, fallback: ParteProcesso[], cliente: string): ParteProcesso[] {
+function partesDe(
+  capa: Linha,
+  clientes: Linha[],
+  fallback: ParteProcesso[],
+  cliente: string
+): ParteProcesso[] {
   const json = jsonDe(valorCampo(capa, ALIASES.partes));
 
   if (Array.isArray(json)) {
@@ -380,6 +404,15 @@ function partesDe(capa: Linha, fallback: ParteProcesso[], cliente: string): Part
         return { papel, nome };
       })
       .filter((item): item is ParteProcesso => item !== null);
+  }
+
+  if (clientes.length) {
+    return clientes
+      .map((linha) => ({
+        papel: textoCampo(linha, ALIASES.papel),
+        nome: textoCampo(linha, ALIASES.cliente),
+      }))
+      .filter((item) => item.papel || item.nome);
   }
 
   if (fallback.length) {
@@ -419,19 +452,28 @@ function votosDe(
   return fallback;
 }
 
-function documentosDe(linhas: Linha[], fallback: Documento[], prefixo: string, tipo: string): Documento[] {
-  if (!linhas.length) {
-    return fallback;
-  }
-
-  return linhas.map((linha, indice) => ({
+export function documentoDaLinha(
+  linha: Linha,
+  prefixo: string,
+  tipo: string,
+  indice = 0
+): Documento {
+  return {
     id: textoCampo(linha, ALIASES.id, `${prefixo}-${indice}`),
     titulo: textoCampo(linha, ALIASES.titulo, "Sem título"),
     tipo: textoCampo(linha, ALIASES.tipo, tipo),
     data: textoCampo(linha, ALIASES.data),
     origem: textoCampo(linha, ALIASES.origem),
     resumo: textoCampo(linha, ALIASES.resumo) || textoCampo(linha, ["descricao"]),
-  }));
+  };
+}
+
+function documentosDe(linhas: Linha[], fallback: Documento[], prefixo: string, tipo: string): Documento[] {
+  if (!linhas.length) {
+    return fallback;
+  }
+
+  return linhas.map((linha, indice) => documentoDaLinha(linha, prefixo, tipo, indice));
 }
 
 function andamentosDe(linhas: Linha[], fallback: Caso["historico"]): Caso["historico"] {
@@ -444,6 +486,39 @@ function andamentosDe(linhas: Linha[], fallback: Caso["historico"]): Caso["histo
     titulo: textoCampo(linha, ALIASES.titulo) || textoCampo(linha, ["evento", "movimento"]),
     detalhe: textoCampo(linha, ALIASES.detalhe) || textoCampo(linha, ALIASES.resumo),
   }));
+}
+
+function prazosDe(linhas: Linha[], fallback: Prazo[]): Prazo[] {
+  if (!linhas.length) {
+    return fallback;
+  }
+
+  return linhas.map((linha, indice) => {
+    const prazo: Prazo = {
+      id: textoCampo(linha, ALIASES.id, `prz-${indice}`),
+      title: textoCampo(linha, ALIASES.prazoTitulo, "Prazo"),
+      kind: prazoKindDe(valorCampo(linha, ALIASES.prazoTipo)),
+      dueAt: dataIsoDe(valorCampo(linha, ALIASES.prazoVencimento)),
+      days: numeroDe(valorCampo(linha, ALIASES.prazoDias), 0),
+      calendar: prazoCalendarioDe(valorCampo(linha, ALIASES.prazoCalendario)),
+      status: prazoStatusDe(valorCampo(linha, ALIASES.status)),
+      owner: textoCampo(linha, ALIASES.prazoDono),
+      trigger: textoCampo(linha, ALIASES.prazoGatilho),
+      gatilhoFonte: fonteDe(valorCampo(linha, ALIASES.prazoGatilhoFonte)),
+    };
+    const startedAt = dataIsoDe(valorCampo(linha, ALIASES.prazoInicio));
+    const notes = textoCampo(linha, ALIASES.prazoNotas);
+
+    if (startedAt) {
+      prazo.startedAt = startedAt;
+    }
+
+    if (notes) {
+      prazo.notes = notes;
+    }
+
+    return prazo;
+  });
 }
 
 function tesesDe(linhas: Linha[], fallback: Tese[]): Tese[] {
@@ -615,4 +690,89 @@ function forcaDe(valor: unknown): ForcaTese {
   }
 
   return "media";
+}
+
+function dataIsoDe(valor: unknown): string {
+  if (valor instanceof Date && !Number.isNaN(valor.getTime())) {
+    return valor.toISOString().slice(0, 10);
+  }
+
+  const texto = String(valor ?? "").trim();
+  const iso = texto.match(/^(\d{4}-\d{2}-\d{2})/);
+  if (iso) {
+    return iso[1];
+  }
+
+  const br = texto.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+  if (br) {
+    return `${br[3]}-${br[2]}-${br[1]}`;
+  }
+
+  return texto;
+}
+
+function prazoKindDe(valor: unknown): PrazoKind {
+  const texto = String(valor ?? "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase();
+
+  if (
+    texto === "manifestacao" ||
+    texto === "recurso" ||
+    texto === "prova" ||
+    texto === "audiencia" ||
+    texto === "interno" ||
+    texto === "outro"
+  ) {
+    return texto;
+  }
+
+  return "outro";
+}
+
+function prazoCalendarioDe(valor: unknown): PrazoCalendario {
+  const texto = String(valor ?? "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase();
+
+  return texto === "corridos" ? "corridos" : "uteis";
+}
+
+function prazoStatusDe(valor: unknown): PrazoStatus {
+  const texto = String(valor ?? "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase();
+
+  if (
+    texto === "aberto" ||
+    texto === "a_vencer" ||
+    texto === "vencido" ||
+    texto === "cumprido" ||
+    texto === "suspenso"
+  ) {
+    return texto;
+  }
+
+  return "aberto";
+}
+
+function fonteDe(valor: unknown): FonteFato {
+  const texto = String(valor ?? "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase();
+
+  if (
+    texto === "datajud" ||
+    texto === "acervo_interno" ||
+    texto === "inferencia" ||
+    texto === "indisponivel"
+  ) {
+    return texto;
+  }
+
+  return "acervo_interno";
 }

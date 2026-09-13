@@ -12,6 +12,7 @@ import {
   Dissidio,
   Documento,
   Jurisprudencia,
+  Prazo,
   Tese,
 } from "@models/caso.model";
 
@@ -24,6 +25,7 @@ export function aplicarPoliticaCaso(caso: Caso): Caso {
   const limpo: Caso = {
     ...caso,
     id: sanitizeUntrustedText(caso.id),
+    processoId: sanitizeUntrustedText(caso.processoId),
     titulo: sanitizeUntrustedText(caso.titulo),
     tema: sanitizeUntrustedText(caso.tema),
     subtema: sanitizeUntrustedText(caso.subtema),
@@ -51,6 +53,7 @@ export function aplicarPoliticaCaso(caso: Caso): Caso {
       titulo: sanitizeUntrustedText(item.titulo),
       detalhe: sanitizeUntrustedText(item.detalhe),
     })),
+    prazos: (caso.prazos || []).map(carimbarPrazo),
     teses,
     resultados: (caso.resultados || []).map((item) => ({
       id: sanitizeUntrustedText(item.id),
@@ -91,6 +94,31 @@ function carimbarDocumento(doc: Documento): Documento {
     origem: sanitizeUntrustedText(doc.origem),
     resumo: sanitizeUntrustedText(doc.resumo),
   };
+}
+
+function carimbarPrazo(prazo: Prazo): Prazo {
+  const limpo: Prazo = {
+    id: sanitizeUntrustedText(prazo.id),
+    title: sanitizeUntrustedText(prazo.title),
+    kind: prazo.kind,
+    dueAt: sanitizeUntrustedText(prazo.dueAt),
+    days: Number.isFinite(prazo.days) ? prazo.days : 0,
+    calendar: prazo.calendar,
+    status: prazo.status,
+    owner: sanitizeUntrustedText(prazo.owner),
+    trigger: sanitizeUntrustedText(prazo.trigger),
+    gatilhoFonte: prazo.gatilhoFonte || "acervo_interno",
+  };
+
+  if (prazo.startedAt) {
+    limpo.startedAt = sanitizeUntrustedText(prazo.startedAt);
+  }
+
+  if (prazo.notes) {
+    limpo.notes = sanitizeUntrustedText(prazo.notes);
+  }
+
+  return limpo;
 }
 
 function carimbarTese(tese: Tese): Tese {
@@ -185,6 +213,7 @@ function derivarFontes(caso: Caso, jurisprudencias: Jurisprudencia[]): Provenien
     decisoes: caso.decisoes.length ? "acervo_interno" : "indisponivel",
     modelos: caso.modelos.length ? "acervo_interno" : "indisponivel",
     historico: caso.historico.length ? "acervo_interno" : "indisponivel",
+    prazos: caso.prazos?.length ? "acervo_interno" : "indisponivel",
     teses: caso.teses.length ? "acervo_interno" : "indisponivel",
     resultados: caso.resultados.length ? "acervo_interno" : "indisponivel",
     conversas: caso.conversas.length ? "acervo_interno" : "indisponivel",

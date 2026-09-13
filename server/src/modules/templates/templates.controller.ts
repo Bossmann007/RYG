@@ -24,13 +24,15 @@ export class TemplatesController {
 
   @Public()
   @Get()
-  listar(@Query() query: ListarModelosQueryDto) {
+  async listar(@Query() query: ListarModelosQueryDto) {
     return {
       zone: "internal",
-      modelos: this.templatesService.listar({
+      modelos: await this.templatesService.listar({
         kind: query.kind,
         area: query.area,
         status: query.status,
+        casoId: query.casoId,
+        processNumber: query.processNumber,
       }),
     };
   }

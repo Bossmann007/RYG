@@ -1,5 +1,6 @@
 import { Peticao, PeticaoListaItem } from "@models/peticao.model";
 import { ClientsService } from "@modules/clients/clients.service";
+import { AcervoQuery, filtroApontaParaBanco } from "@modules/db/acervo.query";
 import { ProcessService } from "@modules/process/process.service";
 import { PETICOES_INICIAIS } from "../../fixtures/peticoes";
 import {
@@ -16,14 +17,43 @@ export class PetitionsService {
 
   constructor(
     private clientsService: ClientsService,
-    private processService: ProcessService
+    private processService: ProcessService,
+    private acervo: AcervoQuery
   ) {
     for (const peticao of PETICOES_INICIAIS) {
       this.porId.set(peticao.id, { ...peticao });
     }
   }
 
-  listar(filtro: { clienteId?: string; processNumber?: string }): PeticaoListaItem[] {
+  async listar(filtro: {
+    clienteId?: string;
+    processNumber?: string;
+    casoId?: string;
+  }): Promise<PeticaoListaItem[]> {
+    if (this.acervo.ativo() && filtroApontaParaBanco(filtro)) {
+      const docs = await this.acervo.listarDocumentos(
+        "peticoes",
+        filtro,
+        "pet",
+        "Petição"
+      );
+      return docs.map((doc) => ({
+        id: doc.id,
+        clienteId: "",
+        processNumber: filtro.processNumber,
+        title: doc.titulo,
+        kind: "manifestacao" as const,
+        status: "juntada" as const,
+        filedAt: doc.data,
+        updatedAt: doc.data,
+        titulo: doc.titulo,
+        tipo: doc.tipo,
+        data: doc.data,
+        origem: doc.origem,
+        resumo: doc.resumo,
+      })) as PeticaoListaItem[];
+    }
+
     const clienteId = filtro.clienteId?.trim();
     const processNumber = filtro.processNumber
       ? this.normalizarProcessoOpcional(filtro.processNumber)

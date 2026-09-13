@@ -6,6 +6,7 @@ import {
 
 export type FiltroContratos = {
   casoId?: string;
+  processNumber?: string;
 };
 
 /**

@@ -14,6 +14,7 @@
     "prova:anti": "npm --prefix server run build && npm --prefix server run prova:anti",
     "dev": "cd client && pnpm run dev",
     "dev:server": "cd server && pnpm run start:dev",
+    "gerar:acervo": "node scripts/gerar-acervo-real.js",
     "build-client": "cd client && pnpm install && pnpm run build",
     "build-server": "cd server && pnpm install && pnpm run build"
   },

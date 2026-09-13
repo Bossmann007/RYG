@@ -30,6 +30,7 @@ export const CAMPOS_FATO_CASO = [
   "decisoes",
   "modelos",
   "historico",
+  "prazos",
   "teses",
   "resultados",
   "conversas",

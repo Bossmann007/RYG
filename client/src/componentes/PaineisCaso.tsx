@@ -231,7 +231,7 @@ export function PainelJurimetria({ caso }: { caso: Caso }) {
       <div className="barras">
         {(["for", "against", "diverge"] as Alinhamento[]).map((chave) => {
           const valor = caso.votos[chave];
-          const porcento = Math.round((valor / total) * 100);
+          const porcento = total ? Math.round((valor / total) * 100) : 0;
           return (
             <div key={chave} className="barra-linha">
               <span>{ROTULO_ALINHAMENTO[chave]}</span>

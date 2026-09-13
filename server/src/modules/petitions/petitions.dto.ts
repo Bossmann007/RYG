@@ -77,4 +77,8 @@ export class ListarPeticoesQueryDto {
   @IsOptional()
   @IsString()
   processNumber?: string;
+
+  @IsOptional()
+  @IsString()
+  casoId?: string;
 }

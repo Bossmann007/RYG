@@ -1,6 +1,6 @@
 import { Public } from "@common/decorators/public.decorator";
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post } from "@nestjs/common";
-import { CreateClienteDto, UpdateClienteDto } from "./clients.dto";
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, Query } from "@nestjs/common";
+import { CreateClienteDto, ListarClientesQueryDto, UpdateClienteDto } from "./clients.dto";
 import { ClientsService } from "./clients.service";
 
 /**
@@ -13,8 +13,14 @@ export class ClientsController {
 
   @Public()
   @Get()
-  listar() {
-    return { zone: "internal", clientes: this.clientsService.listar() };
+  async listar(@Query() query: ListarClientesQueryDto) {
+    return {
+      zone: "internal",
+      clientes: await this.clientsService.listar({
+        casoId: query.casoId,
+        processNumber: query.processNumber,
+      }),
+    };
   }
 
   @Public()

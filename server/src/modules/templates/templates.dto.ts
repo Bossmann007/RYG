@@ -81,4 +81,12 @@ export class ListarModelosQueryDto {
   @IsOptional()
   @IsIn([...MODELO_STATUSES], { message: "status deve ser ativo ou arquivado." })
   status?: (typeof MODELO_STATUSES)[number];
+
+  @IsOptional()
+  @IsString()
+  casoId?: string;
+
+  @IsOptional()
+  @IsString()
+  processNumber?: string;
 }

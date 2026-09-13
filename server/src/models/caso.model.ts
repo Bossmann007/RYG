@@ -1,5 +1,37 @@
 import { FonteFato, ProvenienciaCaso } from "@common/security/fonte-fato";
 
+export type PrazoKind =
+  | "manifestacao"
+  | "recurso"
+  | "prova"
+  | "audiencia"
+  | "interno"
+  | "outro";
+
+export type PrazoStatus =
+  | "aberto"
+  | "a_vencer"
+  | "vencido"
+  | "cumprido"
+  | "suspenso";
+
+export type PrazoCalendario = "uteis" | "corridos";
+
+export type Prazo = {
+  id: string;
+  title: string;
+  kind: PrazoKind;
+  dueAt: string;
+  startedAt?: string;
+  days: number;
+  calendar: PrazoCalendario;
+  status: PrazoStatus;
+  owner: string;
+  trigger: string;
+  gatilhoFonte: FonteFato;
+  notes?: string;
+};
+
 export type { FonteFato, ProvenienciaCaso };
 
 export const STATUS_PROCESSO = [
@@ -111,6 +143,7 @@ export type Jurimetria = {
 
 export type Caso = {
   id: string;
+  processoId?: string;
   titulo: string;
   tema: string;
   subtema: string;
@@ -133,6 +166,7 @@ export type Caso = {
   decisoes: Documento[];
   modelos: Documento[];
   historico: Andamento[];
+  prazos: Prazo[];
   teses: Tese[];
   resultados: ResultadoInterno[];
   conversas: Mensagem[];
@@ -144,6 +178,7 @@ export type Caso = {
 
 export const CAMPOS_CASO = [
   "id",
+  "processoId",
   "titulo",
   "tema",
   "subtema",
@@ -166,6 +201,7 @@ export const CAMPOS_CASO = [
   "decisoes",
   "modelos",
   "historico",
+  "prazos",
   "teses",
   "resultados",
   "conversas",

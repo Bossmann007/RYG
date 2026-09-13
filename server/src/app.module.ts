@@ -1,5 +1,6 @@
 import { LoggerMiddleware } from "@common/middlewares/logger.middleware";
 import { CasosModule } from "@modules/casos/casos.module";
+import { ChatModule } from "@modules/chat/chat.module";
 import { ClientsModule } from "@modules/clients/clients.module";
 import { ContractsModule } from "@modules/contracts/contracts.module";
 import { DecisionsModule } from "@modules/decisions/decisions.module";
@@ -23,6 +24,7 @@ import { AppService } from "./app.service";
       envFilePath: [".env", "../.env"],
     }),
     CasosModule,
+    ChatModule,
     ProcessModule,
     ClientsModule,
     PetitionsModule,

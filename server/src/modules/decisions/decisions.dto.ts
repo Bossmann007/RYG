@@ -109,6 +109,10 @@ export class ListarDecisoesQueryDto {
   processNumber?: string;
 
   @IsOptional()
+  @IsString()
+  casoId?: string;
+
+  @IsOptional()
   @IsIn([...DECISAO_KINDS], { message: "kind de decisão inválido." })
   kind?: (typeof DECISAO_KINDS)[number];
 }

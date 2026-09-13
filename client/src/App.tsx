@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { obterCaso } from "./api";
 import { BarraTopo } from "./componentes/BarraTopo";
+import { Carregando } from "./componentes/Carregando";
 import { DetalheCaso } from "./paginas/DetalheCaso";
 import { ListaCasos } from "./paginas/ListaCasos";
 import { Caso, TelaApp } from "./tipos";
@@ -54,9 +55,7 @@ export function App() {
           <ListaCasos onAbrir={(id) => setTela({ tipo: "caso", id })} />
         )}
         {tela.tipo === "caso" && carregando && (
-          <div className="vazio">
-            <p>Abrindo o caso no acervo.</p>
-          </div>
+          <Carregando texto="Abrindo o caso no acervo." />
         )}
         {tela.tipo === "caso" && !carregando && erro && (
           <div className="vazio">

@@ -8,6 +8,11 @@ export class ListarContratosQueryDto {
   @IsString()
   @MaxLength(TEXTO_CURTO, { message: "casoId deve ter no máximo 200 caracteres." })
   casoId?: string;
+
+  @IsOptional()
+  @IsString()
+  @MaxLength(TEXTO_CURTO, { message: "processNumber deve ter no máximo 200 caracteres." })
+  processNumber?: string;
 }
 
 export class CreateContratoDto {

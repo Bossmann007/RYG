@@ -19,7 +19,6 @@ import {
 } from "../componentes/Icones";
 import { ChatCaso } from "../componentes/ChatCaso";
 import {
-  PainelDocumentos,
   PainelHistorico,
   PainelJurisprudencia,
   PainelJurimetria,
@@ -27,6 +26,7 @@ import {
   PainelTeses,
   PainelVisao,
 } from "../componentes/PaineisCaso";
+import { PainelAcervo } from "../componentes/PainelAcervo";
 import { PainelPrazos } from "../componentes/PainelPrazos";
 import { PainelRelatorios } from "../componentes/PainelRelatorios";
 import { AbaCaso, Caso, Jurisprudencia, ROTULO_STATUS } from "../tipos";
@@ -119,45 +119,55 @@ export function DetalheCaso({ caso, onVoltar }: Props) {
             />
           )}
           {aba === "peticoes" && (
-            <PainelDocumentos
+            <PainelAcervo
               titulo="Petições e peças"
               texto="O que já foi protocolado neste caso."
-              itens={caso.peticoes}
+              casoId={caso.id}
+              processNumber={caso.processNumber}
+              recurso="peticoes"
             />
           )}
           {aba === "contratos" && (
-            <PainelDocumentos
+            <PainelAcervo
               titulo="Contratos"
               texto="Instrumentos que sustentam o pedido."
-              itens={caso.contratos}
+              casoId={caso.id}
+              processNumber={caso.processNumber}
+              recurso="contratos"
             />
           )}
           {aba === "documentos" && (
-            <PainelDocumentos
-              titulo="Documentos do cliente"
-              texto="Prova e qualificação, sem pasta perdida."
-              itens={caso.documentos}
+            <PainelAcervo
+              titulo="Clientes do caso"
+              texto="Partes ligadas a este processo no acervo."
+              casoId={caso.id}
+              processNumber={caso.processNumber}
+              recurso="clientes"
             />
           )}
           {aba === "decisoes" && (
-            <PainelDocumentos
+            <PainelAcervo
               titulo="Decisões e acórdãos"
               texto="O que o juízo já disse aqui."
-              itens={caso.decisoes}
+              casoId={caso.id}
+              processNumber={caso.processNumber}
+              recurso="decisoes"
             />
           )}
           {aba === "modelos" && (
-            <PainelDocumentos
+            <PainelAcervo
               titulo="Modelos e pareceres"
               texto="Peças do escritório reaproveitáveis."
-              itens={caso.modelos}
+              casoId={caso.id}
+              processNumber={caso.processNumber}
+              recurso="modelos"
             />
           )}
           {aba === "historico" && <PainelHistorico caso={caso} />}
           {aba === "prazos" && <PainelPrazos caso={caso} />}
           {aba === "teses" && <PainelTeses caso={caso} />}
           {aba === "resultados" && <PainelResultados caso={caso} />}
-          {aba === "conversas" && <ChatCaso inicial={caso.conversas} />}
+          {aba === "conversas" && <ChatCaso processoId={caso.processoId} />}
           {aba === "jurisprudencia" && (
             <PainelJurisprudencia caso={caso} onAbrir={setJuris} />
           )}

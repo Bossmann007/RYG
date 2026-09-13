@@ -1,4 +1,5 @@
 import { Modelo, ModeloArea, ModeloKind, ModeloListaItem, ModeloStatus } from "@models/modelo.model";
+import { AcervoQuery, filtroApontaParaBanco } from "@modules/db/acervo.query";
 import { MODELOS_INICIAIS } from "../../fixtures/modelos";
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { randomBytes } from "crypto";
@@ -8,17 +9,40 @@ import { CreateModeloDto, UpdateModeloDto } from "./templates.dto";
 export class TemplatesService {
   private readonly porId = new Map<string, Modelo>();
 
-  constructor() {
+  constructor(private acervo: AcervoQuery) {
     for (const modelo of MODELOS_INICIAIS) {
       this.porId.set(modelo.id, this.copiar(modelo));
     }
   }
 
-  listar(filtro: {
+  async listar(filtro: {
     kind?: ModeloKind;
     area?: ModeloArea;
     status?: ModeloStatus;
-  }): ModeloListaItem[] {
+    casoId?: string;
+    processNumber?: string;
+  }): Promise<ModeloListaItem[]> {
+    if (this.acervo.ativo() && filtroApontaParaBanco(filtro)) {
+      const docs = await this.acervo.listarDocumentos(
+        "modelos",
+        filtro,
+        "mod",
+        "Modelo"
+      );
+      return docs.map((doc) => ({
+        id: doc.id,
+        title: doc.titulo,
+        kind: "outro" as const,
+        status: "ativo" as const,
+        updatedAt: doc.data,
+        titulo: doc.titulo,
+        tipo: doc.tipo,
+        data: doc.data,
+        origem: doc.origem,
+        resumo: doc.resumo,
+      })) as ModeloListaItem[];
+    }
+
     return [...this.porId.values()]
       .filter((modelo) => !filtro.kind || modelo.kind === filtro.kind)
       .filter((modelo) => !filtro.area || modelo.area === filtro.area)

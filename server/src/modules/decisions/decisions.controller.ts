@@ -24,12 +24,13 @@ export class DecisionsController {
 
   @Public()
   @Get()
-  listar(@Query() query: ListarDecisoesQueryDto) {
+  async listar(@Query() query: ListarDecisoesQueryDto) {
     return {
       zone: "internal",
-      decisoes: this.decisionsService.listar({
+      decisoes: await this.decisionsService.listar({
         clienteId: query.clienteId,
         processNumber: query.processNumber,
+        casoId: query.casoId,
         kind: query.kind,
       }),
     };

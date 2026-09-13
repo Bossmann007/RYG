@@ -66,3 +66,6 @@ server/audit/
 
 # Estado de sessao local de ferramentas (nao e config de projeto)
 .claude/state/
+
+# Local official juris staging (do not commit)
+server/scripts/import-data/

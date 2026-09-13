@@ -24,12 +24,13 @@ export class PetitionsController {
 
   @Public()
   @Get()
-  listar(@Query() query: ListarPeticoesQueryDto) {
+  async listar(@Query() query: ListarPeticoesQueryDto) {
     return {
       zone: "internal",
-      peticoes: this.petitionsService.listar({
+      peticoes: await this.petitionsService.listar({
         clienteId: query.clienteId,
         processNumber: query.processNumber,
+        casoId: query.casoId,
       }),
     };
   }

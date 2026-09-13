@@ -1,6 +1,16 @@
 import { CLIENTE_KINDS, CLIENTE_STATUSES } from "@models/cliente.model";
 import { IsIn, IsOptional, IsString, MaxLength, MinLength } from "class-validator";
 
+export class ListarClientesQueryDto {
+  @IsOptional()
+  @IsString()
+  casoId?: string;
+
+  @IsOptional()
+  @IsString()
+  processNumber?: string;
+}
+
 export class CreateClienteDto {
   @IsString()
   @MinLength(2, { message: "O nome de exibição precisa ter ao menos 2 caracteres." })

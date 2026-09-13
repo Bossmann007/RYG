@@ -201,7 +201,7 @@ export function prazosDoEscritorio(
 export function hidratarPrazos<T extends Pick<Caso, "id" | "historico" | "decisoes" | "status" | "prazos">>(
   caso: T
 ): T {
-  if (Array.isArray(caso.prazos) && caso.prazos.length > 0) {
+  if (Array.isArray(caso.prazos)) {
     return caso;
   }
 

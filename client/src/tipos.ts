@@ -187,8 +187,10 @@ export type Mensagem = {
   id: string;
   autora: string;
   papel: string;
-  hora: string;
+  hora?: string;
   texto: string;
+  createdAt?: string;
+  simulada?: boolean;
   ia?: boolean;
   propria?: boolean;
 };
@@ -229,6 +231,7 @@ export type Dissidio = {
 
 export type Caso = {
   id: string;
+  processoId?: string;
   titulo: string;
   tema: string;
   subtema: string;

@@ -33,6 +33,7 @@ export class ContractsController {
       zone: "internal",
       contratos: await this.contractsService.listar({
         casoId: query.casoId,
+        processNumber: query.processNumber,
       }),
     };
   }

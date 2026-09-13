@@ -55,6 +55,7 @@ export function opcoesPool(env: DbEnvConfig): PoolOptions {
     waitForConnections: true,
     connectionLimit: 10,
     enableKeepAlive: true,
+    timezone: "Z",
   };
 
   if (env.ssl) {

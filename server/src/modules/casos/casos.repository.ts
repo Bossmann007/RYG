@@ -1,5 +1,5 @@
 import { Caso } from "@models/caso.model";
-import { DbService } from "@modules/db/db.service";
+import { DbService, tabelaAusente } from "@modules/db/db.service";
 import { Injectable, ServiceUnavailableException } from "@nestjs/common";
 import type { RowDataPacket } from "mysql2/promise";
 import {
@@ -9,108 +9,205 @@ import {
   type Linha,
   type PacoteCaso,
 } from "./caso.assembler";
-import { ALIASES, nomeSeguro, TABELAS_ACERVO, type EsquemaAcervo } from "./schema-map";
+import { ALIASES, nomeSeguro, type NomeTabela } from "./schema-map";
+
+const PROCESSOS_COLUNAS = [
+  "id",
+  "numero_cnj",
+  "tribunal",
+  "grau",
+  "classe_codigo",
+  "classe_nome",
+  "assuntos_json",
+  "orgao_julgador",
+  "data_ajuizamento",
+  "data_hora_ultima_atualizacao",
+  "nivel_sigilo",
+  "formato",
+  "sistema",
+  "fonte",
+  "created_at",
+  "updated_at",
+]
+  .map(nomeSeguro)
+  .join(", ");
+
+const FILHAS: NomeTabela[] = [
+  "clientes",
+  "peticoes",
+  "contratos",
+  "documentos",
+  "decisoes",
+  "modelos",
+  "historico",
+  "prazos",
+  "teses",
+  "resultados",
+  "conversas",
+  "jurisprudencias",
+  "jurimetria",
+  "dissidios",
+];
 
 @Injectable()
 export class CasosRepository {
-  private esquemaPromise: Promise<EsquemaAcervo> | null = null;
-
   constructor(private readonly db: DbService) {}
 
   async listar(): Promise<Caso[]> {
     return this.carregar();
   }
 
-  async carregar(): Promise<Caso[]> {
-    const esquema = await this.esquema();
+  async obter(idOrCnj: string): Promise<Caso | undefined> {
+    const casos = await this.linhas("casos");
+    const processos = await this.linhas("processos");
+    const capas = casos.length ? casos : processos;
 
-    if (!esquema.tabelas.has("casos") && !esquema.tabelas.has("processos")) {
+    if (!capas.length) {
       throw new ServiceUnavailableException(
         "Tabelas casos/processos ausentes no banco configurado."
       );
     }
 
-    const casos = await this.linhas(esquema, "casos");
-    const processos = await this.linhas(esquema, "processos");
-    const clientes = await this.linhas(esquema, "clientes");
-    const capas = casos.length ? casos : processos;
-
-    const filhos = {
-      peticoes: await this.linhas(esquema, "peticoes"),
-      contratos: await this.linhas(esquema, "contratos"),
-      documentos: await this.linhas(esquema, "documentos"),
-      decisoes: await this.linhas(esquema, "decisoes"),
-      modelos: await this.linhas(esquema, "modelos"),
-      historico: await this.linhas(esquema, "historico"),
-      teses: await this.linhas(esquema, "teses"),
-      resultados: await this.linhas(esquema, "resultados"),
-      conversas: await this.linhas(esquema, "conversas"),
-      jurisprudencias: await this.linhas(esquema, "jurisprudencias"),
-      dissidios: await this.linhas(esquema, "dissidios"),
-      jurimetria: await this.linhas(esquema, "jurimetria"),
-    };
-
-    return capas.map((capa) => {
-      const processo = this.ligarProcesso(capa, processos, casos.length > 0);
-      const cliente = this.ligarCliente(capa, processo, clientes);
-      const pacote: PacoteCaso = {
-        capa,
-        processo,
-        cliente,
-        peticoes: this.ligarFilhos(filhos.peticoes, capa, processo),
-        contratos: this.ligarFilhos(filhos.contratos, capa, processo),
-        documentos: this.ligarFilhos(filhos.documentos, capa, processo),
-        decisoes: this.ligarFilhos(filhos.decisoes, capa, processo),
-        modelos: this.ligarFilhos(filhos.modelos, capa, processo),
-        historico: this.ligarFilhos(filhos.historico, capa, processo),
-        teses: this.ligarFilhos(filhos.teses, capa, processo),
-        resultados: this.ligarFilhos(filhos.resultados, capa, processo),
-        conversas: this.ligarFilhos(filhos.conversas, capa, processo),
-        jurisprudencias: this.ligarFilhos(filhos.jurisprudencias, capa, processo),
-        dissidios: this.ligarFilhos(filhos.dissidios, capa, processo),
-        jurimetria: this.ligarFilhos(filhos.jurimetria, capa, processo)[0],
-      };
-
-      return montarCaso(pacote);
-    });
-  }
-
-  private async esquema(): Promise<EsquemaAcervo> {
-    if (!this.esquemaPromise) {
-      this.esquemaPromise = this.descobrirEsquema().catch((erro) => {
-        this.esquemaPromise = null;
-        throw erro;
-      });
+    const capa = capas.find((linha) => this.capaBate(linha, idOrCnj));
+    if (!capa) {
+      return undefined;
     }
 
-    return this.esquemaPromise;
+    return this.montarDeCapa(capa, processos, casos.length > 0, true);
   }
 
-  private async descobrirEsquema(): Promise<EsquemaAcervo> {
-    const placeholders = TABELAS_ACERVO.map(() => "?").join(", ");
-    const linhas = await this.db.consultar<RowDataPacket>(
-      `SELECT TABLE_NAME AS nome
-         FROM INFORMATION_SCHEMA.TABLES
-        WHERE TABLE_SCHEMA = DATABASE()
-          AND TABLE_NAME IN (${placeholders})`,
-      [...TABELAS_ACERVO]
+  async carregar(): Promise<Caso[]> {
+    const casos = await this.linhas("casos");
+    const processos = await this.linhas("processos");
+    const capas = casos.length ? casos : processos;
+
+    if (!capas.length) {
+      throw new ServiceUnavailableException(
+        "Tabelas casos/processos ausentes no banco configurado."
+      );
+    }
+
+    const porTabela: Record<string, Linha[]> = {
+      clientes: await this.linhas("clientes"),
+    };
+
+    return Promise.all(
+      capas.map((capa) => this.montarDeCapa(capa, processos, casos.length > 0, false, porTabela))
+    );
+  }
+
+  private async montarDeCapa(
+    capa: Linha,
+    processos: Linha[],
+    capaEhCaso: boolean,
+    filtrarFilhos: boolean,
+    cache?: Record<string, Linha[]>
+  ): Promise<Caso> {
+    const processo = this.ligarProcesso(capa, processos, capaEhCaso);
+    const processoId = String(
+      valorCampo(processo, ALIASES.id) ?? valorCampo(capa, ALIASES.processoId) ?? ""
+    );
+    const cnj = cnjDigitos(
+      valorCampo(processo, ALIASES.numeroCnj) ?? valorCampo(capa, ALIASES.numeroCnj)
     );
 
-    return {
-      tabelas: new Set(linhas.map((linha) => String(linha.nome))),
+    const filhos: Record<string, Linha[]> = {};
+    for (const tabela of FILHAS) {
+      filhos[tabela] = filtrarFilhos
+        ? await this.linhasDoProcesso(tabela, processoId, cnj)
+        : this.ligarFilhos(cache?.[tabela] || [], capa, processo);
+    }
+
+    const pacote: PacoteCaso = {
+      capa,
+      processo,
+      cliente: filhos.clientes[0],
+      clientes: filhos.clientes,
+      peticoes: filhos.peticoes,
+      contratos: filhos.contratos,
+      documentos: filhos.documentos,
+      decisoes: filhos.decisoes,
+      modelos: filhos.modelos,
+      historico: filhos.historico,
+      prazos: filhos.prazos,
+      teses: filhos.teses,
+      resultados: filhos.resultados,
+      conversas: filhos.conversas,
+      jurisprudencias: filhos.jurisprudencias,
+      dissidios: filhos.dissidios,
+      jurimetria: filhos.jurimetria[0],
     };
+
+    return montarCaso(pacote);
   }
 
-  private async linhas(esquema: EsquemaAcervo, tabela: (typeof TABELAS_ACERVO)[number]): Promise<Linha[]> {
-    if (!esquema.tabelas.has(tabela)) {
+  private capaBate(capa: Linha, idOrCnj: string): boolean {
+    const chave = idOrCnj.trim();
+    const id = String(valorCampo(capa, ALIASES.id) ?? "");
+    const processoId = String(valorCampo(capa, ALIASES.processoId) ?? "");
+    const cnj = cnjDigitos(valorCampo(capa, ALIASES.numeroCnj));
+    const pedido = cnjDigitos(chave);
+
+    return (
+      id === chave ||
+      processoId === chave ||
+      (pedido.length === 20 && pedido === cnj)
+    );
+  }
+
+  private async linhas(tabela: NomeTabela): Promise<Linha[]> {
+    const sql =
+      tabela === "processos"
+        ? `SELECT ${PROCESSOS_COLUNAS} FROM ${nomeSeguro(tabela)}`
+        : `SELECT * FROM ${nomeSeguro(tabela)}`;
+
+    try {
+      const registros = await this.db.consultar<RowDataPacket>(sql);
+      return registros.map((linha) => ({ ...linha }));
+    } catch (erro) {
+      if (tabelaAusente(erro)) {
+        return [];
+      }
+
+      throw erro;
+    }
+  }
+
+  private async linhasDoProcesso(
+    tabela: NomeTabela,
+    processoId: string,
+    cnj: string
+  ): Promise<Linha[]> {
+    const partes: string[] = [];
+    const params: unknown[] = [];
+
+    if (processoId) {
+      partes.push("processo_id = ?");
+      params.push(processoId);
+    }
+
+    if (cnj.length === 20 && tabela !== "prazos") {
+      partes.push("numero_cnj = ?");
+      params.push(cnj);
+    }
+
+    if (!partes.length) {
       return [];
     }
 
-    const registros = await this.db.consultar<RowDataPacket>(
-      `SELECT * FROM ${nomeSeguro(tabela)}`
-    );
+    try {
+      const registros = await this.db.consultar<RowDataPacket>(
+        `SELECT * FROM ${nomeSeguro(tabela)} WHERE ${partes.join(" OR ")}`,
+        params
+      );
+      return registros.map((linha) => ({ ...linha }));
+    } catch (erro) {
+      if (tabelaAusente(erro)) {
+        return [];
+      }
 
-    return registros.map((linha) => ({ ...linha }));
+      throw erro;
+    }
   }
 
   private ligarProcesso(capa: Linha, processos: Linha[], capaEhCaso: boolean): Linha | undefined {
@@ -120,7 +217,9 @@ export class CasosRepository {
 
     const processoId = valorCampo(capa, ALIASES.processoId);
     if (processoId != null) {
-      const porId = processos.find((processo) => String(valorCampo(processo, ALIASES.id)) === String(processoId));
+      const porId = processos.find(
+        (processo) => String(valorCampo(processo, ALIASES.id)) === String(processoId)
+      );
       if (porId) {
         return porId;
       }
@@ -128,40 +227,12 @@ export class CasosRepository {
 
     const cnj = cnjDigitos(valorCampo(capa, ALIASES.numeroCnj));
     if (cnj.length === 20) {
-      return processos.find((processo) => cnjDigitos(valorCampo(processo, ALIASES.numeroCnj)) === cnj);
+      return processos.find(
+        (processo) => cnjDigitos(valorCampo(processo, ALIASES.numeroCnj)) === cnj
+      );
     }
 
     return undefined;
-  }
-
-  private ligarCliente(capa: Linha, processo: Linha | undefined, clientes: Linha[]): Linha | undefined {
-    const clienteId = valorCampo(capa, ALIASES.clienteId) ?? valorCampo(processo, ALIASES.clienteId);
-    if (clienteId != null) {
-      const porId = clientes.find((cliente) => String(valorCampo(cliente, ALIASES.id)) === String(clienteId));
-      if (porId) {
-        return porId;
-      }
-    }
-
-    const casoId = String(valorCampo(capa, ALIASES.id) ?? "");
-    const processoId = String(
-      valorCampo(processo, ALIASES.id) ?? valorCampo(capa, ALIASES.processoId) ?? ""
-    );
-    const cnj = cnjDigitos(
-      valorCampo(processo, ALIASES.numeroCnj) ?? valorCampo(capa, ALIASES.numeroCnj)
-    );
-
-    return clientes.find((cliente) => {
-      const cid = valorCampo(cliente, ALIASES.casoId);
-      const pid = valorCampo(cliente, ALIASES.processoId);
-      const rcnj = cnjDigitos(valorCampo(cliente, ALIASES.numeroCnj));
-
-      return (
-        (cid != null && String(cid) === casoId) ||
-        (pid != null && processoId && String(pid) === processoId) ||
-        (rcnj.length === 20 && rcnj === cnj)
-      );
-    });
   }
 
   private ligarFilhos(linhas: Linha[], capa: Linha, processo?: Linha): Linha[] {

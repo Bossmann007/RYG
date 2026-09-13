@@ -1,4 +1,5 @@
 import { Contrato } from "@models/contrato.model";
+import { AcervoQuery, filtroApontaParaBanco } from "@modules/db/acervo.query";
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { CreateContratoDto, UpdateContratoDto } from "./contracts.dto";
 import { ContratosRepository, FiltroContratos } from "./contracts.repository";
@@ -7,9 +8,26 @@ const TIPO_PADRAO = "Contrato";
 
 @Injectable()
 export class ContractsService {
-  constructor(private readonly repositorio: ContratosRepository) {}
+  constructor(
+    private readonly repositorio: ContratosRepository,
+    private readonly acervo: AcervoQuery
+  ) {}
 
-  listar(filtro: FiltroContratos): Promise<Contrato[]> {
+  async listar(filtro: FiltroContratos): Promise<Contrato[]> {
+    if (this.acervo.ativo() && filtroApontaParaBanco(filtro)) {
+      const docs = await this.acervo.listarDocumentos(
+        "contratos",
+        filtro,
+        "ctr",
+        TIPO_PADRAO
+      );
+      const casoId = (filtro.casoId || "").trim();
+      return docs.map((doc) => ({
+        ...doc,
+        casoId,
+      }));
+    }
+
     return this.repositorio.listar(filtro);
   }
 
