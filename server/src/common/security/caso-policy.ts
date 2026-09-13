@@ -36,9 +36,9 @@ export function aplicarPoliticaCaso(caso: Caso): Caso {
     resumo: sanitizeUntrustedText(caso.resumo),
     tese: sanitizeUntrustedText(caso.tese),
     atualizacao: sanitizeUntrustedText(caso.atualizacao),
-    chance: 0,
-    chanceRotulo: CHANCE_INDISPONIVEL,
-    chanceTexto: CHANCE_INDISPONIVEL,
+    chance: Number.isFinite(caso.chance) ? caso.chance : 0,
+    chanceRotulo: sanitizeUntrustedText(caso.chanceRotulo) || CHANCE_INDISPONIVEL,
+    chanceTexto: sanitizeUntrustedText(caso.chanceTexto) || CHANCE_INDISPONIVEL,
     partes: (caso.partes || []).map((parte) => ({
       papel: sanitizeUntrustedText(parte.papel),
       nome: sanitizeUntrustedText(parte.nome),
@@ -205,12 +205,56 @@ function sanitizarBloco(bloco: BlocoAnalise | undefined): BlocoAnalise {
   };
 }
 
+function chancePreenchida(caso: Caso): boolean {
+  if (caso.chance > 0) {
+    return true;
+  }
+  if (caso.chanceRotulo && caso.chanceRotulo !== CHANCE_INDISPONIVEL) {
+    return true;
+  }
+  return false;
+}
+
+function derivarFonteChance(caso: Caso): FonteFato {
+  if (!chancePreenchida(caso)) {
+    return "indisponivel";
+  }
+  if (caso.court?.toUpperCase() === "TJPR") {
+    return "tjpr";
+  }
+  return "inferencia";
+}
+
+function derivarFonteVotos(caso: Caso): FonteFato {
+  const total = caso.votos.for + caso.votos.against + caso.votos.diverge;
+  if (total === 0) {
+    return "indisponivel";
+  }
+  if (caso.court?.toUpperCase() === "TJPR") {
+    return "tjpr";
+  }
+  return "acervo_interno";
+}
+
+function derivarFonteJurimetria(caso: Caso): FonteFato {
+  const temDados = caso.jurimetria.amostra || caso.jurimetria.padrao || caso.jurimetria.interno;
+  if (!temDados) {
+    return "indisponivel";
+  }
+  if (caso.court?.toUpperCase() === "TJPR") {
+    return "tjpr";
+  }
+  return "acervo_interno";
+}
+
 function derivarFontes(caso: Caso, jurisprudencias: Jurisprudencia[]): ProvenienciaCaso {
   const jurisFonte: FonteFato = !jurisprudencias.length
     ? "indisponivel"
-    : jurisprudencias.some((item) => item.fonte === "datajud")
-      ? "datajud"
-      : "acervo_interno";
+    : jurisprudencias.some((item) => item.fonte === "tjpr")
+      ? "tjpr"
+      : jurisprudencias.some((item) => item.fonte === "datajud")
+        ? "datajud"
+        : "acervo_interno";
 
   const fontes = {
     titulo: fonteDeTexto(caso.titulo, "acervo_interno"),
@@ -225,10 +269,8 @@ function derivarFontes(caso: Caso, jurisprudencias: Jurisprudencia[]): Provenien
     resumo: fonteDeTexto(caso.resumo, "acervo_interno"),
     tese: fonteDeTexto(caso.tese, "acervo_interno"),
     atualizacao: fonteDeTexto(caso.atualizacao, "acervo_interno"),
-    chance: "indisponivel",
-    votos: caso.votos.for + caso.votos.against + caso.votos.diverge > 0
-      ? "acervo_interno"
-      : "indisponivel",
+    chance: derivarFonteChance(caso),
+    votos: derivarFonteVotos(caso),
     peticoes: caso.peticoes.length ? "acervo_interno" : "indisponivel",
     contratos: caso.contratos.length ? "acervo_interno" : "indisponivel",
     documentos: caso.documentos.length ? "acervo_interno" : "indisponivel",
@@ -241,10 +283,7 @@ function derivarFontes(caso: Caso, jurisprudencias: Jurisprudencia[]): Provenien
     conversas: caso.conversas.length ? "acervo_interno" : "indisponivel",
     jurisprudencias: jurisFonte,
     dissidios: caso.dissidios.length ? "acervo_interno" : "indisponivel",
-    jurimetria:
-      caso.jurimetria.amostra || caso.jurimetria.padrao || caso.jurimetria.interno
-        ? "acervo_interno"
-        : "indisponivel",
+    jurimetria: derivarFonteJurimetria(caso),
   } satisfies ProvenienciaCaso;
 
   return fontes;

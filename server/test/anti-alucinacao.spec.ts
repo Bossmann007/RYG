@@ -14,7 +14,9 @@ import {
   rotuloFonte,
   fonteCitavelPorNatureza,
   FONTES_FATO,
+  CHANCE_INDISPONIVEL,
 } from "../src/common/security/fonte-fato";
+import { aplicarPoliticaCaso } from "../src/common/security/caso-policy";
 import { ementaCitavel, ementaParaCitacao } from "../src/common/security/cite-or-silent";
 
 describe("FonteFato", () => {
@@ -205,5 +207,132 @@ describe("Cenários integrados anti-alucinação", () => {
     expect(FONTES_FATO.indexOf("tjpr")).toBeLessThan(FONTES_FATO.indexOf("datajud"));
     expect(normalizarFonte("tjpr")).toBe("tjpr");
     expect(normalizarFonte("tjpr")).not.toBe("datajud");
+  });
+});
+
+describe("derivarFontes (chance/votos/jurimetria)", () => {
+  function casoBase() {
+    return {
+      id: "caso-teste",
+      processoId: "proc-1",
+      titulo: "Caso de Teste",
+      tema: "Tema",
+      subtema: "Subtema",
+      processNumber: "9000031-42.2020.8.16.0001",
+      court: "TJPR",
+      chamber: "1ª Câmara Cível",
+      status: "ATIVO" as const,
+      cliente: "Cliente Teste",
+      partes: [{ papel: "Autor", nome: "Fulano" }],
+      resumo: "Resumo do caso",
+      tese: "Tese do caso",
+      atualizacao: "01/01/2024",
+      chance: 0,
+      chanceRotulo: "",
+      chanceTexto: "",
+      votos: { for: 0, against: 0, diverge: 0 },
+      peticoes: [],
+      contratos: [],
+      documentos: [],
+      decisoes: [],
+      modelos: [],
+      historico: [],
+      prazos: [],
+      teses: [],
+      resultados: [],
+      conversas: [],
+      jurisprudencias: [],
+      dissidios: [],
+      jurimetria: { amostra: 0, padrao: "", interno: "", riscos: [] },
+      fontes: {} as Record<string, string>,
+    };
+  }
+
+  it("caso com chance=42 e chanceRotulo descritivo NÃO tem fontes.chance=indisponivel", () => {
+    const caso = {
+      ...casoBase(),
+      chance: 42,
+      chanceRotulo: "recorte descritivo TJPR",
+      chanceTexto: "Baseado em 150 decisões similares no TJPR.",
+    };
+
+    const resultado = aplicarPoliticaCaso(caso);
+
+    expect(resultado.chance).toBe(42);
+    expect(resultado.chanceRotulo).toBe("recorte descritivo TJPR");
+    expect(resultado.fontes.chance).not.toBe("indisponivel");
+    expect(resultado.fontes.chance).toBe("tjpr");
+  });
+
+  it("caso TJPR com votos populados tem fontes.votos=tjpr", () => {
+    const caso = {
+      ...casoBase(),
+      votos: { for: 10, against: 5, diverge: 2 },
+    };
+
+    const resultado = aplicarPoliticaCaso(caso);
+
+    expect(resultado.fontes.votos).not.toBe("indisponivel");
+    expect(resultado.fontes.votos).toBe("tjpr");
+  });
+
+  it("caso TJPR com jurimetria.amostra>0 tem fontes.jurimetria=tjpr", () => {
+    const caso = {
+      ...casoBase(),
+      jurimetria: {
+        amostra: 150,
+        padrao: "Padrão externo",
+        interno: "Memória interna",
+        riscos: [],
+      },
+    };
+
+    const resultado = aplicarPoliticaCaso(caso);
+
+    expect(resultado.fontes.jurimetria).not.toBe("indisponivel");
+    expect(resultado.fontes.jurimetria).toBe("tjpr");
+  });
+
+  it("caso sem chance fica com fontes.chance=indisponivel", () => {
+    const caso = {
+      ...casoBase(),
+      chance: 0,
+      chanceRotulo: CHANCE_INDISPONIVEL,
+      chanceTexto: CHANCE_INDISPONIVEL,
+    };
+
+    const resultado = aplicarPoliticaCaso(caso);
+
+    expect(resultado.fontes.chance).toBe("indisponivel");
+  });
+
+  it("caso de outro tribunal com chance tem fontes.chance=inferencia", () => {
+    const caso = {
+      ...casoBase(),
+      court: "TJSP",
+      chance: 30,
+      chanceRotulo: "estimativa heurística",
+      chanceTexto: "Baseado em padrões gerais.",
+    };
+
+    const resultado = aplicarPoliticaCaso(caso);
+
+    expect(resultado.fontes.chance).toBe("inferencia");
+    expect(resultado.fontes.chance).not.toBe("indisponivel");
+  });
+
+  it("preserva chance/chanceRotulo/chanceTexto originais após aplicarPoliticaCaso", () => {
+    const caso = {
+      ...casoBase(),
+      chance: 75,
+      chanceRotulo: "favorável ao cliente",
+      chanceTexto: "Alta probabilidade de sucesso.",
+    };
+
+    const resultado = aplicarPoliticaCaso(caso);
+
+    expect(resultado.chance).toBe(75);
+    expect(resultado.chanceRotulo).toBe("favorável ao cliente");
+    expect(resultado.chanceTexto).toBe("Alta probabilidade de sucesso.");
   });
 });
