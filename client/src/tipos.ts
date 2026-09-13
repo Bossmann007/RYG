@@ -15,7 +15,50 @@ export type StatusProcesso =
   | "INATIVO"
   | "CANCELADO";
 
-export type Alinhamento = "for" | "against" | "diverge";
+export type Alinhamento = "for" | "against" | "diverge" | "unknown";
+
+export const FONTES_FATO = [
+  "tjpr",
+  "datajud",
+  "acervo_interno",
+  "inferencia",
+  "indisponivel",
+] as const;
+
+export type FonteFato = (typeof FONTES_FATO)[number];
+
+export const CHANCE_INDISPONIVEL = "indisponível sem modelo oficial";
+
+export type CampoFatoCaso =
+  | "titulo"
+  | "tema"
+  | "subtema"
+  | "processNumber"
+  | "court"
+  | "chamber"
+  | "status"
+  | "cliente"
+  | "partes"
+  | "resumo"
+  | "tese"
+  | "atualizacao"
+  | "chance"
+  | "votos"
+  | "peticoes"
+  | "contratos"
+  | "documentos"
+  | "decisoes"
+  | "modelos"
+  | "historico"
+  | "prazos"
+  | "teses"
+  | "resultados"
+  | "conversas"
+  | "jurisprudencias"
+  | "dissidios"
+  | "jurimetria";
+
+export type ProvenienciaCaso = Record<CampoFatoCaso, FonteFato>;
 
 export type AbaCaso =
   | "visao"
@@ -25,11 +68,13 @@ export type AbaCaso =
   | "decisoes"
   | "modelos"
   | "historico"
+  | "prazos"
   | "teses"
   | "resultados"
   | "conversas"
   | "jurisprudencia"
-  | "jurimetria";
+  | "jurimetria"
+  | "relatorios";
 
 export type TelaApp =
   | { tipo: "casos" }
@@ -54,6 +99,7 @@ export type Documento = {
   data: string;
   origem: string;
   resumo: string;
+  corpo?: string;
 };
 
 export type Andamento = {
@@ -62,11 +108,74 @@ export type Andamento = {
   detalhe: string;
 };
 
+export const PRAZO_KINDS = [
+  "manifestacao",
+  "recurso",
+  "prova",
+  "audiencia",
+  "interno",
+  "outro",
+] as const;
+export const PRAZO_STATUSES = [
+  "aberto",
+  "a_vencer",
+  "vencido",
+  "cumprido",
+  "suspenso",
+] as const;
+export const PRAZO_CALENDARIOS = ["uteis", "corridos"] as const;
+
+export type PrazoKind = (typeof PRAZO_KINDS)[number];
+export type PrazoStatus = (typeof PRAZO_STATUSES)[number];
+export type PrazoCalendario = (typeof PRAZO_CALENDARIOS)[number];
+
+/**
+ * Office calendar. The clock may start from a public movement,
+ * but the due date, owner and status live in the internal bank.
+ */
+export type Prazo = {
+  id: string;
+  title: string;
+  kind: PrazoKind;
+  dueAt: string;
+  startedAt?: string;
+  days: number;
+  calendar: PrazoCalendario;
+  status: PrazoStatus;
+  owner: string;
+  trigger: string;
+  gatilhoFonte: FonteFato;
+  notes?: string;
+};
+
+export const ROTULO_PRAZO_KIND: Record<PrazoKind, string> = {
+  manifestacao: "Manifestação",
+  recurso: "Recurso",
+  prova: "Prova",
+  audiencia: "Audiência",
+  interno: "Interno",
+  outro: "Outro",
+};
+
+export const ROTULO_PRAZO_STATUS: Record<PrazoStatus, string> = {
+  aberto: "Aberto",
+  a_vencer: "A vencer",
+  vencido: "Vencido",
+  cumprido: "Cumprido",
+  suspenso: "Suspenso",
+};
+
+export const ROTULO_CALENDARIO: Record<PrazoCalendario, string> = {
+  uteis: "dias úteis",
+  corridos: "dias corridos",
+};
+
 export type Tese = {
   id: string;
   titulo: string;
   uso: string;
   forca: "alta" | "media" | "baixa";
+  fonte?: FonteFato;
 };
 
 export type ResultadoInterno = {
@@ -80,8 +189,10 @@ export type Mensagem = {
   id: string;
   autora: string;
   papel: string;
-  hora: string;
+  hora?: string;
   texto: string;
+  createdAt?: string;
+  simulada?: boolean;
   ia?: boolean;
   propria?: boolean;
 };
@@ -90,6 +201,14 @@ export type Mensagem = {
 export type BlocoAnalise = {
   resumo: string;
   itens: string[];
+};
+
+export type RelacaoJuris = "mesmo_caso" | "precedente_tema" | "relacionado";
+
+export const ROTULO_RELACAO: Record<RelacaoJuris, string> = {
+  mesmo_caso: "Mesmo caso",
+  precedente_tema: "Precedente por tema",
+  relacionado: "Relacionado",
 };
 
 export type Jurisprudencia = {
@@ -108,6 +227,9 @@ export type Jurisprudencia = {
   fortalecer: BlocoAnalise;
   blindar: BlocoAnalise;
   contrapor: BlocoAnalise;
+  citavel?: boolean;
+  fonte?: FonteFato;
+  relacao?: RelacaoJuris;
 };
 
 export type Dissidio = {
@@ -115,10 +237,12 @@ export type Dissidio = {
   orientacao: string;
   versus: Alinhamento;
   nota: string;
+  fonte?: FonteFato;
 };
 
 export type Caso = {
   id: string;
+  processoId?: string;
   titulo: string;
   tema: string;
   subtema: string;
@@ -141,6 +265,7 @@ export type Caso = {
   decisoes: Documento[];
   modelos: Documento[];
   historico: Andamento[];
+  prazos: Prazo[];
   teses: Tese[];
   resultados: ResultadoInterno[];
   conversas: Mensagem[];
@@ -152,6 +277,7 @@ export type Caso = {
     interno: string;
     riscos: string[];
   };
+  fontes?: ProvenienciaCaso;
 };
 
 export const STATUS_PROCESSO: StatusProcesso[] = [
@@ -194,4 +320,40 @@ export const ROTULO_ALINHAMENTO: Record<Alinhamento, string> = {
   for: "A favor",
   against: "Contra",
   diverge: "Divergente",
+  unknown: "Não avaliado",
 };
+
+export const ROTULO_FONTE: Record<FonteFato, string> = {
+  tjpr: "TJPR",
+  datajud: "DataJud",
+  acervo_interno: "Acervo interno",
+  inferencia: "Inferência",
+  indisponivel: "Indisponível",
+};
+
+export function rotuloFonte(fonte: FonteFato): string {
+  switch (fonte) {
+    case "tjpr":
+    case "datajud":
+    case "acervo_interno":
+    case "inferencia":
+    case "indisponivel":
+      return ROTULO_FONTE[fonte];
+    default: {
+      const neverFonte: never = fonte;
+      return neverFonte;
+    }
+  }
+}
+
+export function ehCitavel(item: { citavel?: boolean; ementa?: string }): boolean {
+  return item.citavel === true && Boolean(item.ementa?.trim());
+}
+
+export function chanceIndisponivel(caso: Caso): boolean {
+  return (
+    caso.fontes?.chance === "indisponivel" ||
+    caso.chanceRotulo === CHANCE_INDISPONIVEL ||
+    !caso.chance
+  );
+}

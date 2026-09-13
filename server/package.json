@@ -11,7 +11,12 @@
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
-    "prova": "node scripts/prova-declassificacao.js"
+    "prova": "node scripts/prova-declassificacao.js",
+    "prova:acervo": "node scripts/prova-acervo.js",
+    "prova:casos": "node scripts/prova-casos.js",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "prova:anti": "vitest run test/anti-alucinacao.spec.ts"
   },
   "dependencies": {
     "@modelcontextprotocol/node": "^2",
@@ -27,6 +32,7 @@
     "helmet": "^7.0.0",
     "hono": "^4.11.4",
     "module-alias": "^2.2.3",
+    "mysql2": "^3.14.0",
     "nest-winston": "^1.9.4",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1",
@@ -39,6 +45,7 @@
     "@types/express": "^4.17.17",
     "@types/module-alias": "^2.0.4",
     "@types/node": "^20.3.1",
-    "typescript": "5.9.3"
+    "typescript": "5.9.3",
+    "vitest": "^3.1.0"
   }
 }

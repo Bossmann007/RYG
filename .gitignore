@@ -2,11 +2,14 @@
 .cursor/
 node_modules/
 **/node_modules/
+.pnpm-store/
 dist/
 coverage/
 *.log
 .env
 .env.*
+!.env.example
+!server/.env.example
 # Dependencies
 node_modules/
 yarn.lock
@@ -63,3 +66,6 @@ server/audit/
 
 # Estado de sessao local de ferramentas (nao e config de projeto)
 .claude/state/
+
+# Local official juris staging (do not commit)
+server/scripts/import-data/

@@ -10,6 +10,8 @@ import {
   IconeModelo,
   IconePeca,
   IconePessoa,
+  IconePrazo,
+  IconeRelatorio,
   IconeResultado,
   IconeTese,
   IconeVisao,
@@ -17,7 +19,6 @@ import {
 } from "../componentes/Icones";
 import { ChatCaso } from "../componentes/ChatCaso";
 import {
-  PainelDocumentos,
   PainelHistorico,
   PainelJurisprudencia,
   PainelJurimetria,
@@ -25,6 +26,10 @@ import {
   PainelTeses,
   PainelVisao,
 } from "../componentes/PaineisCaso";
+import { PainelAcervo } from "../componentes/PainelAcervo";
+import { PainelModelos } from "../componentes/PainelModelos";
+import { PainelPrazos } from "../componentes/PainelPrazos";
+import { PainelRelatorios } from "../componentes/PainelRelatorios";
 import { AbaCaso, Caso, Jurisprudencia, ROTULO_STATUS } from "../tipos";
 
 type Props = {
@@ -42,6 +47,7 @@ type ItemMenu = {
 const MENU: ItemMenu[] = [
   { id: "visao", rotulo: "Visão", grupo: "Caso", icone: <IconeVisao /> },
   { id: "historico", rotulo: "Histórico", grupo: "Caso", icone: <IconeHistorico /> },
+  { id: "prazos", rotulo: "Prazos", grupo: "Caso", icone: <IconePrazo /> },
   { id: "conversas", rotulo: "Conversas", grupo: "Caso", icone: <IconeConversa /> },
   { id: "peticoes", rotulo: "Petições", grupo: "Acervo", icone: <IconePeca /> },
   { id: "contratos", rotulo: "Contratos", grupo: "Acervo", icone: <IconeContrato /> },
@@ -52,6 +58,7 @@ const MENU: ItemMenu[] = [
   { id: "resultados", rotulo: "Resultados", grupo: "Estratégia", icone: <IconeResultado /> },
   { id: "jurisprudencia", rotulo: "Jurisprudência", grupo: "Estratégia", icone: <IconeJuris /> },
   { id: "jurimetria", rotulo: "Jurimetria", grupo: "Estratégia", icone: <IconeGrafico /> },
+  { id: "relatorios", rotulo: "Relatórios", grupo: "Estratégia", icone: <IconeRelatorio /> },
 ];
 
 export function DetalheCaso({ caso, onVoltar }: Props) {
@@ -82,7 +89,7 @@ export function DetalheCaso({ caso, onVoltar }: Props) {
       </header>
 
       <div className="detalhe-corpo">
-        <nav className="menu-caso" aria-label="Memória do caso">
+        <nav className="menu-caso" aria-label="OpenLegalAI do caso">
           {grupos.map((grupo) => (
             <div key={grupo} className="menu-grupo">
               <p>{grupo}</p>
@@ -113,48 +120,54 @@ export function DetalheCaso({ caso, onVoltar }: Props) {
             />
           )}
           {aba === "peticoes" && (
-            <PainelDocumentos
+            <PainelAcervo
               titulo="Petições e peças"
               texto="O que já foi protocolado neste caso."
-              itens={caso.peticoes}
+              casoId={caso.id}
+              processNumber={caso.processNumber}
+              recurso="peticoes"
             />
           )}
           {aba === "contratos" && (
-            <PainelDocumentos
+            <PainelAcervo
               titulo="Contratos"
               texto="Instrumentos que sustentam o pedido."
-              itens={caso.contratos}
+              casoId={caso.id}
+              processNumber={caso.processNumber}
+              recurso="contratos"
             />
           )}
           {aba === "documentos" && (
-            <PainelDocumentos
-              titulo="Documentos do cliente"
-              texto="Prova e qualificação, sem pasta perdida."
-              itens={caso.documentos}
+            <PainelAcervo
+              titulo="Clientes do caso"
+              texto="Partes ligadas a este processo no acervo."
+              casoId={caso.id}
+              processNumber={caso.processNumber}
+              recurso="clientes"
             />
           )}
           {aba === "decisoes" && (
-            <PainelDocumentos
+            <PainelAcervo
               titulo="Decisões e acórdãos"
               texto="O que o juízo já disse aqui."
-              itens={caso.decisoes}
+              casoId={caso.id}
+              processNumber={caso.processNumber}
+              recurso="decisoes"
             />
           )}
           {aba === "modelos" && (
-            <PainelDocumentos
-              titulo="Modelos e pareceres"
-              texto="Peças do escritório reaproveitáveis."
-              itens={caso.modelos}
-            />
+            <PainelModelos casoId={caso.id} processNumber={caso.processNumber} />
           )}
           {aba === "historico" && <PainelHistorico caso={caso} />}
+          {aba === "prazos" && <PainelPrazos caso={caso} />}
           {aba === "teses" && <PainelTeses caso={caso} />}
           {aba === "resultados" && <PainelResultados caso={caso} />}
-          {aba === "conversas" && <ChatCaso inicial={caso.conversas} />}
+          {aba === "conversas" && <ChatCaso processoId={caso.processoId} />}
           {aba === "jurisprudencia" && (
             <PainelJurisprudencia caso={caso} onAbrir={setJuris} />
           )}
           {aba === "jurimetria" && <PainelJurimetria caso={caso} />}
+          {aba === "relatorios" && <PainelRelatorios caso={caso} />}
         </div>
       </div>
 

@@ -1,13 +1,51 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { obterCaso } from "./api";
 import { BarraTopo } from "./componentes/BarraTopo";
-import { buscarCaso } from "./dados";
+import { Carregando } from "./componentes/Carregando";
 import { DetalheCaso } from "./paginas/DetalheCaso";
 import { ListaCasos } from "./paginas/ListaCasos";
-import { TelaApp } from "./tipos";
+import { Caso, TelaApp } from "./tipos";
 
 export function App() {
   const [tela, setTela] = useState<TelaApp>({ tipo: "casos" });
-  const caso = tela.tipo === "caso" ? buscarCaso(tela.id) : undefined;
+  const [caso, setCaso] = useState<Caso | undefined>();
+  const [erro, setErro] = useState<string | null>(null);
+  const [carregando, setCarregando] = useState(false);
+
+  useEffect(() => {
+    if (tela.tipo !== "caso") {
+      setCaso(undefined);
+      setErro(null);
+      setCarregando(false);
+      return;
+    }
+
+    let cancelado = false;
+    setCarregando(true);
+    setErro(null);
+
+    obterCaso(tela.id)
+      .then((detalhe) => {
+        if (!cancelado) {
+          setCaso(detalhe);
+        }
+      })
+      .catch((falha: unknown) => {
+        if (!cancelado) {
+          setCaso(undefined);
+          setErro(falha instanceof Error ? falha.message : "Caso indisponível.");
+        }
+      })
+      .finally(() => {
+        if (!cancelado) {
+          setCarregando(false);
+        }
+      });
+
+    return () => {
+      cancelado = true;
+    };
+  }, [tela]);
 
   return (
     <div className="shell">
@@ -16,7 +54,16 @@ export function App() {
         {tela.tipo === "casos" && (
           <ListaCasos onAbrir={(id) => setTela({ tipo: "caso", id })} />
         )}
-        {tela.tipo === "caso" && caso && (
+        {tela.tipo === "caso" && carregando && (
+          <Carregando texto="Abrindo o caso no acervo." />
+        )}
+        {tela.tipo === "caso" && !carregando && erro && (
+          <div className="vazio">
+            <p>{erro}</p>
+            <p>Volte à lista ou confira se o servidor está no TiDB.</p>
+          </div>
+        )}
+        {tela.tipo === "caso" && !carregando && caso && (
           <DetalheCaso
             key={caso.id}
             caso={caso}

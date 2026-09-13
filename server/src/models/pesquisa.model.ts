@@ -1,3 +1,4 @@
+import { FonteFato } from "@common/security/fonte-fato";
 import { Alinhamento, Jurisprudencia } from "@models/jurisprudencia.model";
 import { Processo } from "@models/processo.model";
 
@@ -19,6 +20,7 @@ export type RelatorioChance = {
   label: string;
   rationale: string;
   blindagem: string[];
+  fonte: FonteFato;
 };
 
 export type ResultadoPesquisa = {

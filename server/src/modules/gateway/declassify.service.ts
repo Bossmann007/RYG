@@ -1,3 +1,6 @@
+import { ementaCitavel, ementaParaCitacao } from "@common/security/cite-or-silent";
+import { CHANCE_INDISPONIVEL } from "@common/security/fonte-fato";
+import { sanitizeUntrustedList, sanitizeUntrustedText } from "@common/security/untrusted-text";
 import {
   maiorSigilo,
   NivelDeclassificacao,
@@ -58,15 +61,15 @@ export class DeclassifyService {
     const nivel = this.nivel(rotulado.sigilo, "resumo");
     const fase = this.derivarFase(processo.movements);
     const orientacao = this.derivarOrientacao(processo.chamberOrientation);
-    const assuntos = normalizarAssuntos(processo.subjects);
+    const assuntos = sanitizeUntrustedList(normalizarAssuntos(processo.subjects));
 
     const dto: SafeCaseSummary = {
       tipo: "case_summary",
       conteudo: {
-        referencia: processo.processNumber,
-        tribunal: processo.court,
-        grau: processo.degree,
-        orgaoJulgador: processo.chamber,
+        referencia: sanitizeUntrustedText(processo.processNumber),
+        tribunal: sanitizeUntrustedText(processo.court),
+        grau: sanitizeUntrustedText(processo.degree),
+        orgaoJulgador: sanitizeUntrustedText(processo.chamber),
         fase,
         assuntos,
         quantidadeAndamentos: processo.movements.length,
@@ -101,20 +104,21 @@ export class DeclassifyService {
     const dto: SafeKnowledgeResult = {
       tipo: "knowledge_result",
       conteudo: {
-        consulta: normalizarAssuntos(consulta),
+        consulta: sanitizeUntrustedList(normalizarAssuntos(consulta)),
         quantidade: rotulado.valor.length,
-        itens: rotulado.valor.map((item) => ({
-          referencia: item.acordaoNumber || item.processNumber,
-          tribunal: item.court,
-          orgaoJulgador: item.chamber,
-          relator: item.reporter,
-          data: item.judgmentDate,
-          sentido: this.derivarSentido(item.orientation),
-          citavel: !!item.ementaSnippet,
-          // Acórdão publicado é público: sai como está. É a classificação da
-          // fonte que autoriza, não uma exceção na ferramenta.
-          ementa: publico ? item.ementaSnippet : null,
-        })),
+        itens: rotulado.valor.map((item) => {
+          const citavel = publico && ementaCitavel(item);
+          return {
+            referencia: sanitizeUntrustedText(item.acordaoNumber || item.processNumber),
+            tribunal: sanitizeUntrustedText(item.court),
+            orgaoJulgador: sanitizeUntrustedText(item.chamber),
+            relator: item.reporter ? sanitizeUntrustedText(item.reporter) : null,
+            data: item.judgmentDate ? sanitizeUntrustedText(item.judgmentDate) : null,
+            sentido: this.derivarSentido(item.orientation),
+            citavel,
+            ementa: citavel ? ementaParaCitacao(item) : null,
+          };
+        }),
       },
       declassificacao: {
         sigiloOrigem: rotulado.sigilo,
@@ -138,7 +142,7 @@ export class DeclassifyService {
     const resultado = rotulado.valor;
     const nivel = this.nivel(rotulado.sigilo, "resumo");
     const alinhamentos = this.contarAlinhamentos(resultado);
-    const faixa = this.derivarFaixa(resultado.chanceReport.score);
+    const faixa = this.derivarFaixa(resultado.chanceReport);
 
     const dto: SafeStrategicUpdate = {
       tipo: "strategic_update",
@@ -283,7 +287,7 @@ export class DeclassifyService {
 
   private derivarFase(andamentos: AndamentoProcesso[]): FaseProcessual {
     const texto = andamentos
-      .map((andamento) => andamento.descricao.toLowerCase())
+      .map((andamento) => sanitizeUntrustedText(andamento.descricao).toLowerCase())
       .join(" ");
 
     if (texto.includes("trânsito em julgado")) return "transitado";
@@ -312,9 +316,15 @@ export class DeclassifyService {
     return "indefinido";
   }
 
-  private derivarFaixa(score: number): "baixa" | "moderada" | "razoavel" {
-    if (score >= 60) return "razoavel";
-    if (score >= 40) return "moderada";
+  private derivarFaixa(
+    chance: ResultadoPesquisa["chanceReport"]
+  ): "baixa" | "moderada" | "razoavel" | "indisponivel" {
+    if (chance.fonte === "indisponivel" || chance.label === CHANCE_INDISPONIVEL) {
+      return "indisponivel";
+    }
+
+    if (chance.score >= 60) return "razoavel";
+    if (chance.score >= 40) return "moderada";
 
     return "baixa";
   }
@@ -359,13 +369,14 @@ export class DeclassifyService {
   private textoSintese(
     resultado: ResultadoPesquisa,
     alinhamentos: ReturnType<DeclassifyService["contarAlinhamentos"]>,
-    faixa: "baixa" | "moderada" | "razoavel"
+    faixa: "baixa" | "moderada" | "razoavel" | "indisponivel"
   ): string {
     const total = resultado.jurisprudences.length;
     const rotuloFaixa = {
       baixa: "chance baixa no órgão do caso",
       moderada: "chance moderada",
       razoavel: "chance razoável",
+      indisponivel: CHANCE_INDISPONIVEL,
     }[faixa];
 
     const partes = [

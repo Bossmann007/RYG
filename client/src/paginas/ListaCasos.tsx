@@ -1,8 +1,9 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { listarCasos } from "../api";
 import { CartaoCaso } from "../componentes/CartaoCaso";
+import { Carregando } from "../componentes/Carregando";
 import { IconeBusca } from "../componentes/Icones";
-import { CASOS } from "../dados";
-import { ROTULO_STATUS, STATUS_PROCESSO, StatusProcesso } from "../tipos";
+import { Caso, ROTULO_STATUS, STATUS_PROCESSO, StatusProcesso } from "../tipos";
 
 type Props = {
   onAbrir: (id: string) => void;
@@ -11,11 +12,41 @@ type Props = {
 export function ListaCasos({ onAbrir }: Props) {
   const [busca, setBusca] = useState("");
   const [status, setStatus] = useState<StatusProcesso | "todos">("todos");
+  const [casos, setCasos] = useState<Caso[]>([]);
+  const [erro, setErro] = useState<string | null>(null);
+  const [carregando, setCarregando] = useState(true);
+
+  useEffect(() => {
+    let cancelado = false;
+
+    listarCasos()
+      .then((lista) => {
+        if (!cancelado) {
+          setCasos(lista);
+          setErro(null);
+        }
+      })
+      .catch((falha: unknown) => {
+        if (!cancelado) {
+          setCasos([]);
+          setErro(falha instanceof Error ? falha.message : "Acervo indisponível.");
+        }
+      })
+      .finally(() => {
+        if (!cancelado) {
+          setCarregando(false);
+        }
+      });
+
+    return () => {
+      cancelado = true;
+    };
+  }, []);
 
   const filtrados = useMemo(() => {
     const termo = busca.trim().toLowerCase();
 
-    return CASOS.filter((caso) => {
+    return casos.filter((caso) => {
       const texto = [
         caso.titulo,
         caso.tema,
@@ -34,7 +65,7 @@ export function ListaCasos({ onAbrir }: Props) {
       const bateStatus = status === "todos" || caso.status === status;
       return bateBusca && bateStatus;
     });
-  }, [busca, status]);
+  }, [busca, casos, status]);
 
   return (
     <section className="lista-casos">
@@ -75,10 +106,19 @@ export function ListaCasos({ onAbrir }: Props) {
       </div>
 
       <p className="contagem">
-        {filtrados.length} {filtrados.length === 1 ? "caso" : "casos"}
+        {carregando
+          ? "Lendo o acervo…"
+          : `${filtrados.length} ${filtrados.length === 1 ? "caso" : "casos"}`}
       </p>
 
-      {filtrados.length === 0 ? (
+      {erro ? (
+        <div className="vazio">
+          <p>{erro}</p>
+          <p>Suba o Nest com DB_* apontando para o TiDB.</p>
+        </div>
+      ) : carregando ? (
+        <Carregando texto="Carregando casos do acervo interno." />
+      ) : filtrados.length === 0 ? (
         <div className="vazio">
           <p>Nada com esse recorte.</p>
           <p>Tente outro tema ou limpe o filtro.</p>

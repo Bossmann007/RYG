@@ -77,7 +77,7 @@ export type SafeStrategicUpdate = EnvelopeSafe<
   "strategic_update",
   {
     referencia: string;
-    faixaDeRisco: "baixa" | "moderada" | "razoavel";
+    faixaDeRisco: "baixa" | "moderada" | "razoavel" | "indisponivel";
     divergenciaEntreOrgaos: {
       alinhados: number;
       divergentes: number;

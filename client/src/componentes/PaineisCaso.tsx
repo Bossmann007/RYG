@@ -6,10 +6,14 @@ import {
   Documento,
   Jurisprudencia,
   ROTULO_ALINHAMENTO,
+  ROTULO_RELACAO,
   ROTULO_STATUS,
   STATUS_PROCESSO,
   StatusProcesso,
+  chanceIndisponivel,
 } from "../tipos";
+import { fraseOficial } from "../texto";
+import { SeloCitacao, SeloFonte, SeloTese, ementaExibida } from "./SelosPolitica";
 
 type PropsLista = {
   titulo: string;
@@ -39,12 +43,12 @@ export function PainelDocumentos({ titulo, texto, itens }: PropsLista) {
         {itens.map((item) => (
           <li key={item.id}>
             <div>
-              <strong>{item.titulo}</strong>
-              <p>{item.resumo}</p>
-              <p className="doc-origem">Origem: {item.origem}</p>
+              <strong>{fraseOficial(item.titulo)}</strong>
+              {item.resumo ? <p>{fraseOficial(item.resumo)}</p> : null}
+              {item.origem ? <p className="doc-origem">{item.origem}</p> : null}
             </div>
             <span>
-              {item.tipo} · {item.data}
+              {[item.tipo, item.data].filter(Boolean).join(" · ")}
             </span>
           </li>
         ))}
@@ -66,35 +70,54 @@ export function PainelVisao({
     <section className="painel visao">
       <div className="visao-grid">
         <article className="cartao-suave chance-box">
-          <AnelChance valor={caso.chance} tamanho={120} />
-          <div>
-            <p className="olho">{caso.chance}% · {caso.chanceRotulo}</p>
-            <p>{caso.chanceTexto}</p>
-          </div>
+          {chanceIndisponivel(caso) ? (
+            <div className="chance-vazia">
+              <p className="olho">Índice descritivo</p>
+              <p className="chance-vazia-texto">Sem índice descritivo neste caso.</p>
+            </div>
+          ) : (
+            <>
+              <AnelChance valor={caso.chance} tamanho={120} />
+              <div>
+                <div className="selos">
+                  <SeloFonte fonte={caso.fontes?.chance || "tjpr"} />
+                </div>
+                <p className="olho">{caso.chance}% · {caso.chanceRotulo}</p>
+                <p>{caso.chanceTexto}</p>
+              </div>
+            </>
+          )}
         </article>
 
-        <article className="cartao-suave">
+        <article className="cartao-suave votos-box">
           <p className="olho">Neste recorte do TJPR</p>
-          <div className="votos">
-            <div className="voto for">
-              <strong>{caso.votos.for}</strong>
-              <span>a favor</span>
+          {caso.votos.for + caso.votos.against + caso.votos.diverge === 0 ? (
+            <p className="votos-vazio-texto">Sem votos catalogados neste recorte.</p>
+          ) : (
+            <div className="votos">
+              <div className="voto for">
+                <strong>{caso.votos.for}</strong>
+                <span>a favor</span>
+              </div>
+              <div className="voto against">
+                <strong>{caso.votos.against}</strong>
+                <span>contra</span>
+              </div>
+              <div className="voto diverge">
+                <strong>{caso.votos.diverge}</strong>
+                <span>divergente</span>
+              </div>
             </div>
-            <div className="voto against">
-              <strong>{caso.votos.against}</strong>
-              <span>contra</span>
-            </div>
-            <div className="voto diverge">
-              <strong>{caso.votos.diverge}</strong>
-              <span>divergente</span>
-            </div>
-          </div>
+          )}
         </article>
       </div>
 
       <article className="cartao-suave">
         <p className="olho">Tese do caso</p>
-        <p className="tese-destaque">{caso.tese}</p>
+        <div className="selos">
+          <SeloFonte fonte={caso.fontes?.tese || "acervo_interno"} />
+        </div>
+        <p className="tese-destaque">{fraseOficial(caso.tese)}</p>
         <p className="partes">
           {caso.partes.map((parte) => `${parte.papel}: ${parte.nome}`).join("  ·  ")}
         </p>
@@ -120,12 +143,14 @@ export function PainelVisao({
                 <span className={`selo status-${item.status}`}>
                   {ROTULO_STATUS[item.status]}
                 </span>
+                <SeloCitacao item={item} />
+                <SeloFonte fonte={item.fonte || "acervo_interno"} />
               </div>
               <strong>{item.acordao}</strong>
               <p>
                 {item.chamber} · {item.date}
               </p>
-              <p>{item.ementa}</p>
+              <p>{ementaExibida(item)}</p>
             </button>
           </li>
         ))}
@@ -145,8 +170,8 @@ export function PainelHistorico({ caso }: { caso: Caso }) {
         {caso.historico.map((item) => (
           <li key={`${item.data}-${item.titulo}`}>
             <span>{item.data}</span>
-            <strong>{item.titulo}</strong>
-            <p>{item.detalhe}</p>
+            <strong>{fraseOficial(item.titulo)}</strong>
+            <p>{fraseOficial(item.detalhe)}</p>
           </li>
         ))}
       </ol>
@@ -165,10 +190,13 @@ export function PainelTeses({ caso }: { caso: Caso }) {
         {caso.teses.map((tese) => (
           <li key={tese.id}>
             <div>
-              <strong>{tese.titulo}</strong>
-              <p>{tese.uso}</p>
+              <strong>{fraseOficial(tese.titulo)}</strong>
+              <p>{fraseOficial(tese.uso)}</p>
             </div>
-            <span className={`selo forca-${tese.forca}`}>força {tese.forca}</span>
+            <div className="selos">
+              <SeloTese tese={tese} />
+              <span className={`selo forca-${tese.forca}`}>força {tese.forca}</span>
+            </div>
           </li>
         ))}
       </ul>
@@ -187,9 +215,9 @@ export function PainelResultados({ caso }: { caso: Caso }) {
         {caso.resultados.map((item) => (
           <li key={item.id}>
             <div>
-              <strong>{item.titulo}</strong>
-              <p>{item.desfecho}</p>
-              <p>{item.aprendizado}</p>
+              <strong>{fraseOficial(item.titulo)}</strong>
+              <p>{fraseOficial(item.desfecho)}</p>
+              <p>{fraseOficial(item.aprendizado)}</p>
             </div>
           </li>
         ))}
@@ -200,48 +228,81 @@ export function PainelResultados({ caso }: { caso: Caso }) {
 
 export function PainelJurimetria({ caso }: { caso: Caso }) {
   const total = caso.votos.for + caso.votos.against + caso.votos.diverge;
+  const amostraValida = caso.jurimetria.amostra > 0;
+  const porAlinhamento = {
+    for: caso.jurisprudencias.filter((item) => item.alignment === "for" && item.ementa),
+    against: caso.jurisprudencias.filter((item) => item.alignment === "against" && item.ementa),
+    diverge: caso.jurisprudencias.filter((item) => item.alignment === "diverge" && item.ementa),
+  };
 
   return (
     <section className="painel">
       <header className="painel-cabeca">
         <h3>Jurimetria</h3>
-        <p>{caso.jurimetria.amostra} julgados semelhantes no TJPR.</p>
+        <p>
+          {amostraValida
+            ? `${caso.jurimetria.amostra} acórdãos oficiais neste recorte.`
+            : "Leitura das ementas oficiais deste caso."}
+        </p>
+        <SeloFonte fonte={caso.fontes?.jurimetria || "tjpr"} />
       </header>
 
-      <div className="barras">
-        {(["for", "against", "diverge"] as Alinhamento[]).map((chave) => {
-          const valor = caso.votos[chave];
-          const porcento = Math.round((valor / total) * 100);
-          return (
-            <div key={chave} className="barra-linha">
-              <span>{ROTULO_ALINHAMENTO[chave]}</span>
-              <div className="barra">
-                <i className={chave} style={{ width: `${porcento}%` }} />
+      {total === 0 ? (
+        <div className="vazio jurimetria-vazio">
+          <p>Sem votos catalogados neste recorte.</p>
+        </div>
+      ) : (
+        <div className="barras">
+          {(["for", "against", "diverge"] as const).map((chave) => {
+            const valor = caso.votos[chave];
+            const porcento = total ? Math.round((valor / total) * 100) : 0;
+            return (
+              <div key={chave} className="barra-linha">
+                <span>{ROTULO_ALINHAMENTO[chave]}</span>
+                <div className="barra">
+                  <i className={chave} style={{ width: `${porcento}%` }} />
+                </div>
+                <b>
+                  {valor} · {porcento}%
+                </b>
               </div>
-              <b>
-                {valor} · {porcento}%
-              </b>
-            </div>
-          );
-        })}
-      </div>
-
-      <article className="cartao-suave">
-        <p className="olho">Padrão externo</p>
-        <p>{caso.jurimetria.padrao}</p>
-      </article>
-      <article className="cartao-suave">
-        <p className="olho">Memória interna</p>
-        <p>{caso.jurimetria.interno}</p>
-      </article>
-
-      {caso.jurimetria.riscos.length > 0 && (
-        <ul className="lista-limpa">
-          {caso.jurimetria.riscos.map((risco) => (
-            <li key={risco}>{risco}</li>
-          ))}
-        </ul>
+            );
+          })}
+        </div>
       )}
+
+      {(["against", "diverge", "for"] as const).map((chave) => {
+        const itens = porAlinhamento[chave];
+        if (!itens.length) {
+          return null;
+        }
+        return (
+          <div key={chave} className="voto-motivo">
+            <p className="olho">{ROTULO_ALINHAMENTO[chave]} — por quê</p>
+            {itens.map((item) => (
+              <article key={item.id} className={`cartao-suave voto-card ${chave}`}>
+                <p className="voto-card-meta">
+                  {item.chamber} · {item.date}
+                </p>
+                <p>{fraseOficial(item.essencial.resumo || ementaExibida(item))}</p>
+              </article>
+            ))}
+          </div>
+        );
+      })}
+
+      {caso.jurimetria.padrao ? (
+        <article className="cartao-suave">
+          <p className="olho">Leitura do recorte</p>
+          <p>{fraseOficial(caso.jurimetria.padrao)}</p>
+        </article>
+      ) : null}
+      {caso.jurimetria.interno ? (
+        <article className="cartao-suave">
+          <p className="olho">O que as ementas oficiais dizem</p>
+          <p>{fraseOficial(caso.jurimetria.interno)}</p>
+        </article>
+      ) : null}
 
       {caso.dissidios.length > 0 && (
         <div className="dissidios">
@@ -253,8 +314,8 @@ export function PainelJurimetria({ caso }: { caso: Caso }) {
                 </span>
               </div>
               <strong>{item.camara}</strong>
-              <p>{item.orientacao}</p>
-              <p>{item.nota}</p>
+              <p>{fraseOficial(item.orientacao)}</p>
+              <p>{fraseOficial(item.nota)}</p>
             </article>
           ))}
         </div>
@@ -321,7 +382,8 @@ export function PainelJurisprudencia({
 
       {itens.length === 0 ? (
         <div className="vazio">
-          <p>Nenhum julgado neste recorte.</p>
+          <p>Nenhum julgado encontrado com esses filtros.</p>
+          <p className="vazio-dica">Tente remover filtros ou aguarde novos precedentes.</p>
         </div>
       ) : (
         <ul className="lista-juris">
@@ -335,12 +397,17 @@ export function PainelJurisprudencia({
                   <span className={`selo status-${item.status}`}>
                     {ROTULO_STATUS[item.status]}
                   </span>
+                  <SeloCitacao item={item} />
+                  <SeloFonte fonte={item.fonte || "acervo_interno"} />
+                  {item.relacao === "precedente_tema" && (
+                    <span className="selo relacao-tema">{ROTULO_RELACAO.precedente_tema}</span>
+                  )}
                 </div>
                 <strong>{item.acordao}</strong>
                 <p>
                   {item.chamber} · {item.date}
                 </p>
-                <p>{item.ementa}</p>
+                <p>{ementaExibida(item)}</p>
               </button>
             </li>
           ))}
