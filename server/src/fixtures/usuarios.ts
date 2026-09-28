@@ -37,6 +37,12 @@ export const USUARIOS_POR_TOKEN: Record<string, Identidade> = {
   },
 };
 
+/**
+ * These tokens receive a membership row on every existing caso of their office.
+ * Any other token in the same office stays a non-member (403 on capa).
+ */
+export const MEMBROS_DEMO_ESCRITORIO = ["demo-socio"] as const;
+
 export const PERFIS_DEMO = Object.entries(USUARIOS_POR_TOKEN).map(
   ([token, identidade]) => ({
     token,
