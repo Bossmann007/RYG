@@ -1,5 +1,4 @@
 import { useMemo, useState } from "react";
-import { AnelChance } from "./AnelChance";
 import {
   Alinhamento,
   Caso,
@@ -10,7 +9,6 @@ import {
   ROTULO_STATUS,
   STATUS_PROCESSO,
   StatusProcesso,
-  chanceIndisponivel,
 } from "../tipos";
 import { fraseOficial } from "../texto";
 import { SeloCitacao, SeloFonte, SeloTese, ementaExibida } from "./SelosPolitica";
@@ -69,24 +67,12 @@ export function PainelVisao({
   return (
     <section className="painel visao">
       <div className="visao-grid">
-        <article className="cartao-suave chance-box">
-          {chanceIndisponivel(caso) ? (
-            <div className="chance-vazia">
-              <p className="olho">Índice descritivo</p>
-              <p className="chance-vazia-texto">Sem índice descritivo neste caso.</p>
-            </div>
-          ) : (
-            <>
-              <AnelChance valor={caso.chance} tamanho={120} />
-              <div>
-                <div className="selos">
-                  <SeloFonte fonte={caso.fontes?.chance || "tjpr"} />
-                </div>
-                <p className="olho">{caso.chance}% · {caso.chanceRotulo}</p>
-                <p>{caso.chanceTexto}</p>
-              </div>
-            </>
-          )}
+        <article className="cartao-suave">
+          <p className="olho">Hub do caso</p>
+          <p>
+            Chat e memória ficam neste site. WhatsApp é só tool de envio. Jurimetria e % de
+            vitória ficam fora do v0.
+          </p>
         </article>
 
         <article className="cartao-suave votos-box">
@@ -222,104 +208,6 @@ export function PainelResultados({ caso }: { caso: Caso }) {
           </li>
         ))}
       </ul>
-    </section>
-  );
-}
-
-export function PainelJurimetria({ caso }: { caso: Caso }) {
-  const total = caso.votos.for + caso.votos.against + caso.votos.diverge;
-  const amostraValida = caso.jurimetria.amostra > 0;
-  const porAlinhamento = {
-    for: caso.jurisprudencias.filter((item) => item.alignment === "for" && item.ementa),
-    against: caso.jurisprudencias.filter((item) => item.alignment === "against" && item.ementa),
-    diverge: caso.jurisprudencias.filter((item) => item.alignment === "diverge" && item.ementa),
-  };
-
-  return (
-    <section className="painel">
-      <header className="painel-cabeca">
-        <h3>Jurimetria</h3>
-        <p>
-          {amostraValida
-            ? `${caso.jurimetria.amostra} acórdãos oficiais neste recorte.`
-            : "Leitura das ementas oficiais deste caso."}
-        </p>
-        <SeloFonte fonte={caso.fontes?.jurimetria || "tjpr"} />
-      </header>
-
-      {total === 0 ? (
-        <div className="vazio jurimetria-vazio">
-          <p>Sem votos catalogados neste recorte.</p>
-        </div>
-      ) : (
-        <div className="barras">
-          {(["for", "against", "diverge"] as const).map((chave) => {
-            const valor = caso.votos[chave];
-            const porcento = total ? Math.round((valor / total) * 100) : 0;
-            return (
-              <div key={chave} className="barra-linha">
-                <span>{ROTULO_ALINHAMENTO[chave]}</span>
-                <div className="barra">
-                  <i className={chave} style={{ width: `${porcento}%` }} />
-                </div>
-                <b>
-                  {valor} · {porcento}%
-                </b>
-              </div>
-            );
-          })}
-        </div>
-      )}
-
-      {(["against", "diverge", "for"] as const).map((chave) => {
-        const itens = porAlinhamento[chave];
-        if (!itens.length) {
-          return null;
-        }
-        return (
-          <div key={chave} className="voto-motivo">
-            <p className="olho">{ROTULO_ALINHAMENTO[chave]} — por quê</p>
-            {itens.map((item) => (
-              <article key={item.id} className={`cartao-suave voto-card ${chave}`}>
-                <p className="voto-card-meta">
-                  {item.chamber} · {item.date}
-                </p>
-                <p>{fraseOficial(item.essencial.resumo || ementaExibida(item))}</p>
-              </article>
-            ))}
-          </div>
-        );
-      })}
-
-      {caso.jurimetria.padrao ? (
-        <article className="cartao-suave">
-          <p className="olho">Leitura do recorte</p>
-          <p>{fraseOficial(caso.jurimetria.padrao)}</p>
-        </article>
-      ) : null}
-      {caso.jurimetria.interno ? (
-        <article className="cartao-suave">
-          <p className="olho">O que as ementas oficiais dizem</p>
-          <p>{fraseOficial(caso.jurimetria.interno)}</p>
-        </article>
-      ) : null}
-
-      {caso.dissidios.length > 0 && (
-        <div className="dissidios">
-          {caso.dissidios.map((item) => (
-            <article key={item.camara} className="cartao-suave">
-              <div className="selos">
-                <span className={`selo alinhamento-${item.versus}`}>
-                  {ROTULO_ALINHAMENTO[item.versus]}
-                </span>
-              </div>
-              <strong>{item.camara}</strong>
-              <p>{fraseOficial(item.orientacao)}</p>
-              <p>{fraseOficial(item.nota)}</p>
-            </article>
-          ))}
-        </div>
-      )}
     </section>
   );
 }

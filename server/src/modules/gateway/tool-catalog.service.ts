@@ -117,7 +117,7 @@ export class ToolCatalogService {
         nome: "get_safe_update",
         titulo: "Atualização estratégica do caso",
         descricao:
-          "Leitura estratégica de um processo: faixa de risco, quantos precedentes alinham, divergem ou contrariam o órgão do caso, síntese gerada e pontos de atenção. Sem pontuação numérica, sem texto de voto, sem dados do cliente.",
+          "Leitura estratégica de um processo: quantos precedentes alinham, divergem ou contrariam o órgão do caso, síntese gerada e pontos de atenção. Sem pontuação numérica, sem texto de voto, sem dados do cliente.",
         esquema: z.object({
           processNumber: z
             .string()

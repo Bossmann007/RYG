@@ -30,12 +30,14 @@ git push origin develop
 
 If another contributor pushed first, fetch and rebase again. Resolve conflicts and repeat the relevant checks before retrying the push. Do not use `--force`.
 
-Gateway validation (after `npm ci --prefix privacy-gateway`):
+Gateway validation:
 
 ```sh
-npm run evidence
+pnpm install
+pnpm evidence
 ```
 
+Prefer **pnpm** everywhere; do not add `package-lock.json`.
 ## Publishing a version
 
 1. Open a pull request with base `main` and compare `develop`.

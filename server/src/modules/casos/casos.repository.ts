@@ -53,29 +53,29 @@ const FILHAS: NomeTabela[] = [
 export class CasosRepository {
   constructor(private readonly db: DbService) {}
 
-  async listar(): Promise<Caso[]> {
-    return this.carregar();
+  async listar(officeId: string): Promise<Caso[]> {
+    return this.carregar(officeId);
   }
 
-  async obter(idOrCnj: string): Promise<Caso | undefined> {
-    const capa = await this.buscarCapa(idOrCnj);
+  async obter(officeId: string, idOrCnj: string): Promise<Caso | undefined> {
+    const capa = await this.buscarCapa(officeId, idOrCnj);
     if (!capa) {
       return undefined;
     }
 
-    const processo = await this.buscarProcesso(capa);
+    const processo = await this.buscarProcesso(officeId, capa);
     return this.montarDeCapa(capa, processo ? [processo] : [], true, true);
   }
 
-  private async buscarProcesso(capa: Linha): Promise<Linha | undefined> {
+  private async buscarProcesso(officeId: string, capa: Linha): Promise<Linha | undefined> {
     const processoId = String(valorCampo(capa, ALIASES.processoId) ?? "");
     const cnj = cnjDigitos(valorCampo(capa, ALIASES.numeroCnj));
 
     try {
       if (processoId) {
         const porId = await this.db.consultar<RowDataPacket>(
-          `SELECT ${PROCESSOS_COLUNAS} FROM processos WHERE id = ? LIMIT 1`,
-          [processoId]
+          `SELECT ${PROCESSOS_COLUNAS} FROM processos WHERE id = ? AND office_id = ? LIMIT 1`,
+          [processoId, officeId]
         );
         if (porId[0]) {
           return { ...porId[0] };
@@ -84,8 +84,8 @@ export class CasosRepository {
 
       if (cnj.length === 20) {
         const porCnj = await this.db.consultar<RowDataPacket>(
-          `SELECT ${PROCESSOS_COLUNAS} FROM processos WHERE REPLACE(REPLACE(REPLACE(numero_cnj, '-', ''), '.', ''), '/', '') = ? LIMIT 1`,
-          [cnj]
+          `SELECT ${PROCESSOS_COLUNAS} FROM processos WHERE REPLACE(REPLACE(REPLACE(numero_cnj, '-', ''), '.', ''), '/', '') = ? AND office_id = ? LIMIT 1`,
+          [cnj, officeId]
         );
         if (porCnj[0]) {
           return { ...porCnj[0] };
@@ -100,15 +100,15 @@ export class CasosRepository {
     return undefined;
   }
 
-  private async buscarCapa(idOrCnj: string): Promise<Linha | undefined> {
+  private async buscarCapa(officeId: string, idOrCnj: string): Promise<Linha | undefined> {
     const chave = idOrCnj.trim();
     const pedido = cnjDigitos(chave);
 
     try {
       if (/^\d+$/.test(chave)) {
         const porId = await this.db.consultar<RowDataPacket>(
-          "SELECT * FROM casos WHERE id = ? OR processo_id = ? LIMIT 1",
-          [chave, chave]
+          "SELECT * FROM casos WHERE (id = ? OR processo_id = ?) AND office_id = ? LIMIT 1",
+          [chave, chave, officeId]
         );
         if (porId[0]) {
           return { ...porId[0] };
@@ -117,8 +117,8 @@ export class CasosRepository {
 
       if (pedido.length === 20) {
         const porCnj = await this.db.consultar<RowDataPacket>(
-          "SELECT * FROM casos WHERE REPLACE(REPLACE(REPLACE(numero_cnj, '-', ''), '.', ''), '/', '') = ? LIMIT 1",
-          [pedido]
+          "SELECT * FROM casos WHERE REPLACE(REPLACE(REPLACE(numero_cnj, '-', ''), '.', ''), '/', '') = ? AND office_id = ? LIMIT 1",
+          [pedido, officeId]
         );
         if (porCnj[0]) {
           return { ...porCnj[0] };
@@ -130,21 +130,27 @@ export class CasosRepository {
       }
     }
 
-    const casos = await this.linhas("casos");
-    const processos = await this.linhas("processos");
+    const casos = (await this.capasDoEscritorio("casos", officeId)) ?? [];
+    const processos = (await this.capasDoEscritorio("processos", officeId)) ?? [];
     const capas = casos.length ? casos : processos;
     return capas.find((linha) => this.capaBate(linha, idOrCnj));
   }
 
-  async carregar(): Promise<Caso[]> {
-    const casos = await this.linhas("casos");
-    const processos = await this.linhas("processos");
-    const capas = casos.length ? casos : processos;
+  async carregar(officeId: string): Promise<Caso[]> {
+    const casosOuAusente = await this.capasDoEscritorio("casos", officeId);
+    const processosOuAusente = await this.capasDoEscritorio("processos", officeId);
 
-    if (!capas.length) {
+    if (!casosOuAusente && !processosOuAusente) {
       throw new ServiceUnavailableException(
         "Tabelas casos/processos ausentes no banco configurado."
       );
+    }
+
+    const casos = casosOuAusente ?? [];
+    const processos = processosOuAusente ?? [];
+    const capas = casos.length ? casos : processos;
+    if (!capas.length) {
+      return [];
     }
 
     const porTabela: Record<string, Linha[]> = {
@@ -225,14 +231,33 @@ export class CasosRepository {
     );
   }
 
-  private async linhas(tabela: NomeTabela): Promise<Linha[]> {
-    const sql =
-      tabela === "processos"
-        ? `SELECT ${PROCESSOS_COLUNAS} FROM ${nomeSeguro(tabela)}`
-        : `SELECT * FROM ${nomeSeguro(tabela)}`;
+  /** Returns null when the table does not exist, [] when the office has no rows. */
+  private async capasDoEscritorio(
+    tabela: "casos" | "processos",
+    officeId: string
+  ): Promise<Linha[] | null> {
+    const colunas = tabela === "processos" ? PROCESSOS_COLUNAS : "*";
 
     try {
-      const registros = await this.db.consultar<RowDataPacket>(sql);
+      const registros = await this.db.consultar<RowDataPacket>(
+        `SELECT ${colunas} FROM ${tabela} WHERE office_id = ?`,
+        [officeId]
+      );
+      return registros.map((linha) => ({ ...linha }));
+    } catch (erro) {
+      if (tabelaAusente(erro)) {
+        return null;
+      }
+
+      throw erro;
+    }
+  }
+
+  private async linhas(tabela: NomeTabela): Promise<Linha[]> {
+    try {
+      const registros = await this.db.consultar<RowDataPacket>(
+        `SELECT * FROM ${nomeSeguro(tabela)}`
+      );
       return registros.map((linha) => ({ ...linha }));
     } catch (erro) {
       if (tabelaAusente(erro)) {

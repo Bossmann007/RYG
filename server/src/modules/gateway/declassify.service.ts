@@ -1,5 +1,4 @@
 import { ementaCitavel, ementaParaCitacao } from "@common/security/cite-or-silent";
-import { CHANCE_INDISPONIVEL } from "@common/security/fonte-fato";
 import { sanitizeUntrustedList, sanitizeUntrustedText } from "@common/security/untrusted-text";
 import {
   maiorSigilo,
@@ -142,15 +141,13 @@ export class DeclassifyService {
     const resultado = rotulado.valor;
     const nivel = this.nivel(rotulado.sigilo, "resumo");
     const alinhamentos = this.contarAlinhamentos(resultado);
-    const faixa = this.derivarFaixa(resultado.chanceReport);
 
     const dto: SafeStrategicUpdate = {
       tipo: "strategic_update",
       conteudo: {
         referencia: resultado.process.processNumber,
-        faixaDeRisco: faixa,
         divergenciaEntreOrgaos: alinhamentos,
-        sintese: this.textoSintese(resultado, alinhamentos, faixa),
+        sintese: this.textoSintese(resultado, alinhamentos),
         recomendacao: this.textoRecomendacao(alinhamentos),
       },
       declassificacao: {
@@ -158,7 +155,7 @@ export class DeclassifyService {
         nivel,
         fontes: [rotulado.fonte, "acervo:jurisprudencia"],
         omitido: [
-          "pontuação numérica de chance",
+          "pontuação ou faixa de chance",
           "texto dos votos e das ementas",
           "pontos de blindagem redigidos internamente",
           "dados das partes e do contrato",
@@ -316,19 +313,6 @@ export class DeclassifyService {
     return "indefinido";
   }
 
-  private derivarFaixa(
-    chance: ResultadoPesquisa["chanceReport"]
-  ): "baixa" | "moderada" | "razoavel" | "indisponivel" {
-    if (chance.fonte === "indisponivel" || chance.label === CHANCE_INDISPONIVEL) {
-      return "indisponivel";
-    }
-
-    if (chance.score >= 60) return "razoavel";
-    if (chance.score >= 40) return "moderada";
-
-    return "baixa";
-  }
-
   private contarAlinhamentos(resultado: ResultadoPesquisa) {
     const itens = resultado.jurisprudences;
 
@@ -368,21 +352,13 @@ export class DeclassifyService {
 
   private textoSintese(
     resultado: ResultadoPesquisa,
-    alinhamentos: ReturnType<DeclassifyService["contarAlinhamentos"]>,
-    faixa: "baixa" | "moderada" | "razoavel" | "indisponivel"
+    alinhamentos: ReturnType<DeclassifyService["contarAlinhamentos"]>
   ): string {
     const total = resultado.jurisprudences.length;
-    const rotuloFaixa = {
-      baixa: "chance baixa no órgão do caso",
-      moderada: "chance moderada",
-      razoavel: "chance razoável",
-      indisponivel: CHANCE_INDISPONIVEL,
-    }[faixa];
 
     const partes = [
       `Foram cruzados ${total} precedentes com a orientação do órgão julgador do caso.`,
       `${alinhamentos.alinhados} seguem a mesma linha, ${alinhamentos.divergentes} divergem de outro órgão e ${alinhamentos.contrarios} contrariam a linha predominante.`,
-      `A leitura do conjunto indica ${rotuloFaixa}.`,
     ];
 
     if (alinhamentos.semEmentaCitavel > 0) {

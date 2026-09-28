@@ -248,7 +248,7 @@ describe("derivarFontes (chance/votos/jurimetria)", () => {
     };
   }
 
-  it("caso com chance=42 e chanceRotulo descritivo NÃO tem fontes.chance=indisponivel", () => {
+  it("chance armazenada vira cite-or-silent", () => {
     const caso = {
       ...casoBase(),
       chance: 42,
@@ -258,10 +258,10 @@ describe("derivarFontes (chance/votos/jurimetria)", () => {
 
     const resultado = aplicarPoliticaCaso(caso);
 
-    expect(resultado.chance).toBe(42);
-    expect(resultado.chanceRotulo).toBe("recorte descritivo TJPR");
-    expect(resultado.fontes.chance).not.toBe("indisponivel");
-    expect(resultado.fontes.chance).toBe("tjpr");
+    expect(resultado.chance).toBe(0);
+    expect(resultado.chanceRotulo).toBe(CHANCE_INDISPONIVEL);
+    expect(resultado.chanceTexto).toBe(CHANCE_INDISPONIVEL);
+    expect(resultado.fontes.chance).toBe("indisponivel");
   });
 
   it("caso TJPR com votos populados tem fontes.votos=tjpr", () => {
@@ -306,7 +306,7 @@ describe("derivarFontes (chance/votos/jurimetria)", () => {
     expect(resultado.fontes.chance).toBe("indisponivel");
   });
 
-  it("caso de outro tribunal com chance tem fontes.chance=inferencia", () => {
+  it("chance de outro tribunal também fica indisponível", () => {
     const caso = {
       ...casoBase(),
       court: "TJSP",
@@ -317,22 +317,7 @@ describe("derivarFontes (chance/votos/jurimetria)", () => {
 
     const resultado = aplicarPoliticaCaso(caso);
 
-    expect(resultado.fontes.chance).toBe("inferencia");
-    expect(resultado.fontes.chance).not.toBe("indisponivel");
-  });
-
-  it("preserva chance/chanceRotulo/chanceTexto originais após aplicarPoliticaCaso", () => {
-    const caso = {
-      ...casoBase(),
-      chance: 75,
-      chanceRotulo: "favorável ao cliente",
-      chanceTexto: "Alta probabilidade de sucesso.",
-    };
-
-    const resultado = aplicarPoliticaCaso(caso);
-
-    expect(resultado.chance).toBe(75);
-    expect(resultado.chanceRotulo).toBe("favorável ao cliente");
-    expect(resultado.chanceTexto).toBe("Alta probabilidade de sucesso.");
+    expect(resultado.chance).toBe(0);
+    expect(resultado.fontes.chance).toBe("indisponivel");
   });
 });

@@ -416,47 +416,6 @@ main {
   color: #5a6d80;
 }
 
-.anel {
-  flex: 0 0 auto;
-}
-
-.anel-trilha,
-.anel-valor {
-  fill: none;
-  stroke-width: 8;
-}
-
-.anel-trilha {
-  stroke: #d4deea;
-}
-
-.anel-valor {
-  stroke: var(--vinho);
-  stroke-linecap: round;
-  transform: rotate(-90deg);
-  transform-origin: 50px 50px;
-}
-
-.anel-numero,
-.anel-legenda {
-  text-anchor: middle;
-  font-family: Fraunces, Georgia, serif;
-}
-
-.anel-numero {
-  fill: var(--vinho-escuro);
-  font-size: 18px;
-  font-weight: 700;
-}
-
-.anel-legenda {
-  fill: var(--texto-suave);
-  font-size: 8px;
-  font-family: Outfit, sans-serif;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
 .detalhe-topo {
   flex-direction: column;
   align-items: flex-start;
@@ -559,8 +518,7 @@ main {
   font-size: 28px;
 }
 
-.visao-grid,
-.dissidios {
+.visao-grid {
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
   gap: 16px;
@@ -586,34 +544,6 @@ main {
 }
 
 .votos-vazio-texto {
-  margin: 0;
-  color: var(--texto-suave);
-  font-size: 14px;
-}
-
-.jurimetria-vazio {
-  margin-bottom: 16px;
-}
-
-.chance-box {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  padding: 20px 22px;
-}
-
-.chance-vazia {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 100%;
-}
-
-.chance-vazia .olho {
-  margin-bottom: 4px;
-}
-
-.chance-vazia-texto {
   margin: 0;
   color: var(--texto-suave);
   font-size: 14px;
@@ -737,45 +667,6 @@ main {
 .chip.ativa {
   background: var(--vinho);
   color: #fff;
-}
-
-.barras {
-  display: grid;
-  gap: 10px;
-  margin-bottom: 16px;
-}
-
-.barra-linha {
-  display: grid;
-  grid-template-columns: 110px 1fr auto;
-  gap: 10px;
-  align-items: center;
-  font-size: 13px;
-}
-
-.barra {
-  height: 10px;
-  background: #e4edf6;
-  border-radius: 999px;
-  overflow: hidden;
-}
-
-.barra i {
-  display: block;
-  height: 100%;
-  border-radius: inherit;
-}
-
-.barra i.for {
-  background: var(--favor);
-}
-
-.barra i.against {
-  background: var(--contra);
-}
-
-.barra i.diverge {
-  background: var(--ouro);
 }
 
 .balao.ia {
@@ -1478,37 +1369,6 @@ main {
   }
 }
 
-.voto-motivo {
-  margin: 8px 0 18px;
-}
-
-.voto-motivo .olho {
-  margin-bottom: 10px;
-}
-
-.voto-card {
-  margin-bottom: 10px;
-}
-
-.voto-card.for {
-  border-left: 4px solid var(--favor);
-}
-
-.voto-card.against {
-  border-left: 4px solid var(--contra);
-}
-
-.voto-card.diverge {
-  border-left: 4px solid var(--diverge);
-}
-
-.voto-card-meta {
-  margin: 0 0 6px;
-  color: var(--vinho);
-  font-size: 12px;
-  font-weight: 700;
-}
-
 .lista-modelos {
   list-style: none;
   margin: 0;
@@ -1563,4 +1423,15 @@ main {
 .ementa,
 .bloco-resumo {
   line-height: 1.55;
+}
+
+.catalogo {
+  padding: 1.5rem 1.75rem 3rem;
+}
+
+.catalogo-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  margin-top: 1rem;
 }

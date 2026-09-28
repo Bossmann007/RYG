@@ -25,6 +25,6 @@ import { ToolCatalogService } from "./tool-catalog.service";
     PolicyService,
     ToolCatalogService,
   ],
-  exports: [GatewayService, IdentityService, PolicyService],
+  exports: [GatewayService, IdentityService, PolicyService, AuditService],
 })
 export class GatewayModule {}

@@ -73,12 +73,12 @@ export type AbaCaso =
   | "resultados"
   | "conversas"
   | "jurisprudencia"
-  | "jurimetria"
   | "relatorios";
 
 export type TelaApp =
   | { tipo: "casos" }
-  | { tipo: "caso"; id: string };
+  | { tipo: "caso"; id: string }
+  | { tipo: "catalogo" };
 
 export type MembroEquipe = {
   id: string;
@@ -348,12 +348,4 @@ export function rotuloFonte(fonte: FonteFato): string {
 
 export function ehCitavel(item: { citavel?: boolean; ementa?: string }): boolean {
   return item.citavel === true && Boolean(item.ementa?.trim());
-}
-
-export function chanceIndisponivel(caso: Caso): boolean {
-  return (
-    caso.fontes?.chance === "indisponivel" ||
-    caso.chanceRotulo === CHANCE_INDISPONIVEL ||
-    !caso.chance
-  );
 }

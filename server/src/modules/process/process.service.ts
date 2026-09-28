@@ -1,23 +1,42 @@
 import { Processo } from "@models/processo.model";
-import {
-  NUMERO_PROCESSO_DEMO,
-  PROCESSOS_POR_NUMERO,
-} from "../../fixtures/processos";
-import { Injectable, NotFoundException } from "@nestjs/common";
+import { NUMERO_PROCESSO_DEMO } from "../../fixtures/processos";
+import { Injectable, NotFoundException, ServiceUnavailableException } from "@nestjs/common";
+import { ConfigService } from "@nestjs/config";
+import { ProcessSource } from "./process-source";
+import { criarProcessSource } from "./process-source.factory";
 
 @Injectable()
 export class ProcessService {
+  private readonly source: ProcessSource;
+
+  constructor(config: ConfigService) {
+    this.source = criarProcessSource(config.get<string>("PROCESS_SOURCE"));
+  }
+
+  fonteAtiva() {
+    return {
+      kind: this.source.kind,
+      configurado: this.source.kind === "fixture",
+    };
+  }
+
   buscarCapa(numero: string): Processo {
     const normalizado = this.normalizarNumero(numero);
-    const processo = PROCESSOS_POR_NUMERO[normalizado];
+    const processo = this.source.buscarCapa(normalizado);
 
-    if (!processo) {
-      throw new NotFoundException(
-        `Processo não encontrado. Use o caso: ${NUMERO_PROCESSO_DEMO}.`
+    if (processo) {
+      return processo;
+    }
+
+    if (this.source.kind !== "fixture") {
+      throw new ServiceUnavailableException(
+        `ProcessSource "${this.source.kind}" ainda não configurado. Use PROCESS_SOURCE=fixture ou implemente o adaptador.`
       );
     }
 
-    return { ...processo };
+    throw new NotFoundException(
+      `Processo não encontrado. Use o caso: ${NUMERO_PROCESSO_DEMO}.`
+    );
   }
 
   numeroValido(numero: string): boolean {

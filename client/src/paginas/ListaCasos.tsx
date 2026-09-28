@@ -114,7 +114,11 @@ export function ListaCasos({ onAbrir }: Props) {
       {erro ? (
         <div className="vazio">
           <p>{erro}</p>
-          <p>Suba o Nest com DB_* apontando para o TiDB.</p>
+          <p>
+            {/credencial|escritório/i.test(erro)
+              ? "Defina VITE_HUB_TOKEN com um token de demo (client/.env.example)."
+              : "Suba o Nest com DB_* apontando para o TiDB."}
+          </p>
         </div>
       ) : carregando ? (
         <Carregando texto="Carregando casos do acervo interno." />

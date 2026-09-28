@@ -1,29 +1,52 @@
-# OpenLegalAI
+# RYG / OpenLegalAI
 
-Workspace jurídico da **Zhegga Advogados Associados**: casos do TiDB, ementas oficiais do TJPR e modelos para escrever peça.
+Office hub (**PMS + wiki + connectors + team chat**). Optional AI via AI Gateway. **Not** a legal chatbot.
 
-## Como subir
+**Thesis / Decisions:** [`PROJECT.md`](PROJECT.md) (source of truth). Architecture: [`docs/adr/0001-hub-north-star.md`](docs/adr/0001-hub-north-star.md). Plan: [`docs/plan/hub-office-platform.md`](docs/plan/hub-office-platform.md).
 
-Dois terminais:
+## Package manager
+
+**pnpm only** (`packageManager`: pnpm@9.15.4). Do not commit `package-lock.json`. Use Corepack or install pnpm 9+.
 
 ```bash
-pnpm dev:server    # Nest em http://127.0.0.1:3000
-pnpm dev           # tela em http://localhost:8080
+corepack enable
+pnpm install                 # workspace: client + server + privacy-gateway
 ```
 
-`DB_*` fica em `server/.env` (veja `server/.env.example`). Sem o Nest, a tela usa a cópia local do acervo.
+## Run
 
-## Documentação
+```bash
+# terminal 1
+pnpm dev:server              # Nest → http://127.0.0.1:3000
 
-- [Manual de teste (o que pesquisar e o que deve aparecer)](docs/MANUAL-TESTE.md)
-- [Como contribuir, branches e versões](CONTRIBUTING.md)
-- [Visão do produto](docs/PRODUCT.md)
-- [Fluxo do usuário](docs/FLUXO.md)
-- [Arquitetura](docs/ARCHITECTURE.md)
-- [Casos no TiDB e prova do GET /api/casos](docs/TIDB-CASOS.md)
-- [Anti-alucinação e anti-injeção](docs/ANTI-ALUCINACAO.md)
+# terminal 2
+pnpm dev                     # Vite → http://localhost:8080
+```
 
-## Stack
+Env templates (no secrets): `server/.env.example`, `client/.env.example`. Copy to `.env` locally — never commit real `.env`.
 
-- **Client:** React + Vite em `client/`
-- **Server:** NestJS em `server/` (`common`, `config`, `modules`, prefixo `/api`)
+## Evidence / CI locally
+
+```bash
+pnpm evidence                # privacy-gateway typecheck + test + demo + mcp smoke
+pnpm build:server
+pnpm build:client
+pnpm lint:measure            # max-file-lines warn; exit 0 always
+```
+
+GitHub Actions: `.github/workflows/ci.yml` runs evidence + builds on push/PR to `main`/`develop`.
+
+## Layout
+
+| Path | What |
+|------|------|
+| `client/` | React + Vite |
+| `server/` | NestJS `/api` |
+| `privacy-gateway/` | SafeDTO / MCP egress |
+| `docs/` | ADR + plan + ops |
+| `scripts/` | automation |
+| `tooling/` | eslint custom rules |
+
+## Contribute
+
+See [`CONTRIBUTING.md`](CONTRIBUTING.md). Outside closed v0 P0 → GitHub issue, not product code.

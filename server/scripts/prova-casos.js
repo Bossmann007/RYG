@@ -10,7 +10,7 @@
  *
  * Or, with the server already up:
  *
- *   curl -s http://127.0.0.1:3000/api/casos | python3 -c \
+ *   curl -s -H 'Authorization: Bearer demo-socio' http://127.0.0.1:3000/api/casos | python3 -c \
  *     'import json,sys; d=json.load(sys.stdin); assert d["zone"]=="internal"; assert len(d["casos"])==26; print(len(d["casos"]))'
  */
 require("../dist/register-aliases");
@@ -106,7 +106,6 @@ function provaAssembler() {
     caso.historico[0].titulo === "Distribuição" &&
     caso.teses[0].forca === "alta" &&
     caso.jurisprudencias.length === 0 &&
-    caso.jurimetria.amostra === 12 &&
     !Object.prototype.hasOwnProperty.call(caso, "cpf")
   ) {
     ok("assembler monta Caso e ignora PII extra", caso.id);
@@ -156,7 +155,9 @@ function provaAssembler() {
 }
 
 async function requisitar(base, caminho) {
-  const resposta = await fetch(`${base}${caminho}`);
+  const resposta = await fetch(`${base}${caminho}`, {
+    headers: { Authorization: "Bearer demo-socio" },
+  });
   const texto = await resposta.text();
   const json = texto ? JSON.parse(texto) : null;
   return { status: resposta.status, json };
@@ -224,7 +225,6 @@ async function provaHttp() {
             caso.conversas,
             caso.jurisprudencias,
             caso.dissidios,
-            caso.jurimetria,
           ]
         : [];
 

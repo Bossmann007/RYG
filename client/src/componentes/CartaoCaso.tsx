@@ -1,5 +1,4 @@
-import { Caso, ROTULO_STATUS, chanceIndisponivel } from "../tipos";
-import { AnelChance } from "./AnelChance";
+import { Caso, ROTULO_STATUS } from "../tipos";
 
 type Props = {
   caso: Caso;
@@ -23,9 +22,6 @@ export function CartaoCaso({ caso, onAbrir }: Props) {
           <p className="cartao-meta">{caso.processNumber}</p>
           <p className="cartao-meta">{caso.atualizacao}</p>
         </div>
-        {chanceIndisponivel(caso) ? null : (
-          <AnelChance valor={caso.chance} tamanho={76} />
-        )}
       </div>
     </button>
   );

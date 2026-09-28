@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { obterCaso } from "./api";
 import { BarraTopo } from "./componentes/BarraTopo";
 import { Carregando } from "./componentes/Carregando";
+import { CatalogoBancario } from "./paginas/CatalogoBancario";
 import { DetalheCaso } from "./paginas/DetalheCaso";
 import { ListaCasos } from "./paginas/ListaCasos";
 import { Caso, TelaApp } from "./tipos";
@@ -49,10 +50,16 @@ export function App() {
 
   return (
     <div className="shell">
-      <BarraTopo onInicio={() => setTela({ tipo: "casos" })} />
+      <BarraTopo
+        onInicio={() => setTela({ tipo: "casos" })}
+        onCatalogo={() => setTela({ tipo: "catalogo" })}
+      />
       <main>
         {tela.tipo === "casos" && (
           <ListaCasos onAbrir={(id) => setTela({ tipo: "caso", id })} />
+        )}
+        {tela.tipo === "catalogo" && (
+          <CatalogoBancario onVoltar={() => setTela({ tipo: "casos" })} />
         )}
         {tela.tipo === "caso" && carregando && (
           <Carregando texto="Abrindo o caso no acervo." />

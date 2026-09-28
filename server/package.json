@@ -14,6 +14,11 @@
     "prova": "node scripts/prova-declassificacao.js",
     "prova:acervo": "node scripts/prova-acervo.js",
     "prova:casos": "node scripts/prova-casos.js",
+    "prova:auth": "node scripts/prova-auth.js",
+    "prova:office": "node scripts/prova-office.js",
+    "prova:audit": "node scripts/prova-audit-fail.js",
+    "prova:hitl": "node scripts/prova-hitl-whatsapp.js",
+    "office-id:apply": "node scripts/apply-office-id.js",
     "test": "vitest run",
     "test:watch": "vitest",
     "prova:anti": "vitest run test/anti-alucinacao.spec.ts"

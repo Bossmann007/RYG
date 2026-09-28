@@ -1,5 +1,5 @@
 import { RegistroAuditoria } from "@models/gateway.model";
-import { Injectable, Logger } from "@nestjs/common";
+import { Injectable, Logger, ServiceUnavailableException } from "@nestjs/common";
 import { appendFile, mkdir } from "fs/promises";
 import { dirname, resolve } from "path";
 
@@ -18,22 +18,19 @@ export class AuditService {
   );
 
   async registrar(registro: RegistroAuditoria): Promise<void> {
+    try {
+      await mkdir(dirname(this.arquivo), { recursive: true });
+      await appendFile(this.arquivo, JSON.stringify(registro) + "\n", "utf-8");
+    } catch (erro) {
+      const codigo = erro instanceof Error && "code" in erro ? String(erro.code) : "io";
+      this.logger.error(`Falha ao gravar auditoria: ${codigo}`);
+      throw new ServiceUnavailableException("Auditoria indisponível. Operação recusada.");
+    }
+
     this.recentes.unshift(registro);
 
     if (this.recentes.length > LIMITE_MEMORIA) {
       this.recentes.length = LIMITE_MEMORIA;
-    }
-
-    try {
-      await mkdir(dirname(this.arquivo), { recursive: true });
-      await appendFile(
-        this.arquivo,
-        JSON.stringify(registro) + "\n",
-        "utf-8"
-      );
-    } catch (erro) {
-      // A trilha em disco não pode derrubar a requisição; o log fica avisado.
-      this.logger.error(`Falha ao gravar auditoria: ${erro}`);
     }
   }
 

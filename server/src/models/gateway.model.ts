@@ -10,8 +10,8 @@ export type Identidade = {
   escritorio: string;
 };
 
-/** De onde a chamada entrou no gateway. Hoje existe uma porta só. */
-export type Origem = "mcp";
+/** De onde a chamada entrou. `whatsapp` cobre só o envio com confirmação humana. */
+export type Origem = "mcp" | "whatsapp";
 
 export type Decisao = "permitido" | "negado";
 
