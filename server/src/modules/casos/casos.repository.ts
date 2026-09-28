@@ -1,3 +1,4 @@
+import { ParteRegistrada } from "@common/security/case-acl";
 import { Caso } from "@models/caso.model";
 import { DbService, tabelaAusente } from "@modules/db/db.service";
 import { Injectable, ServiceUnavailableException } from "@nestjs/common";
@@ -55,6 +56,76 @@ export class CasosRepository {
 
   async listar(officeId: string): Promise<Caso[]> {
     return this.carregar(officeId);
+  }
+
+  async idDaCapa(officeId: string, idOrCnj: string): Promise<string | null> {
+    const capa = await this.buscarCapa(officeId, idOrCnj);
+    if (!capa) {
+      return null;
+    }
+    const id = valorCampo(capa, ALIASES.id);
+    return id == null || id === "" ? null : String(id);
+  }
+
+  async idsDoMembro(officeId: string, userId: string): Promise<string[]> {
+    const linhas = await this.consultarAcl<RowDataPacket>(
+      "SELECT caso_id FROM case_memberships WHERE office_id = ? AND user_id = ?",
+      [officeId, userId],
+    );
+    return linhas.map((linha) => String(linha.caso_id));
+  }
+
+  async temMembership(officeId: string, casoId: string, userId: string): Promise<boolean> {
+    const linhas = await this.consultarAcl<RowDataPacket>(
+      "SELECT 1 AS ok FROM case_memberships WHERE office_id = ? AND caso_id = ? AND user_id = ? LIMIT 1",
+      [officeId, casoId, userId],
+    );
+    return linhas.length > 0;
+  }
+
+  async partesDoEscritorio(officeId: string): Promise<ParteRegistrada[]> {
+    const linhas = await this.consultarAcl<RowDataPacket>(
+      "SELECT caso_id, side, name_key FROM case_parties WHERE office_id = ?",
+      [officeId],
+    );
+    return linhas
+      .filter((linha) => linha.side === "client" || linha.side === "adverse")
+      .map((linha) => ({
+        casoId: String(linha.caso_id),
+        side: linha.side,
+        nameKey: String(linha.name_key),
+      }));
+  }
+
+  async inserirIntake(input: {
+    officeId: string;
+    userId: string;
+    role: string;
+    clientName: string;
+    clientKey: string;
+    adverseKey: string;
+  }): Promise<string> {
+    const id = `${Date.now()}${Math.floor(Math.random() * 1000)
+      .toString()
+      .padStart(3, "0")}`;
+    try {
+      await this.db.executar(
+        "INSERT INTO casos (id, titulo, cliente_nome, office_id, status) VALUES (?, ?, ?, ?, 'intake')",
+        [id, input.clientName.slice(0, 200), input.clientName.slice(0, 255), input.officeId],
+      );
+      await this.db.executar(
+        "INSERT INTO case_memberships (office_id, caso_id, user_id, role) VALUES (?, ?, ?, ?)",
+        [input.officeId, id, input.userId, input.role],
+      );
+      await this.db.executar(
+        "INSERT INTO case_parties (office_id, caso_id, side, name_key) VALUES (?, ?, 'client', ?), (?, ?, 'adverse', ?)",
+        [input.officeId, id, input.clientKey, input.officeId, id, input.adverseKey],
+      );
+    } catch (erro) {
+      await this.apagarIntake(id);
+      throw erro;
+    }
+    return id;
   }
 
   async obter(officeId: string, idOrCnj: string): Promise<Caso | undefined> {
@@ -328,6 +399,23 @@ export class CasosRepository {
     }
 
     return undefined;
+  }
+
+  private async consultarAcl<T extends RowDataPacket>(sql: string, params: unknown[]): Promise<T[]> {
+    try {
+      return await this.db.consultar<T>(sql, params);
+    } catch (erro) {
+      if (tabelaAusente(erro)) {
+        throw new ServiceUnavailableException("Case ACL ausente. Operação recusada.");
+      }
+      throw erro;
+    }
+  }
+
+  private async apagarIntake(casoId: string): Promise<void> {
+    await this.db.executar("DELETE FROM case_parties WHERE caso_id = ?", [casoId]).catch(() => undefined);
+    await this.db.executar("DELETE FROM case_memberships WHERE caso_id = ?", [casoId]).catch(() => undefined);
+    await this.db.executar("DELETE FROM casos WHERE id = ? AND status = 'intake'", [casoId]).catch(() => undefined);
   }
 
   private ligarFilhos(linhas: Linha[], capa: Linha, processo?: Linha): Linha[] {

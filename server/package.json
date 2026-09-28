@@ -18,7 +18,9 @@
     "prova:office": "node scripts/prova-office.js",
     "prova:audit": "node scripts/prova-audit-fail.js",
     "prova:hitl": "node scripts/prova-hitl-whatsapp.js",
+    "prova:case-acl": "node scripts/prova-case-acl.js",
     "office-id:apply": "node scripts/apply-office-id.js",
+    "case-acl:apply": "node scripts/apply-case-acl.js",
     "test": "vitest run",
     "test:watch": "vitest",
     "prova:anti": "vitest run test/anti-alucinacao.spec.ts"

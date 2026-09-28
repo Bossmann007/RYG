@@ -11,7 +11,7 @@ export type Identidade = {
 };
 
 /** De onde a chamada entrou. `whatsapp` cobre só o envio com confirmação humana. */
-export type Origem = "mcp" | "whatsapp";
+export type Origem = "mcp" | "whatsapp" | "hub";
 
 export type Decisao = "permitido" | "negado";
 
