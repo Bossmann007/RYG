@@ -6,12 +6,12 @@ import { CasosRepository } from "./casos.repository";
 export class CasosService {
   constructor(private readonly repositorio: CasosRepository) {}
 
-  listar(): Promise<Caso[]> {
-    return this.repositorio.listar();
+  listar(officeId: string): Promise<Caso[]> {
+    return this.repositorio.listar(officeId);
   }
 
-  async obter(idOrCnj: string): Promise<Caso> {
-    const achado = await this.repositorio.obter(idOrCnj);
+  async obter(officeId: string, idOrCnj: string): Promise<Caso> {
+    const achado = await this.repositorio.obter(officeId, idOrCnj);
 
     if (!achado) {
       throw new NotFoundException("Caso não encontrado.");

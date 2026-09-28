@@ -29,6 +29,12 @@ export const USUARIOS_POR_TOKEN: Record<string, Identidade> = {
     papel: "gestor",
     escritorio: "prado-advogados",
   },
+  "demo-outro": {
+    id: "u-099",
+    nome: "Dra. Outra Banca",
+    papel: "socio",
+    escritorio: "outro-escritorio",
+  },
 };
 
 export const PERFIS_DEMO = Object.entries(USUARIOS_POR_TOKEN).map(

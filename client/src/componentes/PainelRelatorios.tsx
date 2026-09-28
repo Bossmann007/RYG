@@ -34,7 +34,7 @@ export function PainelRelatorios({ caso }: { caso: Caso }) {
       <header className="painel-cabeca">
         <h3>Relatórios</h3>
         <p>
-          Cinco peças internas, cada uma com PDF próprio. Papel timbrado do
+          Quatro peças internas, cada uma com PDF próprio. Papel timbrado do
           escritório — não passa pelo gateway.
         </p>
       </header>

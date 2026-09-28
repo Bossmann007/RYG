@@ -1,30 +1,33 @@
-import { Public } from "@common/decorators/public.decorator";
-import { Controller, Get, Param } from "@nestjs/common";
+import { identidadeDaRequisicao } from "@common/guards/identity.guard";
+import { Controller, Get, Param, Req } from "@nestjs/common";
+import { Request } from "express";
 import { CasosService } from "./casos.service";
 
 /**
  * Internal trusted-zone office API. Not an MCP egress surface.
  * Assembles Caso from TiDB joins. Do not mount these routes on the LLM path.
+ * casos and processos are filtered by office_id; child tables are reached
+ * only through an office-scoped capa.
  */
 @Controller("casos")
 export class CasosController {
   constructor(private casosService: CasosService) {}
 
-  @Public()
   @Get()
-  async listar() {
+  async listar(@Req() req: Request) {
+    const { officeId } = identidadeDaRequisicao(req);
     return {
       zone: "internal" as const,
-      casos: await this.casosService.listar(),
+      casos: await this.casosService.listar(officeId),
     };
   }
 
-  @Public()
   @Get(":idOrCnj")
-  async obter(@Param("idOrCnj") idOrCnj: string) {
+  async obter(@Req() req: Request, @Param("idOrCnj") idOrCnj: string) {
+    const { officeId } = identidadeDaRequisicao(req);
     return {
       zone: "internal" as const,
-      caso: await this.casosService.obter(idOrCnj),
+      caso: await this.casosService.obter(officeId, idOrCnj),
     };
   }
 }

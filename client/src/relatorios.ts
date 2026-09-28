@@ -7,7 +7,6 @@ import {
   ROTULO_PRAZO_KIND,
   ROTULO_PRAZO_STATUS,
   ROTULO_STATUS,
-  chanceIndisponivel,
   ehCitavel,
 } from "./tipos";
 
@@ -16,7 +15,6 @@ export const RELATORIO_IDS = [
   "prazos",
   "acervo",
   "estrategia",
-  "jurimetria",
 ] as const;
 
 export type RelatorioId = (typeof RELATORIO_IDS)[number];
@@ -53,12 +51,6 @@ export const CATALOGO_RELATORIOS: CatalogoRelatorio[] = [
     texto: "Teses em uso, resultados internos e dissídios entre câmaras.",
     destinatario: "Reunião de tese",
   },
-  {
-    id: "jurimetria",
-    titulo: "Recorte de jurimetria",
-    texto: "Contagens do acervo. Sem modelo oficial, a chance não sai.",
-    destinatario: "Leitura interna",
-  },
 ];
 
 export function rotuloRelatorio(id: RelatorioId): string {
@@ -67,7 +59,6 @@ export function rotuloRelatorio(id: RelatorioId): string {
     case "prazos":
     case "acervo":
     case "estrategia":
-    case "jurimetria":
       return CATALOGO_RELATORIOS.find((item) => item.id === id)?.titulo || id;
     default: {
       const neverId: never = id;
@@ -105,8 +96,6 @@ export function montarRelatorio(casoBruto: Caso, id: RelatorioId): RelatorioPdf 
       return { ...base, titulo: "Inventário do acervo", blocos: blocosAcervo(caso) };
     case "estrategia":
       return { ...base, titulo: "Nota de estratégia", blocos: blocosEstrategia(caso) };
-    case "jurimetria":
-      return { ...base, titulo: "Recorte de jurimetria", blocos: blocosJurimetria(caso) };
     default: {
       const neverId: never = id;
       return neverId;
@@ -216,28 +205,5 @@ function blocosEstrategia(caso: Caso): RelatorioPdf["blocos"] {
     { olho: "Resultados internos", linhas: resultados },
     { olho: "Dissídios", linhas: dissidios },
     { olho: "Jurisprudência (cite-or-silent)", linhas: juris },
-  ];
-}
-
-function blocosJurimetria(caso: Caso): RelatorioPdf["blocos"] {
-  const chance = chanceIndisponivel(caso)
-    ? "Chance oficial indisponível — sem modelo publicado, o número não sai."
-    : `${caso.chance}% · ${caso.chanceRotulo}. ${caso.chanceTexto}`;
-
-  return [
-    {
-      olho: "Amostra",
-      linhas: [
-        `${caso.jurimetria.amostra} julgados no recorte interno.`,
-        `Votos do acervo: ${caso.votos.for} a favor, ${caso.votos.against} contra, ${caso.votos.diverge} divergentes.`,
-      ],
-    },
-    { olho: "Padrão externo", linhas: [caso.jurimetria.padrao || "Sem padrão lançado."] },
-    { olho: "Memória interna", linhas: [caso.jurimetria.interno || "Sem memória interna."] },
-    {
-      olho: "Riscos",
-      linhas: caso.jurimetria.riscos.length ? caso.jurimetria.riscos : ["Nenhum risco listado."],
-    },
-    { olho: "Chance", linhas: [chance] },
   ];
 }

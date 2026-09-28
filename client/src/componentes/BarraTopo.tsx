@@ -2,9 +2,10 @@ import { ESCRITORIO } from "../dados";
 
 type Props = {
   onInicio: () => void;
+  onCatalogo: () => void;
 };
 
-export function BarraTopo({ onInicio }: Props) {
+export function BarraTopo({ onInicio, onCatalogo }: Props) {
   return (
     <header className="topo">
       <button className="marca" type="button" onClick={onInicio}>
@@ -16,6 +17,9 @@ export function BarraTopo({ onInicio }: Props) {
       </button>
 
       <div className="topo-lado">
+        <button className="voltar" type="button" onClick={onCatalogo}>
+          Catálogo
+        </button>
         <div className="escritorio">
           <span className="escritorio-nome">{ESCRITORIO.nome}</span>
           <span className="escritorio-meta">ambiente isolado</span>

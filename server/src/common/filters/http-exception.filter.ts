@@ -32,6 +32,26 @@ export class HttpExceptionFilter implements ExceptionFilter {
       erro = exception;
     }
 
-    response.status(status).json({ erro });
+    const extra = respostaExtra(exception);
+    response.status(status).json(extra ? { erro, ...extra } : { erro });
   }
+}
+
+function respostaExtra(exception: unknown): { confirmacaoNecessaria: true; desafio: string; expiraEm?: string } | null {
+  if (!(exception instanceof HttpException)) {
+    return null;
+  }
+  const bruto = exception.getResponse();
+  if (!bruto || typeof bruto !== "object") {
+    return null;
+  }
+  const corpo = bruto as { confirmacaoNecessaria?: unknown; desafio?: unknown; expiraEm?: unknown };
+  if (corpo.confirmacaoNecessaria !== true || typeof corpo.desafio !== "string") {
+    return null;
+  }
+  return {
+    confirmacaoNecessaria: true,
+    desafio: corpo.desafio,
+    ...(typeof corpo.expiraEm === "string" ? { expiraEm: corpo.expiraEm } : {}),
+  };
 }

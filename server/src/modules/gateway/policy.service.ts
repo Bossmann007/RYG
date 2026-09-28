@@ -44,7 +44,7 @@ const MATRIZ: Record<Papel, RegraPapel> = {
   gestor: {
     ferramentas: ["enter_office", "get_safe_update"],
     descricao:
-      "Leitura estratégica e jurimetria. Não consulta caso nem acervo de conhecimento.",
+      "Leitura estratégica. Não consulta caso nem acervo de conhecimento.",
   },
 };
 

@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  evidence-and-build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install (workspace)
+        run: pnpm install --frozen-lockfile
+
+      - name: Evidence (privacy-gateway)
+        run: pnpm evidence
+
+      - name: Build server
+        run: pnpm build:server
+
+      - name: Build client
+        run: pnpm build:client
+
+      - name: Lint measure-only (never fails the job)
+        run: pnpm lint:measure
+        continue-on-error: true

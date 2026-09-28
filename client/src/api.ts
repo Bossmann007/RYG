@@ -43,6 +43,23 @@ function baseUrl(): string {
   return String(bruto).replace(/\/$/, "");
 }
 
+function cabecalhoHub(): HeadersInit {
+  const token = import.meta.env.VITE_HUB_TOKEN;
+  return token ? { Authorization: `Bearer ${token}` } : {};
+}
+
+/** 401/403 must reach the UI: falling back to local CASOS would reopen the hub. */
+class AcessoNegadoError extends Error {}
+
+async function exigirOk(resposta: Response): Promise<void> {
+  if (resposta.status === 401 || resposta.status === 403) {
+    throw new AcessoNegadoError(await lerErro(resposta));
+  }
+  if (!resposta.ok) {
+    throw new Error(await lerErro(resposta));
+  }
+}
+
 function queryAba(filtro: FiltroAba): string {
   const params = new URLSearchParams();
   params.set("casoId", filtro.casoId);
@@ -77,11 +94,8 @@ function comoDocumento(item: Record<string, unknown>, indice: number): Documento
 
 export async function listarCasos(): Promise<Caso[]> {
   try {
-    const resposta = await fetch(`${baseUrl()}/api/casos`);
-
-    if (!resposta.ok) {
-      throw new Error(await lerErro(resposta));
-    }
+    const resposta = await fetch(`${baseUrl()}/api/casos`, { headers: cabecalhoHub() });
+    await exigirOk(resposta);
 
     const corpo = (await resposta.json()) as ListaCasosResposta;
 
@@ -91,6 +105,9 @@ export async function listarCasos(): Promise<Caso[]> {
 
     return corpo.casos.map((caso) => hidratarPrazos(caso));
   } catch (erro) {
+    if (erro instanceof AcessoNegadoError) {
+      throw erro;
+    }
     avisarFallback("/api/casos", erro);
     return CASOS;
   }
@@ -98,11 +115,10 @@ export async function listarCasos(): Promise<Caso[]> {
 
 export async function obterCaso(idOrCnj: string): Promise<Caso> {
   try {
-    const resposta = await fetch(`${baseUrl()}/api/casos/${encodeURIComponent(idOrCnj)}`);
-
-    if (!resposta.ok) {
-      throw new Error(await lerErro(resposta));
-    }
+    const resposta = await fetch(`${baseUrl()}/api/casos/${encodeURIComponent(idOrCnj)}`, {
+      headers: cabecalhoHub(),
+    });
+    await exigirOk(resposta);
 
     const corpo = (await resposta.json()) as CasoResposta;
 
@@ -112,6 +128,9 @@ export async function obterCaso(idOrCnj: string): Promise<Caso> {
 
     return hidratarPrazos(corpo.caso);
   } catch (erro) {
+    if (erro instanceof AcessoNegadoError) {
+      throw erro;
+    }
     const local = casoLocal(idOrCnj);
 
     if (local) {
@@ -203,6 +222,75 @@ export async function enviarMensagemChat(
     throw new Error("Resposta inválida do chat interno.");
   }
   return corpo.mensagem;
+}
+
+export type CatalogItem = {
+  id: string;
+  kind: string;
+  area: string;
+  titulo: string;
+  descricao: string;
+  requerSafeDto: boolean;
+  corpo?: string;
+  endpoint?: string;
+};
+
+export type WhatsappStatus = {
+  conectado: boolean;
+  modo: string;
+  telefoneMascarado: string | null;
+  pendenteOauth: boolean;
+};
+
+export async function listarCatalogo(): Promise<CatalogItem[]> {
+  const resposta = await fetch(`${baseUrl()}/api/catalogo`);
+  if (!resposta.ok) throw new Error(await lerErro(resposta));
+  const corpo = (await resposta.json()) as { zone?: string; itens?: CatalogItem[] };
+  if (corpo.zone !== "internal" || !Array.isArray(corpo.itens)) {
+    throw new Error("Resposta inválida do catálogo.");
+  }
+  return corpo.itens;
+}
+
+export async function exportarPromptCatalogo(
+  id: string
+): Promise<{ id: string; corpo: string; requerSafeDto: boolean; aviso: string }> {
+  const resposta = await fetch(`${baseUrl()}/api/catalogo/export/${encodeURIComponent(id)}`);
+  if (!resposta.ok) throw new Error(await lerErro(resposta));
+  const corpo = (await resposta.json()) as {
+    zone?: string;
+    id?: string;
+    corpo?: string;
+    requerSafeDto?: boolean;
+    aviso?: string;
+  };
+  if (corpo.zone !== "internal" || !corpo.corpo) {
+    throw new Error("Export de prompt inválido.");
+  }
+  return {
+    id: String(corpo.id),
+    corpo: corpo.corpo,
+    requerSafeDto: !!corpo.requerSafeDto,
+    aviso: String(corpo.aviso || ""),
+  };
+}
+
+export async function obterStatusWhatsapp(): Promise<WhatsappStatus> {
+  const resposta = await fetch(`${baseUrl()}/api/whatsapp/status`);
+  if (!resposta.ok) throw new Error(await lerErro(resposta));
+  return (await resposta.json()) as WhatsappStatus;
+}
+
+export async function conectarWhatsappStub(): Promise<WhatsappStatus> {
+  const resposta = await fetch(`${baseUrl()}/api/whatsapp/conectar-stub`, { method: "POST" });
+  if (!resposta.ok) throw new Error(await lerErro(resposta));
+  return (await resposta.json()) as WhatsappStatus;
+}
+
+export async function iniciarOauthWhatsapp(): Promise<{ authorizeUrl: string; state: string }> {
+  const resposta = await fetch(`${baseUrl()}/api/whatsapp/oauth/start`, { method: "POST" });
+  if (!resposta.ok) throw new Error(await lerErro(resposta));
+  return (await resposta.json()) as { authorizeUrl: string; state: string };
 }
 
 /** A tela continua de pé com a cópia local, mas o motivo tem de ficar visível. */

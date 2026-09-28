@@ -5,8 +5,9 @@ export function fraseOficial(valor: string): string {
   }
 
   const letras = limpo.replace(/[^A-Za-zÀ-ÿ]/g, "");
-  const maiusculas = letras.replace(/[^A-ZÀ-Ý]/g, "").length;
-  if (!letras.length || maiusculas / letras.length <= 0.45) {
+  const minusculas = letras.replace(/[^a-zà-ÿ]/g, "").length;
+  // Fold only true caixa-alta. Mixed case ("Do JSON") stays; acronyms are not shouting.
+  if (!letras.length || minusculas > 0) {
     return limpo;
   }
 

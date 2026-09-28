@@ -36,9 +36,10 @@ export function aplicarPoliticaCaso(caso: Caso): Caso {
     resumo: sanitizeUntrustedText(caso.resumo),
     tese: sanitizeUntrustedText(caso.tese),
     atualizacao: sanitizeUntrustedText(caso.atualizacao),
-    chance: Number.isFinite(caso.chance) ? caso.chance : 0,
-    chanceRotulo: sanitizeUntrustedText(caso.chanceRotulo) || CHANCE_INDISPONIVEL,
-    chanceTexto: sanitizeUntrustedText(caso.chanceTexto) || CHANCE_INDISPONIVEL,
+    // v0: stored win-rate is not a fact. Cite-or-silent until an official model exists.
+    chance: 0,
+    chanceRotulo: CHANCE_INDISPONIVEL,
+    chanceTexto: CHANCE_INDISPONIVEL,
     partes: (caso.partes || []).map((parte) => ({
       papel: sanitizeUntrustedText(parte.papel),
       nome: sanitizeUntrustedText(parte.nome),

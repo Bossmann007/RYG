@@ -10,6 +10,7 @@ coverage/
 .env.*
 !.env.example
 !server/.env.example
+!client/.env.example
 # Dependencies
 node_modules/
 yarn.lock
@@ -24,6 +25,9 @@ build/
 .env
 .env.local
 .env.*.local
+!.env.example
+!server/.env.example
+!client/.env.example
 
 # IDE
 .vscode/
@@ -69,3 +73,14 @@ server/audit/
 
 # Local official juris staging (do not commit)
 server/scripts/import-data/
+
+# cursor-kit session state (also covered by .cursor/)
+.cursor/state/checkpoint.json
+.cursor/state/session.json
+.cursor/state/failures.jsonl
+.cursor/state/observability.jsonl
+_archive/
+
+# npm locks forbidden (pnpm only)
+package-lock.json
+**/package-lock.json

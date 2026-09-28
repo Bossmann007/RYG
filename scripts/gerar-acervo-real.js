@@ -49,7 +49,9 @@ const CAMPOS_CASO = [
 ];
 
 async function pegar(caminho) {
-  const resposta = await fetch(`${BASE}${caminho}`);
+  const resposta = await fetch(`${BASE}${caminho}`, {
+    headers: { Authorization: `Bearer ${process.env.HUB_TOKEN || "demo-socio"}` },
+  });
 
   if (!resposta.ok) {
     throw new Error(`${caminho} respondeu ${resposta.status}`);

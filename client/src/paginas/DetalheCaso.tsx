@@ -3,7 +3,6 @@ import { GavetaJuris } from "../componentes/GavetaJuris";
 import {
   IconeContrato,
   IconeConversa,
-  IconeGrafico,
   IconeHistorico,
   IconeJuris,
   IconeMartelo,
@@ -21,7 +20,6 @@ import { ChatCaso } from "../componentes/ChatCaso";
 import {
   PainelHistorico,
   PainelJurisprudencia,
-  PainelJurimetria,
   PainelResultados,
   PainelTeses,
   PainelVisao,
@@ -57,7 +55,6 @@ const MENU: ItemMenu[] = [
   { id: "teses", rotulo: "Teses", grupo: "Estratégia", icone: <IconeTese /> },
   { id: "resultados", rotulo: "Resultados", grupo: "Estratégia", icone: <IconeResultado /> },
   { id: "jurisprudencia", rotulo: "Jurisprudência", grupo: "Estratégia", icone: <IconeJuris /> },
-  { id: "jurimetria", rotulo: "Jurimetria", grupo: "Estratégia", icone: <IconeGrafico /> },
   { id: "relatorios", rotulo: "Relatórios", grupo: "Estratégia", icone: <IconeRelatorio /> },
 ];
 
@@ -166,7 +163,6 @@ export function DetalheCaso({ caso, onVoltar }: Props) {
           {aba === "jurisprudencia" && (
             <PainelJurisprudencia caso={caso} onAbrir={setJuris} />
           )}
-          {aba === "jurimetria" && <PainelJurimetria caso={caso} />}
           {aba === "relatorios" && <PainelRelatorios caso={caso} />}
         </div>
       </div>

@@ -1,23 +1,32 @@
 {
-  "name": "openlegalai",
+  "name": "ryg",
   "version": "1.0.0",
-  "description": "OpenLegalAI — workspace jurídico da Zhegga Advogados Associados",
+  "description": "RYG / OpenLegalAI — office hub (Zhegga), continuation of Hackathon OAB",
   "private": true,
   "scripts": {
-    "typecheck:gateway": "npm --prefix privacy-gateway run typecheck",
-    "test:gateway": "npm --prefix privacy-gateway test",
-    "demo:gateway": "npm --prefix privacy-gateway run demo",
-    "mcp:smoke": "npm --prefix privacy-gateway run mcp:smoke",
-    "evidence": "npm run typecheck:gateway && npm run test:gateway && npm run demo:gateway && npm run mcp:smoke",
-    "prova:acervo": "npm --prefix server run build && npm --prefix server run prova:acervo",
-    "prova:casos": "npm --prefix server run build && npm --prefix server run prova:casos",
-    "prova:anti": "npm --prefix server run build && npm --prefix server run prova:anti",
-    "dev": "cd client && pnpm run dev",
-    "dev:server": "cd server && pnpm run start:dev",
+    "typecheck:gateway": "pnpm --dir privacy-gateway run typecheck",
+    "test:gateway": "pnpm --dir privacy-gateway test",
+    "demo:gateway": "pnpm --dir privacy-gateway run demo",
+    "mcp:smoke": "pnpm --dir privacy-gateway run mcp:smoke",
+    "evidence": "pnpm run typecheck:gateway && pnpm run test:gateway && pnpm run demo:gateway && pnpm run mcp:smoke",
+    "prova:acervo": "pnpm --dir server run build && pnpm --dir server run prova:acervo",
+    "prova:casos": "pnpm --dir server run build && pnpm --dir server run prova:casos",
+    "prova:anti": "pnpm --dir server run build && pnpm --dir server run prova:anti",
+    "dev": "pnpm --dir client run dev",
+    "dev:server": "pnpm --dir server run start:dev",
     "gerar:acervo": "node scripts/gerar-acervo-real.js",
-    "build-client": "cd client && pnpm install && pnpm run build",
-    "build-server": "cd server && pnpm install && pnpm run build"
+    "build:client": "pnpm --dir client run build",
+    "build:server": "pnpm --dir server run build",
+    "lint:measure": "node scripts/quality-gates-verify.mjs"
   },
   "license": "MIT",
-  "packageManager": "pnpm@9.15.4"
+  "packageManager": "pnpm@9.15.4",
+  "engines": {
+    "node": ">=20",
+    "pnpm": ">=9"
+  },
+  "devDependencies": {
+    "eslint": "^9.22.0",
+    "typescript-eslint": "^8.26.0"
+  }
 }
