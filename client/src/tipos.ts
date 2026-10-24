@@ -250,6 +250,7 @@ export type Caso = {
   court: string;
   chamber: string;
   status: StatusProcesso;
+  classification?: "publico" | "interno" | "sigiloso" | "segredo_justica";
   cliente: string;
   partes: ParteProcesso[];
   resumo: string;

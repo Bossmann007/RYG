@@ -1,6 +1,12 @@
 import { Public } from "@common/decorators/public.decorator";
+import {
+  exigirSessaoAtiva,
+  extrairBearer,
+} from "@common/security/session-gate";
 import { Identidade } from "@models/gateway.model";
+import { AuditService } from "@modules/gateway/audit.service";
 import { GatewayService } from "@modules/gateway/gateway.service";
+import { HubSessionService } from "@modules/gateway/hub-session.service";
 import { IdentityService } from "@modules/gateway/identity.service";
 import { PolicyService } from "@modules/gateway/policy.service";
 import { Controller, Get, Headers, Post, Req, Res } from "@nestjs/common";
@@ -23,7 +29,9 @@ export class McpController {
     private mcpService: McpService,
     private gatewayService: GatewayService,
     private identityService: IdentityService,
-    private policyService: PolicyService
+    private policyService: PolicyService,
+    private sessions: HubSessionService,
+    private audit: AuditService,
   ) {}
 
   @Public()
@@ -33,7 +41,36 @@ export class McpController {
     @Res() res: Response,
     @Headers("authorization") authorization?: string
   ) {
-    const identidade = this.identityService.resolver(authorization);
+    const token = extrairBearer(authorization);
+    let identidade: Identidade | null = this.identityService.resolver(authorization);
+
+    const corpo = req.body as { method?: string };
+    if (corpo?.method === "tools/call" && identidade) {
+      try {
+        identidade = await exigirSessaoAtiva(
+          identidade,
+          token,
+          this.sessions,
+          this.audit,
+          "mcp_tools_call",
+          "mcp",
+        );
+      } catch (erro) {
+        const status =
+          erro && typeof erro === "object" && "getStatus" in erro
+            ? Number((erro as { getStatus: () => number }).getStatus())
+            : 401;
+        const message =
+          erro instanceof Error ? erro.message : "Credencial rejeitada.";
+        res.status(status >= 400 ? status : 401).json({
+          jsonrpc: "2.0",
+          id: (req.body as { id?: unknown })?.id ?? null,
+          error: { code: CODIGO_NEGADO, message },
+        });
+        return;
+      }
+    }
+
     const bloqueio = await this.interceptarChamadaBloqueada(req, identidade);
 
     if (bloqueio) {

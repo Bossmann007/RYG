@@ -7,12 +7,15 @@ import { ClientsModule } from "@modules/clients/clients.module";
 import { ContractsModule } from "@modules/contracts/contracts.module";
 import { DecisionsModule } from "@modules/decisions/decisions.module";
 import { GatewayModule } from "@modules/gateway/gateway.module";
+import { JmlModule } from "@modules/jml/jml.module";
 import { JurisprudenceModule } from "@modules/jurisprudence/jurisprudence.module";
 import { McpModule } from "@modules/mcp/mcp.module";
 import { PetitionsModule } from "@modules/petitions/petitions.module";
 import { ProcessModule } from "@modules/process/process.module";
 import { ResearchModule } from "@modules/research/research.module";
 import { TemplatesModule } from "@modules/templates/templates.module";
+import { TransferModule } from "@modules/transfer/transfer.module";
+import { VaultModule } from "@modules/vault/vault.module";
 import { WhatsappModule } from "@modules/whatsapp/whatsapp.module";
 import { MiddlewareConsumer, Module, NestModule } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
@@ -40,6 +43,9 @@ import { AppService } from "./app.service";
     GatewayModule,
     McpModule,
     WhatsappModule,
+    JmlModule,
+    TransferModule,
+    VaultModule,
   ],
   controllers: [AppController],
   providers: [AppService, { provide: APP_GUARD, useClass: IdentityGuard }],

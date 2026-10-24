@@ -1,3 +1,4 @@
+import { CaseClassification } from "@common/security/case-classification";
 import { FonteFato, ProvenienciaCaso } from "@common/security/fonte-fato";
 
 export type PrazoKind =
@@ -154,6 +155,8 @@ export type Caso = {
   court: string;
   chamber: string;
   status: StatusProcesso;
+  /** Capa trust label. Default deny without socio for sigiloso / segredo_justica. */
+  classification: CaseClassification;
   cliente: string;
   partes: ParteProcesso[];
   resumo: string;
@@ -189,6 +192,7 @@ export const CAMPOS_CASO = [
   "court",
   "chamber",
   "status",
+  "classification",
   "cliente",
   "partes",
   "resumo",
