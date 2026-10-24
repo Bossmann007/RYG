@@ -4,27 +4,42 @@ Smoke tests and cite-or-silent notes. Architecture SoT remains `PROJECT.md` + `d
 
 ---
 
-## TiDB casos
+## Hub DB casos (MySQL wire)
 
 
 O workspace lista e abre casos pelo acervo interno no Nest. A UI não lê `client/src/dados.ts`.
 
-`GET /api/casos` e `GET /api/casos/:idOrCnj` montam o contrato `Caso` (o mesmo de `client/src/tipos.ts`) a partir das tabelas do TiDB. A resposta carrega `zone: "internal"`. Não é superfície MCP e não devolve linha crua.
+`GET /api/casos` e `GET /api/casos/:idOrCnj` montam o contrato `Caso` (o mesmo de `client/src/tipos.ts`) a partir das tabelas do hub. A resposta carrega `zone: "internal"`. Não é superfície MCP e não devolve linha crua.
+
+O driver é `mysql2`. Qualquer servidor no protocolo MySQL serve: MariaDB/MySQL local, MySQL gerenciado, ou TiDB Cloud. O produto v0 não depende de recurso exclusivo do TiDB (HTAP/TiFlash). TiDB Cloud continua opção de deploy, não requisito de protocolo.
 
 ## Variáveis
 
-Copie `server/.env.example` para `server/.env` (arquivo ignorado pelo git):
+Copie `server/.env.example` para `server/.env` (arquivo ignorado pelo git).
+
+Local (MariaDB/MySQL, sem TLS):
+
+```sh
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_USERNAME=ryg
+DB_PASSWORD=replace-me
+DB_DATABASE=HubLegal
+DB_SSL=false
+```
+
+TiDB Cloud (TLS na porta 4000):
 
 ```sh
 DB_HOST=gateway.example.tidbcloud.com
 DB_PORT=4000
 DB_USERNAME=app_user
 DB_PASSWORD=replace-me
-DB_DATABASE=openlegalai
+DB_DATABASE=HubLegal
 DB_SSL=true
 ```
 
-TiDB Cloud usa TLS na porta 4000. Sem `DB_HOST` / `DB_USERNAME` / `DB_DATABASE`, o Nest sobe (fixtures e gateway continuam), mas `/api/casos` responde 503.
+Sem `DB_HOST` / `DB_USERNAME` / `DB_DATABASE`, o Nest sobe (fixtures e gateway continuam), mas `/api/casos` responde 503.
 
 ## Subir o MVP
 
@@ -72,7 +87,7 @@ Tem de imprimir `26`.
 ## Manual teste
 
 
-Use este roteiro para abrir o workspace, conferir o TiDB e caminhar pelos casos reais.
+Use este roteiro para abrir o workspace, conferir o hub DB e caminhar pelos casos reais.
 
 ## Subir
 
@@ -91,7 +106,7 @@ npm run dev
 
 Abra **http://localhost:8080**. Não use o IP da rede (`192.168.x.x`) salvo se você pediu `npm run dev:lan` de propósito. Aquele IP fica escutando na LAN e o Vite mantém um websocket de recarga — parece que o site está sendo “requisitado o tempo todo”.
 
-A lista e o detalhe vêm de `GET /api/casos` e `GET /api/casos/:id` no TiDB. Se a API cair, a tela usa a cópia local em `client/src/acervo-real.ts` e avisa no console.
+A lista e o detalhe vêm de `GET /api/casos` e `GET /api/casos/:id` no hub DB. Se a API cair, a tela usa a cópia local em `client/src/acervo-real.ts` e avisa no console.
 
 ## O que deve aparecer
 
@@ -139,7 +154,7 @@ A saúde deve responder `{"status":"ok"}`. A lista deve ter **26** casos. O caso
 
 ## Se algo falhar
 
-1. Olhe o terminal do Nest. `connect ETIMEDOUT` é o TiDB: confira `server/.env` e tente de novo (a API tenta a consulta uma segunda vez).
+1. Olhe o terminal do Nest. `connect ETIMEDOUT` é o banco: confira `server/.env` e tente de novo (a API tenta a consulta uma segunda vez).
 2. Se a tela abrir mas o console avisar “cópia local do acervo”, o Nest não está na porta 3000.
 3. Reinicie os dois processos depois de puxar código novo.
 

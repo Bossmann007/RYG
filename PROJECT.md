@@ -26,7 +26,7 @@ Project brain — semi-static. Update when stack or architecture changes.
 - Language: TypeScript (Python only for Presidio / sanitization if needed)
 - Framework: React 18 + Vite (`client/`), NestJS 10 (`server/`, HTTP prefix `/api`), privacy-gateway MCP package (`privacy-gateway/`)
 - Package manager: **pnpm 9 only** (`packageManager` field + `pnpm-workspace.yaml` includes `client`, `server`, `privacy-gateway`). Never commit `package-lock.json`.
-- Data: MySQL/TiDB via `mysql2` on server (see `server/.env.example`); demo also uses fixtures under `server/src/fixtures/`
+- Data: MySQL-wire hub DB via `mysql2` (MariaDB / MySQL 8 / TiDB — same protocol). See `server/.env.example`. Demo fixtures under `server/src/fixtures/`
 
 ## Commands
 
@@ -94,4 +94,4 @@ Layout: `client/` UI, `server/` Nest, `privacy-gateway/`, `docs/`, `scripts/`, `
 
 ## Current work
 
-See `.cursor/state/checkpoint.json`. Plan: `docs/plan/hub-office-platform.md`. Phase 0.5 stubs (auth, office_id, ACL, HITL, MFA/JML, vault, classification code, ADR 0002 SafeDTO egress) are on the trust branch. Real TiDB host still blocks Phase 0.1 HTTP smoke and live classification/child-office provas. Issue 1 checklist needs a rewrite against current main after merge.
+See `.cursor/state/checkpoint.json`. Plan: `docs/plan/hub-office-platform.md`. Phase 0.5 trust stubs are on `main`. Phase 0.1 HTTP smoke proven on local MariaDB (`HubLegal`, 26 casos) with office/ACL/classification applies. TiDB Cloud is optional deploy, not a protocol lock. Issue 1 body still needs rewrite/close against current `main`.
