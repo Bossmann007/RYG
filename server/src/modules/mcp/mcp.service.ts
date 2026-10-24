@@ -53,18 +53,11 @@ export class McpService {
             };
           }
 
-          // ADR 0002: structuredContent + text are privacy-gateway SafeDTO only.
-          const wire =
-            resultado.wire ||
-            JSON.stringify(resultado.conteudo ?? {});
+          // `structuredContent` entrega o SafeDTO validado; o texto são os bytes
+          // de `serializeSafeDtoForMcp` que passaram pelo firewall (ADR 0002).
           return {
-            structuredContent: resultado.conteudo as Record<string, unknown>,
-            content: [
-              {
-                type: "text" as const,
-                text: wire,
-              },
-            ],
+            structuredContent: resultado.dto,
+            content: [{ type: "text" as const, text: resultado.wire }],
           };
         }
       );

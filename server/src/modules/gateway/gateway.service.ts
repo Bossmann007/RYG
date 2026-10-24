@@ -4,7 +4,7 @@ import {
   RegistroAuditoria,
   ResultadoFerramenta,
 } from "@models/gateway.model";
-import { EnvelopeSafe } from "@models/safe-dto.model";
+import { QualquerSafeDTO } from "@models/safe-dto.model";
 import { Injectable, Logger } from "@nestjs/common";
 import { AuditService } from "./audit.service";
 import { FalhaDeDeclassificacao } from "./declassify.service";
@@ -85,7 +85,7 @@ export class GatewayService {
       );
     }
 
-    let dto: EnvelopeSafe<string, unknown>;
+    let dto: QualquerSafeDTO;
 
     try {
       dto = await ferramenta.executar(
@@ -105,15 +105,15 @@ export class GatewayService {
       return this.negar(nome, argumentos, identidade, origem, inicio, motivo);
     }
 
-    const egress = await this.safeDtoEgress.liberar(dto, identidade?.id || "anonimo");
-    if (egress.ok === false) {
+    const egress = await this.safeDtoEgress.liberar(dto);
+    if (!egress.ok) {
       return this.negar(
         nome,
         argumentos,
         identidade,
         origem,
         inicio,
-        `SafeDTO egress reprovado — ${egress.reason}`,
+        `SafeDTO egress reprovado — ${egress.code}`,
       );
     }
 
@@ -124,13 +124,7 @@ export class GatewayService {
       omitido: dto.declassificacao.omitido,
     });
 
-    return {
-      decisao: "permitido",
-      ferramenta: nome,
-      conteudo: egress.dto,
-      wire: egress.wire,
-      omitido: dto.declassificacao.omitido,
-    };
+    return { decisao: "permitido", ferramenta: nome, dto: egress.dto, wire: egress.wire };
   }
 
   private async negar(
@@ -148,7 +142,7 @@ export class GatewayService {
       motivo,
     });
 
-    return { decisao: "negado", ferramenta: nome, motivo, omitido: [] };
+    return { decisao: "negado", ferramenta: nome, motivo };
   }
 
   private registro(

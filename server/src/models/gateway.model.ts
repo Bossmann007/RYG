@@ -1,5 +1,5 @@
 import { NivelDeclassificacao, Sigilo } from "@models/classificacao.model";
-import { EnvelopeSafe } from "@models/safe-dto.model";
+import type { SafeDTO } from "@openlegalai/privacy-gateway";
 
 export type Papel = "socio" | "advogado" | "estagiario" | "gestor";
 
@@ -15,20 +15,16 @@ export type Origem = "mcp" | "whatsapp" | "hub";
 
 export type Decisao = "permitido" | "negado";
 
-export type ResultadoFerramenta = {
-  decisao: Decisao;
-  ferramenta: string;
-  motivo?: string;
-  /**
-   * After ADR 0002, MCP egress carries privacy-gateway SafeDTO here.
-   * EnvelopeSafe stays Nest-internal until SafeDtoEgressService maps it.
-   */
-  conteudo?: EnvelopeSafe<string, unknown> | Record<string, unknown>;
-  /** Canonical SafeDTO JSON bytes for MCP text content. */
-  wire?: string;
-  /** O que a declassificacao destruiu no caminho. */
-  omitido: string[];
-};
+export type ResultadoFerramenta =
+  | {
+      decisao: "permitido";
+      ferramenta: string;
+      motivo?: undefined;
+      dto: SafeDTO;
+      /** Bytes de `serializeSafeDtoForMcp`, exatamente o texto que o cliente recebe. */
+      wire: string;
+    }
+  | { decisao: "negado"; ferramenta: string; motivo?: string };
 
 export type RegistroAuditoria = {
   at: string;

@@ -1,212 +1,125 @@
-import { EnvelopeSafe } from "@models/safe-dto.model";
+import { QualquerSafeDTO } from "@models/safe-dto.model";
 import { Injectable, Logger } from "@nestjs/common";
-import { createHash, randomBytes } from "crypto";
+import type * as PrivacyGateway from "@openlegalai/privacy-gateway";
+import type { McpRelease, SafeDTO } from "@openlegalai/privacy-gateway";
+import { randomBytes } from "crypto";
 
-export type SafeDtoWire = {
-  schemaVersion: "1";
-  sessionId: string;
-  releaseId: string;
-  summary: string;
-  decisions: Array<{ id: string; text: string }>;
-  tasks: Array<{ id: string; text: string; status: "open" | "done" }>;
-  safeReferences: Array<{
-    id: string;
-    label: string;
-    kind: "public_jurisprudence" | "internal_case_ref" | "workproduct_ref";
-  }>;
-  warnings: Array<{ code: string; message: string }>;
-};
+type CorpoSafeDto = Omit<SafeDTO, "schemaVersion" | "sessionId" | "releaseId">;
 
-export type EgressOk = { ok: true; dto: SafeDtoWire; wire: string };
-export type EgressFail = { ok: false; reason: string };
+type EgressIndisponivel = { ok: false; stage: "load"; code: "EGRESS_UNAVAILABLE" };
+
+export type LiberacaoMcp = McpRelease | EgressIndisponivel;
 
 /**
- * Maps Nest-internal EnvelopeSafe to privacy-gateway SafeDTO and runs
- * validate + serialize + firewall before MCP wire egress (ADR 0002).
+ * ADR 0002: the MCP wire carries only privacy-gateway SafeDTO. This service maps
+ * the Nest-internal envelope and hands it to `releaseForMcp`, which validates,
+ * serializes, and firewalls it. Nest never writes egress bytes itself.
  */
 @Injectable()
 export class SafeDtoEgressService {
   private readonly logger = new Logger(SafeDtoEgressService.name);
-  private gatewayPromise: Promise<typeof import("@openlegalai/privacy-gateway")> | null =
-    null;
 
-  private carregarGateway() {
-    if (!this.gatewayPromise) {
-      this.gatewayPromise = import("@openlegalai/privacy-gateway");
-    }
-    return this.gatewayPromise;
-  }
-
-  async liberar(
-    envelope: EnvelopeSafe<string, unknown>,
-    identidadeId: string,
-  ): Promise<EgressOk | EgressFail> {
-    const dto = this.mapear(envelope, identidadeId);
+  async liberar(envelope: QualquerSafeDTO): Promise<LiberacaoMcp> {
+    let gateway: typeof PrivacyGateway;
     try {
-      const gateway = await this.carregarGateway();
-      const checked = gateway.validateSafeDto(dto);
-      if (!checked.ok) {
-        return { ok: false, reason: checked.reason };
-      }
-      let wire: string;
-      try {
-        wire = gateway.serializeSafeDtoForMcp(checked.dto);
-      } catch (erro) {
-        return {
-          ok: false,
-          reason: erro instanceof Error ? erro.message : "serialize_failed",
-        };
-      }
-      const firewall = new gateway.EgressFirewall();
-      const verdict = firewall.inspect(wire);
-      if (!verdict.ok) {
-        return { ok: false, reason: verdict.code };
-      }
-      return { ok: true, dto: checked.dto as SafeDtoWire, wire };
+      // Lazy so the hub boots without the MCP egress; tsc lowers this to
+      // require(), which loads the ESM package on Node >= 20.19.
+      gateway = await import("@openlegalai/privacy-gateway");
     } catch (erro) {
-      this.logger.error(
-        `SafeDTO egress failed: ${erro instanceof Error ? erro.message : "unknown"}`,
-      );
-      return { ok: false, reason: "egress_unavailable" };
+      const codigo = erro instanceof Error && "code" in erro ? String(erro.code) : "load";
+      this.logger.error(`privacy-gateway indisponivel: ${codigo}`);
+      return { ok: false, stage: "load", code: "EGRESS_UNAVAILABLE" };
     }
-  }
 
-  private mapear(
-    envelope: EnvelopeSafe<string, unknown>,
-    identidadeId: string,
-  ): SafeDtoWire {
-    const sessionId = `ofs_${hashId(identidadeId || "anon")}`;
-    const releaseId = `rel_${randomBytes(8).toString("hex")}`;
-    const omitido = envelope.declassificacao?.omitido || [];
-    const warnings = omitido.slice(0, 5).map((item, indice) => ({
-      code: `omitted_${indice}`,
-      message: String(item).slice(0, 200),
-    }));
-
-    switch (envelope.tipo) {
-      case "office_manifest": {
-        const c = envelope.conteudo as {
-          escritorio?: string;
-          papel?: string;
-          politica?: string;
-        };
-        return {
-          schemaVersion: "1",
-          sessionId,
-          releaseId,
-          summary: String(c.politica || "Office session opened.").slice(0, 600),
-          decisions: [
-            {
-              id: "d1",
-              text: `escritorio=${String(c.escritorio || "").slice(0, 80)} papel=${String(c.papel || "").slice(0, 40)}`,
-            },
-          ],
-          tasks: [],
-          safeReferences: [],
-          warnings: warnings.length
-            ? warnings
-            : [
-                {
-                  code: "session_only",
-                  message: "No case body released on session lifecycle tools.",
-                },
-              ],
-        };
-      }
-      case "case_summary": {
-        const c = envelope.conteudo as {
-          situacao?: string;
-          referencia?: string;
-          tribunal?: string;
-        };
-        return {
-          schemaVersion: "1",
-          sessionId,
-          releaseId,
-          summary: String(c.situacao || "Case summary.").slice(0, 600),
-          decisions: [],
-          tasks: [],
-          safeReferences: c.referencia
-            ? [
-                {
-                  id: "r1",
-                  label: `${String(c.tribunal || "case")}:${String(c.referencia).slice(0, 80)}`,
-                  kind: "internal_case_ref",
-                },
-              ]
-            : [],
-          warnings,
-        };
-      }
-      case "knowledge_result": {
-        const c = envelope.conteudo as {
-          consulta?: string[];
-          itens?: Array<{
-            referencia?: string;
-            citavel?: boolean;
-            ementa?: string | null;
-            tribunal?: string;
-          }>;
-        };
-        const refs = (c.itens || [])
-          .filter((item) => item.citavel && item.ementa)
-          .slice(0, 5)
-          .map((item, indice) => ({
-            id: `k${indice}`,
-            label: `${String(item.tribunal || "pub")}:${String(item.referencia || "").slice(0, 80)}`,
-            kind: "public_jurisprudence" as const,
-          }));
-        return {
-          schemaVersion: "1",
-          sessionId,
-          releaseId,
-          summary: `Knowledge hits for ${(c.consulta || []).join(", ").slice(0, 200) || "query"}.`,
-          decisions: [],
-          tasks: [],
-          safeReferences: refs,
-          warnings: refs.length
-            ? warnings
-            : [
-                ...warnings,
-                { code: "cite_or_silent", message: "No citable ementa in this pack." },
-              ],
-        };
-      }
-      case "strategic_update": {
-        const c = envelope.conteudo as {
-          sintese?: string;
-          recomendacao?: string[];
-        };
-        const decisions = (c.recomendacao || []).slice(0, 5).map((texto, indice) => ({
-          id: `s${indice}`,
-          text: String(texto).slice(0, 600),
-        }));
-        return {
-          schemaVersion: "1",
-          sessionId,
-          releaseId,
-          summary: String(c.sintese || "Strategic update.").slice(0, 600),
-          decisions,
-          tasks: [],
-          safeReferences: [],
-          warnings,
-        };
-      }
-      default:
-        return {
-          schemaVersion: "1",
-          sessionId,
-          releaseId,
-          summary: "Release denied: unknown envelope type.",
-          decisions: [],
-          tasks: [],
-          safeReferences: [],
-          warnings: [{ code: "unknown_tipo", message: String(envelope.tipo) }],
-        };
-    }
+    return gateway.releaseForMcp({
+      schemaVersion: "1",
+      // /api/mcp is stateless: each call gets a fresh, unlinkable session id.
+      sessionId: `ofs_${randomBytes(6).toString("hex")}`,
+      releaseId: `rel_${randomBytes(5).toString("hex")}`,
+      ...corpoSafeDto(envelope, gateway.LIST_MAX),
+    });
   }
 }
 
-function hashId(valor: string): string {
-  return createHash("sha256").update(valor).digest("hex").slice(0, 16);
+/**
+ * `referencia` of case-bound envelopes is a CNJ number, which the firewall
+ * rejects, so it is not mapped. The caller already sent it as an argument.
+ */
+function corpoSafeDto(envelope: QualquerSafeDTO, limiteLista: number): CorpoSafeDto {
+  const omitidos = envelope.declassificacao.omitido.map((item) => ({
+    code: "omitted",
+    message: item,
+  }));
+
+  switch (envelope.tipo) {
+    case "office_manifest": {
+      const c = envelope.conteudo;
+      return {
+        summary: `Escritório ${c.escritorio}, papel ${c.papel}. ${c.politica} Ferramentas: ${c.ferramentas.join(", ")}.`,
+        decisions: Object.entries(c.tetoDeDeclassificacao).map(([sigilo, nivel]) => ({
+          id: `teto_${sigilo}`,
+          text: `Fonte ${sigilo}: declassificação até ${nivel}.`,
+        })),
+        tasks: [],
+        safeReferences: [],
+        warnings: omitidos,
+      };
+    }
+    case "case_summary": {
+      const c = envelope.conteudo;
+      return {
+        summary: c.situacao,
+        decisions: [
+          { id: "fase", text: `Fase processual: ${c.fase}.` },
+          { id: "orgao_julgador", text: `${c.tribunal}, ${c.grau}, ${c.orgaoJulgador}.` },
+          { id: "orientacao_do_orgao", text: `Orientação do órgão: ${c.orientacaoDoOrgao}.` },
+          { id: "assuntos", text: `Assuntos: ${c.assuntos.join(", ") || "nenhum catalogado"}.` },
+        ],
+        tasks: [],
+        safeReferences: [],
+        warnings: omitidos,
+      };
+    }
+    case "knowledge_result": {
+      const c = envelope.conteudo;
+      const excedentes = c.itens.length - limiteLista;
+      return {
+        summary: `${c.quantidade} precedente(s) para ${c.consulta.join(", ") || "nenhum assunto catalogado"}.`,
+        decisions: [],
+        tasks: [],
+        safeReferences: c.itens.slice(0, limiteLista).map((item, indice) => ({
+          id: `jur_${indice + 1}`,
+          label: `${item.referencia} (${item.tribunal}, ${item.orgaoJulgador}). Sentido ${item.sentido}; ${item.citavel ? "citável" : "não citável"}.`,
+          kind: "public_jurisprudence",
+        })),
+        warnings: [
+          ...omitidos,
+          ...(excedentes > 0
+            ? [{ code: "references_truncated", message: `${excedentes} precedente(s) além do limite de ${limiteLista} não foram listados.` }]
+            : []),
+          ...(c.itens.some((item) => item.ementa)
+            ? [{ code: "ementa_withheld", message: "SafeDTO v1 não carrega ementa. Consulte a fonte oficial pela referência." }]
+            : []),
+        ],
+      };
+    }
+    case "strategic_update": {
+      const c = envelope.conteudo;
+      return {
+        summary: c.sintese,
+        decisions: [],
+        tasks: c.recomendacao.map((texto, indice) => ({
+          id: `ponto_${indice + 1}`,
+          text: texto,
+          status: "open",
+        })),
+        safeReferences: [],
+        warnings: omitidos,
+      };
+    }
+    default: {
+      const exaustivo: never = envelope;
+      throw new Error(`Envelope sem mapeamento SafeDTO: ${(exaustivo as QualquerSafeDTO).tipo}`);
+    }
+  }
 }

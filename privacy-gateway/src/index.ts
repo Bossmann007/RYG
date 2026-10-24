@@ -9,6 +9,7 @@ export * from './session/office-session-store.js';
 export * from './declassify/declassifier.js';
 export * from './office/virtual-office.js';
 export * from './mcp/mcp-office-server.js';
+export * from './mcp/mcp-release.js';
 export * from './mcp/connection-context.js';
 export * from './mcp/tool-contract.js';
 export * from './policy/authorized-releases.js';
