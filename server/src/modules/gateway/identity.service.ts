@@ -22,6 +22,17 @@ export class IdentityService {
     return PERFIS_DEMO;
   }
 
+  /** Directory lookup by stable user id (demo fixtures). */
+  porUserId(userId: string): Identidade | null {
+    const id = (userId || "").trim();
+    if (!id) {
+      return null;
+    }
+    return (
+      Object.values(USUARIOS_POR_TOKEN).find((usuario) => usuario.id === id) || null
+    );
+  }
+
   private extrairToken(authorization?: string): string {
     if (!authorization) {
       return "";

@@ -119,6 +119,26 @@ async function main() {
     const offMcp = await chamar(ligado.base, "POST", "/api/mcp", "demo-off", toolsCall());
     console.log(`POST /api/mcp tools/call demo-off -> ${offMcp.status}`);
     assert.strictEqual(offMcp.status, 401, "seeded disabled token must be 401 on MCP tools/call");
+
+    const offBatch = await chamar(ligado.base, "POST", "/api/mcp", "demo-off", [
+      toolsCall(),
+    ]);
+    console.log(`POST /api/mcp batch tools/call demo-off -> ${offBatch.status}`);
+    assert.strictEqual(
+      offBatch.status,
+      401,
+      "JSON-RPC batch must not bypass the MCP session gate",
+    );
+
+    const cruzado = await chamar(ligado.base, "POST", "/api/jml/disable", "demo-outro", {
+      userId: ALVO.id,
+    });
+    console.log(`POST /api/jml/disable cross-office -> ${cruzado.status}`);
+    assert.strictEqual(
+      cruzado.status,
+      404,
+      "socio of another office must not open a disable challenge",
+    );
   } finally {
     await ligado.app.close();
   }

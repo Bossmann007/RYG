@@ -44,8 +44,9 @@ export class McpController {
     const token = extrairBearer(authorization);
     let identidade: Identidade | null = this.identityService.resolver(authorization);
 
-    const corpo = req.body as { method?: string };
-    if (corpo?.method === "tools/call" && identidade) {
+    // Any resolved bearer must pass disabled/idle before the transport runs,
+    // including JSON-RPC batches where body.method is absent.
+    if (identidade) {
       try {
         identidade = await exigirSessaoAtiva(
           identidade,
@@ -62,9 +63,13 @@ export class McpController {
             : 401;
         const message =
           erro instanceof Error ? erro.message : "Credencial rejeitada.";
+        const id =
+          !Array.isArray(req.body) && req.body && typeof req.body === "object"
+            ? (req.body as { id?: unknown }).id ?? null
+            : null;
         res.status(status >= 400 ? status : 401).json({
           jsonrpc: "2.0",
-          id: (req.body as { id?: unknown })?.id ?? null,
+          id,
           error: { code: CODIGO_NEGADO, message },
         });
         return;

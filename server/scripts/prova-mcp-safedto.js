@@ -84,6 +84,25 @@ async function main() {
     assert.ok(String(dto.sessionId).startsWith("ofs_"));
     assert.ok(String(dto.releaseId).startsWith("rel_"));
     console.log(`SafeDTO ok session=${dto.sessionId} release=${dto.releaseId}`);
+
+    const batchOff = await fetch(ligado.base + "/api/mcp", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json, text/event-stream",
+        Authorization: "Bearer demo-off",
+      },
+      body: JSON.stringify([
+        {
+          jsonrpc: "2.0",
+          id: 2,
+          method: "tools/call",
+          params: { name: "enter_office", arguments: {} },
+        },
+      ]),
+    });
+    console.log(`batch tools/call demo-off -> ${batchOff.status}`);
+    assert.strictEqual(batchOff.status, 401, "disabled batch must be 401");
   } finally {
     await ligado.app.close();
   }

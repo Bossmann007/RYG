@@ -1,6 +1,7 @@
 import { identidadeDaRequisicao } from "@common/guards/identity.guard";
 import { AuditService } from "@modules/gateway/audit.service";
 import { HubSessionService } from "@modules/gateway/hub-session.service";
+import { IdentityService } from "@modules/gateway/identity.service";
 import {
   Body,
   ConflictException,
@@ -23,6 +24,7 @@ export class JmlController {
   constructor(
     private sessions: HubSessionService,
     private audit: AuditService,
+    private identity: IdentityService,
   ) {}
 
   @Post("disable")
@@ -39,6 +41,14 @@ export class JmlController {
     const targetUserId = (body.userId || "").trim();
     if (!targetUserId) {
       throw new NotFoundException("userId obrigatório.");
+    }
+
+    const alvo = this.identity.porUserId(targetUserId);
+    if (!alvo || alvo.escritorio !== identidade.officeId) {
+      await this.auditar(identidade, "negado", "alvo fora do escritorio", {
+        userId: targetUserId,
+      });
+      throw new NotFoundException("Usuário não encontrado neste escritório.");
     }
 
     const confirmacao = (body.confirmacao || "").trim();
