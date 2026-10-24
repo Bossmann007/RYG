@@ -115,11 +115,11 @@ Already in stack: `verification-planning`, `blindspot-pass`, `review-security`, 
 
 **Owner:** Bossmann
 
-- [ ] Document which surface is canonical: `privacy-gateway` SafeDTO (`ofs_` / `rel_`) vs Nest `EnvelopeSafe`.
-- [ ] Choose: (A) Nest `/api/mcp` delegates to privacy-gateway package, or (B) deprecate Nest tool list until wired.
-- [ ] Add ADR `0002-mcp-egress-contract.md` with the choice.
+- [x] Document which surface is canonical: `privacy-gateway` SafeDTO (`ofs_` / `rel_`) vs Nest `EnvelopeSafe`.
+- [x] Choose: (A) Nest `/api/mcp` delegates to privacy-gateway package, or (B) deprecate Nest tool list until wired.
+- [x] Add ADR `0002-mcp-egress-contract.md` with the choice.
 - [ ] Align `docs/agents` / archive MCP notes one-liner to the ADR (live contract = Phase 0.2).
-- [ ] Smoke: `npm run evidence` at repo root green.
+- [x] Smoke: `npm run evidence` at repo root green.
 - [ ] Commit: `docs(adr): single MCP egress contract`.
 
 **Done when:** One written contract; `evidence` green; catalog MCP item points at that contract.

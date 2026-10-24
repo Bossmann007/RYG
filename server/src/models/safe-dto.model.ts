@@ -1,7 +1,8 @@
 import { NivelDeclassificacao, Sigilo } from "@models/classificacao.model";
 
 /**
- * O contrato de saída do escritório.
+ * Intermediário interno do Nest. O contrato de saída é o SafeDTO do
+ * `privacy-gateway`; `SafeDtoEgressService` faz o mapeamento (ADR 0002).
  *
  * A inversão que importa: o DTO não é o registro filtrado, é uma estrutura
  * construída do zero a partir de uma allowlist. O registro bruto nunca é
