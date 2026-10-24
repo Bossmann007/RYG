@@ -1,5 +1,11 @@
 import { IS_PUBLIC_KEY } from "@common/decorators/public.decorator";
+import {
+  exigirSessaoAtiva,
+  extrairBearer,
+} from "@common/security/session-gate";
 import { Identidade } from "@models/gateway.model";
+import { AuditService } from "@modules/gateway/audit.service";
+import { HubSessionService } from "@modules/gateway/hub-session.service";
 import { IdentityService } from "@modules/gateway/identity.service";
 import {
   CanActivate,
@@ -28,10 +34,12 @@ export function identidadeDaRequisicao(req: Request): IdentidadeRequisicao {
 export class IdentityGuard implements CanActivate {
   constructor(
     private reflector: Reflector,
-    private identityService: IdentityService
+    private identityService: IdentityService,
+    private sessions: HubSessionService,
+    private audit: AuditService,
   ) {}
 
-  canActivate(context: ExecutionContext): boolean {
+  async canActivate(context: ExecutionContext): Promise<boolean> {
     const publica = this.reflector.getAllAndOverride<boolean>(IS_PUBLIC_KEY, [
       context.getHandler(),
       context.getClass(),
@@ -41,10 +49,15 @@ export class IdentityGuard implements CanActivate {
     }
 
     const req = context.switchToHttp().getRequest<RequisicaoAutenticada>();
-    const identidade = this.identityService.resolver(req.headers.authorization);
-    if (!identidade) {
-      throw new UnauthorizedException("Credencial ausente ou desconhecida.");
-    }
+    const token = extrairBearer(req.headers.authorization);
+    const resolvida = this.identityService.resolver(req.headers.authorization);
+    const identidade = await exigirSessaoAtiva(
+      resolvida,
+      token,
+      this.sessions,
+      this.audit,
+      "hub_http",
+    );
 
     const officeId = (identidade.escritorio || "").trim();
     if (!officeId) {

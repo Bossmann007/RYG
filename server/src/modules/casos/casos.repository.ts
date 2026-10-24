@@ -104,14 +104,21 @@ export class CasosRepository {
     clientName: string;
     clientKey: string;
     adverseKey: string;
+    classification: string;
   }): Promise<string> {
     const id = `${Date.now()}${Math.floor(Math.random() * 1000)
       .toString()
       .padStart(3, "0")}`;
     try {
       await this.db.executar(
-        "INSERT INTO casos (id, titulo, cliente_nome, office_id, status) VALUES (?, ?, ?, ?, 'intake')",
-        [id, input.clientName.slice(0, 200), input.clientName.slice(0, 255), input.officeId],
+        "INSERT INTO casos (id, titulo, cliente_nome, office_id, status, classification) VALUES (?, ?, ?, ?, 'intake', ?)",
+        [
+          id,
+          input.clientName.slice(0, 200),
+          input.clientName.slice(0, 255),
+          input.officeId,
+          input.classification,
+        ],
       );
       await this.db.executar(
         "INSERT INTO case_memberships (office_id, caso_id, user_id, role) VALUES (?, ?, ?, ?)",
@@ -135,7 +142,7 @@ export class CasosRepository {
     }
 
     const processo = await this.buscarProcesso(officeId, capa);
-    return this.montarDeCapa(capa, processo ? [processo] : [], true, true);
+    return this.montarDeCapa(capa, processo ? [processo] : [], true, true, officeId);
   }
 
   private async buscarProcesso(officeId: string, capa: Linha): Promise<Linha | undefined> {
@@ -224,12 +231,18 @@ export class CasosRepository {
       return [];
     }
 
+    if (!officeId) {
+      throw new ServiceUnavailableException("office_id obrigatório para listar capas.");
+    }
+
     const porTabela: Record<string, Linha[]> = {
-      clientes: await this.linhas("clientes"),
+      clientes: await this.linhas("clientes", officeId),
     };
 
     return Promise.all(
-      capas.map((capa) => this.montarDeCapa(capa, processos, casos.length > 0, false, porTabela))
+      capas.map((capa) =>
+        this.montarDeCapa(capa, processos, casos.length > 0, false, officeId, porTabela),
+      ),
     );
   }
 
@@ -238,8 +251,13 @@ export class CasosRepository {
     processos: Linha[],
     capaEhCaso: boolean,
     filtrarFilhos: boolean,
+    officeId: string,
     cache?: Record<string, Linha[]>
   ): Promise<Caso> {
+    if (!officeId) {
+      throw new ServiceUnavailableException("office_id obrigatório para montar capa.");
+    }
+
     const processo = this.ligarProcesso(capa, processos, capaEhCaso);
     const processoId = String(
       valorCampo(processo, ALIASES.id) ?? valorCampo(capa, ALIASES.processoId) ?? ""
@@ -253,7 +271,7 @@ export class CasosRepository {
       const carregadas = await Promise.all(
         FILHAS.map(async (tabela) => ({
           tabela,
-          linhas: await this.linhasDoProcesso(tabela, processoId, cnj),
+          linhas: await this.linhasDoProcesso(tabela, officeId, processoId, cnj),
         }))
       );
       for (const item of carregadas) {
@@ -324,15 +342,24 @@ export class CasosRepository {
     }
   }
 
-  private async linhas(tabela: NomeTabela): Promise<Linha[]> {
+  private async linhas(tabela: NomeTabela, officeId: string): Promise<Linha[]> {
+    if (!officeId) {
+      throw new ServiceUnavailableException("office_id obrigatório para filhas.");
+    }
     try {
       const registros = await this.db.consultar<RowDataPacket>(
-        `SELECT * FROM ${nomeSeguro(tabela)}`
+        `SELECT * FROM ${nomeSeguro(tabela)} WHERE office_id = ?`,
+        [officeId],
       );
       return registros.map((linha) => ({ ...linha }));
     } catch (erro) {
       if (tabelaAusente(erro)) {
         return [];
+      }
+      if (this.colunaAusente(erro, "office_id")) {
+        throw new ServiceUnavailableException(
+          `Coluna office_id ausente em ${tabela}. Operação recusada.`,
+        );
       }
 
       throw erro;
@@ -341,9 +368,14 @@ export class CasosRepository {
 
   private async linhasDoProcesso(
     tabela: NomeTabela,
+    officeId: string,
     processoId: string,
     cnj: string
   ): Promise<Linha[]> {
+    if (!officeId) {
+      throw new ServiceUnavailableException("office_id obrigatório para filhas.");
+    }
+
     const partes: string[] = [];
     const params: unknown[] = [];
 
@@ -363,17 +395,32 @@ export class CasosRepository {
 
     try {
       const registros = await this.db.consultar<RowDataPacket>(
-        `SELECT * FROM ${nomeSeguro(tabela)} WHERE ${partes.join(" OR ")}`,
-        params
+        `SELECT * FROM ${nomeSeguro(tabela)} WHERE office_id = ? AND (${partes.join(" OR ")})`,
+        [officeId, ...params],
       );
       return registros.map((linha) => ({ ...linha }));
     } catch (erro) {
       if (tabelaAusente(erro)) {
         return [];
       }
+      if (this.colunaAusente(erro, "office_id")) {
+        throw new ServiceUnavailableException(
+          `Coluna office_id ausente em ${tabela}. Operação recusada.`,
+        );
+      }
 
       throw erro;
     }
+  }
+
+  private colunaAusente(erro: unknown, coluna: string): boolean {
+    const e = erro as { code?: string; errno?: number; message?: string };
+    const msg = String(e.message || "");
+    return (
+      e.code === "ER_BAD_FIELD_ERROR" ||
+      e.errno === 1054 ||
+      new RegExp(`Unknown column ['\`]?${coluna}`, "i").test(msg)
+    );
   }
 
   private ligarProcesso(capa: Linha, processos: Linha[], capaEhCaso: boolean): Linha | undefined {

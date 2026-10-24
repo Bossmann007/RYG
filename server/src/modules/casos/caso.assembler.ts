@@ -1,3 +1,8 @@
+import {
+  CLASSIFICATION_DEFAULT,
+  CaseClassification,
+  isCaseClassification,
+} from "@common/security/case-classification";
 import { aplicarPoliticaCaso } from "@common/security/caso-policy";
 import { sanitizeUntrustedText } from "@common/security/untrusted-text";
 import {
@@ -173,6 +178,9 @@ export function montarCaso(pacote: PacoteCaso): Caso {
       textoCampo(pacote.processo, ALIASES.chamber) ||
       base.chamber,
     status: statusDe(valorCampo(capa, ALIASES.status) ?? base.status),
+    classification: classificacaoDe(
+      valorCampo(capa, ["classification"]) ?? base.classification,
+    ),
     cliente: clienteNome,
     partes,
     resumo: textoCampo(capa, ALIASES.resumo, base.resumo),
@@ -271,6 +279,13 @@ function casoDePayload(valor: unknown): Caso {
   return aplicarPoliticaCaso(montado);
 }
 
+function classificacaoDe(valor: unknown): CaseClassification {
+  if (isCaseClassification(valor)) {
+    return valor;
+  }
+  return CLASSIFICATION_DEFAULT;
+}
+
 function casoVazio(): Caso {
   return {
     id: "",
@@ -282,6 +297,7 @@ function casoVazio(): Caso {
     court: "",
     chamber: "",
     status: "ATIVO",
+    classification: CLASSIFICATION_DEFAULT,
     cliente: "",
     partes: [],
     resumo: "",

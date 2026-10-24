@@ -53,15 +53,16 @@ export class McpService {
             };
           }
 
-          // `structuredContent` entrega o DTO tipado ao cliente; o texto existe
-          // para modelos que ainda leem so a parte textual. Os dois carregam
-          // exatamente o mesmo SafeDTO — nao ha um canal mais generoso.
+          // ADR 0002: structuredContent + text are privacy-gateway SafeDTO only.
+          const wire =
+            resultado.wire ||
+            JSON.stringify(resultado.conteudo ?? {});
           return {
             structuredContent: resultado.conteudo as Record<string, unknown>,
             content: [
               {
                 type: "text" as const,
-                text: JSON.stringify(resultado.conteudo, null, 2),
+                text: wire,
               },
             ],
           };

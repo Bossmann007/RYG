@@ -18,18 +18,26 @@ export class CasosController {
     const identidade = identidadeDaRequisicao(req);
     return {
       zone: "internal" as const,
-      casos: await this.casosService.listar(identidade.officeId, identidade.id),
+      casos: await this.casosService.listar(
+        identidade.officeId,
+        identidade.id,
+        identidade.papel,
+      ),
     };
   }
 
   @Post("intake")
   @HttpCode(HttpStatus.CREATED)
-  async abrir(@Req() req: Request, @Body() body: { client?: string; adverse?: string }) {
+  async abrir(
+    @Req() req: Request,
+    @Body() body: { client?: string; adverse?: string; classification?: string },
+  ) {
     const identidade = identidadeDaRequisicao(req);
     const casoId = await this.casosService.abrir(
       identidade,
       String(body?.client ?? ""),
       String(body?.adverse ?? ""),
+      body?.classification,
     );
     return { zone: "internal" as const, casoId };
   }

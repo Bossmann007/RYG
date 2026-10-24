@@ -1,4 +1,10 @@
 import { acharConflito, normalizarNomeParte } from "@common/security/case-acl";
+import {
+  CLASSIFICATION_DEFAULT,
+  CaseClassification,
+  clearanceOk,
+  isCaseClassification,
+} from "@common/security/case-classification";
 import { IdentidadeRequisicao } from "@common/guards/identity.guard";
 import { RegistroAuditoria } from "@models/gateway.model";
 import { Caso } from "@models/caso.model";
@@ -21,14 +27,17 @@ export class CasosService {
     private readonly audit: AuditService,
   ) {}
 
-  async listar(officeId: string, userId: string): Promise<Caso[]> {
+  async listar(officeId: string, userId: string, papel: string): Promise<Caso[]> {
     const ids = await this.repositorio.idsDoMembro(officeId, userId);
     if (!ids.length) {
       return [];
     }
     const permitidos = new Set(ids);
     const casos = await this.repositorio.listar(officeId);
-    return casos.filter((caso) => permitidos.has(String(caso.id)));
+    return casos.filter(
+      (caso) =>
+        permitidos.has(String(caso.id)) && clearanceOk(caso.classification, papel),
+    );
   }
 
   async obter(identidade: IdentidadeRequisicao, idOrCnj: string): Promise<Caso> {
@@ -48,6 +57,14 @@ export class CasosService {
       throw new NotFoundException("Caso não encontrado.");
     }
 
+    if (!clearanceOk(achado.classification, identidade.papel)) {
+      await this.auditar(identidade, "caso_obter", "negado", "classification clearance ausente", {
+        casoId,
+        classification: achado.classification,
+      });
+      throw new ForbiddenException("Sem clearance para a classificação deste caso.");
+    }
+
     return achado;
   }
 
@@ -55,11 +72,20 @@ export class CasosService {
     identidade: IdentidadeRequisicao,
     client: string,
     adverse: string,
+    classificationRaw?: string,
   ): Promise<string> {
     const clientKey = normalizarNomeParte(client);
     const adverseKey = normalizarNomeParte(adverse);
     if (!clientKey || !adverseKey || clientKey === adverseKey) {
       throw new BadRequestException("client and adverse party are required and must differ.");
+    }
+
+    let classification: CaseClassification = CLASSIFICATION_DEFAULT;
+    if (classificationRaw !== undefined && classificationRaw !== null && String(classificationRaw).trim() !== "") {
+      if (!isCaseClassification(classificationRaw)) {
+        throw new BadRequestException("classification inválida.");
+      }
+      classification = classificationRaw;
     }
 
     const existentes = await this.repositorio.partesDoEscritorio(identidade.officeId);
@@ -80,6 +106,7 @@ export class CasosService {
       clientName: client.trim(),
       clientKey,
       adverseKey,
+      classification,
     });
   }
 

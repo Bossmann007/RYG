@@ -8,8 +8,10 @@ import { DeclassifyService } from "./declassify.service";
 import { DlpService } from "./dlp.service";
 import { GatewayController } from "./gateway.controller";
 import { GatewayService } from "./gateway.service";
+import { HubSessionService } from "./hub-session.service";
 import { IdentityService } from "./identity.service";
 import { PolicyService } from "./policy.service";
+import { SafeDtoEgressService } from "./safe-dto-egress.service";
 import { ToolCatalogService } from "./tool-catalog.service";
 
 @Module({
@@ -21,10 +23,19 @@ import { ToolCatalogService } from "./tool-catalog.service";
     DeclassifyService,
     DlpService,
     GatewayService,
+    HubSessionService,
     IdentityService,
     PolicyService,
+    SafeDtoEgressService,
     ToolCatalogService,
   ],
-  exports: [GatewayService, IdentityService, PolicyService, AuditService],
+  exports: [
+    GatewayService,
+    IdentityService,
+    PolicyService,
+    AuditService,
+    HubSessionService,
+  ],
 })
 export class GatewayModule {}
+

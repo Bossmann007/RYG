@@ -94,4 +94,4 @@ Layout: `client/` UI, `server/` Nest, `privacy-gateway/`, `docs/`, `scripts/`, `
 
 ## Current work
 
-See `.cursor/state/checkpoint.json`. Plan: `docs/plan/hub-office-platform.md`. Next: Phase 0.5 gaps are tracked in GitHub issue 1. Real TiDB host still blocks Phase 0.1 HTTP. ADR 0002 stays Proposed.
+See `.cursor/state/checkpoint.json`. Plan: `docs/plan/hub-office-platform.md`. Phase 0.5 stubs (auth, office_id, ACL, HITL, MFA/JML, vault, classification code, ADR 0002 SafeDTO egress) are on the trust branch. Real TiDB host still blocks Phase 0.1 HTTP smoke and live classification/child-office provas. Issue 1 checklist needs a rewrite against current main after merge.
