@@ -4,7 +4,7 @@
 
 **Thesis (one line):** Office OS = PMS + wiki + area connectors + team chat; AI optional via AI Gateway — not a legal chatbot.
 
-**v0 P0 (ship now):** Stabilize wedge — TiDB casos evidence, single MCP egress contract, strip jurimetria leftovers. Wedge product surface already = caso + chat + scripts + catalog + Zap skeleton.
+**v0 P0 (ship now):** Stabilize wedge — hub DB casos evidence (MySQL-wire: MariaDB/MySQL/TiDB), single MCP egress contract, strip jurimetria leftovers. Wedge product surface already = caso + chat + scripts + catalog + Zap skeleton.
 
 **v1 hook (1§):** After Phase 0.5 trust + wiki corpus: AI Gateway + **consult** mode (retrieval-only) + RAG ACL + cite-or-silent; runtimes none | linked-provider | office-hosted read-only.
 
@@ -42,7 +42,7 @@
 
 | Phase | Name | Exit criteria |
 |-------|------|----------------|
-| 0 | Stabilize wedge | TiDB casos live, smoke green, jurimetria leftovers gone, one MCP egress path chosen |
+| 0 | Stabilize wedge | Hub DB casos live (MySQL-wire), smoke green, jurimetria leftovers gone, one MCP egress path chosen |
 | 0.5 | Office trust foundation (P0) | Tenant + MFA/JML + case RBAC + conflicts + classification + audit + HITL egress + secrets/crypto |
 | 1 | Auth-complete workspace chat | DMs + mentions on top of 0.5 identity |
 | 2 | Backstage + tools import | Catalog multi-tool; legalops **prazos** as core PMS tool; DataJud/DJEN connectors |
@@ -97,19 +97,19 @@ Already in stack: `verification-planning`, `blindspot-pass`, `review-security`, 
 
 ## Phase 0 — Stabilize wedge
 
-### Task 0.1 — Evidence path + TiDB
+### Task 0.1 — Evidence path + hub DB (MySQL wire)
 
 **Owner:** Zupelli (DB), Bossmann (verify)
 
-- [ ] Put real `DB_*` in `server/.env` (never commit secrets).
+- [x] Put real `DB_*` in `server/.env` (never commit secrets). Proven 2026-10-24 on local MariaDB `HubLegal`.
 - [ ] Run `cd server && npm run build && npm run start:dev`.
 - [ ] Run `cd client && npx vite --host 127.0.0.1 --port 8080`.
-- [ ] Prove `GET /api/casos` and `GET /api/casos/:idOrCnj` return `zone: internal` (see `docs/ops.md`).
+- [x] Prove `GET /api/casos` and `GET /api/casos/:idOrCnj` return `zone: internal` (see `docs/ops.md`) via `prova-casos` / `prova-office`.
 - [ ] Prove UI opens a case without falling back to local `CASOS` (watch browser console for fallback warn).
-- [ ] Record commands + results in `.cursor/state/checkpoint.json` `tests` field.
-- [ ] Commit only env example updates if needed: `docs: note TiDB smoke path`.
+- [x] Record commands + results in `.cursor/state/checkpoint.json` `tests` field.
+- [x] Docs: MySQL-wire (MariaDB/MySQL/TiDB), not TiDB-only.
 
-**Done when:** `/api/casos` works against TiDB; checkpoint `tests` updated with date.
+**Done when:** `/api/casos` works against a MySQL-wire hub DB; checkpoint `tests` updated with date.
 
 ### Task 0.2 — Single egress MCP contract
 
