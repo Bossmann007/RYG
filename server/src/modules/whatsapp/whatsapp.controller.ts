@@ -107,12 +107,39 @@ export class WhatsappController {
       throw new ConflictException("Confirmacao invalida ou expirada.");
     }
     await this.registar(identidade, pedido, "permitido", "confirmacao humana");
+    await this.registarTransferencia(identidade, pedido);
     const resultado = this.whatsappService.enviar(pedido);
     return {
       zone: "internal" as const,
       tool: "enviar_whatsapp",
       ...resultado,
     };
+  }
+
+  /** Transfer-register stub: confirmed egress may leave the trust zone via WhatsApp. */
+  private registarTransferencia(
+    identidade: ReturnType<typeof identidadeDaRequisicao>,
+    pedido: { para: string; processoId?: string; texto: string },
+  ) {
+    return this.audit.registrar({
+      at: new Date().toISOString(),
+      identidade: identidade.id,
+      nome: identidade.nome,
+      papel: identidade.papel,
+      origem: "whatsapp",
+      ferramenta: "enviar_whatsapp",
+      argumentos: {
+        motivo: "transfer",
+        destino: "whatsapp",
+        para: pedido.para,
+        processoId: pedido.processoId || "",
+        textoChars: pedido.texto.length,
+      },
+      decisao: "permitido",
+      motivo: "transfer",
+      omitido: [],
+      duracaoMs: 0,
+    });
   }
 
   private registar(

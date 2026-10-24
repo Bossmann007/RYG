@@ -19,7 +19,13 @@ export type ResultadoFerramenta = {
   decisao: Decisao;
   ferramenta: string;
   motivo?: string;
-  conteudo?: EnvelopeSafe<string, unknown>;
+  /**
+   * After ADR 0002, MCP egress carries privacy-gateway SafeDTO here.
+   * EnvelopeSafe stays Nest-internal until SafeDtoEgressService maps it.
+   */
+  conteudo?: EnvelopeSafe<string, unknown> | Record<string, unknown>;
+  /** Canonical SafeDTO JSON bytes for MCP text content. */
+  wire?: string;
   /** O que a declassificacao destruiu no caminho. */
   omitido: string[];
 };

@@ -1,6 +1,12 @@
 import { Public } from "@common/decorators/public.decorator";
+import {
+  exigirSessaoAtiva,
+  extrairBearer,
+} from "@common/security/session-gate";
 import { Identidade } from "@models/gateway.model";
+import { AuditService } from "@modules/gateway/audit.service";
 import { GatewayService } from "@modules/gateway/gateway.service";
+import { HubSessionService } from "@modules/gateway/hub-session.service";
 import { IdentityService } from "@modules/gateway/identity.service";
 import { PolicyService } from "@modules/gateway/policy.service";
 import { Controller, Get, Headers, Post, Req, Res } from "@nestjs/common";
@@ -23,7 +29,9 @@ export class McpController {
     private mcpService: McpService,
     private gatewayService: GatewayService,
     private identityService: IdentityService,
-    private policyService: PolicyService
+    private policyService: PolicyService,
+    private sessions: HubSessionService,
+    private audit: AuditService,
   ) {}
 
   @Public()
@@ -33,7 +41,41 @@ export class McpController {
     @Res() res: Response,
     @Headers("authorization") authorization?: string
   ) {
-    const identidade = this.identityService.resolver(authorization);
+    const token = extrairBearer(authorization);
+    let identidade: Identidade | null = this.identityService.resolver(authorization);
+
+    // Any resolved bearer must pass disabled/idle before the transport runs,
+    // including JSON-RPC batches where body.method is absent.
+    if (identidade) {
+      try {
+        identidade = await exigirSessaoAtiva(
+          identidade,
+          token,
+          this.sessions,
+          this.audit,
+          "mcp_tools_call",
+          "mcp",
+        );
+      } catch (erro) {
+        const status =
+          erro && typeof erro === "object" && "getStatus" in erro
+            ? Number((erro as { getStatus: () => number }).getStatus())
+            : 401;
+        const message =
+          erro instanceof Error ? erro.message : "Credencial rejeitada.";
+        const id =
+          !Array.isArray(req.body) && req.body && typeof req.body === "object"
+            ? (req.body as { id?: unknown }).id ?? null
+            : null;
+        res.status(status >= 400 ? status : 401).json({
+          jsonrpc: "2.0",
+          id,
+          error: { code: CODIGO_NEGADO, message },
+        });
+        return;
+      }
+    }
+
     const bloqueio = await this.interceptarChamadaBloqueada(req, identidade);
 
     if (bloqueio) {

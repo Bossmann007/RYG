@@ -29,7 +29,7 @@ export const CATALOGO_BANCARIO: CatalogItem[] = [
     kind: "prompt",
     area: "bancario",
     titulo: "Checklist revisão de contrato bancário",
-    descricao: "Roteiro interno; se colar cláusula do cliente, use SafeDTO antes de BYOAI.",
+    descricao: "Roteiro interno; se colar cláusula do cliente, use SafeDTO antes de linked-provider egress.",
     requerSafeDto: true,
     corpo:
       "Monte checklist de revisão para contrato bancário (tarifas, seguro, IOF, vencimento antecipado). Não peça PII além do necessário.",
@@ -47,7 +47,7 @@ export const CATALOGO_BANCARIO: CatalogItem[] = [
     id: "mcp-office-export",
     kind: "mcp",
     area: "bancario",
-    titulo: "MCP escritório (export BYOAI)",
+    titulo: "MCP escritório (export linked-provider)",
     descricao: "Ferramentas get_safe_summary / search_safe_knowledge via /api/mcp.",
     requerSafeDto: true,
     endpoint: "/api/mcp",

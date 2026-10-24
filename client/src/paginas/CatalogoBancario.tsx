@@ -48,7 +48,7 @@ export function CatalogoBancario({ onVoltar }: Props) {
     setExportado(
       prompt.requerSafeDto
         ? "Copiado. Este prompt exige SafeDTO se houver PII do cliente."
-        : "Prompt copiado para BYOAI."
+        : "Prompt copiado para linked-provider."
     );
   }
 

@@ -9,6 +9,7 @@ import { Injectable, Logger } from "@nestjs/common";
 import { AuditService } from "./audit.service";
 import { FalhaDeDeclassificacao } from "./declassify.service";
 import { PolicyService } from "./policy.service";
+import { SafeDtoEgressService } from "./safe-dto-egress.service";
 import { FerramentaGateway, ToolCatalogService } from "./tool-catalog.service";
 
 /**
@@ -29,7 +30,8 @@ export class GatewayService {
   constructor(
     private policyService: PolicyService,
     private auditService: AuditService,
-    private toolCatalogService: ToolCatalogService
+    private toolCatalogService: ToolCatalogService,
+    private safeDtoEgress: SafeDtoEgressService,
   ) {}
 
   ferramentasPara(identidade: Identidade | null): FerramentaGateway[] {
@@ -103,6 +105,18 @@ export class GatewayService {
       return this.negar(nome, argumentos, identidade, origem, inicio, motivo);
     }
 
+    const egress = await this.safeDtoEgress.liberar(dto, identidade?.id || "anonimo");
+    if (egress.ok === false) {
+      return this.negar(
+        nome,
+        argumentos,
+        identidade,
+        origem,
+        inicio,
+        `SafeDTO egress reprovado — ${egress.reason}`,
+      );
+    }
+
     await this.auditService.registrar({
       ...this.registro(nome, argumentos, identidade, origem, inicio, "permitido"),
       sigiloOrigem: dto.declassificacao.sigiloOrigem,
@@ -113,7 +127,8 @@ export class GatewayService {
     return {
       decisao: "permitido",
       ferramenta: nome,
-      conteudo: dto,
+      conteudo: egress.dto,
+      wire: egress.wire,
       omitido: dto.declassificacao.omitido,
     };
   }
