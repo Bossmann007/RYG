@@ -1,6 +1,5 @@
 import { AuditLog } from '../audit/audit-log.js';
 import type { SafeDTO } from '../domain/safe-dto.js';
-import { serializeSafeDtoForMcp, validateSafeDto } from '../domain/safe-dto.js';
 import { EgressFirewall } from '../firewall/egress-firewall.js';
 import { VirtualOffice } from '../office/virtual-office.js';
 import {
@@ -8,6 +7,7 @@ import {
   type ConnectionContext,
   PRINCIPAL_IN_ARGUMENTS,
 } from './connection-context.js';
+import { releaseForMcp } from './mcp-release.js';
 import {
   argumentsHaveUnknownKeys,
   UNKNOWN_ARGUMENT,
@@ -124,28 +124,20 @@ export class McpOfficeServer {
   }
 
   private release(dto: SafeDTO, expectedBytes?: string): McpToolResult {
-    const checked = validateSafeDto(dto);
-    if (!checked.ok) {
+    const released = releaseForMcp(dto, this.firewall);
+    if (!released.ok) {
+      if (released.stage === 'firewall') {
+        this.onFirewallBlock?.(released.code);
+      }
       return publicError();
     }
-    let wire: string;
-    try {
-      wire = serializeSafeDtoForMcp(checked.dto);
-    } catch {
-      return publicError();
-    }
-    if (expectedBytes !== undefined && wire !== expectedBytes) {
-      return publicError();
-    }
-    const verdict = this.firewall.inspect(wire);
-    if (!verdict.ok) {
-      this.onFirewallBlock?.(verdict.code);
+    if (expectedBytes !== undefined && released.wire !== expectedBytes) {
       return publicError();
     }
     return {
       isError: false,
-      structuredContent: checked.dto,
-      content: [{ type: 'text', text: wire }],
+      structuredContent: released.dto,
+      content: [{ type: 'text', text: released.wire }],
     };
   }
 }

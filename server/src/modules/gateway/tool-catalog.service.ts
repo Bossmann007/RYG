@@ -1,5 +1,5 @@
 import { Identidade } from "@models/gateway.model";
-import { EnvelopeSafe } from "@models/safe-dto.model";
+import { QualquerSafeDTO } from "@models/safe-dto.model";
 import { Injectable } from "@nestjs/common";
 import { z } from "zod";
 import { ClassificationService } from "./classification.service";
@@ -15,7 +15,7 @@ export type FerramentaGateway = {
   executar: (
     argumentos: Record<string, unknown>,
     identidade: Identidade | null
-  ) => Promise<EnvelopeSafe<string, unknown>>;
+  ) => Promise<QualquerSafeDTO>;
 };
 
 /**
@@ -23,9 +23,8 @@ export type FerramentaGateway = {
  *
  * Todo verbo aqui devolve `EnvelopeSafe` — nunca um registro do acervo. Não
  * existe `get_raw_document`, `execute_sql` nem `get_all_messages`, e a ausência
- * é estrutural: o tipo de retorno não comporta. A ferramenta não é um filtro
- * sobre o dado bruto; ela é o único formato em que o dado pode existir do lado
- * de fora.
+ * é estrutural: o tipo de retorno não comporta. O envelope é interno: só sai
+ * do escritório depois de mapeado para SafeDTO pelo `SafeDtoEgressService`.
  */
 @Injectable()
 export class ToolCatalogService {
