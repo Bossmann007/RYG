@@ -1,8 +1,7 @@
-import { Public } from "@common/decorators/public.decorator";
+import { identidadeDaRequisicao } from "@common/guards/identity.guard";
 import {
   Body,
   Controller,
-  ForbiddenException,
   Get,
   HttpCode,
   HttpStatus,
@@ -12,51 +11,41 @@ import {
   Req,
 } from "@nestjs/common";
 import type { Request } from "express";
-import { acessoChatLocalPermitido } from "./chat-access";
 import { CriarMensagemChatDto, ListarChatQueryDto } from "./chat.dto";
 import { ChatService } from "./chat.service";
 
+/**
+ * Per-case chat. Requires IdentityGuard (no @Public).
+ * CHAT_DEMO_ENABLED no longer authorizes unauthenticated access — use Bearer demos.
+ */
 @Controller("processos/:processoId/chat")
 export class ChatController {
   constructor(private readonly chat: ChatService) {}
 
-  @Public()
   @Get()
   async listar(
     @Req() req: Request,
     @Param("processoId") processoId: string,
-    @Query() query: ListarChatQueryDto
+    @Query() query: ListarChatQueryDto,
   ) {
-    this.exigirAcessoLocal(req);
+    const identidade = identidadeDaRequisicao(req);
     return {
       zone: "internal" as const,
-      ...(await this.chat.listar(processoId, query.limite, query.cursor)),
+      ...(await this.chat.listar(identidade, processoId, query.limite, query.cursor)),
     };
   }
 
-  @Public()
   @Post()
   @HttpCode(HttpStatus.OK)
   async criar(
     @Req() req: Request,
     @Param("processoId") processoId: string,
-    @Body() dto: CriarMensagemChatDto
+    @Body() dto: CriarMensagemChatDto,
   ) {
-    this.exigirAcessoLocal(req);
+    const identidade = identidadeDaRequisicao(req);
     return {
       zone: "internal" as const,
-      ...(await this.chat.criar(processoId, dto)),
+      ...(await this.chat.criar(identidade, processoId, dto)),
     };
-  }
-
-  private exigirAcessoLocal(req: Request): void {
-    if (
-      !acessoChatLocalPermitido(req, {
-        enabled: process.env.CHAT_DEMO_ENABLED,
-        nodeEnv: process.env.NODE_ENV,
-      })
-    ) {
-      throw new ForbiddenException("Chat local indisponível para esta requisição.");
-    }
   }
 }

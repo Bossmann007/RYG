@@ -23,10 +23,13 @@
     "prova:mfa-jml": "node scripts/prova-mfa-jml.js",
     "prova:vault": "node scripts/prova-vault.js",
     "prova:mcp-safedto": "node scripts/prova-mcp-safedto.js",
+    "prova:workspace-dm": "node scripts/prova-workspace-dm.js",
     "office-id:apply": "node scripts/apply-office-id.js",
     "case-acl:apply": "node scripts/apply-case-acl.js",
     "case-classification:apply": "node scripts/apply-case-classification.js",
     "child-office-id:apply": "node scripts/apply-child-office-id.js",
+    "workspace-dm:apply": "node scripts/apply-workspace-dm.js",
+    "chat:apply": "node scripts/apply-chat.js",
     "test": "vitest run",
     "test:watch": "vitest",
     "prova:anti": "vitest run test/anti-alucinacao.spec.ts"

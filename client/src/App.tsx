@@ -5,6 +5,7 @@ import { Carregando } from "./componentes/Carregando";
 import { CatalogoBancario } from "./paginas/CatalogoBancario";
 import { DetalheCaso } from "./paginas/DetalheCaso";
 import { ListaCasos } from "./paginas/ListaCasos";
+import { WorkspaceConversas } from "./paginas/WorkspaceConversas";
 import { Caso, TelaApp } from "./tipos";
 
 export function App() {
@@ -53,6 +54,7 @@ export function App() {
       <BarraTopo
         onInicio={() => setTela({ tipo: "casos" })}
         onCatalogo={() => setTela({ tipo: "catalogo" })}
+        onConversas={() => setTela({ tipo: "workspace" })}
       />
       <main>
         {tela.tipo === "casos" && (
@@ -60,6 +62,9 @@ export function App() {
         )}
         {tela.tipo === "catalogo" && (
           <CatalogoBancario onVoltar={() => setTela({ tipo: "casos" })} />
+        )}
+        {tela.tipo === "workspace" && (
+          <WorkspaceConversas onVoltar={() => setTela({ tipo: "casos" })} />
         )}
         {tela.tipo === "caso" && carregando && (
           <Carregando texto="Abrindo o caso no acervo." />

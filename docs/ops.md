@@ -84,6 +84,21 @@ Tem de imprimir `26`.
 
 ---
 
+## Workspace DMs (Phase 1)
+
+Schema (MySQL-wire): `workspace_channels`, `workspace_channel_members`, `workspace_dm_pairs`, `workspace_messages`, `workspace_mentions`. Per-case `chat` (by `processo_id`) stays separate.
+
+```sh
+pnpm --dir server run build
+pnpm --dir server run chat:apply
+pnpm --dir server run workspace-dm:apply
+pnpm --dir server run prova:workspace-dm
+```
+
+Auth: Bearer required on `/api/workspace/dms*` and `/api/processos/:id/chat`. `CHAT_DEMO_ENABLED` no longer opens chat without identity. Seed DM: `demo-socio` ↔ `demo-advogado`.
+
+---
+
 ## Manual teste
 
 
