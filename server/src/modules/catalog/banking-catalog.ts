@@ -5,4 +5,5 @@ export {
   type CatalogArea,
   type CatalogItem,
   type CatalogItemKind,
+  type CatalogToolStatus,
 } from "./backstage-catalog";
