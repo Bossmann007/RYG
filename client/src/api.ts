@@ -309,6 +309,7 @@ export type CatalogItem = {
   titulo: string;
   descricao: string;
   requerSafeDto: boolean;
+  status?: string;
   corpo?: string;
   endpoint?: string;
 };

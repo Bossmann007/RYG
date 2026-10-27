@@ -1,17 +1,23 @@
 import { Injectable } from "@nestjs/common";
-import { CATALOGO_BANCARIO, CatalogItem, CatalogItemKind } from "./banking-catalog";
+import {
+  CATALOGO_BACKSTAGE,
+  CatalogItem,
+  CatalogItemKind,
+} from "./backstage-catalog";
 
 @Injectable()
 export class CatalogService {
   listar(kind?: CatalogItemKind): CatalogItem[] {
     if (!kind) {
-      return CATALOGO_BANCARIO;
+      return CATALOGO_BACKSTAGE;
     }
-    return CATALOGO_BANCARIO.filter((item) => item.kind === kind);
+    return CATALOGO_BACKSTAGE.filter((item) => item.kind === kind);
   }
 
   exportPrompt(id: string): { id: string; corpo: string; requerSafeDto: boolean } | null {
-    const item = CATALOGO_BANCARIO.find((entrada) => entrada.id === id && entrada.kind === "prompt");
+    const item = CATALOGO_BACKSTAGE.find(
+      (entrada) => entrada.id === id && entrada.kind === "prompt",
+    );
     if (!item?.corpo) {
       return null;
     }

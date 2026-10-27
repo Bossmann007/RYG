@@ -1,6 +1,6 @@
 import { Public } from "@common/decorators/public.decorator";
 import { Controller, Get, NotFoundException, Param, Query } from "@nestjs/common";
-import { CatalogItemKind } from "./banking-catalog";
+import { CatalogItemKind } from "./backstage-catalog";
 import { CatalogService } from "./catalog.service";
 
 @Controller("catalogo")
@@ -13,7 +13,8 @@ export class CatalogController {
     const filtro = kind as CatalogItemKind | undefined;
     return {
       zone: "internal" as const,
-      area: "bancario",
+      surface: "backstage" as const,
+      area: "multi",
       itens: this.catalogService.listar(filtro),
     };
   }
