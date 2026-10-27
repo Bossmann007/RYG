@@ -273,10 +273,10 @@ Blocks Phase 6 (RAG / office-hosted / PA). Can overlap late Phase 0. Deep-search
 
 **Owner:** Gustavo (UI), Zupelli (API), Gabriel (ProcessSource feeds)
 
-- [ ] Case workspace: partes, andamentos, tarefas/checklist (bancário template), status.
-- [ ] Tie prazos tool to case id; show upcoming deadlines on case home.
-- [ ] Evidence: open case → see process facts + prazo without leaving hub.
-- [ ] Commit: `feat(pms): case process depth and prazos on case`.
+- [x] Case workspace: partes, andamentos, tarefas/checklist (bancário template), status.
+- [x] Tie prazos tool to case id; show upcoming deadlines on case home.
+- [x] Evidence: open case → see process facts + prazo without leaving hub.
+- [x] Commit: `feat(pms): case process depth and prazos on case`.
 
 **Phase 2.5 exit:** Lawyer can run day-to-day process+prazo on one case screen (finance still out).
 

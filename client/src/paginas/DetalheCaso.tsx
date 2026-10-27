@@ -114,6 +114,8 @@ export function DetalheCaso({ caso, onVoltar }: Props) {
               caso={caso}
               onAbrirJuris={setJuris}
               onVerTodas={() => setAba("jurisprudencia")}
+              onAbrirPrazos={() => setAba("prazos")}
+              onAbrirHistorico={() => setAba("historico")}
             />
           )}
           {aba === "peticoes" && (
