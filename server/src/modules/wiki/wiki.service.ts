@@ -1,5 +1,7 @@
 import { IdentidadeRequisicao } from "@common/guards/identity.guard";
+import { RegistroAuditoria } from "@models/gateway.model";
 import { DbService } from "@modules/db/db.service";
+import { AuditService } from "@modules/gateway/audit.service";
 import {
   BadRequestException,
   ForbiddenException,
@@ -39,7 +41,10 @@ type LinhaDoc = RowDataPacket & {
 
 @Injectable()
 export class WikiService {
-  constructor(private readonly db: DbService) {}
+  constructor(
+    private readonly db: DbService,
+    private readonly audit: AuditService,
+  ) {}
 
   async listarNotas(identidade: IdentidadeRequisicao) {
     const linhas = await this.consultar<LinhaNota>(
@@ -129,6 +134,25 @@ export class WikiService {
       [docId, identidade.officeId, identidade.officeId],
     );
 
+    await this.audit.registrar({
+      at: new Date().toISOString(),
+      identidade: identidade.id,
+      nome: identidade.nome,
+      papel: identidade.papel,
+      origem: "hub",
+      ferramenta: "wiki_publish_hardvault",
+      argumentos: {
+        noteId,
+        docId,
+        officeId: identidade.officeId,
+        confirm: true,
+      },
+      decisao: "permitido",
+      motivo: "hardvault_publish",
+      omitido: ["body_md"],
+      duracaoMs: 0,
+    } satisfies RegistroAuditoria);
+
     return {
       requestId,
       docId,
@@ -196,6 +220,8 @@ export class WikiService {
     if (!doc) {
       throw new NotFoundException("Documento não encontrado no hardvault.");
     }
+    // Full body only for the publisher (office peers get snippet/pointer).
+    const podeCorpo = full && doc.published_by === identidade.id;
     return {
       doc: {
         id: doc.id,
@@ -203,8 +229,8 @@ export class WikiService {
         snippet: doc.snippet,
         publishedAt: dataIso(doc.published_at),
         classification: doc.classification,
-        bodyMd: full ? doc.body_md : undefined,
-        full: full,
+        bodyMd: podeCorpo ? doc.body_md : undefined,
+        full: Boolean(podeCorpo),
       },
     };
   }
