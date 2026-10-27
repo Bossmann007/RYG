@@ -17,6 +17,7 @@
     "prova:workspace-dm": "pnpm --dir server run build && pnpm --dir server run workspace-dm:apply && pnpm --dir server run prova:workspace-dm",
     "prova:phase2": "pnpm --dir server run build && pnpm --dir server run prova:phase2",
     "prova:pms-depth": "pnpm --dir server run build && pnpm --dir server run pms-depth:apply && pnpm --dir server run prova:pms-depth",
+    "prova:wiki-vault": "pnpm --dir server run build && pnpm --dir server run wiki:apply && pnpm --dir server run prova:wiki-vault",
     "dev": "pnpm --dir client run dev",
     "dev:server": "pnpm --dir server run start:dev",
     "gerar:acervo": "node scripts/gerar-acervo-real.js",

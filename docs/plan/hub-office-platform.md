@@ -288,27 +288,27 @@ Blocks Phase 6 (RAG / office-hosted / PA). Can overlap late Phase 0. Deep-search
 
 **Owner:** Zupelli
 
-- [ ] Tables/collections: `vault_personal_notes`, `hardvault_docs`, ACL, publish requests.
-- [ ] Deny-by-default: personal never listed in hardvault search without publish.
-- [ ] Commit: `feat(db): personal vault and hardvault schema`.
+- [x] Tables/collections: `vault_personal_notes`, `hardvault_docs`, ACL, publish requests.
+- [x] Deny-by-default: personal never listed in hardvault search without publish.
+- [x] Commit: `feat(db): personal vault and hardvault schema`.
 
 ### Task 3.2 — Query + load pack
 
 **Owner:** Bossmann + Zupelli
 
-- [ ] API: search hardvault → pointers + minimal snippets only.
-- [ ] Session “load pack” endpoint (cursor-kit style): only notes needed for current case/task.
-- [ ] SafeDTO if pack is exported to MCP/model.
-- [ ] Tests: cannot read other user’s personal vault; publish required for hardvault.
-- [ ] Commit: `feat(vault): minimal-load hardvault query`.
+- [x] API: search hardvault → pointers + minimal snippets only.
+- [x] Session “load pack” endpoint (cursor-kit style): only notes needed for current case/task.
+- [x] SafeDTO if pack is exported to MCP/model.
+- [x] Tests: cannot read other user’s personal vault; publish required for hardvault.
+- [x] Commit: `feat(vault): minimal-load hardvault query`.
 
 ### Task 3.3 — UI vault (thin)
 
 **Owner:** Gustavo
 
-- [ ] Personal notes list/editor (markdown OK).
-- [ ] “Publish to hardvault” with confirmation.
-- [ ] Commit: `feat(ui): personal vault panel`.
+- [x] Personal notes list/editor (markdown OK).
+- [x] “Publish to hardvault” with confirmation.
+- [x] Commit: `feat(ui): personal vault panel`.
 
 **Phase 3 exit:** Personal note → publish → searchable in hardvault with ACL; no full dump to model.
 
