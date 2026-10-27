@@ -1,10 +1,12 @@
 import { useMemo, useState } from "react";
+import { formatarDataIso } from "../prazos-escritorio";
 import {
   Alinhamento,
   Caso,
   Documento,
   Jurisprudencia,
   ROTULO_ALINHAMENTO,
+  ROTULO_PRAZO_STATUS,
   ROTULO_RELACAO,
   ROTULO_STATUS,
   STATUS_PROCESSO,
@@ -12,6 +14,15 @@ import {
 } from "../tipos";
 import { fraseOficial } from "../texto";
 import { SeloCitacao, SeloFonte, SeloTese, ementaExibida } from "./SelosPolitica";
+
+const CHECKLIST_BANCARIO = [
+  "Mapear tarifas / seguro / IOF no contrato",
+  "Conferir capitalização e índice",
+  "Cruzar contestação com CDC",
+  "Separar documentos para perícia",
+  "Agendar revisão interna antes do protocolo",
+];
+
 
 type PropsLista = {
   titulo: string;
@@ -59,19 +70,41 @@ export function PainelVisao({
   caso,
   onAbrirJuris,
   onVerTodas,
+  onAbrirPrazos,
+  onAbrirHistorico,
 }: {
   caso: Caso;
   onAbrirJuris: (item: Jurisprudencia) => void;
   onVerTodas: () => void;
+  onAbrirPrazos?: () => void;
+  onAbrirHistorico?: () => void;
 }) {
+  const proximosPrazos = useMemo(() => {
+    return (caso.prazos || [])
+      .filter((p) => p.status === "aberto" || p.status === "a_vencer")
+      .slice()
+      .sort((a, b) => a.dueAt.localeCompare(b.dueAt))
+      .slice(0, 3);
+  }, [caso.prazos]);
+
+  const andamentos = useMemo(() => {
+    return (caso.historico || []).slice().reverse().slice(0, 3);
+  }, [caso.historico]);
+
   return (
     <section className="painel visao">
       <div className="visao-grid">
         <article className="cartao-suave">
-          <p className="olho">Hub do caso</p>
+          <p className="olho">Status do processo</p>
           <p>
-            Chat e memória ficam neste site. WhatsApp é só tool de envio. Jurimetria e % de
-            vitória ficam fora do v0.
+            <strong>{ROTULO_STATUS[caso.status]}</strong>
+            {" · "}
+            {caso.processNumber}
+          </p>
+          <p className="partes">
+            {caso.partes.length
+              ? caso.partes.map((parte) => `${parte.papel}: ${parte.nome}`).join("  ·  ")
+              : "Partes ainda não cadastradas neste capa."}
           </p>
         </article>
 
@@ -104,9 +137,81 @@ export function PainelVisao({
           <SeloFonte fonte={caso.fontes?.tese || "acervo_interno"} />
         </div>
         <p className="tese-destaque">{fraseOficial(caso.tese)}</p>
-        <p className="partes">
-          {caso.partes.map((parte) => `${parte.papel}: ${parte.nome}`).join("  ·  ")}
-        </p>
+      </article>
+
+      <div className="visao-grid">
+        <article className="cartao-suave">
+          <div className="painel-cabeca compacta">
+            <div>
+              <p className="olho">Próximos prazos</p>
+            </div>
+            {onAbrirPrazos ? (
+              <button className="botao-texto" type="button" onClick={onAbrirPrazos}>
+                Ver prazos
+              </button>
+            ) : null}
+          </div>
+          {proximosPrazos.length === 0 ? (
+            <p className="vazio-dica">Nenhum prazo aberto neste caso.</p>
+          ) : (
+            <ul className="lista-docs">
+              {proximosPrazos.map((prazo) => (
+                <li key={prazo.id}>
+                  <div>
+                    <strong>{prazo.title}</strong>
+                    <p>
+                      {formatarDataIso(prazo.dueAt)} · {ROTULO_PRAZO_STATUS[prazo.status]} ·{" "}
+                      {prazo.owner}
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
+        </article>
+
+        <article className="cartao-suave">
+          <div className="painel-cabeca compacta">
+            <div>
+              <p className="olho">Últimos andamentos</p>
+            </div>
+            {onAbrirHistorico ? (
+              <button className="botao-texto" type="button" onClick={onAbrirHistorico}>
+                Ver histórico
+              </button>
+            ) : null}
+          </div>
+          {andamentos.length === 0 ? (
+            <p className="vazio-dica">Sem andamentos no hub ainda.</p>
+          ) : (
+            <ul className="lista-docs">
+              {andamentos.map((item, indice) => (
+                <li key={`${item.data}-${indice}`}>
+                  <div>
+                    <strong>{item.titulo}</strong>
+                    <p>
+                      {item.data}
+                      {item.detalhe ? ` · ${item.detalhe}` : ""}
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
+        </article>
+      </div>
+
+      <article className="cartao-suave">
+        <p className="olho">Checklist bancário (template)</p>
+        <ul className="lista-docs">
+          {CHECKLIST_BANCARIO.map((item) => (
+            <li key={item}>
+              <div>
+                <strong>{item}</strong>
+              </div>
+            </li>
+          ))}
+        </ul>
       </article>
 
       <header className="painel-cabeca compacta">

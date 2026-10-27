@@ -384,7 +384,8 @@ export class CasosRepository {
       params.push(processoId);
     }
 
-    if (cnj.length === 20 && tabela !== "prazos") {
+    // prazos/historico are keyed by processo_id (+ office_id); they have no numero_cnj.
+    if (cnj.length === 20 && tabela !== "prazos" && tabela !== "historico") {
       partes.push("numero_cnj = ?");
       params.push(cnj);
     }
@@ -416,11 +417,9 @@ export class CasosRepository {
   private colunaAusente(erro: unknown, coluna: string): boolean {
     const e = erro as { code?: string; errno?: number; message?: string };
     const msg = String(e.message || "");
-    return (
-      e.code === "ER_BAD_FIELD_ERROR" ||
-      e.errno === 1054 ||
-      new RegExp(`Unknown column ['\`]?${coluna}`, "i").test(msg)
-    );
+    // Only treat as missing *this* column — other ER_BAD_FIELD_ERROR must not
+    // masquerade as office_id gaps (e.g. absent numero_cnj on historico).
+    return new RegExp(`Unknown column ['\`]?${coluna}['\`]?`, "i").test(msg);
   }
 
   private ligarProcesso(capa: Linha, processos: Linha[], capaEhCaso: boolean): Linha | undefined {
