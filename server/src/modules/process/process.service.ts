@@ -1,9 +1,15 @@
 import { Processo } from "@models/processo.model";
 import { NUMERO_PROCESSO_DEMO } from "../../fixtures/processos";
-import { Injectable, NotFoundException, ServiceUnavailableException } from "@nestjs/common";
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+  ServiceUnavailableException,
+} from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { ProcessSource } from "./process-source";
 import { criarProcessSource } from "./process-source.factory";
+import { ManualProcessSource } from "./sources/manual.process-source";
 
 @Injectable()
 export class ProcessService {
@@ -16,7 +22,7 @@ export class ProcessService {
   fonteAtiva() {
     return {
       kind: this.source.kind,
-      configurado: this.source.kind === "fixture",
+      configurado: this.source.kind === "fixture" || this.source.kind === "manual",
     };
   }
 
@@ -28,15 +34,34 @@ export class ProcessService {
       return processo;
     }
 
-    if (this.source.kind !== "fixture") {
+    if (this.source.kind !== "fixture" && this.source.kind !== "manual") {
       throw new ServiceUnavailableException(
-        `ProcessSource "${this.source.kind}" ainda não configurado. Use PROCESS_SOURCE=fixture ou implemente o adaptador.`
+        `ProcessSource "${this.source.kind}" ainda não configurado. Use PROCESS_SOURCE=fixture|manual ou implemente o adaptador.`,
+      );
+    }
+
+    if (this.source.kind === "manual") {
+      throw new NotFoundException(
+        "Capa manual não encontrada. Registre via POST /api/process/manual.",
       );
     }
 
     throw new NotFoundException(
-      `Processo não encontrado. Use o caso: ${NUMERO_PROCESSO_DEMO}.`
+      `Processo não encontrado. Use o caso: ${NUMERO_PROCESSO_DEMO}.`,
     );
+  }
+
+  registrarManual(processo: Processo): Processo {
+    if (!(this.source instanceof ManualProcessSource)) {
+      throw new ServiceUnavailableException(
+        `Registro manual exige PROCESS_SOURCE=manual (ativo: ${this.source.kind}).`,
+      );
+    }
+    const numero = this.normalizarNumero(processo.processNumber);
+    if (!this.numeroValido(numero)) {
+      throw new BadRequestException("processNumber deve ser CNJ válido.");
+    }
+    return this.source.registrar({ ...processo, processNumber: numero });
   }
 
   numeroValido(numero: string): boolean {

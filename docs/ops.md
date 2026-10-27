@@ -99,6 +99,18 @@ Auth: Bearer required on `/api/workspace/dms*` and `/api/processos/:id/chat`. `C
 
 ---
 
+## Phase 2 — Backstage + ProcessSource + prazo CPC
+
+```sh
+pnpm prova:phase2
+```
+
+- Catalog `/api/catalogo` → `surface=backstage`, ≥5 `kind=tool` (DataJud, DJEN, manual, prazo CPC, capa, WhatsApp).
+- `PROCESS_SOURCE=manual` seeds CNJ `0000999-99.2026.8.16.0001`; `GET /api/process/capa/:cnj` + `POST /api/process/manual` (Bearer).
+- `POST /api/tools/prazo-cpc` — contagem úteis/corridos sem LLM. `datajud` / `eproc` / `upload` continuam fail-closed.
+
+---
+
 ## Manual teste
 
 
