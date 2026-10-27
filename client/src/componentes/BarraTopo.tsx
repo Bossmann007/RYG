@@ -22,7 +22,7 @@ export function BarraTopo({ onInicio, onCatalogo, onConversas }: Props) {
           Conversas
         </button>
         <button className="voltar" type="button" onClick={onCatalogo}>
-          Catálogo
+          Backstage
         </button>
         <div className="escritorio">
           <span className="escritorio-nome">{ESCRITORIO.nome}</span>

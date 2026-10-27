@@ -24,6 +24,7 @@
     "prova:vault": "node scripts/prova-vault.js",
     "prova:mcp-safedto": "node scripts/prova-mcp-safedto.js",
     "prova:workspace-dm": "node scripts/prova-workspace-dm.js",
+    "prova:phase2": "node scripts/prova-phase2.js",
     "office-id:apply": "node scripts/apply-office-id.js",
     "case-acl:apply": "node scripts/apply-case-acl.js",
     "case-classification:apply": "node scripts/apply-case-classification.js",

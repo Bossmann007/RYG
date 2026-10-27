@@ -14,6 +14,7 @@ import { PetitionsModule } from "@modules/petitions/petitions.module";
 import { ProcessModule } from "@modules/process/process.module";
 import { ResearchModule } from "@modules/research/research.module";
 import { TemplatesModule } from "@modules/templates/templates.module";
+import { ToolsModule } from "@modules/tools/tools.module";
 import { TransferModule } from "@modules/transfer/transfer.module";
 import { VaultModule } from "@modules/vault/vault.module";
 import { WhatsappModule } from "@modules/whatsapp/whatsapp.module";
@@ -34,6 +35,7 @@ import { AppService } from "./app.service";
     CatalogModule,
     ChatModule,
     WorkspaceModule,
+    ToolsModule,
     ProcessModule,
     ClientsModule,
     PetitionsModule,

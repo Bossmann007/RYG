@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { obterCaso } from "./api";
 import { BarraTopo } from "./componentes/BarraTopo";
 import { Carregando } from "./componentes/Carregando";
-import { CatalogoBancario } from "./paginas/CatalogoBancario";
+import { Backstage } from "./paginas/Backstage";
 import { DetalheCaso } from "./paginas/DetalheCaso";
 import { ListaCasos } from "./paginas/ListaCasos";
 import { WorkspaceConversas } from "./paginas/WorkspaceConversas";
@@ -61,7 +61,7 @@ export function App() {
           <ListaCasos onAbrir={(id) => setTela({ tipo: "caso", id })} />
         )}
         {tela.tipo === "catalogo" && (
-          <CatalogoBancario onVoltar={() => setTela({ tipo: "casos" })} />
+          <Backstage onVoltar={() => setTela({ tipo: "casos" })} />
         )}
         {tela.tipo === "workspace" && (
           <WorkspaceConversas onVoltar={() => setTela({ tipo: "casos" })} />

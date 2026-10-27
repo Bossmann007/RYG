@@ -241,29 +241,29 @@ Blocks Phase 6 (RAG / office-hosted / PA). Can overlap late Phase 0. Deep-search
 
 **Owner:** Bossmann + Gabriel
 
-- [ ] Extend `banking-catalog.ts` (or DB-backed later) with kinds already used: `prompt` | `skill` | `mcp` | `tool`.
-- [ ] Add entries pointing at sibling capabilities (DataJud, DJEN, legalops CPC) as **tools**, not apps.
-- [ ] Export prompt path keeps `requerSafeDto` flag.
-- [ ] UI `CatalogoBancario` rename/generalize to Backstage page (still small).
-- [ ] Commit: `feat(catalog): backstage tool entries for legal connectors`.
+- [x] Extend `banking-catalog.ts` (or DB-backed later) with kinds already used: `prompt` | `skill` | `mcp` | `tool`.
+- [x] Add entries pointing at sibling capabilities (DataJud, DJEN, legalops CPC) as **tools**, not apps.
+- [x] Export prompt path keeps `requerSafeDto` flag.
+- [x] UI `CatalogoBancario` rename/generalize to Backstage page (still small).
+- [x] Commit: `feat(catalog): backstage tool entries for legal connectors`.
 
 ### Task 2.2 — Wire ProcessSource + claude-legal connectors
 
 **Owner:** Gabriel
 
-- [ ] Implement one real adapter beyond fixture (prefer `manual` upload or DataJud read-only from `claude-legal-br` patterns).
-- [ ] `PROCESS_SOURCE` env selects adapter; unconfigured kinds stay fail-closed.
-- [ ] Prove `GET /api/process/source` + one capa fetch.
-- [ ] No Jusbrasil/PJe scrape.
-- [ ] Commit: `feat(process): first non-fixture ProcessSource adapter`.
+- [x] Implement one real adapter beyond fixture (prefer `manual` upload or DataJud read-only from `claude-legal-br` patterns).
+- [x] `PROCESS_SOURCE` env selects adapter; unconfigured kinds stay fail-closed.
+- [x] Prove `GET /api/process/source` + one capa fetch.
+- [x] No Jusbrasil/PJe scrape.
+- [x] Commit: `feat(process): first non-fixture ProcessSource adapter`.
 
 ### Task 2.3 — legalops as scripts/tools
 
 **Owner:** Gabriel
 
-- [ ] Expose one deterministic tool (e.g. prazo CPC) via Nest internal API or MCP tool with no external LLM.
-- [ ] Catalog entry + smoke test.
-- [ ] Commit: `feat(tools): legalops prazo script behind catalog`.
+- [x] Expose one deterministic tool (e.g. prazo CPC) via Nest internal API or MCP tool with no external LLM.
+- [x] Catalog entry + smoke test.
+- [x] Commit: `feat(tools): legalops prazo script behind catalog`.
 
 **Phase 2 exit:** Catalog lists ≥5 real tools; one non-fixture process source; **prazos CPC** as first-class PMS tool.
 
