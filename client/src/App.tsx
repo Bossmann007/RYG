@@ -5,6 +5,7 @@ import { Carregando } from "./componentes/Carregando";
 import { Backstage } from "./paginas/Backstage";
 import { DetalheCaso } from "./paginas/DetalheCaso";
 import { ListaCasos } from "./paginas/ListaCasos";
+import { WikiVault } from "./paginas/WikiVault";
 import { WorkspaceConversas } from "./paginas/WorkspaceConversas";
 import { Caso, TelaApp } from "./tipos";
 
@@ -55,6 +56,7 @@ export function App() {
         onInicio={() => setTela({ tipo: "casos" })}
         onCatalogo={() => setTela({ tipo: "catalogo" })}
         onConversas={() => setTela({ tipo: "workspace" })}
+        onWiki={() => setTela({ tipo: "wiki" })}
       />
       <main>
         {tela.tipo === "casos" && (
@@ -65,6 +67,9 @@ export function App() {
         )}
         {tela.tipo === "workspace" && (
           <WorkspaceConversas onVoltar={() => setTela({ tipo: "casos" })} />
+        )}
+        {tela.tipo === "wiki" && (
+          <WikiVault onVoltar={() => setTela({ tipo: "casos" })} />
         )}
         {tela.tipo === "caso" && carregando && (
           <Carregando texto="Abrindo o caso no acervo." />

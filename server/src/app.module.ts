@@ -18,6 +18,7 @@ import { ToolsModule } from "@modules/tools/tools.module";
 import { TransferModule } from "@modules/transfer/transfer.module";
 import { VaultModule } from "@modules/vault/vault.module";
 import { WhatsappModule } from "@modules/whatsapp/whatsapp.module";
+import { WikiModule } from "@modules/wiki/wiki.module";
 import { WorkspaceModule } from "@modules/workspace/workspace.module";
 import { MiddlewareConsumer, Module, NestModule } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
@@ -35,6 +36,7 @@ import { AppService } from "./app.service";
     CatalogModule,
     ChatModule,
     WorkspaceModule,
+    WikiModule,
     ToolsModule,
     ProcessModule,
     ClientsModule,

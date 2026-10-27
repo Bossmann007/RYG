@@ -26,6 +26,7 @@
     "prova:workspace-dm": "node scripts/prova-workspace-dm.js",
     "prova:phase2": "node scripts/prova-phase2.js",
     "prova:pms-depth": "node scripts/prova-pms-depth.js",
+    "prova:wiki-vault": "node scripts/prova-wiki-vault.js",
     "office-id:apply": "node scripts/apply-office-id.js",
     "case-acl:apply": "node scripts/apply-case-acl.js",
     "case-classification:apply": "node scripts/apply-case-classification.js",
@@ -34,6 +35,7 @@
     "chat:apply": "node scripts/apply-chat.js",
     "prazos:apply": "node scripts/apply-pms-depth.js",
     "pms-depth:apply": "node scripts/apply-pms-depth.js",
+    "wiki:apply": "node scripts/apply-wiki-vault.js",
     "test": "vitest run",
     "test:watch": "vitest",
     "prova:anti": "vitest run test/anti-alucinacao.spec.ts"

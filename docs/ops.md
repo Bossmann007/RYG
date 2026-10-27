@@ -123,6 +123,20 @@ pnpm prova:pms-depth
 
 ---
 
+## Phase 3 — Wiki (personal vault / hardvault)
+
+Distinct from `/api/vault/secret` (credentials). Wiki lives under `/api/wiki/*`.
+
+```sh
+pnpm prova:wiki-vault
+```
+
+- Personal notes: owner-only (`deny-by-default`).
+- Publish requires `confirm:true` → `hardvault_docs` + office ACL; search returns **snippets only**.
+- `GET /api/wiki/pack` = minimal pointers + `requerSafeDto: true` (no personal dump, no full bodies).
+
+---
+
 ## Manual teste
 
 
