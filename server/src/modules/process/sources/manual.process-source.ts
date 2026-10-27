@@ -2,41 +2,54 @@ import { Processo } from "@models/processo.model";
 import { ProcessSource } from "../process-source";
 
 /**
- * In-memory manual capas. Office staff registers a capa; no external scrape.
- * Seed one demo CNJ so PROCESS_SOURCE=manual proves GET /api/process/capa.
+ * In-memory manual capas keyed by office_id. No external scrape.
+ * Seed one demo CNJ under prado-advogados for PROCESS_SOURCE=manual proofs.
+ * Lookup without officeId fail-closed (null) so public routes cannot read writes.
  */
 export class ManualProcessSource implements ProcessSource {
   readonly kind = "manual" as const;
-  private readonly capas = new Map<string, Processo>();
+  private readonly porEscritorio = new Map<string, Map<string, Processo>>();
 
-  constructor(seed: Processo[] = [CAPA_MANUAL_DEMO]) {
-    for (const processo of seed) {
-      this.registrar(processo);
+  constructor(seed: Array<{ officeId: string; processo: Processo }> = [SEED_PRADO]) {
+    for (const item of seed) {
+      this.registrar(item.officeId, item.processo);
     }
   }
 
-  buscarCapa(numeroNormalizado: string): Processo | null {
-    const achado = this.capas.get(numeroNormalizado);
-    return achado ? { ...achado, parties: [...achado.parties], movements: [...achado.movements], subjects: [...achado.subjects] } : null;
+  buscarCapa(numeroNormalizado: string, officeId?: string): Processo | null {
+    const escritorio = (officeId || "").trim();
+    if (!escritorio) {
+      return null;
+    }
+    const capa = this.porEscritorio.get(escritorio)?.get(numeroNormalizado);
+    return capa ? clonar(capa) : null;
   }
 
-  registrar(processo: Processo): Processo {
-    const copia: Processo = {
-      ...processo,
-      parties: [...(processo.parties || [])],
-      movements: [...(processo.movements || [])],
-      subjects: [...(processo.subjects || [])],
-    };
-    this.capas.set(processo.processNumber, copia);
-    return { ...copia, parties: [...copia.parties], movements: [...copia.movements], subjects: [...copia.subjects] };
-  }
-
-  listarNumeros(): string[] {
-    return [...this.capas.keys()].sort();
+  registrar(officeId: string, processo: Processo): Processo {
+    const escritorio = officeId.trim();
+    if (!escritorio) {
+      throw new Error("officeId obrigatório para capa manual.");
+    }
+    const copia = clonar(processo);
+    let mapa = this.porEscritorio.get(escritorio);
+    if (!mapa) {
+      mapa = new Map();
+      this.porEscritorio.set(escritorio, mapa);
+    }
+    mapa.set(copia.processNumber, copia);
+    return clonar(copia);
   }
 }
 
-/** Demo CNJ only for manual adapter evidence — not the fixture banking set. */
+function clonar(processo: Processo): Processo {
+  return {
+    ...processo,
+    parties: [...(processo.parties || [])],
+    movements: [...(processo.movements || [])],
+    subjects: [...(processo.subjects || [])],
+  };
+}
+
 export const CAPA_MANUAL_DEMO: Processo = {
   processNumber: "0000999-99.2026.8.16.0001",
   court: "TJPR",
@@ -57,4 +70,9 @@ export const CAPA_MANUAL_DEMO: Processo = {
   thesis: "Capa inserida via ProcessSource=manual.",
   summary: "Processo de demonstração do adaptador manual (sem DataJud).",
   chamberOrientation: "rejeita_revisao",
+};
+
+const SEED_PRADO = {
+  officeId: "prado-advogados",
+  processo: CAPA_MANUAL_DEMO,
 };

@@ -63,6 +63,7 @@ export function Backstage({ onVoltar }: Props) {
   }
 
   const tools = itens.filter((item) => item.kind === "tool");
+  const live = tools.filter((item) => item.status === "live");
 
   return (
     <section className="catalogo">
@@ -83,7 +84,7 @@ export function Backstage({ onVoltar }: Props) {
       {exportado && <p className="selo neutro">{exportado}</p>}
 
       <p className="cartao-meta">
-        {tools.length} tools · {itens.length} entradas no catálogo
+        {live.length} tools live · {tools.length} tools no catálogo · {itens.length} entradas
       </p>
 
       <div className="catalogo-grid">
@@ -92,6 +93,7 @@ export function Backstage({ onVoltar }: Props) {
             <div className="selos">
               <span className="selo neutro">{item.kind}</span>
               <span className="selo neutro">{item.area}</span>
+              {item.status ? <span className="selo neutro">{item.status}</span> : null}
               {item.requerSafeDto ? (
                 <span className="selo status-ATIVO">SafeDTO</span>
               ) : null}

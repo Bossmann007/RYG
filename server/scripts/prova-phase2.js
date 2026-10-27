@@ -1,5 +1,5 @@
 /**
- * Phase 2 evidence: Backstage tools catalog, manual ProcessSource, prazo CPC.
+ * Phase 2 evidence: Backstage tools catalog, manual ProcessSource (tenant), prazo CPC.
  *
  *   PROCESS_SOURCE=manual pnpm --dir server run build
  *   PROCESS_SOURCE=manual node server/scripts/prova-phase2.js
@@ -19,6 +19,7 @@ const { HttpExceptionFilter } = require("../dist/common/filters/http-exception.f
 
 const AUDIT_OK = path.join(os.tmpdir(), `ryg-phase2-${process.pid}.jsonl`);
 const CNJ_MANUAL = "0000999-99.2026.8.16.0001";
+const CNJ_NOVO = "0000888-88.2026.8.16.0001";
 
 async function boot() {
   process.env.GATEWAY_AUDIT_FILE = AUDIT_OK;
@@ -59,10 +60,10 @@ async function main() {
     assert.strictEqual(catalogo.status, 200);
     assert.strictEqual(catalogo.json.surface, "backstage");
     const tools = (catalogo.json.itens || []).filter((i) => i.kind === "tool");
-    assert.ok(tools.length >= 5, `expected ≥5 tools, got ${tools.length}`);
-    assert.ok(tools.some((t) => t.id === "tool-prazo-cpc"));
-    assert.ok(tools.some((t) => t.id === "tool-datajud-capa"));
-    assert.ok(tools.every((t) => typeof t.requerSafeDto === "boolean"));
+    const live = tools.filter((i) => i.status === "live");
+    assert.ok(tools.length >= 5, `expected ≥5 tool entries, got ${tools.length}`);
+    assert.ok(live.length >= 5, `expected ≥5 live tools, got ${live.length}`);
+    assert.ok(tools.some((t) => t.id === "tool-datajud-capa" && t.status === "stub"));
 
     const fonte = await pedir(base, "GET", "/api/process/source");
     assert.strictEqual(fonte.status, 200);
@@ -84,6 +85,48 @@ async function main() {
     assert.strictEqual(capa.json.source, "manual");
     assert.strictEqual(capa.json.processo.processNumber, CNJ_MANUAL);
 
+    const outro = await pedir(
+      base,
+      "GET",
+      `/api/process/capa/${CNJ_MANUAL}`,
+      "demo-outro",
+    );
+    assert.strictEqual(outro.status, 404, "cross-office must not read Prado manual seed");
+
+    const research = await pedir(base, "POST", "/api/research", undefined, {
+      processNumber: CNJ_MANUAL,
+    });
+    assert.notStrictEqual(
+      research.status,
+      200,
+      "public research must not return manual capa without office",
+    );
+
+    const registrado = await pedir(base, "POST", "/api/process/manual", "demo-socio", {
+      processNumber: CNJ_NOVO,
+      court: "TJPR",
+      courtUnit: "2ª Vara",
+      caseClass: "Procedimento Comum",
+      organ: "2ª Vara",
+      distributionDate: "2026-10-02",
+      subjects: ["Teste"],
+      parties: [{ papel: "Autor", nome: "A" }],
+      thesis: "t",
+      summary: "s",
+    });
+    assert.strictEqual(registrado.status, 200);
+    assert.strictEqual(registrado.json.processo.processNumber, CNJ_NOVO);
+
+    const audit = fs
+      .readFileSync(AUDIT_OK, "utf8")
+      .split("\n")
+      .filter(Boolean)
+      .map((l) => JSON.parse(l));
+    assert.ok(
+      audit.some((r) => r.ferramenta === "process_manual_register" && r.decisao === "permitido"),
+      "manual register must audit",
+    );
+
     const prazo = await pedir(base, "POST", "/api/tools/prazo-cpc", "demo-socio", {
       startedAt: "2026-10-01",
       days: 2,
@@ -94,15 +137,19 @@ async function main() {
     assert.strictEqual(prazo.json.dueAt, "2026-10-05");
 
     assert.strictEqual(
-      (await pedir(base, "POST", "/api/tools/prazo-cpc", undefined, {
-        startedAt: "2026-10-01",
-        days: 2,
-        calendar: "uteis",
-      })).status,
+      (
+        await pedir(base, "POST", "/api/tools/prazo-cpc", undefined, {
+          startedAt: "2026-10-01",
+          days: 2,
+          calendar: "uteis",
+        })
+      ).status,
       401,
     );
 
-    console.log(`prova-phase2: OK tools=${tools.length} capa=${CNJ_MANUAL}`);
+    console.log(
+      `prova-phase2: OK tools=${tools.length} live=${live.length} capa=${CNJ_MANUAL}`,
+    );
   } finally {
     await app.close();
     try {

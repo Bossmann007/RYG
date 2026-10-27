@@ -2,6 +2,9 @@ export type CatalogItemKind = "prompt" | "skill" | "mcp" | "tool";
 
 export type CatalogArea = "bancario" | "processual" | "conectores";
 
+/** live = wired hub endpoint; stub = catalog pointer until adapter lands. */
+export type CatalogToolStatus = "live" | "stub";
+
 export type CatalogItem = {
   id: string;
   kind: CatalogItemKind;
@@ -10,6 +13,8 @@ export type CatalogItem = {
   descricao: string;
   /** When true, private client data must pass SafeDTO before external LLM egress. */
   requerSafeDto: boolean;
+  /** Only meaningful for kind=tool. */
+  status?: CatalogToolStatus;
   corpo?: string;
   endpoint?: string;
 };
@@ -64,7 +69,18 @@ export const CATALOGO_BACKSTAGE: CatalogItem[] = [
     titulo: "enviar_whatsapp",
     descricao: "Envia aviso/doc pelo Zap. Não é inbox. Requer conexão OAuth.",
     requerSafeDto: false,
+    status: "live",
     endpoint: "/api/whatsapp/enviar",
+  },
+  {
+    id: "tool-process-source-status",
+    kind: "tool",
+    area: "processual",
+    titulo: "process_source_status",
+    descricao: "Informa ProcessSource ativo (fixture|manual|…) e se está configurado.",
+    requerSafeDto: false,
+    status: "live",
+    endpoint: "/api/process/source",
   },
   {
     id: "tool-datajud-capa",
@@ -72,8 +88,9 @@ export const CATALOGO_BACKSTAGE: CatalogItem[] = [
     area: "conectores",
     titulo: "datajud_capa",
     descricao:
-      "Conector DataJud (read-only) via ProcessSource=datajud — tool de capa, não app. Adapter real ainda fail-closed até credencial.",
+      "Stub de catálogo para conector DataJud read-only (PROCESS_SOURCE=datajud). Fail-closed até credencial.",
     requerSafeDto: false,
+    status: "stub",
     endpoint: "/api/process/source",
   },
   {
@@ -82,8 +99,9 @@ export const CATALOGO_BACKSTAGE: CatalogItem[] = [
     area: "conectores",
     titulo: "djen_publicacoes",
     descricao:
-      "DJEN / publicações oficiais como tool de ingestão (sibling claude-legal-br). Sem scrape Jusbrasil/PJe.",
+      "Stub de catálogo para DJEN (sibling claude-legal-br). Sem scrape Jusbrasil/PJe.",
     requerSafeDto: false,
+    status: "stub",
     endpoint: "/api/process/source",
   },
   {
@@ -91,8 +109,9 @@ export const CATALOGO_BACKSTAGE: CatalogItem[] = [
     kind: "tool",
     area: "processual",
     titulo: "process_source_manual",
-    descricao: "Registra capa manual no hub (PROCESS_SOURCE=manual). Sem LLM.",
+    descricao: "Registra capa manual no hub (PROCESS_SOURCE=manual), isolada por office_id. Sem LLM.",
     requerSafeDto: false,
+    status: "live",
     endpoint: "/api/process/manual",
   },
   {
@@ -101,8 +120,9 @@ export const CATALOGO_BACKSTAGE: CatalogItem[] = [
     area: "processual",
     titulo: "prazo_cpc",
     descricao:
-      "Contagem determinística CPC (úteis/corridos). Script legalops no hub — sem modelo.",
+      "Contagem determinística CPC (úteis/corridos + art. 224). Script legalops no hub — sem modelo.",
     requerSafeDto: false,
+    status: "live",
     endpoint: "/api/tools/prazo-cpc",
   },
   {
@@ -110,8 +130,9 @@ export const CATALOGO_BACKSTAGE: CatalogItem[] = [
     kind: "tool",
     area: "processual",
     titulo: "capa_processo",
-    descricao: "GET capa via ProcessSource ativo (fixture | manual | …).",
+    descricao: "GET capa via ProcessSource ativo, scoped ao office do Bearer.",
     requerSafeDto: false,
+    status: "live",
     endpoint: "/api/process/capa/:cnj",
   },
 ];

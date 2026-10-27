@@ -26,9 +26,13 @@ export class ProcessService {
     };
   }
 
-  buscarCapa(numero: string): Processo {
+  /**
+   * `officeId` required for tenant-scoped sources (manual).
+   * Public/demo callers without office must not read manual capas.
+   */
+  buscarCapa(numero: string, officeId?: string): Processo {
     const normalizado = this.normalizarNumero(numero);
-    const processo = this.source.buscarCapa(normalizado);
+    const processo = this.source.buscarCapa(normalizado, officeId);
 
     if (processo) {
       return processo;
@@ -42,7 +46,7 @@ export class ProcessService {
 
     if (this.source.kind === "manual") {
       throw new NotFoundException(
-        "Capa manual não encontrada. Registre via POST /api/process/manual.",
+        "Capa manual não encontrada neste escritório. Registre via POST /api/process/manual.",
       );
     }
 
@@ -51,7 +55,7 @@ export class ProcessService {
     );
   }
 
-  registrarManual(processo: Processo): Processo {
+  registrarManual(officeId: string, processo: Processo): Processo {
     if (!(this.source instanceof ManualProcessSource)) {
       throw new ServiceUnavailableException(
         `Registro manual exige PROCESS_SOURCE=manual (ativo: ${this.source.kind}).`,
@@ -61,7 +65,7 @@ export class ProcessService {
     if (!this.numeroValido(numero)) {
       throw new BadRequestException("processNumber deve ser CNJ válido.");
     }
-    return this.source.registrar({ ...processo, processNumber: numero });
+    return this.source.registrar(officeId, { ...processo, processNumber: numero });
   }
 
   numeroValido(numero: string): boolean {

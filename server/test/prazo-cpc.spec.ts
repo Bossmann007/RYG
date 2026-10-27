@@ -31,4 +31,15 @@ describe("calcularPrazoCpc", () => {
     expect(r.dueAt).toBe("2026-05-04");
     expect(r.feriadosAplicados).toContain("2026-05-01");
   });
+
+  it("prorroga corridos quando o termo final é feriado (art. 224)", () => {
+    // Thu 2026-04-30 + 1 corrido = Fri 2026-05-01 (feriado) → Mon 2026-05-04
+    const r = calcularPrazoCpc({
+      startedAt: "2026-04-30",
+      days: 1,
+      calendar: "corridos",
+    });
+    expect(r.dueAt).toBe("2026-05-04");
+    expect(r.feriadosAplicados).toContain("2026-05-01");
+  });
 });

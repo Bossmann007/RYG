@@ -48,10 +48,10 @@ function analisar(body: unknown): {
   if (typeof bruto.startedAt !== "string") {
     throw new BadRequestException("startedAt é obrigatório (YYYY-MM-DD).");
   }
-  const days = Number(bruto.days);
-  if (!Number.isSafeInteger(days)) {
+  if (typeof bruto.days !== "number" || !Number.isSafeInteger(bruto.days)) {
     throw new BadRequestException("days deve ser inteiro.");
   }
+  const days = bruto.days;
   if (bruto.calendar !== "uteis" && bruto.calendar !== "corridos") {
     throw new BadRequestException('calendar deve ser "uteis" ou "corridos".');
   }

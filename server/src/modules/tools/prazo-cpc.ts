@@ -84,6 +84,14 @@ export function calcularPrazoCpc(entrada: EntradaPrazoCpc): ResultadoPrazoCpc {
     restantes -= 1;
   }
 
+  // CPC art. 224: if the last day is not a business day, roll forward.
+  while (ehFimDeSemana(cursor) || ehFeriado(cursor)) {
+    if (ehFeriado(cursor)) {
+      feriadosAplicados.push(dataIsoUtc(cursor));
+    }
+    cursor.setUTCDate(cursor.getUTCDate() + 1);
+  }
+
   return {
     startedAt: dataIsoUtc(inicio),
     days,
@@ -91,8 +99,8 @@ export function calcularPrazoCpc(entrada: EntradaPrazoCpc): ResultadoPrazoCpc {
     dueAt: dataIsoUtc(cursor),
     regra:
       entrada.calendar === "uteis"
-        ? "CPC arts. 219 e 224 — dias úteis (sáb/dom + feriados federais stub)."
-        : "CPC — dias corridos (inclusive fins de semana).",
+        ? "CPC arts. 219 e 224 — dias úteis + prorrogação se o termo final não for útil (feriados federais stub)."
+        : "CPC arts. 219 e 224 — dias corridos; se o termo final cair em sáb/dom/feriado, prorroga ao próximo dia útil.",
     feriadosAplicados: [...new Set(feriadosAplicados)].sort(),
   };
 }
