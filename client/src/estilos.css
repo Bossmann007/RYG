@@ -1435,3 +1435,77 @@ main {
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   margin-top: 1rem;
 }
+
+.workspace-dm {
+  padding: 1.5rem 1.75rem 3rem;
+}
+
+.workspace-dm-grade {
+  display: grid;
+  grid-template-columns: minmax(200px, 280px) 1fr;
+  gap: 16px;
+  margin-top: 16px;
+  min-height: 60vh;
+}
+
+.workspace-dm-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-right: 1px solid var(--linha);
+  padding-right: 12px;
+}
+
+.dm-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  border: 1px solid var(--linha);
+  background: var(--papel);
+  color: var(--texto);
+  border-radius: var(--raio-sm);
+  padding: 12px 14px;
+  text-align: left;
+}
+
+.dm-item.ativo {
+  border-color: var(--vinho-medio);
+  background: var(--vinho-suave);
+}
+
+.dm-item small {
+  color: var(--texto-suave);
+}
+
+.workspace-dm-thread {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+
+.workspace-dm-thread > header {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: baseline;
+}
+
+.workspace-dm-thread > header span {
+  color: var(--texto-suave);
+  font-size: 13px;
+}
+
+@media (max-width: 720px) {
+  .workspace-dm-grade {
+    grid-template-columns: 1fr;
+  }
+
+  .workspace-dm-lista {
+    border-right: 0;
+    padding-right: 0;
+    flex-direction: row;
+    overflow-x: auto;
+  }
+}

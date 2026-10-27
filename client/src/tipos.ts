@@ -78,7 +78,8 @@ export type AbaCaso =
 export type TelaApp =
   | { tipo: "casos" }
   | { tipo: "caso"; id: string }
-  | { tipo: "catalogo" };
+  | { tipo: "catalogo" }
+  | { tipo: "workspace" };
 
 export type MembroEquipe = {
   id: string;

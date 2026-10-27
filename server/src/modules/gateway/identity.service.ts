@@ -33,6 +33,24 @@ export class IdentityService {
     );
   }
 
+  /** Office directory for mentions / DM peers (demo fixtures). */
+  diretorioDoEscritorio(officeId: string): Identidade[] {
+    const escritorio = (officeId || "").trim();
+    if (!escritorio) {
+      return [];
+    }
+    const vistos = new Set<string>();
+    const lista: Identidade[] = [];
+    for (const usuario of Object.values(USUARIOS_POR_TOKEN)) {
+      if (usuario.escritorio !== escritorio || vistos.has(usuario.id)) {
+        continue;
+      }
+      vistos.add(usuario.id);
+      lista.push(usuario);
+    }
+    return lista;
+  }
+
   private extrairToken(authorization?: string): string {
     if (!authorization) {
       return "";

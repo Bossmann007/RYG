@@ -3,9 +3,10 @@ import { ESCRITORIO } from "../dados";
 type Props = {
   onInicio: () => void;
   onCatalogo: () => void;
+  onConversas: () => void;
 };
 
-export function BarraTopo({ onInicio, onCatalogo }: Props) {
+export function BarraTopo({ onInicio, onCatalogo, onConversas }: Props) {
   return (
     <header className="topo">
       <button className="marca" type="button" onClick={onInicio}>
@@ -17,6 +18,9 @@ export function BarraTopo({ onInicio, onCatalogo }: Props) {
       </button>
 
       <div className="topo-lado">
+        <button className="voltar" type="button" onClick={onConversas}>
+          Conversas
+        </button>
         <button className="voltar" type="button" onClick={onCatalogo}>
           Catálogo
         </button>

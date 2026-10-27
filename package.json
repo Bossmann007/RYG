@@ -14,6 +14,7 @@
     "prova:casos": "pnpm --dir server run build && pnpm --dir server run prova:casos",
     "prova:anti": "pnpm --dir server run build && pnpm --dir server run prova:anti",
     "prova:vault": "pnpm --dir server run build && pnpm --dir server run prova:vault",
+    "prova:workspace-dm": "pnpm --dir server run build && pnpm --dir server run workspace-dm:apply && pnpm --dir server run prova:workspace-dm",
     "dev": "pnpm --dir client run dev",
     "dev:server": "pnpm --dir server run start:dev",
     "gerar:acervo": "node scripts/gerar-acervo-real.js",

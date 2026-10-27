@@ -190,7 +190,7 @@ export async function listarChat(
   if (cursor) params.set("cursor", cursor);
   const resposta = await fetch(
     `${baseUrl()}/api/processos/${encodeURIComponent(processoId)}/chat?${params}`,
-    { signal }
+    { headers: cabecalhoHub(), signal }
   );
   if (!resposta.ok) throw new Error(await lerErro(resposta));
   const corpo = (await resposta.json()) as PaginaChat;
@@ -212,7 +212,7 @@ export async function enviarMensagemChat(
     `${baseUrl()}/api/processos/${encodeURIComponent(processoId)}/chat`,
     {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { ...cabecalhoHub(), "Content-Type": "application/json" },
       body: JSON.stringify({ id, mensagem }),
     }
   );
@@ -220,6 +220,84 @@ export async function enviarMensagemChat(
   const corpo = (await resposta.json()) as { zone?: string; mensagem?: Mensagem };
   if (corpo.zone !== "internal" || !corpo.mensagem) {
     throw new Error("Resposta inválida do chat interno.");
+  }
+  return corpo.mensagem;
+}
+
+export type DmResumo = {
+  channelId: string;
+  peerUserId: string;
+  peerNome: string;
+  peerPapel: string;
+  createdAt: string;
+};
+
+export async function listarDms(signal?: AbortSignal): Promise<DmResumo[]> {
+  const resposta = await fetch(`${baseUrl()}/api/workspace/dms`, {
+    headers: cabecalhoHub(),
+    signal,
+  });
+  await exigirOk(resposta);
+  const corpo = (await resposta.json()) as { zone?: string; dms?: DmResumo[] };
+  if (corpo.zone !== "internal" || !Array.isArray(corpo.dms)) {
+    throw new Error("Resposta inválida das conversas do workspace.");
+  }
+  return corpo.dms;
+}
+
+export async function abrirDm(peerUserId: string): Promise<{ channelId: string }> {
+  const resposta = await fetch(`${baseUrl()}/api/workspace/dms`, {
+    method: "POST",
+    headers: { ...cabecalhoHub(), "Content-Type": "application/json" },
+    body: JSON.stringify({ peerUserId }),
+  });
+  await exigirOk(resposta);
+  const corpo = (await resposta.json()) as { zone?: string; channelId?: string };
+  if (corpo.zone !== "internal" || !corpo.channelId) {
+    throw new Error("Resposta inválida ao abrir DM.");
+  }
+  return { channelId: corpo.channelId };
+}
+
+export async function listarMensagensDm(
+  channelId: string,
+  cursor?: string,
+  signal?: AbortSignal
+): Promise<{ mensagens: Mensagem[]; proximoCursor: string | null }> {
+  const params = new URLSearchParams({ limite: "50" });
+  if (cursor) params.set("cursor", cursor);
+  const resposta = await fetch(
+    `${baseUrl()}/api/workspace/dms/${encodeURIComponent(channelId)}/messages?${params}`,
+    { headers: cabecalhoHub(), signal }
+  );
+  await exigirOk(resposta);
+  const corpo = (await resposta.json()) as PaginaChat;
+  if (corpo.zone !== "internal" || !Array.isArray(corpo.mensagens)) {
+    throw new Error("Resposta inválida do DM.");
+  }
+  return {
+    mensagens: corpo.mensagens,
+    proximoCursor: corpo.proximoCursor || null,
+  };
+}
+
+export async function enviarMensagemDm(
+  channelId: string,
+  id: string,
+  mensagem: string
+): Promise<Mensagem> {
+  const resposta = await fetch(
+    `${baseUrl()}/api/workspace/dms/${encodeURIComponent(channelId)}/messages`,
+    {
+      method: "POST",
+      headers: { ...cabecalhoHub(), "Content-Type": "application/json" },
+      body: JSON.stringify({ id, mensagem }),
+    }
+  );
+  await exigirOk(resposta);
+  const corpo = (await resposta.json()) as { zone?: string; mensagem?: Mensagem };
+  if (corpo.zone !== "internal" || !corpo.mensagem) {
+    throw new Error("Resposta inválida ao enviar DM.");
   }
   return corpo.mensagem;
 }

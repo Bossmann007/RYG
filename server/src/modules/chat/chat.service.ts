@@ -1,7 +1,9 @@
+import { IdentidadeRequisicao } from "@common/guards/identity.guard";
 import { DbService } from "@modules/db/db.service";
 import {
   BadRequestException,
   ConflictException,
+  ForbiddenException,
   Injectable,
   NotFoundException,
 } from "@nestjs/common";
@@ -27,9 +29,14 @@ const LIMITE_MAXIMO = 100;
 export class ChatService {
   constructor(private readonly db: DbService) {}
 
-  async listar(processoIdBruto: string, limiteBruto?: string, cursorBruto?: string) {
+  async listar(
+    identidade: IdentidadeRequisicao,
+    processoIdBruto: string,
+    limiteBruto?: string,
+    cursorBruto?: string,
+  ) {
     const processoId = processoIdDe(processoIdBruto);
-    await this.exigirProcesso(processoId);
+    await this.exigirAcessoCaso(identidade, processoId);
     const limite = limiteDe(limiteBruto);
     const cursor = cursorBruto ? decodificarCursor(cursorBruto) : undefined;
     const params: unknown[] = [processoId];
@@ -48,14 +55,14 @@ export class ChatService {
         WHERE processo_id = ?${recorte}
         ORDER BY created_at DESC, id DESC
         LIMIT ?`,
-      params
+      params,
     );
     const temMais = linhas.length > limite;
     const paginaDesc = linhas.slice(0, limite);
     const ultima = paginaDesc[paginaDesc.length - 1];
 
     return {
-      mensagens: paginaDesc.reverse().map(mensagemDaLinha),
+      mensagens: paginaDesc.reverse().map((linha) => mensagemDaLinha(linha, identidade.nome)),
       proximoCursor:
         temMais && ultima
           ? codificarCursor({ createdAt: dataIso(ultima.created_at), id: ultima.id })
@@ -63,24 +70,28 @@ export class ChatService {
     };
   }
 
-  async criar(processoIdBruto: string, dto: CriarMensagemChatDto) {
+  async criar(
+    identidade: IdentidadeRequisicao,
+    processoIdBruto: string,
+    dto: CriarMensagemChatDto,
+  ) {
     const processoId = processoIdDe(processoIdBruto);
-    await this.exigirProcesso(processoId);
+    await this.exigirAcessoCaso(identidade, processoId);
     const mensagem = dto.mensagem.trim();
     if (!mensagem) {
       throw new BadRequestException("mensagem não pode conter apenas espaços.");
     }
 
-    const remetenteNome = process.env.CHAT_DEMO_SENDER_NAME?.trim() || "Equipe Zhegga";
-    const remetentePapel = process.env.CHAT_DEMO_SENDER_ROLE?.trim() || "Equipe jurídica";
+    const remetenteNome = identidade.nome.slice(0, 128);
+    const remetentePapel = identidade.papel.slice(0, 64);
 
     try {
       await this.db.executar(
         `INSERT INTO chat
           (id, processo_id, remetente_nome, remetente_papel,
            remetente_simulado, mensagem)
-         VALUES (?, ?, ?, ?, TRUE, ?)`,
-        [dto.id, processoId, remetenteNome.slice(0, 128), remetentePapel.slice(0, 64), mensagem]
+         VALUES (?, ?, ?, ?, FALSE, ?)`,
+        [dto.id, processoId, remetenteNome, remetentePapel, mensagem],
       );
     } catch (erro) {
       if (!chaveDuplicada(erro)) {
@@ -92,7 +103,7 @@ export class ChatService {
         throw new ConflictException("UUID já utilizado por outra mensagem.");
       }
 
-      return { mensagem: mensagemDaLinha(existente), criado: false };
+      return { mensagem: mensagemDaLinha(existente, identidade.nome), criado: false };
     }
 
     const criada = await this.buscar(processoId, dto.id);
@@ -100,16 +111,38 @@ export class ChatService {
       throw new ConflictException("A mensagem foi inserida, mas não pôde ser relida.");
     }
 
-    return { mensagem: mensagemDaLinha(criada), criado: true };
+    return { mensagem: mensagemDaLinha(criada, identidade.nome), criado: true };
   }
 
-  private async exigirProcesso(processoId: number): Promise<void> {
-    const linhas = await this.db.consultar<RowDataPacket>(
-      "SELECT id FROM processos WHERE id = ? LIMIT 1",
-      [processoId]
+  private async exigirAcessoCaso(
+    identidade: IdentidadeRequisicao,
+    processoId: number,
+  ): Promise<void> {
+    const processos = await this.db.consultar<RowDataPacket>(
+      "SELECT id FROM processos WHERE id = ? AND office_id = ? LIMIT 1",
+      [processoId, identidade.officeId],
     );
-    if (!linhas.length) {
+    if (!processos.length) {
       throw new NotFoundException("Processo não encontrado.");
+    }
+
+    const capas = await this.db.consultar<RowDataPacket & { id: string | number }>(
+      "SELECT CAST(id AS CHAR) AS id FROM casos WHERE processo_id = ? AND office_id = ? LIMIT 1",
+      [processoId, identidade.officeId],
+    );
+    if (!capas.length) {
+      // Processo exists in office but has no capa row — allow office-scoped chat.
+      return;
+    }
+
+    const casoId = String(capas[0].id);
+    const membros = await this.db.consultar<RowDataPacket>(
+      `SELECT 1 AS ok FROM case_memberships
+        WHERE office_id = ? AND caso_id = ? AND user_id = ? LIMIT 1`,
+      [identidade.officeId, casoId, identidade.id],
+    );
+    if (!membros.length) {
+      throw new ForbiddenException("Sem membership neste caso.");
     }
   }
 
@@ -118,13 +151,13 @@ export class ChatService {
       `SELECT id, processo_id, remetente_nome, remetente_papel,
               remetente_simulado, mensagem, created_at
          FROM chat WHERE processo_id = ? AND id = ? LIMIT 1`,
-      [processoId, id]
+      [processoId, id],
     );
     return linhas[0];
   }
 }
 
-function mensagemDaLinha(linha: LinhaChat) {
+function mensagemDaLinha(linha: LinhaChat, euNome: string) {
   return {
     id: linha.id,
     autora: linha.remetente_nome,
@@ -132,7 +165,7 @@ function mensagemDaLinha(linha: LinhaChat) {
     texto: linha.mensagem,
     createdAt: dataIso(linha.created_at),
     simulada: Boolean(linha.remetente_simulado),
-    propria: true,
+    propria: linha.remetente_nome === euNome,
   };
 }
 
