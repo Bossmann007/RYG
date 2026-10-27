@@ -79,7 +79,8 @@ export type TelaApp =
   | { tipo: "casos" }
   | { tipo: "caso"; id: string }
   | { tipo: "catalogo" }
-  | { tipo: "workspace" };
+  | { tipo: "workspace" }
+  | { tipo: "wiki" };
 
 export type MembroEquipe = {
   id: string;

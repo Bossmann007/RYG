@@ -4,9 +4,10 @@ type Props = {
   onInicio: () => void;
   onCatalogo: () => void;
   onConversas: () => void;
+  onWiki: () => void;
 };
 
-export function BarraTopo({ onInicio, onCatalogo, onConversas }: Props) {
+export function BarraTopo({ onInicio, onCatalogo, onConversas, onWiki }: Props) {
   return (
     <header className="topo">
       <button className="marca" type="button" onClick={onInicio}>
@@ -20,6 +21,9 @@ export function BarraTopo({ onInicio, onCatalogo, onConversas }: Props) {
       <div className="topo-lado">
         <button className="voltar" type="button" onClick={onConversas}>
           Conversas
+        </button>
+        <button className="voltar" type="button" onClick={onWiki}>
+          Wiki
         </button>
         <button className="voltar" type="button" onClick={onCatalogo}>
           Backstage

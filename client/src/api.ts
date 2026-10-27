@@ -354,6 +354,105 @@ export async function exportarPromptCatalogo(
   };
 }
 
+export type WikiNoteResumo = {
+  id: string;
+  title: string;
+  updatedAt: string;
+  createdAt: string;
+};
+
+export type WikiNote = WikiNoteResumo & { bodyMd: string };
+
+export type HardvaultHit = {
+  id: string;
+  title: string;
+  snippet: string;
+  publishedAt: string;
+};
+
+export async function listarNotasWiki(signal?: AbortSignal): Promise<WikiNoteResumo[]> {
+  const resposta = await fetch(`${baseUrl()}/api/wiki/notes`, {
+    headers: cabecalhoHub(),
+    signal,
+  });
+  await exigirOk(resposta);
+  const corpo = (await resposta.json()) as { zone?: string; notes?: WikiNoteResumo[] };
+  if (corpo.zone !== "internal" || !Array.isArray(corpo.notes)) {
+    throw new Error("Resposta inválida do vault pessoal.");
+  }
+  return corpo.notes;
+}
+
+export async function obterNotaWiki(id: string): Promise<WikiNote> {
+  const resposta = await fetch(`${baseUrl()}/api/wiki/notes/${encodeURIComponent(id)}`, {
+    headers: cabecalhoHub(),
+  });
+  await exigirOk(resposta);
+  const corpo = (await resposta.json()) as { zone?: string; note?: WikiNote };
+  if (corpo.zone !== "internal" || !corpo.note) {
+    throw new Error("Nota inválida.");
+  }
+  return corpo.note;
+}
+
+export async function criarNotaWiki(title: string, bodyMd: string): Promise<WikiNote> {
+  const resposta = await fetch(`${baseUrl()}/api/wiki/notes`, {
+    method: "POST",
+    headers: { ...cabecalhoHub(), "Content-Type": "application/json" },
+    body: JSON.stringify({ title, bodyMd }),
+  });
+  await exigirOk(resposta);
+  const corpo = (await resposta.json()) as { zone?: string; note?: WikiNote };
+  if (corpo.zone !== "internal" || !corpo.note) {
+    throw new Error("Falha ao criar nota.");
+  }
+  return corpo.note;
+}
+
+export async function publicarNotaWiki(
+  id: string,
+  confirm: boolean
+): Promise<{ docId: string; title: string; snippet: string }> {
+  const resposta = await fetch(
+    `${baseUrl()}/api/wiki/notes/${encodeURIComponent(id)}/publish`,
+    {
+      method: "POST",
+      headers: { ...cabecalhoHub(), "Content-Type": "application/json" },
+      body: JSON.stringify({ confirm }),
+    }
+  );
+  await exigirOk(resposta);
+  const corpo = (await resposta.json()) as {
+    zone?: string;
+    docId?: string;
+    title?: string;
+    snippet?: string;
+  };
+  if (corpo.zone !== "internal" || !corpo.docId) {
+    throw new Error("Falha ao publicar no hardvault.");
+  }
+  return {
+    docId: corpo.docId,
+    title: String(corpo.title || ""),
+    snippet: String(corpo.snippet || ""),
+  };
+}
+
+export async function buscarHardvault(q: string): Promise<HardvaultHit[]> {
+  const params = new URLSearchParams();
+  if (q.trim()) params.set("q", q.trim());
+  const resposta = await fetch(
+    `${baseUrl()}/api/wiki/hardvault/search?${params}`,
+    { headers: cabecalhoHub() }
+  );
+  await exigirOk(resposta);
+  const corpo = (await resposta.json()) as { zone?: string; hits?: HardvaultHit[] };
+  if (corpo.zone !== "internal" || !Array.isArray(corpo.hits)) {
+    throw new Error("Busca hardvault inválida.");
+  }
+  return corpo.hits;
+}
+
 export async function obterStatusWhatsapp(): Promise<WhatsappStatus> {
   const resposta = await fetch(`${baseUrl()}/api/whatsapp/status`);
   if (!resposta.ok) throw new Error(await lerErro(resposta));
