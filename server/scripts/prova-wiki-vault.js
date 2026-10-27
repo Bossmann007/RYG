@@ -56,8 +56,9 @@ async function main() {
   try {
     assert.strictEqual((await pedir(base, "GET", "/api/wiki/notes")).status, 401);
 
+    const marcador = `wiki-probe-${Date.now()}`;
     const criada = await pedir(base, "POST", "/api/wiki/notes", "demo-socio", {
-      title: "Memória confidencial do caso X",
+      title: marcador,
       bodyMd: "PII do cliente: não vai para hardvault sem publish.\n\nTese: CDC.",
     });
     assert.strictEqual(criada.status, 200);
@@ -88,12 +89,12 @@ async function main() {
     const buscaAntes = await pedir(
       base,
       "GET",
-      "/api/wiki/hardvault/search?q=Mem%C3%B3ria",
+      `/api/wiki/hardvault/search?q=${encodeURIComponent(marcador)}`,
       "demo-advogado",
     );
     assert.strictEqual(buscaAntes.status, 200);
     assert.ok(
-      !buscaAntes.json.hits.some((h) => String(h.title).includes("Memória")),
+      !buscaAntes.json.hits.some((h) => String(h.title).includes(marcador)),
       "unpublished personal must not appear in hardvault",
     );
 
@@ -121,7 +122,7 @@ async function main() {
     const buscaDepois = await pedir(
       base,
       "GET",
-      "/api/wiki/hardvault/search?q=Mem%C3%B3ria",
+      `/api/wiki/hardvault/search?q=${encodeURIComponent(marcador)}`,
       "demo-advogado",
     );
     assert.strictEqual(buscaDepois.status, 200);
@@ -133,7 +134,7 @@ async function main() {
     const outroOffice = await pedir(
       base,
       "GET",
-      "/api/wiki/hardvault/search?q=Mem%C3%B3ria",
+      `/api/wiki/hardvault/search?q=${encodeURIComponent(marcador)}`,
       "demo-outro",
     );
     assert.strictEqual(outroOffice.status, 200);
