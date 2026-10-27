@@ -111,6 +111,18 @@ pnpm prova:phase2
 
 ---
 
+## Phase 2.5 — PMS depth (historico + prazos no caso)
+
+```sh
+pnpm prova:pms-depth
+```
+
+- `historico` + `prazos` tables (MySQL-wire) seeded for processo `1` / caso `1`.
+- Visão do caso: status, partes, próximos prazos, últimos andamentos, checklist bancário.
+- `POST /api/tools/prazo-cpc` com `casoId` persiste na tabela `prazos` (membership + office_id).
+
+---
+
 ## Manual teste
 
 
