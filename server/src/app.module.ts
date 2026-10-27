@@ -17,6 +17,7 @@ import { TemplatesModule } from "@modules/templates/templates.module";
 import { TransferModule } from "@modules/transfer/transfer.module";
 import { VaultModule } from "@modules/vault/vault.module";
 import { WhatsappModule } from "@modules/whatsapp/whatsapp.module";
+import { WorkspaceModule } from "@modules/workspace/workspace.module";
 import { MiddlewareConsumer, Module, NestModule } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { APP_GUARD } from "@nestjs/core";
@@ -32,6 +33,7 @@ import { AppService } from "./app.service";
     CasosModule,
     CatalogModule,
     ChatModule,
+    WorkspaceModule,
     ProcessModule,
     ClientsModule,
     PetitionsModule,

@@ -207,29 +207,29 @@ Blocks Phase 6 (RAG / office-hosted / PA). Can overlap late Phase 0. Deep-search
 
 **Owner:** Bossmann
 
-- [ ] Reuse office identity from 0.5; remove remaining `@Public` on chat/casos except explicit demo flag.
-- [ ] Keep `CHAT_DEMO_ENABLED` for local-only demos.
-- [ ] Commit only if gaps remain: `fix(auth): lock down hub routes`.
+- [x] Reuse office identity from 0.5; remove remaining `@Public` on chat/casos except explicit demo flag.
+- [x] Keep `CHAT_DEMO_ENABLED` for local-only demos.
+- [x] Commit only if gaps remain: `fix(auth): lock down hub routes`.
 
 ### Task 1.2 — Schema: DM + mentions
 
 **Owner:** Zupelli
 
-- [ ] Migration: tables for workspace channels/DMs, membership, messages, mention index (TiDB).
-- [ ] Keep existing `chat` per `processo_id` intact.
-- [ ] Seed script for two demo users + one DM.
-- [ ] Document schema in `docs/ops.md` (TiDB section) or extend ops when chat schema lands.
-- [ ] Commit: `feat(db): workspace DM schema`.
+- [x] Migration: tables for workspace channels/DMs, membership, messages, mention index (TiDB).
+- [x] Keep existing `chat` per `processo_id` intact.
+- [x] Seed script for two demo users + one DM.
+- [x] Document schema in `docs/ops.md` (TiDB section) or extend ops when chat schema lands.
+- [x] Commit: `feat(db): workspace DM schema`.
 
 ### Task 1.3 — API + UI workspace
 
 **Owner:** Gustavo (UI), Zupelli (API assist)
 
-- [ ] Nest module `workspace` or extend `chat`: list DMs, send DM, resolve `@mentions`.
-- [ ] Client: workspace page (DMs list + thread); keep per-case `ChatCaso`.
-- [ ] Empty states: no DMs, offline API.
-- [ ] Evidence: two browsers/users send DM; mention creates notification row (minimal).
-- [ ] Commit: `feat(chat): workspace DMs and mentions`.
+- [x] Nest module `workspace` or extend `chat`: list DMs, send DM, resolve `@mentions`.
+- [x] Client: workspace page (DMs list + thread); keep per-case `ChatCaso`.
+- [x] Empty states: no DMs, offline API.
+- [x] Evidence: two browsers/users send DM; mention creates notification row (minimal).
+- [x] Commit: `feat(chat): workspace DMs and mentions`.
 
 **Phase 1 exit:** Authenticated DM works; per-case chat still works; no WhatsApp inbox.
 
