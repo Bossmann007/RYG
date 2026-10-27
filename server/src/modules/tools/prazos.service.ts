@@ -54,6 +54,14 @@ export class PrazosService {
       throw new ServiceUnavailableException("Caso sem processo_id para anexar prazo.");
     }
 
+    const processo = await this.db.consultar<RowDataPacket>(
+      "SELECT 1 AS ok FROM processos WHERE id = ? AND office_id = ? LIMIT 1",
+      [processoId, identidade.officeId],
+    );
+    if (!processo.length) {
+      throw new NotFoundException("Processo do caso não encontrado neste escritório.");
+    }
+
     const status = statusInicial(calculo.dueAt);
     try {
       const resultado = await this.db.executar(
