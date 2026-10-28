@@ -135,6 +135,28 @@ export const CATALOGO_BACKSTAGE: CatalogItem[] = [
     status: "live",
     endpoint: "/api/process/capa/:cnj",
   },
+  {
+    id: "tool-rag-consult-linked",
+    kind: "tool",
+    area: "conectores",
+    titulo: "rag_consult_linked_provider",
+    descricao:
+      "Consult retrieval-only via linked-provider runtime. Pack de cites; sem tools de mutação.",
+    requerSafeDto: true,
+    status: "live",
+    endpoint: "/api/rag/consult",
+  },
+  {
+    id: "tool-rag-consult-office-hosted",
+    kind: "tool",
+    area: "conectores",
+    titulo: "rag_consult_office_hosted",
+    descricao:
+      "Consult retrieval-only no runtime office-hosted (flag OFFICE_HOSTED_AI). Sem BYOAI.",
+    requerSafeDto: false,
+    status: "live",
+    endpoint: "/api/rag/consult",
+  },
 ];
 
 /** @deprecated Prefer CATALOGO_BACKSTAGE — alias kept for short diffs. */
