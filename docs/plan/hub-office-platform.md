@@ -449,19 +449,19 @@ Depends on Phase 6 consult green + Phase 0.5 HITL/audit.
 
 **Owner:** Bossmann
 
-- [ ] ADR `0005-pa-mode.md` (or amend 0001): allowlist tools, roles, HITL, actor=`pa_session`+`delegated_by`.
-- [ ] Default remains consult; PA opt-in per user/office.
-- [ ] Commit: `docs(adr): PA mode allowlist and HITL`.
+- [x] ADR `0005-pa-mode.md` (or amend 0001): allowlist tools, roles, HITL, actor=`pa_session`+`delegated_by`.
+- [x] Default remains consult; PA opt-in per user/office.
+- [x] Commit: `docs(adr): PA mode allowlist and HITL`.
 
 ### Task 6.5.2 — Allowlisted tools + audit
 
 **Owner:** Bossmann + Gabriel + Gustavo
 
-- [ ] Tools: case read helpers, checklist, Zap send **with confirm**, export — no raw SQL/FS.
-- [ ] Every mutation audited; irreversible → HITL UI.
-- [ ] “Learn together” = hub memory/artifacts only — no fine-tune on client processos.
-- [ ] Evidence: PA session can propose Zap; blocked without confirm; consult user cannot call tools.
-- [ ] Commit: `feat(ai): PA mode tools behind role gate`.
+- [x] Tools: case read helpers, checklist, Zap send **with confirm**, export — no raw SQL/FS.
+- [x] Every mutation audited; irreversible → HITL UI.
+- [x] “Learn together” = hub memory/artifacts only — no fine-tune on client processos.
+- [x] Evidence: PA session can propose Zap; blocked without confirm; consult user cannot call tools.
+- [x] Commit: `feat(ai): PA mode tools behind role gate`.
 
 **Phase 6.5 exit:** Chefe can run PA on office-hosted or (if policy allows) linked-provider with HITL; estagiário stays consult.
 
