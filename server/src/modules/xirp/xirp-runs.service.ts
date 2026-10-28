@@ -51,10 +51,15 @@ export class XirpRunsService {
 
   async recordFromRelease(input: RecordFromReleaseInput): Promise<void> {
     const refs = Array.isArray(input.dto.safeReferences) ? input.dto.safeReferences : [];
-    const casoId = await this.resolverCasoId(
+    let casoId = await this.resolverCasoId(
       input.identidade.escritorio,
       input.argumentos,
     );
+    if (casoId && !(await this.atorPodeGravarNoCaso(input.identidade, casoId))) {
+      // Non-members still get the MCP SafeDTO; the case panel never sees their run.
+      casoId = null;
+    }
+
     const run: AgentRun = {
       id: `run_${randomBytes(8).toString("hex")}`,
       officeId: input.identidade.escritorio,
@@ -106,9 +111,10 @@ export class XirpRunsService {
         this.logger.warn("agent_runs ausente; run ficou só na memória");
         return;
       }
-      this.logger.warn(
-        `Falha ao persistir agent_run ${run.releaseId}: ${erro instanceof Error ? erro.message : "erro"}`,
-      );
+      // Wire has not left the hub yet; callers must fail closed.
+      throw erro instanceof Error
+        ? erro
+        : new Error(`Falha ao persistir agent_run ${run.releaseId}`);
     }
   }
 
@@ -263,6 +269,37 @@ export class XirpRunsService {
       throw new NotFoundException("Caso não encontrado.");
     }
     this.assertMembroDemo(identidade);
+  }
+
+  private async atorPodeGravarNoCaso(
+    identidade: Identidade,
+    casoId: string,
+  ): Promise<boolean> {
+    if (this.db.configurado()) {
+      try {
+        const membros = await this.db.consultar<RowDataPacket>(
+          "SELECT 1 AS ok FROM case_memberships WHERE office_id = ? AND caso_id = ? AND user_id = ? LIMIT 1",
+          [identidade.escritorio, casoId, identidade.id],
+        );
+        return membros.length > 0;
+      } catch (erro) {
+        if (!tabelaAusente(erro)) {
+          throw erro;
+        }
+      }
+    }
+
+    if (casoId !== CASO_DEMO_BANCARIO) {
+      return false;
+    }
+    return MEMBROS_DEMO_ESCRITORIO.some((token) => {
+      const usuario = USUARIOS_POR_TOKEN[token];
+      return (
+        usuario &&
+        usuario.id === identidade.id &&
+        usuario.escritorio === identidade.escritorio
+      );
+    });
   }
 
   private assertMembroDemo(identidade: Identidade): void {

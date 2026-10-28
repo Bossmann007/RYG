@@ -119,13 +119,8 @@ export class GatewayService {
       );
     }
 
-    await this.auditService.registrar({
-      ...this.registro(nome, argumentos, identidade, origem, inicio, "permitido"),
-      sigiloOrigem: dto.declassificacao.sigiloOrigem,
-      nivel: dto.declassificacao.nivel,
-      omitido: dto.declassificacao.omitido,
-    });
-
+    // Record before the allow audit and before returning wire. The client has
+    // not received SafeDTO bytes yet, so a durable-store failure can fail closed.
     if (identidade) {
       try {
         await this.xirpRuns.recordFromRelease({
@@ -135,11 +130,20 @@ export class GatewayService {
           dto: egress.dto,
         });
       } catch (erro) {
-        this.logger.warn(
-          `Xirp record skipped for ${egress.dto.releaseId}: ${erro instanceof Error ? erro.message : "erro"}`,
-        );
+        const motivo =
+          erro instanceof Error
+            ? `Xirp record failed — ${erro.message}`
+            : "Xirp record failed.";
+        return this.negar(nome, argumentos, identidade, origem, inicio, motivo);
       }
     }
+
+    await this.auditService.registrar({
+      ...this.registro(nome, argumentos, identidade, origem, inicio, "permitido"),
+      sigiloOrigem: dto.declassificacao.sigiloOrigem,
+      nivel: dto.declassificacao.nivel,
+      omitido: dto.declassificacao.omitido,
+    });
 
     return { decisao: "permitido", ferramenta: nome, dto: egress.dto, wire: egress.wire };
   }

@@ -26,4 +26,10 @@ describe("deriveCiteStatus", () => {
       ]),
     ).toBe("mixed");
   });
+
+  it("is silent when labels omit citabilidade", () => {
+    expect(deriveCiteStatus([{ label: "TJSP precedente sem marcador." }])).toBe(
+      "silent",
+    );
+  });
 });

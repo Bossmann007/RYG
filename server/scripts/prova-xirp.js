@@ -102,6 +102,15 @@ async function main() {
     const kHit = (afterKnowledge.json.runs || []).find((r) => r.releaseId === kDto.releaseId);
     assert.ok(!kHit, "knowledge search without processNumber stays off the case panel");
 
+    const nonMember = await chamar(base, "demo-advogado", "get_safe_summary", {
+      processNumber: NUMERO_PROCESSO_DEMO,
+    });
+    assert.ok(!nonMember.isError, "non-member MCP call may still allow SafeDTO");
+    const nmDto = nonMember.structuredContent;
+    const afterNm = await getRuns(base, "demo-socio", XIRP_CASO_DEMO_BANCARIO);
+    const nmHit = (afterNm.json.runs || []).find((r) => r.releaseId === nmDto.releaseId);
+    assert.ok(!nmHit, "non-member release must not appear on the case Xirp panel");
+
     console.log(
       `prova-xirp: OK caseRuns=${after.json.runs.length} release=${dto.releaseId} cite=${hit.citeStatus}`,
     );

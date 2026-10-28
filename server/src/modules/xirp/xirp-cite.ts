@@ -16,7 +16,8 @@ export function deriveCiteStatus(
     } else if (/citável/i.test(label)) {
       citavel += 1;
     } else {
-      citavel += 1;
+      // Unmarked labels stay silent (cite-or-silent), never inferred as cited.
+      naoCitavel += 1;
     }
   }
 
