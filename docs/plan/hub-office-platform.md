@@ -396,46 +396,46 @@ Depends on Phase 3 (hardvault corpus) and Phase 4 (Xirp). Design in parallel aft
 
 **Owner:** Bossmann + Zupelli
 
-- [ ] Choose store from `docs/plan/rag-options.md` (pgvector / TiDB-compatible / Qdrant). Document ACL-at-query; index is derived from hub truth.
-- [ ] Write `docs/adr/0004-legal-rag.md` (RAG ≠ BD; ephemeral context; no model→DB).
-- [ ] Commit: `docs(adr): legal RAG store and ACL`.
+- [x] Choose store from `docs/plan/rag-options.md` (pgvector / TiDB-compatible / Qdrant). Document ACL-at-query; index is derived from hub truth.
+- [x] Write `docs/adr/0004-legal-rag.md` (RAG ≠ BD; ephemeral context; no model→DB).
+- [x] Commit: `docs(adr): legal RAG store and ACL`.
 
 ### Task 6.2 — Ingest + retrieve API
 
 **Owner:** Zupelli (store), Gabriel (ingest), Bossmann (policy)
 
-- [ ] Index only published hardvault + allowed official corpora; never personal vault by default.
-- [ ] Classification + case RBAC + Chinese wall at query time.
-- [ ] `POST /api/rag/query` returns hits with cite status; empty → silent.
-- [ ] Cite ledger rows (source id, release id, user, case).
-- [ ] Tests: no ACL → zero hits; cite-or-silent on missing ementa.
-- [ ] Commit: `feat(rag): ACL retrieval API and cite ledger`.
+- [x] Index only published hardvault + allowed official corpora; never personal vault by default.
+- [x] Classification + case RBAC + Chinese wall at query time.
+- [x] `POST /api/rag/query` returns hits with cite status; empty → silent.
+- [x] Cite ledger rows (source id, release id, user, case).
+- [x] Tests: no ACL → zero hits; cite-or-silent on missing ementa.
+- [x] Commit: `feat(rag): ACL retrieval API and cite ledger`.
 
 ### Task 6.2b — AI use notice (UX)
 
 **Owner:** Gustavo
 
-- [ ] Notice: drafts only; human reviews before filing.
-- [ ] Same PR window as first Xirp/RAG consult UI.
-- [ ] Commit: `feat(ui): AI use notice`.
+- [x] Notice: drafts only; human reviews before filing.
+- [x] Same PR window as first Xirp/RAG consult UI.
+- [x] Commit: `feat(ui): AI use notice`.
 
 ### Task 6.3 — AI Gateway runtimes (consult)
 
 **Owner:** Bossmann + Gabriel
 
-- [ ] Catalog entries: “Office-hosted AI” vs “Linked provider (MCP)” — never BYOAI.
-- [ ] Both backends behind same Nest/MCP tools; consult = retrieval pack only.
-- [ ] Linked-provider: SafeDTO on private egress. Office-hosted: ACL + classification; still no raw TiDB/FS.
-- [ ] Evidence: case question → cites or silent; works with either runtime in consult mode.
-- [ ] Commit: `feat(ai): gateway consult via linked-provider and office-hosted`.
+- [x] Catalog entries: “Office-hosted AI” vs “Linked provider (MCP)” — never BYOAI.
+- [x] Both backends behind same Nest/MCP tools; consult = retrieval pack only.
+- [x] Linked-provider: SafeDTO on private egress. Office-hosted: ACL + classification; still no raw TiDB/FS.
+- [x] Evidence: case question → cites or silent; works with either runtime in consult mode.
+- [x] Commit: `feat(ai): gateway consult via linked-provider and office-hosted`.
 
 ### Task 6.4 — Packaging stub
 
 **Owner:** Bossmann
 
-- [ ] Feature flag `OFFICE_HOSTED_AI=true` per office (no billing required).
-- [ ] Sales one-liner: Hub base vs Hub + office-hosted consult.
-- [ ] Commit: `docs: office-hosted AI SKU flag`.
+- [x] Feature flag `OFFICE_HOSTED_AI=true` per office (no billing required).
+- [x] Sales one-liner: Hub base vs Hub + office-hosted consult.
+- [x] Commit: `docs: office-hosted AI SKU flag`.
 
 **Phase 6 exit:** Consult answers with RAG cites on at least one runtime; zero mutation tools exposed to the model.
 
