@@ -75,6 +75,10 @@ async function main() {
     assert.ok(start.json.sessao.id.startsWith("pa_"));
     assert.strictEqual(start.json.sessao.delegatedBy, "u-001");
 
+    const status = await pedir(on.base, "GET", "/api/pa/status", "demo-socio");
+    assert.strictEqual(status.status, 200);
+    assert.ok(!status.json.allowlist.includes("whatsapp_confirm"));
+
     const checklist = await pedir(on.base, "POST", "/api/pa/tools/checklist", "demo-socio", {});
     assert.strictEqual(checklist.status, 200);
     assert.strictEqual(checklist.json.actor, "pa_session");
@@ -88,24 +92,50 @@ async function main() {
     });
     assert.strictEqual(propose.status, 200);
     assert.strictEqual(propose.json.confirmacaoNecessaria, true);
-    assert.ok(propose.json.desafio);
+    assert.strictEqual(
+      propose.json.desafio,
+      undefined,
+      "desafio must stay server-side (model must not self-confirm)",
+    );
 
-    const semConfirm = await pedir(on.base, "POST", "/api/pa/tools/whatsapp_confirm", "demo-socio", {
-      para: "+5541999990000",
-      texto: "lembrete pa hitl",
-      classificationAck: true,
-      classification: "interno",
-      confirmacao: "token-falso",
-    });
-    assert.ok(semConfirm.status >= 400, "false confirm blocked");
+    const toolConfirmGone = await pedir(
+      on.base,
+      "POST",
+      "/api/pa/tools/whatsapp_confirm",
+      "demo-socio",
+      { confirmacaoHumana: true, desafio: "guess" },
+    );
+    assert.strictEqual(
+      toolConfirmGone.status,
+      404,
+      "confirm must not be a model-facing PA tool",
+    );
 
-    const confirm = await pedir(on.base, "POST", "/api/pa/tools/whatsapp_confirm", "demo-socio", {
-      para: "+5541999990000",
-      texto: "lembrete pa hitl",
-      classificationAck: true,
-      classification: "interno",
-      confirmacao: propose.json.desafio,
-    });
+    const wrongHitl = await pedir(
+      on.base,
+      "POST",
+      "/api/pa/hitl/whatsapp_confirm",
+      "demo-socio",
+      { desafio: "wrong-token" },
+    );
+    assert.ok(wrongHitl.status >= 400, "wrong desafio blocked");
+
+    const challenge = await pedir(
+      on.base,
+      "GET",
+      "/api/pa/hitl/whatsapp_challenge",
+      "demo-socio",
+    );
+    assert.strictEqual(challenge.status, 200);
+    assert.ok(typeof challenge.json.desafio === "string" && challenge.json.desafio.length > 8);
+
+    const confirm = await pedir(
+      on.base,
+      "POST",
+      "/api/pa/hitl/whatsapp_confirm",
+      "demo-socio",
+      { desafio: challenge.json.desafio },
+    );
     assert.strictEqual(confirm.status, 200);
     assert.strictEqual(confirm.json.ok, true);
     assert.strictEqual(confirm.json.actor, "pa_session");

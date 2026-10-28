@@ -26,9 +26,9 @@ export class PaController {
 
   @Post("session/stop")
   @HttpCode(200)
-  stop(@Req() req: Request) {
+  async stop(@Req() req: Request) {
     const identidade = identidadeDaRequisicao(req);
-    this.pa.fecharSessao(identidade);
+    await this.pa.fecharSessao(identidade);
     return { zone: "internal" as const, ok: true };
   }
 
@@ -65,25 +65,6 @@ export class PaController {
     return { zone: "internal" as const, ...result };
   }
 
-  @Post("tools/whatsapp_confirm")
-  @HttpCode(200)
-  async zapConfirm(@Req() req: Request, @Body() body: Record<string, unknown>) {
-    const identidade = identidadeDaRequisicao(req);
-    const result = await this.pa.whatsappConfirm(identidade, {
-      para: String(body.para || ""),
-      texto: String(body.texto || ""),
-      confirmacao: String(body.confirmacao || ""),
-      classificationAck: Boolean(body.classificationAck),
-      classification: body.classification ? String(body.classification) : undefined,
-      templateId: body.templateId ? String(body.templateId) : undefined,
-      safeDtoReleaseId: body.safeDtoReleaseId
-        ? String(body.safeDtoReleaseId)
-        : undefined,
-      processoId: body.processoId ? String(body.processoId) : undefined,
-    });
-    return { zone: "internal" as const, ...result };
-  }
-
   @Post("tools/export_pack")
   @HttpCode(200)
   async exportPack(@Req() req: Request, @Body() body: { casoId?: string }) {
@@ -92,6 +73,22 @@ export class PaController {
       identidade,
       body?.casoId ? String(body.casoId) : undefined,
     );
+    return { zone: "internal" as const, ...result };
+  }
+
+  @Get("hitl/whatsapp_challenge")
+  hitlChallenge(@Req() req: Request) {
+    const identidade = identidadeDaRequisicao(req);
+    return { zone: "internal" as const, ...this.pa.hitlWhatsappChallenge(identidade) };
+  }
+
+  @Post("hitl/whatsapp_confirm")
+  @HttpCode(200)
+  async hitlConfirm(@Req() req: Request, @Body() body: { desafio?: string }) {
+    const identidade = identidadeDaRequisicao(req);
+    const result = await this.pa.hitlWhatsappConfirm(identidade, {
+      desafio: body?.desafio ? String(body.desafio) : undefined,
+    });
     return { zone: "internal" as const, ...result };
   }
 }
