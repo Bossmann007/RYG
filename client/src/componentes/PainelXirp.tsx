@@ -43,6 +43,11 @@ export function PainelXirp({ casoId }: Props) {
         </p>
       </header>
 
+      <p className="selo neutro" role="note">
+        Aviso de uso de IA: rascunhos apenas. Revisão humana obrigatória antes de
+        protocolar ou enviar ao cliente.
+      </p>
+
       {erro && <p className="vazio">{erro}</p>}
       {!erro && runs === null && <p className="vazio">Carregando releases…</p>}
       {!erro && runs && runs.length === 0 && (

@@ -173,9 +173,15 @@ export class WikiService {
     params.push(40);
 
     const linhas = await this.consultar<
-      RowDataPacket & { id: string; title: string; snippet: string; published_at: Date | string }
+      RowDataPacket & {
+        id: string;
+        title: string;
+        snippet: string;
+        classification: string;
+        published_at: Date | string;
+      }
     >(
-      `SELECT d.id, d.title, d.snippet, d.published_at
+      `SELECT d.id, d.title, d.snippet, d.classification, d.published_at
          FROM hardvault_docs d
          INNER JOIN hardvault_acl a ON a.doc_id = d.id AND a.office_id = d.office_id
         WHERE d.office_id = ?
@@ -185,6 +191,7 @@ export class WikiService {
             OR (a.principal_type = 'role' AND a.principal_id = ?)
           )
           ${filtro}
+        GROUP BY d.id, d.title, d.snippet, d.classification, d.published_at
         ORDER BY d.published_at DESC
         LIMIT ?`,
       params,
@@ -195,6 +202,7 @@ export class WikiService {
         id: String(l.id),
         title: String(l.title),
         snippet: String(l.snippet),
+        classification: String(l.classification || "interno"),
         publishedAt: dataIso(l.published_at),
       })),
     };
