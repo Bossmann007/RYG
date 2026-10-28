@@ -124,33 +124,36 @@ export class RagService {
       await this.casos.obter(identidade, input.casoId);
     }
 
-    let candidatos = [...(this.chunks.get(identidade.officeId) || [])];
+    // Demo memory corpus is only for provas without DB_*. Never blend it into live hardvault misses.
+    let candidatos: RagChunk[] = this.db.configurado()
+      ? []
+      : [...(this.chunks.get(identidade.officeId) || [])];
     let liveAclJaAplicada = false;
     if (this.db.configurado()) {
       try {
         const live = await this.wiki.buscarHardvault(identidade, q);
-        if (live.hits.length) {
-          liveAclJaAplicada = true;
-          candidatos = live.hits.map((h) => {
-            const classification = isCaseClassification(h.classification)
-              ? h.classification
-              : "interno";
-            return {
-              sourceId: h.id,
-              officeId: identidade.officeId,
-              title: h.title,
-              snippet: h.snippet,
-              classification,
-              acl: [
-                { principalType: "office" as const, principalId: identidade.officeId },
-              ],
-            };
-          });
-        }
+        liveAclJaAplicada = true;
+        candidatos = live.hits.map((h) => {
+          const classification = isCaseClassification(h.classification)
+            ? h.classification
+            : "interno";
+          return {
+            sourceId: h.id,
+            officeId: identidade.officeId,
+            title: h.title,
+            snippet: h.snippet,
+            classification,
+            acl: [
+              { principalType: "office" as const, principalId: identidade.officeId },
+            ],
+          };
+        });
       } catch (erro) {
         if (!(erro instanceof ServiceUnavailableException)) {
           throw erro;
         }
+        candidatos = [...(this.chunks.get(identidade.officeId) || [])];
+        liveAclJaAplicada = false;
       }
     }
 
@@ -287,6 +290,9 @@ export class RagService {
       at: new Date().toISOString(),
     };
     this.ledger.push(row);
+    if (this.ledger.length > 500) {
+      this.ledger.splice(0, this.ledger.length - 500);
+    }
     if (this.db.configurado()) {
       try {
         await this.db.executar(
