@@ -64,7 +64,7 @@ export class RagController {
     const identidade = identidadeDaRequisicao(req);
     return {
       zone: "internal" as const,
-      rows: this.rag.recentLedger(identidade.officeId),
+      rows: this.rag.recentLedger(identidade.officeId, identidade.id),
     };
   }
 }

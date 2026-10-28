@@ -152,7 +152,7 @@ export const CATALOGO_BACKSTAGE: CatalogItem[] = [
     area: "conectores",
     titulo: "rag_consult_office_hosted",
     descricao:
-      "Consult retrieval-only no runtime office-hosted (flag OFFICE_HOSTED_AI). Sem BYOAI.",
+      "Consult retrieval-only no runtime office-hosted (flag OFFICE_HOSTED_AI).",
     requerSafeDto: false,
     status: "live",
     endpoint: "/api/rag/consult",

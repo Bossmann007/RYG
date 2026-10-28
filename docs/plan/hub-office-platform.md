@@ -424,9 +424,9 @@ Depends on Phase 3 (hardvault corpus) and Phase 4 (Xirp). Design in parallel aft
 **Owner:** Bossmann + Gabriel
 
 - [x] Catalog entries: “Office-hosted AI” vs “Linked provider (MCP)” — never BYOAI.
-- [x] Both backends behind same Nest/MCP tools; consult = retrieval pack only.
-- [x] Linked-provider: SafeDTO on private egress. Office-hosted: ACL + classification; still no raw TiDB/FS.
-- [x] Evidence: case question → cites or silent; works with either runtime in consult mode.
+- [x] Both runtimes share Nest `/api/rag/consult` retrieval pack (no model mutation tools).
+- [x] Office-hosted gated by `OFFICE_HOSTED_AI`; ACL + classification on hits; no raw DB/FS to models.
+- [x] Evidence: `prova:rag` cites or silent; linked-provider and office-hosted consult packs.
 - [x] Commit: `feat(ai): gateway consult via linked-provider and office-hosted`.
 
 ### Task 6.4 — Packaging stub

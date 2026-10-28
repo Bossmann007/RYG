@@ -1,5 +1,4 @@
 import {
-  CASE_CLASSIFICATIONS,
   CLASSIFICATION_DEFAULT,
   clearanceOk,
   isCaseClassification,
@@ -123,6 +122,7 @@ export class RagService {
     if (input.casoId) {
       await this.casos.obter(identidade, input.casoId);
     }
+    this.assertRuntimePermitido(this.resolverRuntime(input.runtime));
 
     // Demo memory corpus is only for provas without DB_*. Never blend it into live hardvault misses.
     let candidatos: RagChunk[] = this.db.configurado()
@@ -136,7 +136,7 @@ export class RagService {
         candidatos = live.hits.map((h) => {
           const classification = isCaseClassification(h.classification)
             ? h.classification
-            : "interno";
+            : CLASSIFICATION_DEFAULT;
           return {
             sourceId: h.id,
             officeId: identidade.officeId,
@@ -228,14 +228,7 @@ export class RagService {
     input: { q: string; casoId?: string; runtime?: RagRuntime },
   ) {
     const runtime = this.resolverRuntime(input.runtime);
-    if (runtime === "office-hosted" && !this.officeHostedEnabled()) {
-      throw new ForbiddenException(
-        "Office-hosted AI desligado (OFFICE_HOSTED_AI≠true).",
-      );
-    }
-    if (runtime === "none") {
-      throw new ForbiddenException("Nenhum runtime de consult selecionado.");
-    }
+    this.assertRuntimePermitido(runtime);
     const pack = await this.query(identidade, { ...input, runtime });
     return {
       mode: "consult" as const,
@@ -247,8 +240,15 @@ export class RagService {
     };
   }
 
-  recentLedger(officeId: string, limit = 20): RagCiteLedgerRow[] {
-    return this.ledger.filter((r) => r.officeId === officeId).slice(-limit).reverse();
+  recentLedger(
+    officeId: string,
+    userId: string,
+    limit = 20,
+  ): RagCiteLedgerRow[] {
+    return this.ledger
+      .filter((r) => r.officeId === officeId && r.userId === userId)
+      .slice(-limit)
+      .reverse();
   }
 
   private resolverRuntime(pedido?: RagRuntime): RagRuntime {
@@ -256,6 +256,17 @@ export class RagService {
       return pedido;
     }
     return this.officeHostedEnabled() ? "office-hosted" : "linked-provider";
+  }
+
+  private assertRuntimePermitido(runtime: RagRuntime): void {
+    if (runtime === "none") {
+      throw new ForbiddenException("Nenhum runtime de consult selecionado.");
+    }
+    if (runtime === "office-hosted" && !this.officeHostedEnabled()) {
+      throw new ForbiddenException(
+        "Office-hosted AI desligado (OFFICE_HOSTED_AI≠true).",
+      );
+    }
   }
 
   private aclOk(identidade: IdentidadeRequisicao, chunk: RagChunk): boolean {
@@ -361,7 +372,6 @@ export class RagService {
       lista.push(c);
       this.chunks.set(c.officeId, lista);
     }
-    void CASE_CLASSIFICATIONS;
   }
 }
 

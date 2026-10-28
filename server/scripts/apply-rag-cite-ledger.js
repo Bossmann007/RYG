@@ -1,33 +1,44 @@
 /**
  * Applies migrations/20261028_rag_cite_ledger.sql. Safe to re-run.
  *
+ *   pnpm --dir server run build
  *   pnpm --dir server run rag:apply
  */
+require("../dist/register-aliases");
 const fs = require("fs");
 const path = require("path");
+require("dotenv").config();
+require("dotenv").config({ path: path.join(__dirname, "../../.env") });
+require("dotenv").config({ path: path.join(__dirname, "../.env") });
+
 const mysql = require("mysql2/promise");
+const { lerDbEnv, opcoesPool } = require("../dist/config/db.config");
 
 async function main() {
-  const host = process.env.DB_HOST;
-  if (!host) {
-    console.log("rag:apply skipped (DB_HOST unset)");
+  const env = lerDbEnv();
+  if (!env) {
+    console.log("rag:apply skipped (DB_* unset)");
     return;
   }
-  const sqlPath = path.join(__dirname, "../migrations/20261028_rag_cite_ledger.sql");
-  const sql = fs.readFileSync(sqlPath, "utf8");
-  const conn = await mysql.createConnection({
-    host,
-    port: Number(process.env.DB_PORT || 4000),
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME || "HubLegal",
-    multipleStatements: true,
-  });
+  const pool = mysql.createPool(opcoesPool(env));
   try {
-    await conn.query(sql);
+    const sql = fs.readFileSync(
+      path.join(__dirname, "../migrations/20261028_rag_cite_ledger.sql"),
+      "utf8",
+    );
+    const comandos = sql
+      .split("\n")
+      .filter((linha) => !linha.trim().startsWith("--"))
+      .join("\n")
+      .split(";")
+      .map((c) => c.trim())
+      .filter(Boolean);
+    for (const comando of comandos) {
+      await pool.query(comando);
+    }
     console.log("rag_cite_ledger: ready");
   } finally {
-    await conn.end();
+    await pool.end();
   }
 }
 
