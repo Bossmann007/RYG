@@ -29,5 +29,6 @@ MCP `/api/mcp` tools today are `somenteLeitura: true`. Putting Zap send on the M
 ## Consequences
 
 - Evidence path is `pnpm --dir server run prova:pa` (session gate, consult user denied, propose omits desafio, `/tools/whatsapp_confirm` absent, HITL challenge+confirm sends).
+- Linked-provider / office-hosted PA runtimes may call only `/api/pa/tools/*` (the allowlist). `/api/pa/hitl/*` is for the human hub UI. Same Bearer still reaches HITL over raw HTTP; a later trust item may bind HITL to a human-only credential.
 - A later ADR may expose the same allowlist through MCP with per-tool `readOnlyHint: false` and PA session tokens. Not this phase.
 - “Learn together” = store artifacts in hub (notes/Xirp/audit), never training jobs on client processos.
