@@ -77,12 +77,12 @@ export class XirpRunsService {
     if (this.memoria.some((item) => item.releaseId === run.releaseId)) {
       return;
     }
-    this.memoria.unshift(run);
-    if (this.memoria.length > 500) {
-      this.memoria.length = 500;
-    }
 
     if (!this.db.configurado()) {
+      this.memoria.unshift(run);
+      if (this.memoria.length > 500) {
+        this.memoria.length = 500;
+      }
       return;
     }
 
@@ -107,14 +107,15 @@ export class XirpRunsService {
         ],
       );
     } catch (erro) {
-      if (tabelaAusente(erro)) {
-        this.logger.warn("agent_runs ausente; run ficou só na memória");
-        return;
-      }
-      // Wire has not left the hub yet; callers must fail closed.
+      // DB configured: missing table or insert failure both fail closed.
       throw erro instanceof Error
         ? erro
         : new Error(`Falha ao persistir agent_run ${run.releaseId}`);
+    }
+
+    this.memoria.unshift(run);
+    if (this.memoria.length > 500) {
+      this.memoria.length = 500;
     }
   }
 

@@ -269,7 +269,7 @@ pnpm --dir server run build
 pnpm --dir server run prova:xirp
 ```
 
-Optional durable store (when `DB_*` is set):
+When `DB_*` is set, apply the table before serving MCP. A missing `agent_runs` table fails closed (MCP deny). Without `DB_*`, runs stay in process memory for local provas only.
 
 ```sh
 pnpm --dir server run xirp:apply

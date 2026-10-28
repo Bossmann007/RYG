@@ -130,11 +130,17 @@ export class GatewayService {
           dto: egress.dto,
         });
       } catch (erro) {
-        const motivo =
-          erro instanceof Error
-            ? `Xirp record failed — ${erro.message}`
-            : "Xirp record failed.";
-        return this.negar(nome, argumentos, identidade, origem, inicio, motivo);
+        this.logger.warn(
+          `Xirp record failed for ${egress.dto.releaseId}: ${erro instanceof Error ? erro.message : "erro"}`,
+        );
+        return this.negar(
+          nome,
+          argumentos,
+          identidade,
+          origem,
+          inicio,
+          "Xirp record failed.",
+        );
       }
     }
 
