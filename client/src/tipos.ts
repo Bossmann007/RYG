@@ -72,6 +72,7 @@ export type AbaCaso =
   | "teses"
   | "resultados"
   | "conversas"
+  | "xirp"
   | "jurisprudencia"
   | "relatorios";
 

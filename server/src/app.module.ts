@@ -20,6 +20,7 @@ import { VaultModule } from "@modules/vault/vault.module";
 import { WhatsappModule } from "@modules/whatsapp/whatsapp.module";
 import { WikiModule } from "@modules/wiki/wiki.module";
 import { WorkspaceModule } from "@modules/workspace/workspace.module";
+import { XirpModule } from "@modules/xirp/xirp.module";
 import { MiddlewareConsumer, Module, NestModule } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { APP_GUARD } from "@nestjs/core";
@@ -52,6 +53,7 @@ import { AppService } from "./app.service";
     JmlModule,
     TransferModule,
     VaultModule,
+    XirpModule,
   ],
   controllers: [AppController],
   providers: [AppService, { provide: APP_GUARD, useClass: IdentityGuard }],
