@@ -28,6 +28,7 @@ import { PainelAcervo } from "../componentes/PainelAcervo";
 import { PainelModelos } from "../componentes/PainelModelos";
 import { PainelPrazos } from "../componentes/PainelPrazos";
 import { PainelRelatorios } from "../componentes/PainelRelatorios";
+import { PainelXirp } from "../componentes/PainelXirp";
 import { AbaCaso, Caso, Jurisprudencia, ROTULO_STATUS } from "../tipos";
 
 type Props = {
@@ -47,6 +48,7 @@ const MENU: ItemMenu[] = [
   { id: "historico", rotulo: "Histórico", grupo: "Caso", icone: <IconeHistorico /> },
   { id: "prazos", rotulo: "Prazos", grupo: "Caso", icone: <IconePrazo /> },
   { id: "conversas", rotulo: "Conversas", grupo: "Caso", icone: <IconeConversa /> },
+  { id: "xirp", rotulo: "Xirp", grupo: "Caso", icone: <IconeResultado /> },
   { id: "peticoes", rotulo: "Petições", grupo: "Acervo", icone: <IconePeca /> },
   { id: "contratos", rotulo: "Contratos", grupo: "Acervo", icone: <IconeContrato /> },
   { id: "documentos", rotulo: "Clientes", grupo: "Acervo", icone: <IconePessoa /> },
@@ -162,6 +164,7 @@ export function DetalheCaso({ caso, onVoltar }: Props) {
           {aba === "teses" && <PainelTeses caso={caso} />}
           {aba === "resultados" && <PainelResultados caso={caso} />}
           {aba === "conversas" && <ChatCaso processoId={caso.processoId} />}
+          {aba === "xirp" && <PainelXirp casoId={caso.id} />}
           {aba === "jurisprudencia" && (
             <PainelJurisprudencia caso={caso} onAbrir={setJuris} />
           )}

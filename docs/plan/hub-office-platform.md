@@ -320,10 +320,10 @@ Blocks Phase 6 (RAG / office-hosted / PA). Can overlap late Phase 0. Deep-search
 
 **Owner:** Bossmann + Gustavo
 
-- [ ] Document: lawyer runs Claude/Cursor connected to hub MCP server; answers reviewed in hub “Xirp” panel fed by run history / SafeDTO releases.
-- [ ] Persist agent run metadata (tool name, release id, cite status) — no raw PII in logs.
-- [ ] UI panel: list runs + SafeDTO summary for a case.
-- [ ] Commit: `feat(xirp): agent answer panel from MCP releases`.
+- [x] Document: lawyer runs Claude/Cursor connected to hub MCP server; answers reviewed in hub “Xirp” panel fed by run history / SafeDTO releases.
+- [x] Persist agent run metadata (tool name, release id, cite status) — no raw PII in logs.
+- [x] UI panel: list runs + SafeDTO summary for a case.
+- [x] Commit: `feat(xirp): agent answer panel from MCP releases`.
 
 ### Task 4.2 — Optional in-hub MCP client (later)
 

@@ -6,6 +6,7 @@ import {
 } from "@models/gateway.model";
 import { QualquerSafeDTO } from "@models/safe-dto.model";
 import { Injectable, Logger } from "@nestjs/common";
+import { XirpRunsService } from "@modules/xirp/xirp-runs.service";
 import { AuditService } from "./audit.service";
 import { FalhaDeDeclassificacao } from "./declassify.service";
 import { PolicyService } from "./policy.service";
@@ -32,6 +33,7 @@ export class GatewayService {
     private auditService: AuditService,
     private toolCatalogService: ToolCatalogService,
     private safeDtoEgress: SafeDtoEgressService,
+    private xirpRuns: XirpRunsService,
   ) {}
 
   ferramentasPara(identidade: Identidade | null): FerramentaGateway[] {
@@ -123,6 +125,21 @@ export class GatewayService {
       nivel: dto.declassificacao.nivel,
       omitido: dto.declassificacao.omitido,
     });
+
+    if (identidade) {
+      try {
+        await this.xirpRuns.recordFromRelease({
+          identidade,
+          ferramenta: nome,
+          argumentos: validacao.data as Record<string, unknown>,
+          dto: egress.dto,
+        });
+      } catch (erro) {
+        this.logger.warn(
+          `Xirp record skipped for ${egress.dto.releaseId}: ${erro instanceof Error ? erro.message : "erro"}`,
+        );
+      }
+    }
 
     return { decisao: "permitido", ferramenta: nome, dto: egress.dto, wire: egress.wire };
   }

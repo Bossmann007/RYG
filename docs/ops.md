@@ -257,3 +257,22 @@ A UI renderiza texto. Não interpreta HTML.
 ## O que este recorte não afirma
 
 Não afirma conformidade legal. Não afrouxa o privacy-gateway: dado bruto de caso continua sem sair pela fronteira MCP.
+
+---
+
+## Xirp (Phase 4.1)
+
+Lawyer asks from Claude or Cursor against hub `POST /api/mcp`. Allowed SafeDTO releases are recorded (tool name, `releaseId`, cite status, summary). The case **Xirp** tab lists runs for that capa after membership + clearance.
+
+```sh
+pnpm --dir server run build
+pnpm --dir server run prova:xirp
+```
+
+Optional durable store (when `DB_*` is set):
+
+```sh
+pnpm --dir server run xirp:apply
+```
+
+Task 4.2 (in-hub MCP client) stays out of scope.

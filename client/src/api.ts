@@ -453,6 +453,30 @@ export async function buscarHardvault(q: string): Promise<HardvaultHit[]> {
   return corpo.hits;
 }
 
+export type XirpRun = {
+  id: string;
+  toolName: string;
+  releaseId: string;
+  sessionId: string;
+  citeStatus: "cited" | "silent" | "mixed";
+  summary: string;
+  referenceCount: number;
+  createdAt: string;
+};
+
+export async function listarXirpRuns(casoId: string): Promise<XirpRun[]> {
+  const resposta = await fetch(
+    `${baseUrl()}/api/xirp/casos/${encodeURIComponent(casoId)}/runs`,
+    { headers: cabecalhoHub() },
+  );
+  await exigirOk(resposta);
+  const corpo = (await resposta.json()) as { zone?: string; runs?: XirpRun[]; erro?: string };
+  if (corpo.zone !== "internal" || !Array.isArray(corpo.runs)) {
+    throw new Error("Resposta inválida do Xirp.");
+  }
+  return corpo.runs;
+}
+
 export async function obterStatusWhatsapp(): Promise<WhatsappStatus> {
   const resposta = await fetch(`${baseUrl()}/api/whatsapp/status`);
   if (!resposta.ok) throw new Error(await lerErro(resposta));
