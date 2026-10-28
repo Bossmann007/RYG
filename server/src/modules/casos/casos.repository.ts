@@ -1,7 +1,12 @@
 import { ParteRegistrada } from "@common/security/case-acl";
 import { Caso } from "@models/caso.model";
 import { DbService, tabelaAusente } from "@modules/db/db.service";
-import { Injectable, ServiceUnavailableException } from "@nestjs/common";
+import { RetentionService } from "@modules/retention/retention.service";
+import {
+  ConflictException,
+  Injectable,
+  ServiceUnavailableException,
+} from "@nestjs/common";
 import type { RowDataPacket } from "mysql2/promise";
 import {
   cnjDigitos,
@@ -10,6 +15,7 @@ import {
   type Linha,
   type PacoteCaso,
 } from "./caso.assembler";
+import { decidirPurgeIntake } from "./intake-delete-gate";
 import { ALIASES, nomeSeguro, type NomeTabela } from "./schema-map";
 
 const PROCESSOS_COLUNAS = [
@@ -52,7 +58,10 @@ const FILHAS: NomeTabela[] = [
 
 @Injectable()
 export class CasosRepository {
-  constructor(private readonly db: DbService) {}
+  constructor(
+    private readonly db: DbService,
+    private readonly retention: RetentionService,
+  ) {}
 
   async listar(officeId: string): Promise<Caso[]> {
     return this.carregar(officeId);
@@ -129,10 +138,19 @@ export class CasosRepository {
         [input.officeId, id, input.clientKey, input.officeId, id, input.adverseKey],
       );
     } catch (erro) {
-      await this.apagarIntake(id);
+      try {
+        await this.apagarIntake(input.officeId, id);
+      } catch {
+        /* best-effort rollback; keep the original insert error */
+      }
       throw erro;
     }
     return id;
+  }
+
+  async excluirCapa(officeId: string, casoId: string): Promise<void> {
+    await this.retention.assertPodeApagar(officeId, casoId);
+    await this.apagarIntake(officeId, casoId);
   }
 
   async obter(officeId: string, idOrCnj: string): Promise<Caso | undefined> {
@@ -458,10 +476,33 @@ export class CasosRepository {
     }
   }
 
-  private async apagarIntake(casoId: string): Promise<void> {
+  private async apagarIntake(officeId: string, casoId: string): Promise<void> {
+    await this.retention.assertPodeApagar(officeId, casoId);
+
+    const capa = await this.db.executar(
+      "DELETE FROM casos WHERE id = ? AND office_id = ? AND status = 'intake'",
+      [casoId, officeId],
+    );
+    const capaRemovida = Number(capa.affectedRows || 0) > 0;
+
+    let statusRestante: string | null = null;
+    if (!capaRemovida) {
+      const linhas = await this.db.consultar<RowDataPacket>(
+        `SELECT status AS status FROM casos
+         WHERE CAST(id AS CHAR) = ? AND office_id = ? LIMIT 1`,
+        [casoId, officeId],
+      );
+      statusRestante = linhas.length ? String(linhas[0].status) : null;
+    }
+
+    if (decidirPurgeIntake({ capaRemovida, statusRestante }) === "conflict") {
+      throw new ConflictException(
+        "Só casos em intake podem ser excluídos nesta versão.",
+      );
+    }
+
     await this.db.executar("DELETE FROM case_parties WHERE caso_id = ?", [casoId]).catch(() => undefined);
     await this.db.executar("DELETE FROM case_memberships WHERE caso_id = ?", [casoId]).catch(() => undefined);
-    await this.db.executar("DELETE FROM casos WHERE id = ? AND status = 'intake'", [casoId]).catch(() => undefined);
   }
 
   private ligarFilhos(linhas: Linha[], capa: Linha, processo?: Linha): Linha[] {

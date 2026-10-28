@@ -1,8 +1,14 @@
-import { useEffect, useState } from "react";
+import { CSSProperties, FormEvent, useEffect, useState } from "react";
 import {
   CatalogItem,
+  EnviarWhatsappPedido,
+  WHATSAPP_CLASSIFICACOES,
+  WHATSAPP_TEMPLATES,
+  WhatsappClassificacao,
   WhatsappStatus,
+  WhatsappTemplateId,
   conectarWhatsappStub,
+  enviarWhatsapp,
   exportarPromptCatalogo,
   listarCatalogo,
   obterStatusWhatsapp,
@@ -12,6 +18,210 @@ import {
 type Props = {
   onVoltar: () => void;
 };
+
+type EstadoEnvio =
+  | { fase: "ocioso" }
+  | { fase: "enviando" }
+  | {
+      fase: "aguardando_confirmacao";
+      pedido: EnviarWhatsappPedido;
+      desafio: string;
+      expiraEm: string;
+    }
+  | { fase: "enviado"; id: string; modo: string }
+  | { fase: "erro"; mensagem: string };
+
+const ROTULO_CLASSIFICACAO: Record<WhatsappClassificacao, string> = {
+  publico: "Público",
+  interno: "Interno",
+  sigiloso: "Sigiloso",
+  segredo_justica: "Segredo de justiça",
+};
+
+const estiloCampo: CSSProperties = {
+  width: "100%",
+  border: "1px solid var(--linha)",
+  borderRadius: "14px",
+  padding: "12px 14px",
+  background: "var(--papel)",
+  color: "var(--texto)",
+};
+
+function FormEnvioWhatsapp() {
+  const [para, setPara] = useState("");
+  const [texto, setTexto] = useState("");
+  const [classification, setClassification] = useState<WhatsappClassificacao | "">("");
+  const [classificationAck, setClassificationAck] = useState(false);
+  const [templateId, setTemplateId] = useState<WhatsappTemplateId | "">("");
+  const [safeDtoReleaseId, setSafeDtoReleaseId] = useState("");
+  const [envio, setEnvio] = useState<EstadoEnvio>({ fase: "ocioso" });
+
+  const bloqueado = envio.fase === "enviando" || envio.fase === "aguardando_confirmacao";
+
+  async function disparar(pedido: EnviarWhatsappPedido) {
+    setEnvio({ fase: "enviando" });
+    try {
+      const resultado = await enviarWhatsapp(pedido);
+      if (resultado.status === "confirmacao_necessaria") {
+        setEnvio({
+          fase: "aguardando_confirmacao",
+          pedido,
+          desafio: resultado.desafio,
+          expiraEm: resultado.expiraEm,
+        });
+        return;
+      }
+      setEnvio({ fase: "enviado", id: resultado.id, modo: resultado.modo });
+      setTexto("");
+      setClassificationAck(false);
+    } catch (falha) {
+      setEnvio({
+        fase: "erro",
+        mensagem: falha instanceof Error ? falha.message : "Falha ao enviar WhatsApp.",
+      });
+    }
+  }
+
+  function enviar(evento: FormEvent) {
+    evento.preventDefault();
+    if (bloqueado || !classification || !classificationAck) return;
+    void disparar({
+      para: para.trim(),
+      texto: texto.trim(),
+      classification,
+      classificationAck,
+      templateId: templateId || undefined,
+      safeDtoReleaseId: safeDtoReleaseId.trim() || undefined,
+    });
+  }
+
+  return (
+    <form
+      className="compositor"
+      style={{ flexDirection: "column", alignItems: "stretch", marginTop: "1rem" }}
+      onSubmit={enviar}
+    >
+      <fieldset
+        disabled={bloqueado}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "8px",
+          border: 0,
+          padding: 0,
+          margin: 0,
+          minWidth: 0,
+        }}
+      >
+        <input
+          value={para}
+          onChange={(e) => setPara(e.target.value)}
+          placeholder="Para (telefone com DDI)"
+          aria-label="Destino"
+          required
+        />
+        <textarea
+          value={texto}
+          onChange={(e) => setTexto(e.target.value)}
+          placeholder="Mensagem"
+          aria-label="Mensagem"
+          rows={4}
+          required
+          style={{ ...estiloCampo, resize: "vertical" }}
+        />
+        <select
+          value={classification}
+          onChange={(e) =>
+            setClassification(WHATSAPP_CLASSIFICACOES.find((c) => c === e.target.value) ?? "")
+          }
+          aria-label="Classificação do conteúdo"
+          required
+          style={estiloCampo}
+        >
+          <option value="">Classificação do conteúdo…</option>
+          {WHATSAPP_CLASSIFICACOES.map((c) => (
+            <option key={c} value={c}>
+              {ROTULO_CLASSIFICACAO[c]}
+            </option>
+          ))}
+        </select>
+        <select
+          value={templateId}
+          onChange={(e) =>
+            setTemplateId(WHATSAPP_TEMPLATES.find((t) => t === e.target.value) ?? "")
+          }
+          aria-label="Template aprovado"
+          style={estiloCampo}
+        >
+          <option value="">Sem template (texto livre)</option>
+          {WHATSAPP_TEMPLATES.map((t) => (
+            <option key={t} value={t}>
+              {t}
+            </option>
+          ))}
+        </select>
+        <input
+          value={safeDtoReleaseId}
+          onChange={(e) => setSafeDtoReleaseId(e.target.value)}
+          placeholder="safeDtoReleaseId (rel_…), opcional"
+          aria-label="safeDtoReleaseId"
+        />
+        <p className="cartao-meta">
+          CPF, CNPJ, número CNJ ou e-mail no texto exigem template aprovado ou release SafeDTO.
+        </p>
+        <label style={{ display: "flex", gap: "8px", alignItems: "flex-start" }}>
+          <input
+            type="checkbox"
+            checked={classificationAck}
+            onChange={(e) => setClassificationAck(e.target.checked)}
+            style={{ flex: "none", padding: 0, marginTop: "4px" }}
+          />
+          <span>
+            Revisei a mensagem: a classificação escolhida está correta e o conteúdo pode sair do
+            hub por WhatsApp.
+          </span>
+        </label>
+        <div>
+          <button type="submit" disabled={bloqueado || !classification || !classificationAck}>
+            {envio.fase === "enviando" ? "Enviando…" : "Enviar WhatsApp"}
+          </button>
+        </div>
+      </fieldset>
+
+      {envio.fase === "aguardando_confirmacao" && (
+        <div role="alert">
+          <p>
+            Confirmação humana necessária para enviar a <strong>{envio.pedido.para}</strong> (
+            {ROTULO_CLASSIFICACAO[envio.pedido.classification]}). Desafio{" "}
+            <strong>{envio.desafio}</strong>, válido até{" "}
+            {new Date(envio.expiraEm).toLocaleTimeString("pt-BR")}.
+          </p>
+          <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+            <button
+              type="button"
+              onClick={() => void disparar({ ...envio.pedido, confirmacao: envio.desafio })}
+            >
+              Confirmar envio
+            </button>
+            <button type="button" className="voltar" onClick={() => setEnvio({ fase: "ocioso" })}>
+              Cancelar
+            </button>
+          </div>
+        </div>
+      )}
+      {envio.fase === "enviado" && (
+        <p className="selo status-ATIVO" role="status">
+          Enviado ({envio.modo || "ok"}) · id {envio.id}
+        </p>
+      )}
+      {envio.fase === "erro" && (
+        <p className="chat-erro" role="alert">
+          {envio.mensagem}
+        </p>
+      )}
+    </form>
+  );
+}
 
 export function Backstage({ onVoltar }: Props) {
   const [itens, setItens] = useState<CatalogItem[]>([]);
@@ -127,6 +337,7 @@ export function Backstage({ onVoltar }: Props) {
             Abrir OAuth (precisa APP_ID)
           </button>
         </div>
+        <FormEnvioWhatsapp />
       </article>
     </section>
   );

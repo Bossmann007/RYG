@@ -110,9 +110,20 @@ export class CasosService {
     });
   }
 
+  async excluir(identidade: IdentidadeRequisicao, idOrCnj: string): Promise<void> {
+    if (identidade.papel !== "socio" && identidade.papel !== "gestor") {
+      throw new ForbiddenException("Só socio ou gestor excluem casos.");
+    }
+    const caso = await this.obter(identidade, idOrCnj);
+    await this.repositorio.excluirCapa(identidade.officeId, String(caso.id));
+    await this.auditar(identidade, "caso_excluir", "permitido", "exclusao", {
+      casoId: String(caso.id),
+    });
+  }
+
   private auditar(
     identidade: IdentidadeRequisicao,
-    ferramenta: "caso_obter" | "caso_abrir",
+    ferramenta: "caso_obter" | "caso_abrir" | "caso_excluir",
     decisao: RegistroAuditoria["decisao"],
     motivo: string,
     argumentos: Record<string, unknown>,
