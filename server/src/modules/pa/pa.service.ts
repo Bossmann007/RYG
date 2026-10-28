@@ -51,9 +51,17 @@ export class PaService {
     runtime: "office-hosted" | "linked-provider" = "linked-provider",
   ): Promise<ReturnType<PaService["sessaoPublica"]>> {
     if (!this.paModeEnabled()) {
+      await this.auditar(identidade, "pa_session_open", "negado", "pa_off", {
+        actor: "human",
+        delegatedBy: identidade.id,
+      });
       throw new ForbiddenException("PA mode desligado (OFFICE_PA_MODE≠true).");
     }
     if (!PAPEIS_PA.has(identidade.papel)) {
+      await this.auditar(identidade, "pa_session_open", "negado", "papel", {
+        actor: "human",
+        delegatedBy: identidade.id,
+      });
       throw new ForbiddenException(
         "PA mode é opt-in para socio ou gestor. Consult permanece o padrão.",
       );
@@ -67,26 +75,25 @@ export class PaService {
       openedAt: new Date().toISOString(),
       runtime: runtimeOk,
     };
-    this.sessoes.set(this.chave(identidade), sessao);
     await this.auditar(identidade, "pa_session_open", "permitido", "pa_open", {
       sessionId: sessao.id,
       runtime: runtimeOk,
       actor: "pa_session",
       delegatedBy: sessao.delegatedBy,
     });
+    this.sessoes.set(this.chave(identidade), sessao);
     return this.sessaoPublica(sessao);
   }
 
   async fecharSessao(identidade: IdentidadeRequisicao): Promise<void> {
     const sessao = this.sessaoAtiva(identidade);
+    if (!sessao) return;
+    await this.auditar(identidade, "pa_session_stop", "permitido", "pa_close", {
+      sessionId: sessao.id,
+      actor: "pa_session",
+      delegatedBy: sessao.delegatedBy,
+    });
     this.sessoes.delete(this.chave(identidade));
-    if (sessao) {
-      await this.auditar(identidade, "pa_session_stop", "permitido", "pa_close", {
-        sessionId: sessao.id,
-        actor: "pa_session",
-        delegatedBy: sessao.delegatedBy,
-      });
-    }
   }
 
   exigirSessao(identidade: IdentidadeRequisicao): PaSession {
@@ -218,12 +225,17 @@ export class PaService {
     };
   }
 
-  hitlWhatsappChallenge(identidade: IdentidadeRequisicao) {
+  async hitlWhatsappChallenge(identidade: IdentidadeRequisicao) {
     const sessao = this.exigirSessao(identidade);
     const pending = sessao.pendingZap;
     if (!pending) {
       throw new BadRequestException("Nenhum envio WhatsApp pendente nesta sessão PA.");
     }
+    await this.auditar(identidade, "pa_whatsapp_challenge", "permitido", "pa_hitl", {
+      sessionId: sessao.id,
+      actor: "pa_session",
+      delegatedBy: sessao.delegatedBy,
+    });
     return {
       sessionId: sessao.id,
       desafio: pending.desafio,
@@ -380,7 +392,10 @@ export class PaService {
       papel: identidade.papel,
       origem: "hub",
       ferramenta,
-      argumentos,
+      argumentos: {
+        officeId: identidade.officeId,
+        ...argumentos,
+      },
       decisao,
       motivo,
       omitido: [],

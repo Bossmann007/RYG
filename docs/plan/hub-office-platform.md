@@ -458,7 +458,7 @@ Depends on Phase 6 consult green + Phase 0.5 HITL/audit.
 **Owner:** Bossmann + Gabriel + Gustavo
 
 - [x] Tools: case read helpers, checklist, Zap send **with confirm**, export — no raw SQL/FS.
-- [x] Every mutation audited; irreversible → HITL UI.
+- [x] Every mutation audited; irreversible → HITL API (`/api/pa/hitl/*`) for the hub UI (UI surface still backlog).
 - [x] “Learn together” = hub memory/artifacts only — no fine-tune on client processos.
 - [x] Evidence: PA session can propose Zap; blocked without confirm; consult user cannot call tools.
 - [x] Commit: `feat(ai): PA mode tools behind role gate`.

@@ -77,9 +77,9 @@ export class PaController {
   }
 
   @Get("hitl/whatsapp_challenge")
-  hitlChallenge(@Req() req: Request) {
+  async hitlChallenge(@Req() req: Request) {
     const identidade = identidadeDaRequisicao(req);
-    return { zone: "internal" as const, ...this.pa.hitlWhatsappChallenge(identidade) };
+    return { zone: "internal" as const, ...(await this.pa.hitlWhatsappChallenge(identidade)) };
   }
 
   @Post("hitl/whatsapp_confirm")
