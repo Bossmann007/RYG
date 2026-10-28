@@ -2,7 +2,11 @@ import { ParteRegistrada } from "@common/security/case-acl";
 import { Caso } from "@models/caso.model";
 import { DbService, tabelaAusente } from "@modules/db/db.service";
 import { RetentionService } from "@modules/retention/retention.service";
-import { Injectable, ServiceUnavailableException } from "@nestjs/common";
+import {
+  ConflictException,
+  Injectable,
+  ServiceUnavailableException,
+} from "@nestjs/common";
 import type { RowDataPacket } from "mysql2/promise";
 import {
   cnjDigitos,
@@ -133,7 +137,11 @@ export class CasosRepository {
         [input.officeId, id, input.clientKey, input.officeId, id, input.adverseKey],
       );
     } catch (erro) {
-      await this.apagarIntake(input.officeId, id);
+      try {
+        await this.apagarIntake(input.officeId, id);
+      } catch {
+        /* best-effort rollback; keep the original insert error */
+      }
       throw erro;
     }
     return id;
@@ -469,6 +477,23 @@ export class CasosRepository {
 
   private async apagarIntake(officeId: string, casoId: string): Promise<void> {
     await this.retention.assertPodeApagar(officeId, casoId);
+    try {
+      const linhas = await this.db.consultar<RowDataPacket>(
+        `SELECT status AS status FROM casos
+         WHERE CAST(id AS CHAR) = ? AND office_id = ? LIMIT 1`,
+        [casoId, officeId],
+      );
+      if (linhas.length && String(linhas[0].status) !== "intake") {
+        throw new ConflictException(
+          "Só casos em intake podem ser excluídos nesta versão.",
+        );
+      }
+    } catch (erro) {
+      if (erro instanceof ConflictException) {
+        throw erro;
+      }
+      /* Missing row (failed INSERT) or transient ACL/table errors: continue cleanup. */
+    }
     await this.db.executar("DELETE FROM case_parties WHERE caso_id = ?", [casoId]).catch(() => undefined);
     await this.db.executar("DELETE FROM case_memberships WHERE caso_id = ?", [casoId]).catch(() => undefined);
     await this.db.executar(

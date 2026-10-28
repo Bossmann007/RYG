@@ -67,7 +67,10 @@ export class RetentionService {
           throw erro;
         }
         this.schemaHoldIndisponivel = true;
-        this.logger.warn("retention columns ausentes; usando memória (delete fail-closed)");
+        this.logger.warn("retention columns ausentes; fail-closed");
+        throw new ServiceUnavailableException(
+          "Retention schema unavailable; operação bloqueada.",
+        );
       }
     }
 
@@ -113,8 +116,10 @@ export class RetentionService {
           throw erro;
         }
         if (tabelaAusente(erro) || /Unknown column/i.test(String((erro as Error).message || ""))) {
-          this.holds.set(this.chave(officeId, casoId), estado);
-          return estado;
+          this.schemaHoldIndisponivel = true;
+          throw new ServiceUnavailableException(
+            "Retention schema unavailable; operação bloqueada.",
+          );
         }
         throw erro;
       }

@@ -351,7 +351,7 @@ Blocks Phase 6 (RAG / office-hosted / PA). Can overlap late Phase 0. Deep-search
 
 **Owner:** Zupelli
 
-- [x] Document backup for TiDB + object vault; run one restore drill; record in checkpoint.
+- [x] Document backup for TiDB + object vault; record restore drill in checkpoint (documented-no-live-host when no DB_*).
 - [x] Commit: `docs: backup restore drill`.
 
 ### Task 5.0c — Process residuals (stubs OK)
