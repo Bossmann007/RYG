@@ -1,6 +1,7 @@
 import { ParteRegistrada } from "@common/security/case-acl";
 import { Caso } from "@models/caso.model";
 import { DbService, tabelaAusente } from "@modules/db/db.service";
+import { RetentionService } from "@modules/retention/retention.service";
 import { Injectable, ServiceUnavailableException } from "@nestjs/common";
 import type { RowDataPacket } from "mysql2/promise";
 import {
@@ -52,7 +53,10 @@ const FILHAS: NomeTabela[] = [
 
 @Injectable()
 export class CasosRepository {
-  constructor(private readonly db: DbService) {}
+  constructor(
+    private readonly db: DbService,
+    private readonly retention: RetentionService,
+  ) {}
 
   async listar(officeId: string): Promise<Caso[]> {
     return this.carregar(officeId);
@@ -129,10 +133,15 @@ export class CasosRepository {
         [input.officeId, id, input.clientKey, input.officeId, id, input.adverseKey],
       );
     } catch (erro) {
-      await this.apagarIntake(id);
+      await this.apagarIntake(input.officeId, id);
       throw erro;
     }
     return id;
+  }
+
+  async excluirCapa(officeId: string, casoId: string): Promise<void> {
+    await this.retention.assertPodeApagar(officeId, casoId);
+    await this.apagarIntake(officeId, casoId);
   }
 
   async obter(officeId: string, idOrCnj: string): Promise<Caso | undefined> {
@@ -458,10 +467,14 @@ export class CasosRepository {
     }
   }
 
-  private async apagarIntake(casoId: string): Promise<void> {
+  private async apagarIntake(officeId: string, casoId: string): Promise<void> {
+    await this.retention.assertPodeApagar(officeId, casoId);
     await this.db.executar("DELETE FROM case_parties WHERE caso_id = ?", [casoId]).catch(() => undefined);
     await this.db.executar("DELETE FROM case_memberships WHERE caso_id = ?", [casoId]).catch(() => undefined);
-    await this.db.executar("DELETE FROM casos WHERE id = ? AND status = 'intake'", [casoId]).catch(() => undefined);
+    await this.db.executar(
+      "DELETE FROM casos WHERE id = ? AND office_id = ? AND status = 'intake'",
+      [casoId, officeId],
+    ).catch(() => undefined);
   }
 
   private ligarFilhos(linhas: Linha[], capa: Linha, processo?: Linha): Linha[] {
