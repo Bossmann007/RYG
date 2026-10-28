@@ -1,9 +1,3 @@
-/**
- * Phase 6.5: PA session gate + allowlisted tools + WhatsApp HITL.
- *
- *   pnpm --dir server run build
- *   pnpm --dir server run prova:pa
- */
 require("../dist/register-aliases");
 const assert = require("assert");
 const os = require("os");
