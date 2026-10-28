@@ -15,6 +15,7 @@ import {
   type Linha,
   type PacoteCaso,
 } from "./caso.assembler";
+import { decidirPurgeIntake } from "./intake-delete-gate";
 import { ALIASES, nomeSeguro, type NomeTabela } from "./schema-map";
 
 const PROCESSOS_COLUNAS = [
@@ -477,29 +478,31 @@ export class CasosRepository {
 
   private async apagarIntake(officeId: string, casoId: string): Promise<void> {
     await this.retention.assertPodeApagar(officeId, casoId);
-    try {
+
+    const capa = await this.db.executar(
+      "DELETE FROM casos WHERE id = ? AND office_id = ? AND status = 'intake'",
+      [casoId, officeId],
+    );
+    const capaRemovida = Number(capa.affectedRows || 0) > 0;
+
+    let statusRestante: string | null = null;
+    if (!capaRemovida) {
       const linhas = await this.db.consultar<RowDataPacket>(
         `SELECT status AS status FROM casos
          WHERE CAST(id AS CHAR) = ? AND office_id = ? LIMIT 1`,
         [casoId, officeId],
       );
-      if (linhas.length && String(linhas[0].status) !== "intake") {
-        throw new ConflictException(
-          "Só casos em intake podem ser excluídos nesta versão.",
-        );
-      }
-    } catch (erro) {
-      if (erro instanceof ConflictException) {
-        throw erro;
-      }
-      /* Missing row (failed INSERT) or transient ACL/table errors: continue cleanup. */
+      statusRestante = linhas.length ? String(linhas[0].status) : null;
     }
+
+    if (decidirPurgeIntake({ capaRemovida, statusRestante }) === "conflict") {
+      throw new ConflictException(
+        "Só casos em intake podem ser excluídos nesta versão.",
+      );
+    }
+
     await this.db.executar("DELETE FROM case_parties WHERE caso_id = ?", [casoId]).catch(() => undefined);
     await this.db.executar("DELETE FROM case_memberships WHERE caso_id = ?", [casoId]).catch(() => undefined);
-    await this.db.executar(
-      "DELETE FROM casos WHERE id = ? AND office_id = ? AND status = 'intake'",
-      [casoId, officeId],
-    ).catch(() => undefined);
   }
 
   private ligarFilhos(linhas: Linha[], capa: Linha, processo?: Linha): Linha[] {
