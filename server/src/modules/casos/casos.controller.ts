@@ -1,5 +1,15 @@
 import { identidadeDaRequisicao } from "@common/guards/identity.guard";
-import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Req } from "@nestjs/common";
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Param,
+  Post,
+  Req,
+} from "@nestjs/common";
 import { Request } from "express";
 import { CasosService } from "./casos.service";
 
@@ -49,5 +59,12 @@ export class CasosController {
       zone: "internal" as const,
       caso: await this.casosService.obter(identidade, idOrCnj),
     };
+  }
+
+  @Delete(":idOrCnj")
+  @HttpCode(HttpStatus.NO_CONTENT)
+  async excluir(@Req() req: Request, @Param("idOrCnj") idOrCnj: string) {
+    const identidade = identidadeDaRequisicao(req);
+    await this.casosService.excluir(identidade, idOrCnj);
   }
 }
