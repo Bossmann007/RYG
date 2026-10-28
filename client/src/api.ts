@@ -67,17 +67,30 @@ function queryAba(filtro: FiltroAba): string {
   return params.toString();
 }
 
-async function lerErro(resposta: Response): Promise<string> {
-  try {
-    const corpo = (await resposta.json()) as { erro?: string };
-    if (corpo.erro) {
-      return String(corpo.erro);
-    }
-  } catch {
-    /* corpo vazio ou não-JSON */
-  }
+type CorpoJson = Record<string, unknown>;
 
-  return `Falha ao ler o acervo (${resposta.status}).`;
+async function lerJsonOpcional(resposta: Response): Promise<CorpoJson | null> {
+  try {
+    const corpo: unknown = await resposta.json();
+    return corpo && typeof corpo === "object" ? (corpo as CorpoJson) : null;
+  } catch {
+    return null;
+  }
+}
+
+/** Hub handlers answer `{ erro }`; Nest exceptions answer `{ message }` (string or string[]). */
+function mensagemDoCorpo(corpo: CorpoJson | null): string | null {
+  if (!corpo) return null;
+  if (corpo.erro) return String(corpo.erro);
+  const { message } = corpo;
+  if (typeof message === "string" && message) return message;
+  if (Array.isArray(message) && message.length) return message.join("; ");
+  return null;
+}
+
+async function lerErro(resposta: Response): Promise<string> {
+  const mensagem = mensagemDoCorpo(await lerJsonOpcional(resposta));
+  return mensagem ?? `Falha ao ler o acervo (${resposta.status}).`;
 }
 
 function comoDocumento(item: Record<string, unknown>, indice: number): Documento {
@@ -493,6 +506,74 @@ export async function iniciarOauthWhatsapp(): Promise<{ authorizeUrl: string; st
   const resposta = await fetch(`${baseUrl()}/api/whatsapp/oauth/start`, { method: "POST" });
   if (!resposta.ok) throw new Error(await lerErro(resposta));
   return (await resposta.json()) as { authorizeUrl: string; state: string };
+}
+
+export const WHATSAPP_CLASSIFICACOES = [
+  "publico",
+  "interno",
+  "sigiloso",
+  "segredo_justica",
+] as const;
+
+export const WHATSAPP_TEMPLATES = [
+  "prazo_simples",
+  "audiencia_lembrete",
+  "documento_pronto_retirada",
+] as const;
+
+export type WhatsappClassificacao = (typeof WHATSAPP_CLASSIFICACOES)[number];
+export type WhatsappTemplateId = (typeof WHATSAPP_TEMPLATES)[number];
+
+export type EnviarWhatsappPedido = {
+  para: string;
+  texto: string;
+  processoId?: string;
+  classificationAck: boolean;
+  classification: WhatsappClassificacao;
+  templateId?: WhatsappTemplateId;
+  safeDtoReleaseId?: string;
+  confirmacao?: string;
+};
+
+export type EnviarWhatsappResultado =
+  | { status: "enviado"; id: string; modo: string }
+  | { status: "confirmacao_necessaria"; desafio: string; expiraEm: string };
+
+/**
+ * First call without `confirmacao` returns the challenge (HTTP 409); the caller re-sends the same
+ * payload with `confirmacao` set to it. Every other failure throws.
+ */
+export async function enviarWhatsapp(
+  pedido: EnviarWhatsappPedido
+): Promise<EnviarWhatsappResultado> {
+  const resposta = await fetch(`${baseUrl()}/api/whatsapp/enviar`, {
+    method: "POST",
+    headers: { ...cabecalhoHub(), "Content-Type": "application/json" },
+    body: JSON.stringify(pedido),
+  });
+  const corpo = await lerJsonOpcional(resposta);
+
+  if (
+    resposta.status === 409 &&
+    corpo?.confirmacaoNecessaria === true &&
+    typeof corpo.desafio === "string"
+  ) {
+    return {
+      status: "confirmacao_necessaria",
+      desafio: corpo.desafio,
+      expiraEm: typeof corpo.expiraEm === "string" ? corpo.expiraEm : "",
+    };
+  }
+
+  if (!resposta.ok) {
+    throw new Error(mensagemDoCorpo(corpo) ?? `Falha ao enviar WhatsApp (${resposta.status}).`);
+  }
+
+  // The stub answers 200 with `ok: false` + `erro` when the number is not connected.
+  if (!corpo || corpo.ok !== true || typeof corpo.id !== "string") {
+    throw new Error(mensagemDoCorpo(corpo) ?? "Resposta inválida do envio WhatsApp.");
+  }
+  return { status: "enviado", id: corpo.id, modo: String(corpo.modo ?? "") };
 }
 
 /** A tela continua de pé com a cópia local, mas o motivo tem de ficar visível. */

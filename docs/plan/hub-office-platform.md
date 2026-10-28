@@ -344,33 +344,33 @@ Blocks Phase 6 (RAG / office-hosted / PA). Can overlap late Phase 0. Deep-search
 
 **Owner:** Zupelli + Bossmann
 
-- [ ] Retention policy fields; legal hold blocks delete.
-- [ ] Commit: `feat(db): retention and legal hold`.
+- [x] Retention policy fields; legal hold blocks delete.
+- [x] Commit: `feat(db): retention and legal hold`.
 
 ### Task 5.0b — Backup/DR tested
 
 **Owner:** Zupelli
 
-- [ ] Document backup for TiDB + object vault; run one restore drill; record in checkpoint.
-- [ ] Commit: `docs: backup restore drill`.
+- [x] Document backup for TiDB + object vault; run one restore drill; record in checkpoint.
+- [x] Commit: `docs: backup restore drill`.
 
 ### Task 5.0c — Process residuals (stubs OK)
 
 **Owner:** Bossmann
 
-- [ ] DSAR request inbox stub + DPO contact page (no “LGPD certified” claim).
-- [ ] Incident runbook: detect → contain → ANPD notice path (3 business days when applicable).
-- [ ] DPA template + no-training clause before enabling external MCP in prod.
-- [ ] Commit: `docs: dsar ir dpa process stubs`.
+- [x] DSAR request inbox stub + DPO contact page (no “LGPD certified” claim).
+- [x] Incident runbook: detect → contain → ANPD notice path (3 business days when applicable).
+- [x] DPA template + no-training clause before enabling external MCP in prod.
+- [x] Commit: `docs: dsar ir dpa process stubs`.
 
 ### Task 5.1 — WhatsApp real send gate
 
 **Owner:** Gabriel + Bossmann
 
-- [ ] Classification checklist before send; block PII unless SafeDTO/approved template.
-- [ ] Human confirm UI.
-- [ ] Real Meta keys only in env; stub remains for demo.
-- [ ] Commit: `feat(whatsapp): classified send gate`.
+- [x] Classification checklist before send; block PII unless SafeDTO/approved template.
+- [x] Human confirm UI.
+- [x] Real Meta keys only in env; stub remains for demo.
+- [x] Commit: `feat(whatsapp): classified send gate`.
 
 ### Task 5.2 — Docs cleanup
 

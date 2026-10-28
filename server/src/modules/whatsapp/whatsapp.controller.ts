@@ -13,6 +13,7 @@ import {
   Req,
 } from "@nestjs/common";
 import { Request } from "express";
+import { avaliarEnvioWhatsapp } from "./whatsapp-classify";
 import { WhatsappService } from "./whatsapp.service";
 
 type EnviarDto = {
@@ -20,6 +21,10 @@ type EnviarDto = {
   texto?: string;
   processoId?: string;
   confirmacao?: string;
+  classificationAck?: boolean;
+  classification?: string;
+  templateId?: string;
+  safeDtoReleaseId?: string;
 };
 
 @Controller("whatsapp")
@@ -90,6 +95,23 @@ export class WhatsappController {
       throw new BadRequestException("para e texto são obrigatórios.");
     }
     const pedido = { para, texto, processoId: processoId || undefined };
+    const gate = avaliarEnvioWhatsapp({
+      texto,
+      classificationAck: Boolean(body.classificationAck),
+      classification: body.classification,
+      templateId: body.templateId,
+      safeDtoReleaseId: body.safeDtoReleaseId,
+    });
+    if (gate.ok === false) {
+      const motivo = gate.motivo;
+      const pii = gate.pii || [];
+      await this.registar(identidade, pedido, "negado", motivo);
+      throw new BadRequestException({
+        message: motivo,
+        pii,
+        classificationChecklist: true,
+      });
+    }
     const confirmacao = (body.confirmacao || "").trim();
     if (!confirmacao) {
       await this.registar(identidade, pedido, "negado", "confirmacao ausente");
@@ -106,12 +128,13 @@ export class WhatsappController {
       await this.registar(identidade, pedido, "negado", "confirmacao invalida");
       throw new ConflictException("Confirmacao invalida ou expirada.");
     }
-    await this.registar(identidade, pedido, "permitido", "confirmacao humana");
+    await this.registar(identidade, pedido, "permitido", "confirmacao humana + classification");
     await this.registarTransferencia(identidade, pedido);
     const resultado = this.whatsappService.enviar(pedido);
     return {
       zone: "internal" as const,
       tool: "enviar_whatsapp",
+      classification: String(body.classification || "").trim(),
       ...resultado,
     };
   }

@@ -14,7 +14,18 @@ const { NestFactory } = require("@nestjs/core");
 const { AppModule } = require("../dist/app.module");
 const { HttpExceptionFilter } = require("../dist/common/filters/http-exception.filter");
 
-const PEDIDO = { para: "+5541999990000", texto: "oi hitl" };
+const PEDIDO = {
+  para: "+5541999990000",
+  texto: "oi hitl",
+  classificationAck: true,
+  classification: "interno",
+};
+const PEDIDO_PII = {
+  para: "+5541999990000",
+  texto: "CPF 529.982.247-25 do cliente",
+  classificationAck: true,
+  classification: "sigiloso",
+};
 
 async function boot() {
   const app = await NestFactory.create(AppModule, { logger: false });
@@ -48,6 +59,24 @@ async function main() {
   try {
     const stub = await post(ligado.base, "/api/whatsapp/conectar-stub", null, {});
     assert.strictEqual(stub.status, 200, "stub connect stays public");
+
+    const semAck = await post(ligado.base, "/api/whatsapp/enviar", "demo-socio", {
+      para: PEDIDO.para,
+      texto: PEDIDO.texto,
+    });
+    console.log(`POST enviar sem classificationAck -> ${semAck.status}`);
+    assert.strictEqual(semAck.status, 400, "classification checklist required");
+
+    const pii = await post(ligado.base, "/api/whatsapp/enviar", "demo-socio", PEDIDO_PII);
+    console.log(`POST enviar PII sem template -> ${pii.status}`);
+    assert.strictEqual(pii.status, 400, "PII without template/SafeDTO must block");
+
+    const piiTpl = await post(ligado.base, "/api/whatsapp/enviar", "demo-socio", {
+      ...PEDIDO_PII,
+      templateId: "prazo_simples",
+    });
+    assert.strictEqual(piiTpl.status, 409, "approved template still needs human confirm");
+    assert.strictEqual(piiTpl.json.confirmacaoNecessaria, true);
 
     const sem = await post(ligado.base, "/api/whatsapp/enviar", "demo-socio", PEDIDO);
     console.log(`POST enviar sem confirmacao -> ${sem.status} desafio=${Boolean(sem.json && sem.json.desafio)}`);
