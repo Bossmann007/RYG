@@ -1,11 +1,11 @@
 import {
   CASE_CLASSIFICATIONS,
-  CaseClassification,
   CLASSIFICATION_DEFAULT,
   clearanceOk,
   isCaseClassification,
 } from "@common/security/case-classification";
 import { IdentidadeRequisicao } from "@common/guards/identity.guard";
+import { CasosService } from "@modules/casos/casos.service";
 import { DbService, tabelaAusente } from "@modules/db/db.service";
 import { AuditService } from "@modules/gateway/audit.service";
 import { WikiService } from "@modules/wiki/wiki.service";
@@ -37,6 +37,7 @@ export class RagService {
   constructor(
     private readonly db: DbService,
     private readonly wiki: WikiService,
+    private readonly casos: CasosService,
     private readonly audit: AuditService,
     private readonly config: ConfigService,
   ) {
@@ -119,23 +120,32 @@ export class RagService {
       return { hits: [], silent: true, runtime, ledgerIds: [] };
     }
 
+    if (input.casoId) {
+      await this.casos.obter(identidade, input.casoId);
+    }
+
     let candidatos = [...(this.chunks.get(identidade.officeId) || [])];
+    let liveAclJaAplicada = false;
     if (this.db.configurado()) {
       try {
         const live = await this.wiki.buscarHardvault(identidade, q);
         if (live.hits.length) {
-          candidatos = live.hits.map((h) => ({
-            sourceId: h.id,
-            officeId: identidade.officeId,
-            title: h.title,
-            snippet: h.snippet,
-            classification: CLASSIFICATION_DEFAULT,
-            acl: [
-              { principalType: "office" as const, principalId: identidade.officeId },
-              { principalType: "user" as const, principalId: identidade.id },
-              { principalType: "role" as const, principalId: identidade.papel },
-            ],
-          }));
+          liveAclJaAplicada = true;
+          candidatos = live.hits.map((h) => {
+            const classification = isCaseClassification(h.classification)
+              ? h.classification
+              : "interno";
+            return {
+              sourceId: h.id,
+              officeId: identidade.officeId,
+              title: h.title,
+              snippet: h.snippet,
+              classification,
+              acl: [
+                { principalType: "office" as const, principalId: identidade.officeId },
+              ],
+            };
+          });
         }
       } catch (erro) {
         if (!(erro instanceof ServiceUnavailableException)) {
@@ -146,11 +156,14 @@ export class RagService {
 
     const termo = q.toLowerCase();
     const filtrados = candidatos.filter((c) => {
-      if (!this.aclOk(identidade, c)) {
+      if (!liveAclJaAplicada && !this.aclOk(identidade, c)) {
         return false;
       }
       if (!clearanceOk(c.classification, identidade.papel)) {
         return false;
+      }
+      if (liveAclJaAplicada) {
+        return true;
       }
       const blob = `${c.title} ${c.snippet}`.toLowerCase();
       return blob.includes(termo);
