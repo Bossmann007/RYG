@@ -12,6 +12,7 @@ import { JurisprudenceModule } from "@modules/jurisprudence/jurisprudence.module
 import { McpModule } from "@modules/mcp/mcp.module";
 import { PetitionsModule } from "@modules/petitions/petitions.module";
 import { ProcessModule } from "@modules/process/process.module";
+import { PaModule } from "@modules/pa/pa.module";
 import { RagModule } from "@modules/rag/rag.module";
 import { ResearchModule } from "@modules/research/research.module";
 import { RetentionModule } from "@modules/retention/retention.module";
@@ -58,6 +59,7 @@ import { AppService } from "./app.service";
     XirpModule,
     RetentionModule,
     RagModule,
+    PaModule,
   ],
   controllers: [AppController],
   providers: [AppService, { provide: APP_GUARD, useClass: IdentityGuard }],
