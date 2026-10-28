@@ -1,5 +1,6 @@
 import { Identidade } from "@models/gateway.model";
 import { DbService, tabelaAusente } from "@modules/db/db.service";
+import { AuditService } from "@modules/gateway/audit.service";
 import {
   ConflictException,
   ForbiddenException,
@@ -25,8 +26,13 @@ export type RetentionState = {
 export class RetentionService {
   private readonly logger = new Logger(RetentionService.name);
   private readonly holds = new Map<string, RetentionState>();
+  /** When HubLegal is configured but hold columns are missing, delete must fail closed. */
+  private schemaHoldIndisponivel = false;
 
-  constructor(private readonly db: DbService) {}
+  constructor(
+    private readonly db: DbService,
+    private readonly audit: AuditService,
+  ) {}
 
   private chave(officeId: string, casoId: string): string {
     return `${officeId}::${casoId}`;
@@ -60,7 +66,8 @@ export class RetentionService {
         if (!tabelaAusente(erro) && !/Unknown column/i.test(String((erro as Error).message || ""))) {
           throw erro;
         }
-        this.logger.warn("retention columns ausentes; usando memória");
+        this.schemaHoldIndisponivel = true;
+        this.logger.warn("retention columns ausentes; usando memória (delete fail-closed)");
       }
     }
 
@@ -114,6 +121,23 @@ export class RetentionService {
     }
 
     this.holds.set(this.chave(officeId, casoId), estado);
+    await this.audit.registrar({
+      at: new Date().toISOString(),
+      identidade: identidade.id,
+      nome: identidade.nome,
+      papel: identidade.papel,
+      origem: "hub",
+      ferramenta: "retention_hold",
+      argumentos: {
+        casoId,
+        legalHold,
+        retentionUntil: estado.retentionUntil || "",
+      },
+      decisao: "permitido",
+      motivo: legalHold ? "legal_hold_on" : "legal_hold_off",
+      omitido: [],
+      duracaoMs: 0,
+    });
     return estado;
   }
 
@@ -122,6 +146,11 @@ export class RetentionService {
     const estado = await this.obter(officeId, casoId);
     if (estado.legalHold) {
       throw new ConflictException("Legal hold ativo. Exclusão bloqueada.");
+    }
+    if (this.db.configurado() && this.schemaHoldIndisponivel) {
+      throw new ServiceUnavailableException(
+        "Retention schema unavailable; exclusão bloqueada.",
+      );
     }
   }
 
