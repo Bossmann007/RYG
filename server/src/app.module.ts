@@ -6,6 +6,7 @@ import { ChatModule } from "@modules/chat/chat.module";
 import { ClientsModule } from "@modules/clients/clients.module";
 import { ContractsModule } from "@modules/contracts/contracts.module";
 import { DecisionsModule } from "@modules/decisions/decisions.module";
+import { FinanceiroModule } from "@modules/financeiro/financeiro.module";
 import { GatewayModule } from "@modules/gateway/gateway.module";
 import { JmlModule } from "@modules/jml/jml.module";
 import { JurisprudenceModule } from "@modules/jurisprudence/jurisprudence.module";
@@ -58,6 +59,7 @@ import { AppService } from "./app.service";
     VaultModule,
     XirpModule,
     RetentionModule,
+    FinanceiroModule,
     RagModule,
     PaModule,
   ],
