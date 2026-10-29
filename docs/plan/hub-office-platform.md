@@ -157,47 +157,47 @@ Blocks Phase 6 (RAG / office-hosted / PA). Can overlap late Phase 0. Deep-search
 
 **Owner:** Zupelli + Bossmann
 
-- [ ] Every row keyed by `office_id`; queries fail closed without it.
-- [ ] Tests: office A cannot read office B casos/chat/vault.
-- [ ] Commit: `feat(db): multi-office tenant isolation`.
+- [x] Hub casos/chat/wiki/RAG filter by `office_id` (IdentityGuard + repository). Remaining CRUD (`clientes`/`contratos`/…) still need office predicates — tracked on issue #1.
+- [x] Tests: office A cannot read office B casos (`prova:case-acl` / office provas when DB up).
+- [x] Commit: `feat(db): multi-office tenant isolation` (via Phase 0.5 stub PR #2).
 
 ### Task 0.5.2 — AuthN, MFA, session, offboarding
 
 **Owner:** Bossmann + Gustavo
 
-- [ ] Login + MFA + idle timeout.
-- [ ] Admin JML: disable user revokes hub session, MCP grants, and flags WhatsApp/MCP tokens.
-- [ ] Tests: disabled user → 401 on API and MCP.
-- [ ] Commit: `feat(auth): MFA session and offboarding`.
+- [ ] Product login + TOTP MFA (stub: fixture bearers only).
+- [x] Idle timeout + JML disable → 401 on hub/MCP (`prova:mfa-jml`). Durable disable + WhatsApp token flag still open.
+- [x] Tests: disabled user → 401 on API and MCP.
+- [x] Commit: stub path landed with Phase 0.5 (#2).
 
 ### Task 0.5.3 — RBAC per case + Chinese wall
 
 **Owner:** Zupelli (schema), Bossmann (policy), Gustavo (UI intake)
 
-- [ ] Case membership roles; default deny.
-- [ ] Conflict check at intake (client/adverse party) before open.
-- [ ] Tests: non-member 403; conflict blocks open.
-- [ ] Commit: `feat(acl): case RBAC and conflict wall`.
+- [x] Case membership deny-by-default; role column unused beyond insert.
+- [x] Conflict check at intake before open (`prova:case-acl`).
+- [x] Tests: non-member 403; conflict blocks open.
+- [x] Commit: case ACL + wall (Phase 0.5 / follow-ups).
 
 ### Task 0.5.4 — Classification + immutable audit + HITL egress
 
 **Owner:** Bossmann
 
-- [ ] Labels on caso/doc (e.g. publico / interno / sigiloso / segredo_justica).
-- [ ] Append-only audit: open case, publish vault, MCP tool, WhatsApp send, export.
-- [ ] HITL confirm UI for WhatsApp and any pack leaving trust zone.
-- [ ] Commit: `feat(security): classification audit and HITL egress`.
+- [x] Labels on caso capa; hardvault publish still hardcodes `interno`.
+- [x] Append-only fail-closed audit; successful `caso_abrir` audited; catalog export audited.
+- [x] HITL WhatsApp (hub + PA `/api/pa/hitl/*`); catalog `requerSafeDto` needs `safeDtoReleaseId`. Confirm UI for packs still thin.
+- [x] Commit: trust gaps follow-up on `cursor/phase05-trust-gaps-cdf2`.
 
 ### Task 0.5.5 — Secrets vault + crypto + transfer register
 
 **Owner:** Bossmann + Gabriel
 
-- [ ] Encrypted store for per-user provider tokens / WhatsApp secrets (not `.env` in git).
-- [ ] TLS in transit; encryption at rest for vault blobs (document approach).
-- [ ] Log when data may leave BR via external MCP (transfer register stub).
-- [ ] Commit: `feat(security): secrets vault and transfer register`.
+- [x] In-memory AES vault stub (`prova:vault`); durable store + WhatsApp secrets out of env still open.
+- [ ] TLS / at-rest for vault blobs (ops docs exist; product encrypt path incomplete).
+- [x] Transfer register stub (`POST /api/transfer/note` + WhatsApp/PA lines).
+- [x] Commit: stub with Phase 0.5 (#2).
 
-**Phase 0.5 exit:** Checklist P0 1–8 green with tests; `/blindspot-pass` on trust boundaries.
+**Phase 0.5 exit:** P0 1–8 stubs green with provas; product MFA/login, durable vault, and office predicates on leftover CRUD remain on issue #1 before claiming full exit.
 
 ---
 

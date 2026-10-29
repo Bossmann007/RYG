@@ -335,7 +335,7 @@ export type WhatsappStatus = {
 };
 
 export async function listarCatalogo(): Promise<CatalogItem[]> {
-  const resposta = await fetch(`${baseUrl()}/api/catalogo`);
+  const resposta = await fetch(`${baseUrl()}/api/catalogo`, { headers: cabecalhoHub() });
   if (!resposta.ok) throw new Error(await lerErro(resposta));
   const corpo = (await resposta.json()) as { zone?: string; itens?: CatalogItem[] };
   if (corpo.zone !== "internal" || !Array.isArray(corpo.itens)) {
@@ -345,9 +345,16 @@ export async function listarCatalogo(): Promise<CatalogItem[]> {
 }
 
 export async function exportarPromptCatalogo(
-  id: string
+  id: string,
+  safeDtoReleaseId?: string
 ): Promise<{ id: string; corpo: string; requerSafeDto: boolean; aviso: string }> {
-  const resposta = await fetch(`${baseUrl()}/api/catalogo/export/${encodeURIComponent(id)}`);
+  const params = new URLSearchParams();
+  if (safeDtoReleaseId) params.set("safeDtoReleaseId", safeDtoReleaseId);
+  const qs = params.toString();
+  const resposta = await fetch(
+    `${baseUrl()}/api/catalogo/export/${encodeURIComponent(id)}${qs ? `?${qs}` : ""}`,
+    { headers: cabecalhoHub() }
+  );
   if (!resposta.ok) throw new Error(await lerErro(resposta));
   const corpo = (await resposta.json()) as {
     zone?: string;
