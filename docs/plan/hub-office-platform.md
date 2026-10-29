@@ -471,9 +471,10 @@ Depends on Phase 6 consult green + Phase 0.5 HITL/audit.
 
 **Own ADR before coding.** Do not start before Phase 2.5 + 0.5.
 
-- [ ] ADR `0006-pms-financeiro.md`: honorários, custas, faturas simples, what is out (full ERP).
-- [ ] Schema + UI minimal; audit every money field change.
-- [ ] Commit when ADR accepted.
+- [x] ADR `0006-pms-financeiro.md`: honorários wedge; custas/faturas/ERP out.
+- [x] Schema + Nest `/api/casos/:id/honorarios`; audit every append (amount omitted from JSONL). UI deferred.
+- [x] Evidence: `pnpm --dir server run prova:financeiro`.
+- [x] Commit: `docs(adr): PMS financeiro honorarios` + `feat(financeiro): case honorarios append-only`.
 
 
 ---
