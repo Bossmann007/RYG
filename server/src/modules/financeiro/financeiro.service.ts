@@ -56,14 +56,7 @@ export class FinanceiroService {
     }
     await this.exigirAcesso(identidade, casoId, true);
 
-    const amountCentavos = Number(body.amountCentavos);
-    if (
-      !Number.isInteger(amountCentavos) ||
-      amountCentavos < 0 ||
-      amountCentavos > Number.MAX_SAFE_INTEGER
-    ) {
-      throw new BadRequestException("amountCentavos deve ser inteiro >= 0 (centavos BRL).");
-    }
+    const amountCentavos = this.parseAmountCentavos(body.amountCentavos);
     const kindRaw = body.kind === undefined ? "contratado" : body.kind;
     if (!isHonorarioKind(kindRaw)) {
       throw new BadRequestException("kind inválido (v0: contratado).");
@@ -82,7 +75,12 @@ export class FinanceiroService {
 
     if (this.db.configurado()) {
       const persistido = await this.inserirDb(linha);
-      await this.auditarAppend(identidade, persistido);
+      try {
+        await this.auditarAppend(identidade, persistido);
+      } catch (erro) {
+        await this.apagarDb(identidade.officeId, persistido.id).catch(() => undefined);
+        throw erro;
+      }
       return persistido;
     }
 
@@ -156,6 +154,30 @@ export class FinanceiroService {
       this.falhaSchema(erro);
       throw erro;
     }
+  }
+
+  private async apagarDb(officeId: string, lancamentoId: string): Promise<void> {
+    await this.db.executar(
+      `DELETE FROM caso_honorarios WHERE office_id = ? AND CAST(id AS CHAR) = ? LIMIT 1`,
+      [officeId, lancamentoId],
+    );
+  }
+
+  private parseAmountCentavos(raw: unknown): number {
+    if (typeof raw === "number") {
+      if (!Number.isInteger(raw) || raw < 0 || raw > Number.MAX_SAFE_INTEGER) {
+        throw new BadRequestException("amountCentavos deve ser inteiro >= 0 (centavos BRL).");
+      }
+      return raw;
+    }
+    if (typeof raw === "string" && /^(0|[1-9]\d*)$/.test(raw.trim())) {
+      const n = Number(raw.trim());
+      if (!Number.isSafeInteger(n)) {
+        throw new BadRequestException("amountCentavos deve ser inteiro >= 0 (centavos BRL).");
+      }
+      return n;
+    }
+    throw new BadRequestException("amountCentavos deve ser inteiro >= 0 (centavos BRL).");
   }
 
   private falhaSchema(erro: unknown): void {
