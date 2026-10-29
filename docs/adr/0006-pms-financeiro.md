@@ -18,7 +18,7 @@ The hub is a PMS OS. Processo and prazos exist. Financeiro is still empty. Full 
 4. **Tenancy + ACL.** Every row has `office_id` + `caso_id`. Reads/writes go through existing case membership + classification clearance (`CasosService.obter`). Cross-office → 404. Non-member → 403.
 5. **Who writes.** Only `socio` or `gestor` may append a fee line. Estagiário/advogado read if they have case membership.
 6. **Append-only.** No PATCH/DELETE of fee lines in v0. Corrections are a later ADR (reversal lines).
-7. **Audit fail-closed.** Every successful append is audited **before** the HTTP 201 returns. Audit arguments must **not** include the raw amount (only `lancamentoId`, `casoId`, `officeId`, `kind`). Audit write failure → 503 and no durable line (or rollback).
+7. **Audit fail-closed.** Every successful append is audited **before** the HTTP 201 returns. Audit arguments must **not** include the raw amount (only `lancamentoId`, `casoId`, `officeId`, `kind`). Audit write failure → 503 and no durable line (memory pop or DB `DELETE` rollback of the just-inserted row).
 8. **Schema missing.** If HubLegal is configured but `caso_honorarios` is absent → 503 fail-closed (same spirit as retention).
 9. **Demo without DB.** In-memory ledger for provas when `DB_*` is unset, still keyed by office + case membership shadow for socio writers.
 

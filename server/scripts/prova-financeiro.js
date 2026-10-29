@@ -61,6 +61,14 @@ async function main() {
     });
     assert.strictEqual(est.status, 403, "estagiario cannot write honorarios");
 
+    for (const ruim of [null, "", false, true, "0150000", 12.5]) {
+      const bad = await pedir(base, "POST", `/api/casos/${casoId}/honorarios`, "demo-socio", {
+        amountCentavos: ruim,
+        kind: "contratado",
+      });
+      assert.strictEqual(bad.status, 400, `reject amount ${JSON.stringify(ruim)}`);
+    }
+
     const post = await pedir(base, "POST", `/api/casos/${casoId}/honorarios`, "demo-socio", {
       amountCentavos: 150000,
       kind: "contratado",
