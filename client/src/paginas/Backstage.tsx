@@ -253,11 +253,23 @@ export function Backstage({ onVoltar }: Props) {
   }, []);
 
   async function exportar(id: string) {
-    const prompt = await exportarPromptCatalogo(id);
+    const item = itens.find((entrada) => entrada.id === id);
+    let releaseId: string | undefined;
+    if (item?.requerSafeDto) {
+      const digitado = window.prompt(
+        "Este prompt exige SafeDTO. Cole o safeDtoReleaseId da liberação HITL:",
+      );
+      if (!digitado?.trim()) {
+        setExportado("Export cancelado: falta safeDtoReleaseId.");
+        return;
+      }
+      releaseId = digitado.trim();
+    }
+    const prompt = await exportarPromptCatalogo(id, releaseId);
     await navigator.clipboard.writeText(prompt.corpo);
     setExportado(
       prompt.requerSafeDto
-        ? "Copiado. Este prompt exige SafeDTO se houver PII do cliente."
+        ? "Copiado. Release SafeDTO registrado na auditoria."
         : "Prompt copiado para linked-provider."
     );
   }

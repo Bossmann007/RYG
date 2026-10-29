@@ -1,5 +1,4 @@
 import { IdentidadeRequisicao, identidadeDaRequisicao } from "@common/guards/identity.guard";
-import { Public } from "@common/decorators/public.decorator";
 import { RegistroAuditoria } from "@models/gateway.model";
 import { Processo } from "@models/processo.model";
 import { AuditService } from "@modules/gateway/audit.service";
@@ -27,9 +26,9 @@ export class ProcessController {
     private audit: AuditService,
   ) {}
 
-  @Public()
   @Get("source")
-  fonte() {
+  fonte(@Req() req: Request) {
+    identidadeDaRequisicao(req);
     return {
       zone: "internal" as const,
       ...this.processService.fonteAtiva(),

@@ -99,7 +99,7 @@ export class CasosService {
       throw new ConflictException(MOTIVO_CONFLITO_PUBLICO);
     }
 
-    return this.repositorio.inserirIntake({
+    const casoId = await this.repositorio.inserirIntake({
       officeId: identidade.officeId,
       userId: identidade.id,
       role: identidade.papel,
@@ -108,6 +108,17 @@ export class CasosService {
       adverseKey,
       classification,
     });
+    try {
+      await this.auditar(identidade, "caso_abrir", "permitido", "intake", {
+        casoId,
+        officeId: identidade.officeId,
+        classification,
+      });
+    } catch (erro) {
+      await this.repositorio.excluirCapa(identidade.officeId, casoId).catch(() => undefined);
+      throw erro;
+    }
+    return casoId;
   }
 
   async excluir(identidade: IdentidadeRequisicao, idOrCnj: string): Promise<void> {
