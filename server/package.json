@@ -31,6 +31,7 @@
     "prova:retention": "node scripts/prova-retention.js",
     "prova:rag": "node scripts/prova-rag.js",
     "prova:pa": "node scripts/prova-pa.js",
+    "prova:trust-gaps": "node scripts/prova-trust-gaps.js",
     "office-id:apply": "node scripts/apply-office-id.js",
     "retention:apply": "node scripts/apply-retention-legal-hold.js",
     "rag:apply": "node scripts/apply-rag-cite-ledger.js",

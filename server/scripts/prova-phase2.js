@@ -56,7 +56,12 @@ async function main() {
   fs.writeFileSync(AUDIT_OK, "");
   const { app, base } = await boot();
   try {
-    const catalogo = await pedir(base, "GET", "/api/catalogo");
+    assert.strictEqual(
+      (await pedir(base, "GET", "/api/catalogo")).status,
+      401,
+      "catalog must require hub token",
+    );
+    const catalogo = await pedir(base, "GET", "/api/catalogo", "demo-socio");
     assert.strictEqual(catalogo.status, 200);
     assert.strictEqual(catalogo.json.surface, "backstage");
     const tools = (catalogo.json.itens || []).filter((i) => i.kind === "tool");
@@ -65,7 +70,12 @@ async function main() {
     assert.ok(live.length >= 5, `expected ≥5 live tools, got ${live.length}`);
     assert.ok(tools.some((t) => t.id === "tool-datajud-capa" && t.status === "stub"));
 
-    const fonte = await pedir(base, "GET", "/api/process/source");
+    assert.strictEqual(
+      (await pedir(base, "GET", "/api/process/source")).status,
+      401,
+      "process source must require hub token",
+    );
+    const fonte = await pedir(base, "GET", "/api/process/source", "demo-socio");
     assert.strictEqual(fonte.status, 200);
     assert.strictEqual(fonte.json.kind, "manual");
     assert.strictEqual(fonte.json.configurado, true);

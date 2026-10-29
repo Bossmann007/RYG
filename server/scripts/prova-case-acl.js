@@ -158,6 +158,15 @@ async function main() {
       auditoria.some(
         (linha) =>
           linha.ferramenta === "caso_abrir" &&
+          linha.decisao === "permitido" &&
+          abertos.includes(String(linha.argumentos?.casoId || "")),
+      ),
+      "successful intake must be audited",
+    );
+    assert.ok(
+      auditoria.some(
+        (linha) =>
+          linha.ferramenta === "caso_abrir" &&
           linha.decisao === "negado" &&
           abertos.some((casoId) => String(linha.motivo || "").includes(casoId)),
       ),
