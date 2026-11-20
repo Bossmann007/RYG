@@ -1,4 +1,4 @@
-import { Public } from "@common/decorators/public.decorator";
+import { identidadeDaRequisicao } from "@common/guards/identity.guard";
 import {
   Body,
   Controller,
@@ -10,7 +10,9 @@ import {
   Patch,
   Post,
   Query,
+  Req,
 } from "@nestjs/common";
+import type { Request } from "express";
 import {
   CreateContratoDto,
   ListarContratosQueryDto,
@@ -26,43 +28,47 @@ import { ContractsService } from "./contracts.service";
 export class ContractsController {
   constructor(private contractsService: ContractsService) {}
 
-  @Public()
   @Get()
-  async listar(@Query() query: ListarContratosQueryDto) {
+  async listar(@Req() req: Request, @Query() query: ListarContratosQueryDto) {
+    const { officeId } = identidadeDaRequisicao(req);
     return {
       zone: "internal",
-      contratos: await this.contractsService.listar({
+      contratos: await this.contractsService.listar(officeId, {
         casoId: query.casoId,
         processNumber: query.processNumber,
       }),
     };
   }
 
-  @Public()
   @Get(":id")
-  async obter(@Param("id") id: string) {
-    return { zone: "internal", contrato: await this.contractsService.obter(id) };
+  async obter(@Req() req: Request, @Param("id") id: string) {
+    const { officeId } = identidadeDaRequisicao(req);
+    return { zone: "internal", contrato: await this.contractsService.obter(officeId, id) };
   }
 
-  @Public()
   @Post()
-  async criar(@Body() dto: CreateContratoDto) {
-    return { zone: "internal", contrato: await this.contractsService.criar(dto) };
+  async criar(@Req() req: Request, @Body() dto: CreateContratoDto) {
+    const { officeId } = identidadeDaRequisicao(req);
+    return { zone: "internal", contrato: await this.contractsService.criar(officeId, dto) };
   }
 
-  @Public()
   @Patch(":id")
-  async atualizar(@Param("id") id: string, @Body() dto: UpdateContratoDto) {
+  async atualizar(
+    @Req() req: Request,
+    @Param("id") id: string,
+    @Body() dto: UpdateContratoDto
+  ) {
+    const { officeId } = identidadeDaRequisicao(req);
     return {
       zone: "internal",
-      contrato: await this.contractsService.atualizar(id, dto),
+      contrato: await this.contractsService.atualizar(officeId, id, dto),
     };
   }
 
-  @Public()
   @Delete(":id")
   @HttpCode(HttpStatus.NO_CONTENT)
-  async remover(@Param("id") id: string) {
-    await this.contractsService.remover(id);
+  async remover(@Req() req: Request, @Param("id") id: string) {
+    const { officeId } = identidadeDaRequisicao(req);
+    await this.contractsService.remover(officeId, id);
   }
 }

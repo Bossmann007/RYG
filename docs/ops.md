@@ -69,6 +69,26 @@ Tem de imprimir `26`.
 
 ---
 
+## Workspace DMs
+
+Internal office DMs (not WhatsApp, not per-case `chat`). Tables:
+
+- `workspace_threads`
+- `workspace_thread_members`
+- `workspace_messages`
+- `workspace_mentions`
+
+All queries filter `office_id`. Apply with `node server/scripts/apply-workspace-dm.js` (after Nest build). Routes (Bearer required):
+
+- `POST /api/workspace/dms` — open or reuse a 1:1 DM (`{ peerUserId }` → `{ threadId }`)
+- `GET /api/workspace/dms` — list member threads (`{ zone, threads: [{ id }] }`)
+- `GET /api/workspace/dms/:id` — messages for a member
+- `POST /api/workspace/dms/:id/messages` — send body; `@u-NNN` same-office mentions
+
+Proof: `pnpm --dir server run prova:workspace-dm`.
+
+---
+
 ## Manual teste
 
 
@@ -185,6 +205,59 @@ A UI renderiza texto. Não interpreta HTML.
 ## Fixtures
 
 `server/src/fixtures/jurisprudencias.ts` não embarca ementas inventadas. Itens de demo vão com `citavel: false` e `ementaSnippet: null`.
+
+## Xirp: rever a resposta do agente
+
+O advogado conecta o Claude ou o Cursor ao MCP do hub (`POST /api/mcp`, Bearer do escritório) e revê a resposta no Xirp, aba do caso. O hub não gera texto jurídico; só serve o SafeDTO.
+
+- Para ligar a chamada a um caso, o agente envia `caseId` (id do caso no hub) nos argumentos de `get_safe_summary`, `search_safe_knowledge` ou `get_safe_update`. Sem `caseId` a run é gravada sem caso e não aparece no painel. `caseId` sem membership ou de outro escritório recusa a chamada.
+- A run grava só metadado em `mcp_runs`: `office_id`, `case_id`, usuário, nome da tool, `releaseId`, status de citação (`cited`, `silent`, `refused`) e o resumo SafeDTO (até 240 caracteres). Não grava argumento da tool nem corpo de peça. O painel lê `GET /api/casos/:id/xirp` com o mesmo gate da capa (outro escritório 404, sem membership 403).
+- Se a linha não for gravada, a chamada não devolve sucesso.
+- Aplicar a tabela: `node server/scripts/apply-mcp-runs.js`. Prova: `node server/scripts/prova-xirp.js`.
+
+Não afirma conformidade legal com a LGPD. Descreve controles técnicos; o julgamento jurídico e o do DPO ficam fora deste documento.
+
+## Retenção e legal hold do caso
+
+`casos.legal_hold` (padrão desligado) e `casos.retain_until` (data, nula) valem por caso e por escritório. `GET /api/casos/:id/hold` lê para quem tem acesso à capa. `PATCH /api/casos/:id/hold` com `{ legalHold, retainUntil? }` só aceita sócio com membership (outro escritório 404, sem membership ou papel diferente de sócio 403, data inexistente 400). `retainUntil` omitido mantém a data gravada; `null` a limpa. Cada mudança entra na auditoria antes da gravação.
+
+- Com hold ligado, `CasosService.apagarSemHold(officeId, casoId, apagar)` devolve 409 e não executa o delete. O guard trava a linha do caso no TiDB e roda o delete na mesma transação.
+- Hoje nenhum `@Delete` apaga linha de caso no TiDB: contratos, decisões, modelos, petições e clientes usam repositório em memória que ignora `office_id`. Eles não passam pelo guard e não há rota pública de delete de caso. Quem criar um delete real de linha de caso no TiDB deve chamar `apagarSemHold`.
+- `retain_until` é só um dado gravado. Não há job nem cron que apague algo por causa dele.
+- Aplicar as colunas: `node server/scripts/apply-case-retention.js`. Prova: `node server/scripts/prova-hold.js`.
+
+Não afirma conformidade legal com a LGPD nem define prazo de guarda. Prazo e base legal são decisão jurídica do escritório.
+
+## Backup do TiDB e ensaio de restore
+
+O que é copiado: o TiDB do hub (banco `HubLegal`, nunca `sys`), que guarda casos, wiki, `mcp_runs`, hold e o resto do acervo. Este repositório não configura nem agenda backup do cluster. O backup do cluster depende do plano e do console do TiDB Cloud; confira lá que ele está ligado e qual a janela de restauração. Este documento não afirma que existe.
+
+O que não é copiado: o vault de ciphertext (`server/src/modules/vault/`, chave `HUB_VAULT_KEY`) vive só em memória. Reiniciar o servidor apaga tudo o que ele guarda. Não existe object storage, e nada dele tem backup. Também ficam de fora o `audit/auditoria.jsonl` local e os repositórios em memória (contratos, decisões, modelos, petições, clientes).
+
+Ensaio de restore, sem tocar em dado real: `node server/scripts/drill-restore.js` (ou `pnpm --dir server run drill:restore`). O script cria a tabela descartável `dr_drill` com uma linha marcada, exporta só essa tabela para um arquivo temporário fora do repositório, apaga a linha, restaura a partir do arquivo, confere que a linha voltou igual e apaga a tabela e o arquivo. Se `dr_drill` já existir, ele para sem mexer. Se o export falhar, ele para; não tenta dump do banco inteiro. Ele usa as variáveis `DB_*` do ambiente e não imprime host, usuário nem senha.
+
+O ensaio prova o caminho exportar, apagar, restaurar para uma tabela. Ele não prova o restore do cluster inteiro nem a janela de retenção do provedor. Não define prazo de guarda e não afirma conformidade legal com a LGPD.
+
+## DSAR, incidente e DPA (processo, não produto)
+
+Estes três blocos são roteiros de processo. O hub não decide nada por eles e não afirma conformidade legal com a LGPD. O julgamento jurídico e o do DPO ficam com o escritório.
+
+### DSAR (pedido de titular)
+
+Detectar o pedido, devolver um protocolo e encaminhar ao contato do DPO. Não há fila persistida.
+
+- A tela "Contato do DPO" e `POST /api/dsar` (Bearer obrigatório, corpo `{ pedido }`) só devolvem `{ zone: "internal", protocol }` com um id opaco. Pedido vazio dá 400.
+- O texto do pedido não é gravado no TiDB, nem na auditoria, nem em log, e não volta na resposta. A auditoria guarda só o protocolo. Não há rota que liste pedidos.
+- O protocolo não substitui o contato do DPO. Quem recebe o pedido o encaminha ao DPO por fora do hub. Nome e e-mail do DPO ficam como campo a preencher na tela.
+- Prova: `node server/scripts/prova-dsar.js`.
+
+### Incidente de segurança
+
+Detectar, conter e seguir o caminho de comunicação: DPO e jurídico avaliam se o caso exige comunicar à ANPD e aos titulares. Quando couber, a comunicação à ANPD segue um prazo de 3 dias úteis contados da ciência do incidente. O prazo não se aplica a todo incidente: depende de o incidente poder trazer risco ou dano relevante aos titulares, e essa avaliação não é do hub. Confirme o prazo e o critério vigentes com o DPO. Não há notificador implementado. A trilha de apoio é `audit/auditoria.jsonl` (append-only, fail-closed) e `mcp_runs`.
+
+### DPA com provedor de modelo ou MCP
+
+O modelo mínimo está em `docs/dpa-modelo.md`: um esqueleto com campos a preencher, sem partes nem prazos inventados. Ele traz a cláusula de que o provedor não usa conteúdo do escritório para treinar modelo. MCP de provedor externo em produção continua desligado até o DPA estar assinado. Este recorte não liga MCP nenhum.
 
 ## O que este recorte não afirma
 

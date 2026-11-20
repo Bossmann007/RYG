@@ -1,4 +1,5 @@
-import { useMemo, useState } from "react";
+import { FormEvent, useMemo, useState } from "react";
+import { calcularPrazoCpc } from "../api";
 import { diasRestantes, formatarDataIso, hidratarPrazos } from "../prazos-escritorio";
 import {
   Caso,
@@ -22,6 +23,10 @@ const FILTROS: Array<PrazoStatus | "todos"> = [
 export function PainelPrazos({ caso }: { caso: Caso }) {
   const hidratado = useMemo(() => hidratarPrazos(caso), [caso]);
   const [filtro, setFiltro] = useState<PrazoStatus | "todos">("todos");
+  const [inicio, setInicio] = useState("");
+  const [dias, setDias] = useState("15");
+  const [termo, setTermo] = useState<string | null>(null);
+  const [erroCalculo, setErroCalculo] = useState<string | null>(null);
 
   const itens = useMemo(() => {
     return hidratado.prazos
@@ -40,6 +45,18 @@ export function PainelPrazos({ caso }: { caso: Caso }) {
     );
   }, [hidratado.prazos]);
 
+  async function calcular(evento: FormEvent) {
+    evento.preventDefault();
+    setErroCalculo(null);
+    setTermo(null);
+    const quantidade = Number(dias);
+    try {
+      setTermo(await calcularPrazoCpc(inicio, quantidade));
+    } catch (falha: unknown) {
+      setErroCalculo(falha instanceof Error ? falha.message : "Não foi possível calcular o prazo.");
+    }
+  }
+
   return (
     <section className="painel">
       <header className="painel-cabeca">
@@ -49,6 +66,30 @@ export function PainelPrazos({ caso }: { caso: Caso }) {
           relógio — o vencimento mora aqui.
         </p>
       </header>
+
+      <form className="cartao-suave" onSubmit={(evento) => void calcular(evento)}>
+        <p className="olho">Prazo CPC neste caso</p>
+        <p>Dias úteis, sem o dia inicial e sem feriados forenses.</p>
+        <input
+          type="date"
+          value={inicio}
+          onChange={(evento) => setInicio(evento.target.value)}
+          required
+        />
+        <input
+          type="number"
+          min={1}
+          max={365}
+          value={dias}
+          onChange={(evento) => setDias(evento.target.value)}
+          required
+        />
+        <button className="voltar" type="submit">
+          Calcular
+        </button>
+        {termo ? <p>Termo: {formatarDataIso(termo)}</p> : null}
+        {erroCalculo ? <p className="vazio">{erroCalculo}</p> : null}
+      </form>
 
       <div className="prazo-resumo">
         <article className="prazo-kpi vencido">

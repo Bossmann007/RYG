@@ -40,6 +40,10 @@ export class GatewayService {
       .filter((ferramenta) => permitidas.includes(ferramenta.nome));
   }
 
+  conhece(nome: string): boolean {
+    return this.toolCatalogService.buscar(nome) !== undefined;
+  }
+
   async executar(
     nome: string,
     argumentos: Record<string, unknown>,

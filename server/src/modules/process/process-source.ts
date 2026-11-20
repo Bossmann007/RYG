@@ -16,5 +16,6 @@ export type ProcessSourceKind = (typeof PROCESS_SOURCE_KINDS)[number];
  */
 export interface ProcessSource {
   readonly kind: ProcessSourceKind;
+  readonly configurado: boolean;
   buscarCapa(numeroNormalizado: string): Processo | null;
 }

@@ -1,4 +1,4 @@
-import { Public } from "@common/decorators/public.decorator";
+import { identidadeDaRequisicao } from "@common/guards/identity.guard";
 import {
   Body,
   Controller,
@@ -10,7 +10,9 @@ import {
   Patch,
   Post,
   Query,
+  Req,
 } from "@nestjs/common";
+import type { Request } from "express";
 import { CreatePeticaoDto, ListarPeticoesQueryDto, UpdatePeticaoDto } from "./petitions.dto";
 import { PetitionsService } from "./petitions.service";
 
@@ -22,12 +24,12 @@ import { PetitionsService } from "./petitions.service";
 export class PetitionsController {
   constructor(private petitionsService: PetitionsService) {}
 
-  @Public()
   @Get()
-  async listar(@Query() query: ListarPeticoesQueryDto) {
+  async listar(@Req() req: Request, @Query() query: ListarPeticoesQueryDto) {
+    const { officeId } = identidadeDaRequisicao(req);
     return {
       zone: "internal",
-      peticoes: await this.petitionsService.listar({
+      peticoes: await this.petitionsService.listar(officeId, {
         clienteId: query.clienteId,
         processNumber: query.processNumber,
         casoId: query.casoId,
@@ -35,28 +37,28 @@ export class PetitionsController {
     };
   }
 
-  @Public()
   @Get(":id")
-  obter(@Param("id") id: string) {
-    return { zone: "internal", peticao: this.petitionsService.obter(id) };
+  obter(@Req() req: Request, @Param("id") id: string) {
+    const { officeId } = identidadeDaRequisicao(req);
+    return { zone: "internal", peticao: this.petitionsService.obter(officeId, id) };
   }
 
-  @Public()
   @Post()
-  criar(@Body() dto: CreatePeticaoDto) {
-    return { zone: "internal", peticao: this.petitionsService.criar(dto) };
+  criar(@Req() req: Request, @Body() dto: CreatePeticaoDto) {
+    const { officeId } = identidadeDaRequisicao(req);
+    return { zone: "internal", peticao: this.petitionsService.criar(officeId, dto) };
   }
 
-  @Public()
   @Patch(":id")
-  atualizar(@Param("id") id: string, @Body() dto: UpdatePeticaoDto) {
-    return { zone: "internal", peticao: this.petitionsService.atualizar(id, dto) };
+  atualizar(@Req() req: Request, @Param("id") id: string, @Body() dto: UpdatePeticaoDto) {
+    const { officeId } = identidadeDaRequisicao(req);
+    return { zone: "internal", peticao: this.petitionsService.atualizar(officeId, id, dto) };
   }
 
-  @Public()
   @Delete(":id")
   @HttpCode(HttpStatus.NO_CONTENT)
-  remover(@Param("id") id: string) {
-    this.petitionsService.remover(id);
+  remover(@Req() req: Request, @Param("id") id: string) {
+    const { officeId } = identidadeDaRequisicao(req);
+    this.petitionsService.remover(officeId, id);
   }
 }

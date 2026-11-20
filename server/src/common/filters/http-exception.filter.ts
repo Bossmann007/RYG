@@ -37,7 +37,9 @@ export class HttpExceptionFilter implements ExceptionFilter {
   }
 }
 
-function respostaExtra(exception: unknown): { confirmacaoNecessaria: true; desafio: string; expiraEm?: string } | null {
+type ExtraConfirmacao = { confirmacaoNecessaria: true; desafio?: string; expiraEm?: string; proposta?: string };
+
+function respostaExtra(exception: unknown): ExtraConfirmacao | null {
   if (!(exception instanceof HttpException)) {
     return null;
   }
@@ -45,13 +47,14 @@ function respostaExtra(exception: unknown): { confirmacaoNecessaria: true; desaf
   if (!bruto || typeof bruto !== "object") {
     return null;
   }
-  const corpo = bruto as { confirmacaoNecessaria?: unknown; desafio?: unknown; expiraEm?: unknown };
-  if (corpo.confirmacaoNecessaria !== true || typeof corpo.desafio !== "string") {
+  const corpo = bruto as { confirmacaoNecessaria?: unknown; desafio?: unknown; expiraEm?: unknown; proposta?: unknown };
+  if (corpo.confirmacaoNecessaria !== true) {
     return null;
   }
   return {
     confirmacaoNecessaria: true,
-    desafio: corpo.desafio,
+    ...(typeof corpo.desafio === "string" ? { desafio: corpo.desafio } : {}),
     ...(typeof corpo.expiraEm === "string" ? { expiraEm: corpo.expiraEm } : {}),
+    ...(typeof corpo.proposta === "string" ? { proposta: corpo.proposta } : {}),
   };
 }

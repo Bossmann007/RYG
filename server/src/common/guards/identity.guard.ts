@@ -1,9 +1,14 @@
+import { PERMITE_CREDENCIAL_PA_KEY } from "@common/decorators/permite-credencial-pa.decorator";
 import { IS_PUBLIC_KEY } from "@common/decorators/public.decorator";
-import { Identidade } from "@models/gateway.model";
+import { Identidade, RegistroAuditoria } from "@models/gateway.model";
+import { AuditService } from "@modules/gateway/audit.service";
+import { HubSessionService } from "@modules/gateway/hub-session.service";
 import { IdentityService } from "@modules/gateway/identity.service";
+import { PaCredentialService } from "@modules/gateway/pa-credential.service";
 import {
   CanActivate,
   ExecutionContext,
+  ForbiddenException,
   Injectable,
   UnauthorizedException,
 } from "@nestjs/common";
@@ -28,10 +33,13 @@ export function identidadeDaRequisicao(req: Request): IdentidadeRequisicao {
 export class IdentityGuard implements CanActivate {
   constructor(
     private reflector: Reflector,
-    private identityService: IdentityService
+    private identityService: IdentityService,
+    private sessoes: HubSessionService,
+    private credenciaisPa: PaCredentialService,
+    private audit: AuditService,
   ) {}
 
-  canActivate(context: ExecutionContext): boolean {
+  async canActivate(context: ExecutionContext): Promise<boolean> {
     const publica = this.reflector.getAllAndOverride<boolean>(IS_PUBLIC_KEY, [
       context.getHandler(),
       context.getClass(),
@@ -41,7 +49,10 @@ export class IdentityGuard implements CanActivate {
     }
 
     const req = context.switchToHttp().getRequest<RequisicaoAutenticada>();
-    const identidade = this.identityService.resolver(req.headers.authorization);
+    const authorization = req.headers.authorization;
+    const token = this.identityService.tokenDe(authorization);
+    const humana = this.identityService.resolver(authorization);
+    const identidade = humana ?? this.credenciaisPa.resolver(token);
     if (!identidade) {
       throw new UnauthorizedException("Credencial ausente ou desconhecida.");
     }
@@ -51,7 +62,44 @@ export class IdentityGuard implements CanActivate {
       throw new UnauthorizedException("Escritório obrigatório.");
     }
 
+    const estado = this.sessoes.avaliar(token, identidade.id);
+    if (estado === "disabled") {
+      await this.auditar(identidade, "utilizador desabilitado");
+      throw new UnauthorizedException("Utilizador desabilitado.");
+    }
+    if (estado === "idle") {
+      await this.auditar(identidade, "sessao idle");
+      throw new UnauthorizedException("Sessão expirada por inatividade.");
+    }
+
+    if (!humana) {
+      const permitida = this.reflector.getAllAndOverride<boolean>(PERMITE_CREDENCIAL_PA_KEY, [
+        context.getHandler(),
+        context.getClass(),
+      ]);
+      if (!permitida) {
+        throw new ForbiddenException("Credencial PA só chama ferramentas.");
+      }
+    }
+
     req.identidade = { ...identidade, officeId };
     return true;
+  }
+
+  private auditar(identidade: Identidade, motivo: string): Promise<void> {
+    const registro: RegistroAuditoria = {
+      at: new Date().toISOString(),
+      identidade: identidade.id,
+      nome: identidade.nome,
+      papel: identidade.papel,
+      origem: "hub",
+      ferramenta: "sessao",
+      argumentos: {},
+      decisao: "negado",
+      motivo,
+      omitido: [],
+      duracaoMs: 0,
+    };
+    return this.audit.registrar(registro);
   }
 }

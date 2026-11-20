@@ -25,9 +25,11 @@ import {
   PainelVisao,
 } from "../componentes/PaineisCaso";
 import { PainelAcervo } from "../componentes/PainelAcervo";
+import { PainelFinanceiro } from "../componentes/PainelFinanceiro";
 import { PainelModelos } from "../componentes/PainelModelos";
 import { PainelPrazos } from "../componentes/PainelPrazos";
 import { PainelRelatorios } from "../componentes/PainelRelatorios";
+import { PainelXirp } from "../componentes/PainelXirp";
 import { AbaCaso, Caso, Jurisprudencia, ROTULO_STATUS } from "../tipos";
 
 type Props = {
@@ -46,7 +48,9 @@ const MENU: ItemMenu[] = [
   { id: "visao", rotulo: "Visão", grupo: "Caso", icone: <IconeVisao /> },
   { id: "historico", rotulo: "Histórico", grupo: "Caso", icone: <IconeHistorico /> },
   { id: "prazos", rotulo: "Prazos", grupo: "Caso", icone: <IconePrazo /> },
+  { id: "financeiro", rotulo: "Financeiro", grupo: "Caso", icone: <IconeContrato /> },
   { id: "conversas", rotulo: "Conversas", grupo: "Caso", icone: <IconeConversa /> },
+  { id: "xirp", rotulo: "Xirp", grupo: "Caso", icone: <IconeRelatorio /> },
   { id: "peticoes", rotulo: "Petições", grupo: "Acervo", icone: <IconePeca /> },
   { id: "contratos", rotulo: "Contratos", grupo: "Acervo", icone: <IconeContrato /> },
   { id: "documentos", rotulo: "Clientes", grupo: "Acervo", icone: <IconePessoa /> },
@@ -114,6 +118,7 @@ export function DetalheCaso({ caso, onVoltar }: Props) {
               caso={caso}
               onAbrirJuris={setJuris}
               onVerTodas={() => setAba("jurisprudencia")}
+              onVerPrazos={() => setAba("prazos")}
             />
           )}
           {aba === "peticoes" && (
@@ -157,8 +162,10 @@ export function DetalheCaso({ caso, onVoltar }: Props) {
           )}
           {aba === "historico" && <PainelHistorico caso={caso} />}
           {aba === "prazos" && <PainelPrazos caso={caso} />}
+          {aba === "financeiro" && <PainelFinanceiro casoId={caso.id} />}
           {aba === "teses" && <PainelTeses caso={caso} />}
           {aba === "resultados" && <PainelResultados caso={caso} />}
+          {aba === "xirp" && <PainelXirp casoId={caso.id} />}
           {aba === "conversas" && <ChatCaso processoId={caso.processoId} />}
           {aba === "jurisprudencia" && (
             <PainelJurisprudencia caso={caso} onAbrir={setJuris} />

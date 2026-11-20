@@ -29,7 +29,7 @@ export const CATALOGO_BANCARIO: CatalogItem[] = [
     kind: "prompt",
     area: "bancario",
     titulo: "Checklist revisão de contrato bancário",
-    descricao: "Roteiro interno; se colar cláusula do cliente, use SafeDTO antes de BYOAI.",
+    descricao: "Roteiro interno; se colar cláusula do cliente, use SafeDTO antes do linked-provider.",
     requerSafeDto: true,
     corpo:
       "Monte checklist de revisão para contrato bancário (tarifas, seguro, IOF, vencimento antecipado). Não peça PII além do necessário.",
@@ -47,7 +47,7 @@ export const CATALOGO_BANCARIO: CatalogItem[] = [
     id: "mcp-office-export",
     kind: "mcp",
     area: "bancario",
-    titulo: "MCP escritório (export BYOAI)",
+    titulo: "MCP escritório (export MCP)",
     descricao: "Ferramentas get_safe_summary / search_safe_knowledge via /api/mcp.",
     requerSafeDto: true,
     endpoint: "/api/mcp",
@@ -60,5 +60,62 @@ export const CATALOGO_BANCARIO: CatalogItem[] = [
     descricao: "Envia aviso/doc pelo Zap. Não é inbox. Requer conexão OAuth.",
     requerSafeDto: false,
     endpoint: "/api/whatsapp/enviar",
+  },
+  {
+    id: "tool-whatsapp-aviso-prazo",
+    kind: "tool",
+    area: "bancario",
+    titulo: "Modelo tpl-aviso-prazo",
+    descricao:
+      "Aviso fixo de prazo para o Zap, sem dado pessoal livre (sem nome, e-mail, CPF ou telefone no texto). Passa pelo mesmo desafio humano.",
+    requerSafeDto: false,
+    endpoint: "/api/whatsapp/enviar",
+  },
+  {
+    id: "tool-datajud",
+    kind: "tool",
+    area: "bancario",
+    titulo: "DataJud",
+    descricao:
+      "Futura ferramenta ProcessSource somente-leitura (capa/metadados). Não é app. Ainda não conectada.",
+    requerSafeDto: false,
+  },
+  {
+    id: "tool-djen",
+    kind: "tool",
+    area: "bancario",
+    titulo: "DJEN",
+    descricao:
+      "Futura ferramenta ProcessSource somente-leitura (intimações/publicações). Não é app. Ainda não conectada.",
+    requerSafeDto: false,
+  },
+  {
+    id: "tool-prazo-cpc",
+    kind: "tool",
+    area: "bancario",
+    titulo: "Prazo CPC",
+    descricao:
+      "Dias úteis do CPC art. 219, sem o dia inicial e sem feriados forenses. Sem LLM.",
+    requerSafeDto: false,
+    endpoint: "/api/tools/prazo-cpc",
+  },
+  {
+    id: "runtime-office-hosted",
+    kind: "tool",
+    area: "bancario",
+    titulo: "Office-hosted AI",
+    descricao:
+      "Hub base cobre prazo e processo sem modelo. Hub com consulta local acrescenta a resposta citada quando OFFICE_HOSTED_AI inclui o escritório. O modelo só reescreve trechos já citados.",
+    requerSafeDto: false,
+    endpoint: "/api/rag/consult",
+  },
+  {
+    id: "runtime-linked-provider",
+    kind: "mcp",
+    area: "bancario",
+    titulo: "Linked provider (MCP)",
+    descricao:
+      "Provedor ligado pelo usuário, com saída só por SafeDTO. Permanece desligado até o DPA. Esta versão não chama o provedor.",
+    requerSafeDto: true,
   },
 ];

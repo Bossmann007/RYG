@@ -74,6 +74,9 @@ server/audit/
 # Local official juris staging (do not commit)
 server/scripts/import-data/
 
+# Docling chunker venv (local only)
+server/.venv-chunk/
+
 # cursor-kit session state (also covered by .cursor/)
 .cursor/state/checkpoint.json
 .cursor/state/session.json

@@ -1,5 +1,18 @@
-import { Public } from "@common/decorators/public.decorator";
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, Query } from "@nestjs/common";
+import { identidadeDaRequisicao } from "@common/guards/identity.guard";
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Param,
+  Patch,
+  Post,
+  Query,
+  Req,
+} from "@nestjs/common";
+import type { Request } from "express";
 import { CreateClienteDto, ListarClientesQueryDto, UpdateClienteDto } from "./clients.dto";
 import { ClientsService } from "./clients.service";
 
@@ -11,40 +24,40 @@ import { ClientsService } from "./clients.service";
 export class ClientsController {
   constructor(private clientsService: ClientsService) {}
 
-  @Public()
   @Get()
-  async listar(@Query() query: ListarClientesQueryDto) {
+  async listar(@Req() req: Request, @Query() query: ListarClientesQueryDto) {
+    const { officeId } = identidadeDaRequisicao(req);
     return {
       zone: "internal",
-      clientes: await this.clientsService.listar({
+      clientes: await this.clientsService.listar(officeId, {
         casoId: query.casoId,
         processNumber: query.processNumber,
       }),
     };
   }
 
-  @Public()
   @Get(":id")
-  obter(@Param("id") id: string) {
-    return { zone: "internal", cliente: this.clientsService.obter(id) };
+  obter(@Req() req: Request, @Param("id") id: string) {
+    const { officeId } = identidadeDaRequisicao(req);
+    return { zone: "internal", cliente: this.clientsService.obter(officeId, id) };
   }
 
-  @Public()
   @Post()
-  criar(@Body() dto: CreateClienteDto) {
-    return { zone: "internal", cliente: this.clientsService.criar(dto) };
+  criar(@Req() req: Request, @Body() dto: CreateClienteDto) {
+    const { officeId } = identidadeDaRequisicao(req);
+    return { zone: "internal", cliente: this.clientsService.criar(officeId, dto) };
   }
 
-  @Public()
   @Patch(":id")
-  atualizar(@Param("id") id: string, @Body() dto: UpdateClienteDto) {
-    return { zone: "internal", cliente: this.clientsService.atualizar(id, dto) };
+  atualizar(@Req() req: Request, @Param("id") id: string, @Body() dto: UpdateClienteDto) {
+    const { officeId } = identidadeDaRequisicao(req);
+    return { zone: "internal", cliente: this.clientsService.atualizar(officeId, id, dto) };
   }
 
-  @Public()
   @Delete(":id")
   @HttpCode(HttpStatus.NO_CONTENT)
-  remover(@Param("id") id: string) {
-    this.clientsService.remover(id);
+  remover(@Req() req: Request, @Param("id") id: string) {
+    const { officeId } = identidadeDaRequisicao(req);
+    this.clientsService.remover(officeId, id);
   }
 }

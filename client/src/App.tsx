@@ -2,9 +2,14 @@ import { useEffect, useState } from "react";
 import { obterCaso } from "./api";
 import { BarraTopo } from "./componentes/BarraTopo";
 import { Carregando } from "./componentes/Carregando";
+import { Confirmacoes } from "./paginas/Confirmacoes";
+import { Consulta } from "./paginas/Consulta";
+import { ContatoDpo } from "./paginas/ContatoDpo";
 import { CatalogoBancario } from "./paginas/CatalogoBancario";
 import { DetalheCaso } from "./paginas/DetalheCaso";
 import { ListaCasos } from "./paginas/ListaCasos";
+import { Notas } from "./paginas/Notas";
+import { Workspace } from "./paginas/Workspace";
 import { Caso, TelaApp } from "./tipos";
 
 export function App() {
@@ -53,6 +58,11 @@ export function App() {
       <BarraTopo
         onInicio={() => setTela({ tipo: "casos" })}
         onCatalogo={() => setTela({ tipo: "catalogo" })}
+        onWorkspace={() => setTela({ tipo: "workspace" })}
+        onNotas={() => setTela({ tipo: "notas" })}
+        onConsulta={() => setTela({ tipo: "consulta" })}
+        onConfirmacoes={() => setTela({ tipo: "confirmacoes" })}
+        onContatoDpo={() => setTela({ tipo: "contato-dpo" })}
       />
       <main>
         {tela.tipo === "casos" && (
@@ -60,6 +70,21 @@ export function App() {
         )}
         {tela.tipo === "catalogo" && (
           <CatalogoBancario onVoltar={() => setTela({ tipo: "casos" })} />
+        )}
+        {tela.tipo === "workspace" && (
+          <Workspace onVoltar={() => setTela({ tipo: "casos" })} />
+        )}
+        {tela.tipo === "notas" && (
+          <Notas onVoltar={() => setTela({ tipo: "casos" })} />
+        )}
+        {tela.tipo === "consulta" && (
+          <Consulta onVoltar={() => setTela({ tipo: "casos" })} />
+        )}
+        {tela.tipo === "confirmacoes" && (
+          <Confirmacoes onVoltar={() => setTela({ tipo: "casos" })} />
+        )}
+        {tela.tipo === "contato-dpo" && (
+          <ContatoDpo onVoltar={() => setTela({ tipo: "casos" })} />
         )}
         {tela.tipo === "caso" && carregando && (
           <Carregando texto="Abrindo o caso no acervo." />

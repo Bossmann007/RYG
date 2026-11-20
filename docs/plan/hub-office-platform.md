@@ -396,26 +396,26 @@ Depends on Phase 3 (hardvault corpus) and Phase 4 (Xirp). Design in parallel aft
 
 **Owner:** Bossmann + Zupelli
 
-- [ ] Choose store from `docs/plan/rag-options.md` (pgvector / TiDB-compatible / Qdrant). Document ACL-at-query; index is derived from hub truth.
-- [ ] Write `docs/adr/0004-legal-rag.md` (RAG ≠ BD; ephemeral context; no model→DB).
-- [ ] Commit: `docs(adr): legal RAG store and ACL`.
+- [x] Choose store from `docs/plan/rag-options.md` (pgvector / TiDB-compatible / Qdrant). Document ACL-at-query; index is derived from hub truth. Chosen 2026-10-10: TiDB `VECTOR` in `HubLegal`, ACL `WHERE` before distance.
+- [x] Write `docs/adr/0004-legal-rag.md` (RAG ≠ BD; ephemeral context; no model→DB). Status Accepted 2026-10-10.
+- [ ] Commit: `docs(adr): legal RAG store and ACL` (when the user asks).
 
 ### Task 6.2 — Ingest + retrieve API
 
 **Owner:** Zupelli (store), Gabriel (ingest), Bossmann (policy)
 
-- [ ] Index only published hardvault + allowed official corpora; never personal vault by default.
-- [ ] Classification + case RBAC + Chinese wall at query time.
-- [ ] `POST /api/rag/query` returns hits with cite status; empty → silent.
-- [ ] Cite ledger rows (source id, release id, user, case).
-- [ ] Tests: no ACL → zero hits; cite-or-silent on missing ementa.
+- [ ] Index only published hardvault + allowed official corpora; never personal vault by default. Text notes are indexed. A textless PDF is a local script, not this route.
+- [x] Classification + case RBAC at query time. A chunk with `case_id` is returned only for a member, and `sigiloso` stays with `socio`. A member of two cases is excluded from both when one party is client on one case and adverse on the other.
+- [x] `POST /api/rag/query` returns hits with cite status; empty → silent. Contract is ADR 0004 decisions 6 and 10 to 12 after the 2026-10-11 preflight. Tag `embeddinggemma:300m`, `VECTOR(768)`, `VEC_COSINE_DISTANCE`, `HybridChunker` at 512 with Docling OCR off, at most 8 hits, no generative call.
+- [x] Cite ledger rows (source id, release id, user, case). The question text is not stored.
+- [x] Tests: a query with no ACL predicate refuses to run. A case chunk without membership is absent. An empty allowed set returns silent. Opposing `case_parties` hide both case chunks from a member of both, and the other case stays visible to a member of only one.
 - [ ] Commit: `feat(rag): ACL retrieval API and cite ledger`.
 
 ### Task 6.2b — AI use notice (UX)
 
 **Owner:** Gustavo
 
-- [ ] Notice: drafts only; human reviews before filing.
+- [x] Notice: drafts only; human reviews before filing. The Consulta page shows it, and `POST /api/rag/consult` returns the same sentence.
 - [ ] Same PR window as first Xirp/RAG consult UI.
 - [ ] Commit: `feat(ui): AI use notice`.
 
@@ -423,18 +423,24 @@ Depends on Phase 3 (hardvault corpus) and Phase 4 (Xirp). Design in parallel aft
 
 **Owner:** Bossmann + Gabriel
 
-- [ ] Catalog entries: “Office-hosted AI” vs “Linked provider (MCP)” — never BYOAI.
+- [x] Catalog entries: “Office-hosted AI” vs “Linked provider (MCP)” — never BYOAI. The linked entry has no endpoint.
 - [ ] Both backends behind same Nest/MCP tools; consult = retrieval pack only.
 - [ ] Linked-provider: SafeDTO on private egress. Office-hosted: ACL + classification; still no raw TiDB/FS.
 - [ ] Evidence: case question → cites or silent; works with either runtime in consult mode.
 - [ ] Commit: `feat(ai): gateway consult via linked-provider and office-hosted`.
 
+**Reserve, recorded 2026-10-19.** The office-hosted consult runtime is a small local generative model. The first candidate to try is PrismML Bonsai at the 2B or 4B ternary size, Apache 2.0, on the office machine. The 27B size stays off the default SKU. The name is a candidate, not a lock. A later check on Portuguese legal snippets can replace it.
+
+The hub calls that model only after `POST /api/rag/query` returns `cited` with at least one hit. An empty allowed set stays `silent` and the model is not called. The model rewrites the returned snippets. It does not embed, it does not read TiDB or the filesystem, and it does not receive tool calls. Embeddings stay `embeddinggemma:300m` at `VECTOR(768)`.
+
+This reserve starts after one cited hit is proven with digest `85462619ee72`. Tool use stays in Phase 6.5. It does not change ADR 0004 and it is not the current slice.
+
 ### Task 6.4 — Packaging stub
 
 **Owner:** Bossmann
 
-- [ ] Feature flag `OFFICE_HOSTED_AI=true` per office (no billing required).
-- [ ] Sales one-liner: Hub base vs Hub + office-hosted consult.
+- [x] Feature flag `OFFICE_HOSTED_AI` lists office ids. An office outside the list gets 403. No billing.
+- [x] Sales one-liner on the Office-hosted catalog entry: Hub base vs Hub + office-hosted consult.
 - [ ] Commit: `docs: office-hosted AI SKU flag`.
 
 **Phase 6 exit:** Consult answers with RAG cites on at least one runtime; zero mutation tools exposed to the model.
@@ -449,18 +455,18 @@ Depends on Phase 6 consult green + Phase 0.5 HITL/audit.
 
 **Owner:** Bossmann
 
-- [ ] ADR `0005-pa-mode.md` (or amend 0001): allowlist tools, roles, HITL, actor=`pa_session`+`delegated_by`.
-- [ ] Default remains consult; PA opt-in per user/office.
+- [x] ADR `0005-pa-mode.md` (or amend 0001): allowlist tools, roles, HITL, actor=`pa_session`+`delegated_by`. Status Proposed on 2026-10-20. No tool code until Accepted.
+- [x] Default remains consult; PA opt-in per user/office. Stated in ADR 0005. No flag is implemented.
 - [ ] Commit: `docs(adr): PA mode allowlist and HITL`.
 
 ### Task 6.5.2 — Allowlisted tools + audit
 
 **Owner:** Bossmann + Gabriel + Gustavo
 
-- [ ] Tools: case read helpers, checklist, Zap send **with confirm**, export — no raw SQL/FS.
-- [ ] Every mutation audited; irreversible → HITL UI.
-- [ ] “Learn together” = hub memory/artifacts only — no fine-tune on client processos.
-- [ ] Evidence: PA session can propose Zap; blocked without confirm; consult user cannot call tools.
+- [x] Tools: case read helpers, checklist, Zap send **with confirm**, export — no raw SQL/FS.
+- [x] Every mutation audited; irreversible → HITL UI (Confirmações screen, `GET /api/pa/pendencias` + `POST /api/pa/confirm`).
+- [x] “Learn together” = hub memory/artifacts only — no fine-tune on client processos. ADR 0005 decision 9. No training export in `server/src`.
+- [x] Evidence: PA session can propose Zap; blocked without confirm; consult user cannot call tools.
 - [ ] Commit: `feat(ai): PA mode tools behind role gate`.
 
 **Phase 6.5 exit:** Chefe can run PA on office-hosted or (if policy allows) linked-provider with HITL; estagiário stays consult.
@@ -471,8 +477,8 @@ Depends on Phase 6 consult green + Phase 0.5 HITL/audit.
 
 **Own ADR before coding.** Do not start before Phase 2.5 + 0.5.
 
-- [ ] ADR `0006-pms-financeiro.md`: honorários, custas, faturas simples, what is out (full ERP).
-- [ ] Schema + UI minimal; audit every money field change.
+- [x] ADR `0006-pms-financeiro.md`: honorários, custas, faturas simples, what is out (full ERP). Status Proposed on 2026-10-20.
+- [x] Schema + UI minimal; audit every money field change. `caso_lancamentos`, case routes under `/api/casos/:id`, Financeiro tab; proof `server/scripts/prova-financeiro.js` green on 2026-10-20.
 - [ ] Commit when ADR accepted.
 
 
@@ -480,7 +486,7 @@ Depends on Phase 6 consult green + Phase 0.5 HITL/audit.
 
 ## Phase 8 — Area connector packs
 
-- [ ] Pack format: area id, tools, prompts, MCP entries, ProcessSource defaults.
+- [x] Pack format: area id, tools, prompts, MCP entries, ProcessSource defaults. ADR `0007-area-packs.md`, Status Proposed on 2026-10-20. No second pack in code.
 - [ ] Second area after bancário wedge proven in production with one office.
 - [ ] Commit: `feat(catalog): area pack <name>`.
 

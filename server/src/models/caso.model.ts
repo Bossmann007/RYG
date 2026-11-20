@@ -1,3 +1,4 @@
+import { ClassificacaoCaso } from "@common/security/case-classification";
 import { FonteFato, ProvenienciaCaso } from "@common/security/fonte-fato";
 
 export type PrazoKind =
@@ -177,6 +178,7 @@ export type Caso = {
   dissidios: Dissidio[];
   jurimetria: Jurimetria;
   fontes: ProvenienciaCaso;
+  classification: ClassificacaoCaso;
 };
 
 export const CAMPOS_CASO = [

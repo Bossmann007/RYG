@@ -1,9 +1,9 @@
 import { Documento } from "@models/caso.model";
 import { cnjDigitos, documentoDaLinha, type Linha } from "@modules/casos/caso.assembler";
 import { nomeSeguro } from "@modules/casos/schema-map";
-import { Injectable } from "@nestjs/common";
+import { Injectable, ServiceUnavailableException } from "@nestjs/common";
 import type { RowDataPacket } from "mysql2/promise";
-import { DbService, tabelaAusente } from "./db.service";
+import { DbService, colunaOfficeAusente, tabelaAusente } from "./db.service";
 
 export type FiltroAcervo = {
   casoId?: string;
@@ -37,45 +37,52 @@ export class AcervoQuery {
 
   async listarDocumentos(
     tabela: string,
+    officeId: string,
     filtro: FiltroAcervo,
     prefixo: string,
     tipo: string
   ): Promise<Documento[]> {
-    const linhas = await this.listar(tabela, filtro);
+    const linhas = await this.listar(tabela, officeId, filtro);
     return linhas.map((linha, indice) => documentoDaLinha(linha, prefixo, tipo, indice));
   }
 
-  async listarEscritorio(tabela: string): Promise<Linha[]> {
-    if (!this.ativo()) {
+  async listarEscritorio(tabela: string, officeId: string): Promise<Linha[]> {
+    if (!this.ativo() || !officeId.trim()) {
       return [];
     }
 
     try {
       const linhas = await this.db.consultar<RowDataPacket>(
-        `SELECT * FROM ${nomeSeguro(tabela)} LIMIT 80`
+        `SELECT * FROM ${nomeSeguro(tabela)} WHERE office_id = ? LIMIT 80`,
+        [officeId]
       );
       return linhas.map((linha) => ({ ...linha }));
     } catch (erro) {
       if (tabelaAusente(erro)) {
         return [];
       }
+      if (colunaOfficeAusente(erro)) {
+        throw new ServiceUnavailableException(
+          "office_id ausente na tabela filha. Operação recusada."
+        );
+      }
       throw erro;
     }
   }
 
-  async listar(tabela: string, filtro: FiltroAcervo): Promise<Linha[]> {
-    if (!this.ativo()) {
+  async listar(tabela: string, officeId: string, filtro: FiltroAcervo): Promise<Linha[]> {
+    if (!this.ativo() || !officeId.trim()) {
       return [];
     }
 
-    const { processoIds, cnjs } = await this.resolver(filtro);
+    const { processoIds, cnjs } = await this.resolver(officeId, filtro);
 
     if (!processoIds.length && !cnjs.length) {
       return [];
     }
 
     const partes: string[] = [];
-    const params: unknown[] = [];
+    const params: unknown[] = [officeId];
 
     if (processoIds.length) {
       partes.push(`processo_id IN (${processoIds.map(() => "?").join(", ")})`);
@@ -93,7 +100,7 @@ export class AcervoQuery {
 
     try {
       const linhas = await this.db.consultar<RowDataPacket>(
-        `SELECT * FROM ${nomeSeguro(tabela)} WHERE ${partes.join(" OR ")}`,
+        `SELECT * FROM ${nomeSeguro(tabela)} WHERE office_id = ? AND (${partes.join(" OR ")})`,
         params
       );
       return linhas.map((linha) => ({ ...linha }));
@@ -101,12 +108,18 @@ export class AcervoQuery {
       if (tabelaAusente(erro)) {
         return [];
       }
+      if (colunaOfficeAusente(erro)) {
+        throw new ServiceUnavailableException(
+          "office_id ausente na tabela filha. Operação recusada."
+        );
+      }
 
       throw erro;
     }
   }
 
   private async resolver(
+    officeId: string,
     filtro: FiltroAcervo
   ): Promise<{ processoIds: string[]; cnjs: string[] }> {
     const processoIds = new Set<string>();
@@ -128,8 +141,8 @@ export class AcervoQuery {
 
       try {
         const casos = await this.db.consultar<RowDataPacket>(
-          "SELECT id, processo_id, numero_cnj FROM casos WHERE id = ? OR processo_id = ? LIMIT 1",
-          [casoId, casoId]
+          "SELECT id, processo_id, numero_cnj FROM casos WHERE office_id = ? AND (id = ? OR processo_id = ?) LIMIT 1",
+          [officeId, casoId, casoId]
         );
 
         if (casos[0]) {
@@ -144,7 +157,13 @@ export class AcervoQuery {
           }
         }
       } catch (erro) {
-        if (!tabelaAusente(erro)) {
+        if (tabelaAusente(erro)) {
+          // keep ids from the filter alone
+        } else if (colunaOfficeAusente(erro)) {
+          throw new ServiceUnavailableException(
+            "office_id ausente na tabela filha. Operação recusada."
+          );
+        } else {
           throw erro;
         }
       }

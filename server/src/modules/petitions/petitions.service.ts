@@ -1,5 +1,6 @@
 import { Peticao, PeticaoListaItem } from "@models/peticao.model";
 import { ClientsService } from "@modules/clients/clients.service";
+import { documentoDaLinha } from "@modules/casos/caso.assembler";
 import { AcervoQuery, filtroApontaParaBanco } from "@modules/db/acervo.query";
 import { ProcessService } from "@modules/process/process.service";
 import { PETICOES_INICIAIS } from "../../fixtures/peticoes";
@@ -25,18 +26,25 @@ export class PetitionsService {
     }
   }
 
-  async listar(filtro: {
-    clienteId?: string;
-    processNumber?: string;
-    casoId?: string;
-  }): Promise<PeticaoListaItem[]> {
-    if (this.acervo.ativo() && filtroApontaParaBanco(filtro)) {
-      const docs = await this.acervo.listarDocumentos(
-        "peticoes",
-        filtro,
-        "pet",
-        "Petição"
-      );
+  async listar(
+    officeId: string,
+    filtro: {
+      clienteId?: string;
+      processNumber?: string;
+      casoId?: string;
+    }
+  ): Promise<PeticaoListaItem[]> {
+    if (!officeId.trim()) {
+      return [];
+    }
+
+    if (this.acervo.ativo()) {
+      const docs = filtroApontaParaBanco(filtro)
+        ? await this.acervo.listarDocumentos("peticoes", officeId, filtro, "pet", "Petição")
+        : (await this.acervo.listarEscritorio("peticoes", officeId)).map((linha, indice) =>
+            documentoDaLinha(linha, "pet", "Petição", indice)
+          );
+
       return docs.map((doc) => ({
         id: doc.id,
         clienteId: "",
@@ -66,7 +74,7 @@ export class PetitionsService {
       .map((peticao) => this.paraLista(peticao));
   }
 
-  obter(id: string): Peticao {
+  obter(_officeId: string, id: string): Peticao {
     const peticao = this.porId.get(id);
 
     if (!peticao) {
@@ -76,7 +84,7 @@ export class PetitionsService {
     return this.copiar(peticao);
   }
 
-  criar(dto: CreatePeticaoDto): Peticao {
+  criar(_officeId: string, dto: CreatePeticaoDto): Peticao {
     this.garantirCliente(dto.clienteId);
     const agora = new Date().toISOString();
     const peticao: Peticao = {
@@ -104,8 +112,8 @@ export class PetitionsService {
     return this.copiar(peticao);
   }
 
-  atualizar(id: string, dto: UpdatePeticaoDto): Peticao {
-    const atual = this.obter(id);
+  atualizar(_officeId: string, id: string, dto: UpdatePeticaoDto): Peticao {
+    const atual = this.obter(_officeId, id);
 
     if (dto.clienteId) {
       this.garantirCliente(dto.clienteId);
@@ -139,8 +147,8 @@ export class PetitionsService {
     return this.copiar(proximo);
   }
 
-  remover(id: string): void {
-    this.obter(id);
+  remover(_officeId: string, id: string): void {
+    this.obter(_officeId, id);
     this.porId.delete(id);
   }
 

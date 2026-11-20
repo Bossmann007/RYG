@@ -1,4 +1,4 @@
-import { Public } from "@common/decorators/public.decorator";
+import { identidadeDaRequisicao } from "@common/guards/identity.guard";
 import {
   Body,
   Controller,
@@ -20,7 +20,6 @@ import { ChatService } from "./chat.service";
 export class ChatController {
   constructor(private readonly chat: ChatService) {}
 
-  @Public()
   @Get()
   async listar(
     @Req() req: Request,
@@ -28,13 +27,13 @@ export class ChatController {
     @Query() query: ListarChatQueryDto
   ) {
     this.exigirAcessoLocal(req);
+    const { officeId } = identidadeDaRequisicao(req);
     return {
       zone: "internal" as const,
-      ...(await this.chat.listar(processoId, query.limite, query.cursor)),
+      ...(await this.chat.listar(officeId, processoId, query.limite, query.cursor)),
     };
   }
 
-  @Public()
   @Post()
   @HttpCode(HttpStatus.OK)
   async criar(
@@ -43,9 +42,10 @@ export class ChatController {
     @Body() dto: CriarMensagemChatDto
   ) {
     this.exigirAcessoLocal(req);
+    const { officeId } = identidadeDaRequisicao(req);
     return {
       zone: "internal" as const,
-      ...(await this.chat.criar(processoId, dto)),
+      ...(await this.chat.criar(officeId, processoId, dto)),
     };
   }
 

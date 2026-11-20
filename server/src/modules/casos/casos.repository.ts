@@ -1,8 +1,15 @@
-import { ParteRegistrada } from "@common/security/case-acl";
+import { acharConflito, ParteRegistrada } from "@common/security/case-acl";
+import { ClassificacaoCaso, normalizarClassificacao } from "@common/security/case-classification";
 import { Caso } from "@models/caso.model";
-import { DbService, tabelaAusente } from "@modules/db/db.service";
-import { Injectable, ServiceUnavailableException } from "@nestjs/common";
-import type { RowDataPacket } from "mysql2/promise";
+import { DbService, colunaOfficeAusente, tabelaAusente } from "@modules/db/db.service";
+import {
+  BadRequestException,
+  ConflictException,
+  Injectable,
+  NotFoundException,
+  ServiceUnavailableException,
+} from "@nestjs/common";
+import type { PoolConnection, RowDataPacket } from "mysql2/promise";
 import {
   cnjDigitos,
   montarCaso,
@@ -50,6 +57,14 @@ const FILHAS: NomeTabela[] = [
   "dissidios",
 ];
 
+export type HoldCaso = { legalHold: boolean; retainUntil: string | null };
+
+function exigirEscritorio(officeId: string): void {
+  if (!(officeId ?? "").trim()) {
+    throw new BadRequestException("office_id is required.");
+  }
+}
+
 @Injectable()
 export class CasosRepository {
   constructor(private readonly db: DbService) {}
@@ -58,13 +73,22 @@ export class CasosRepository {
     return this.carregar(officeId);
   }
 
-  async idDaCapa(officeId: string, idOrCnj: string): Promise<string | null> {
+  async aclDaCapa(
+    officeId: string,
+    idOrCnj: string,
+  ): Promise<{ id: string; classification: ClassificacaoCaso } | null> {
     const capa = await this.buscarCapa(officeId, idOrCnj);
     if (!capa) {
       return null;
     }
     const id = valorCampo(capa, ALIASES.id);
-    return id == null || id === "" ? null : String(id);
+    if (id == null || id === "") {
+      return null;
+    }
+    return {
+      id: String(id),
+      classification: normalizarClassificacao(valorCampo(capa, ["classification"])),
+    };
   }
 
   async idsDoMembro(officeId: string, userId: string): Promise<string[]> {
@@ -81,6 +105,70 @@ export class CasosRepository {
       [officeId, casoId, userId],
     );
     return linhas.length > 0;
+  }
+
+  async lerHold(officeId: string, casoId: string): Promise<HoldCaso> {
+    exigirEscritorio(officeId);
+    const linhas = await this.db.consultar<RowDataPacket>(
+      `SELECT legal_hold, DATE_FORMAT(retain_until, '%Y-%m-%d') AS retain_until
+         FROM casos WHERE id = ? AND office_id = ? LIMIT 1`,
+      [casoId, officeId],
+    );
+    if (!linhas[0]) {
+      throw new NotFoundException("Caso não encontrado.");
+    }
+    return {
+      legalHold: Number(linhas[0].legal_hold) === 1,
+      retainUntil: linhas[0].retain_until == null ? null : String(linhas[0].retain_until),
+    };
+  }
+
+  /** `retainUntil === undefined` keeps the stored date. Empty office never writes. */
+  async gravarHold(
+    officeId: string,
+    casoId: string,
+    legalHold: boolean,
+    retainUntil: string | null | undefined,
+  ): Promise<HoldCaso> {
+    exigirEscritorio(officeId);
+    const mantem = retainUntil === undefined;
+    const resultado = await this.db.executar(
+      mantem
+        ? "UPDATE casos SET legal_hold = ? WHERE id = ? AND office_id = ?"
+        : "UPDATE casos SET legal_hold = ?, retain_until = ? WHERE id = ? AND office_id = ?",
+      mantem
+        ? [legalHold ? 1 : 0, casoId, officeId]
+        : [legalHold ? 1 : 0, retainUntil, casoId, officeId],
+    );
+    if (resultado.affectedRows === 0) {
+      throw new NotFoundException("Caso não encontrado.");
+    }
+    return this.lerHold(officeId, casoId);
+  }
+
+  /**
+   * The one delete guard. The case row is locked, hold is read, and only then does `apagar`
+   * run on the same connection. Hold on: 409 and `apagar` never runs.
+   */
+  async apagarSemHold<T>(
+    officeId: string,
+    casoId: string,
+    apagar: (connection: PoolConnection) => Promise<T>,
+  ): Promise<T> {
+    exigirEscritorio(officeId);
+    return this.db.transacao(async (connection) => {
+      const [linhas] = await connection.query<RowDataPacket[]>(
+        "SELECT legal_hold FROM casos WHERE id = ? AND office_id = ? LIMIT 1 FOR UPDATE",
+        [casoId, officeId],
+      );
+      if (!linhas[0]) {
+        throw new NotFoundException("Caso não encontrado.");
+      }
+      if (Number(linhas[0].legal_hold) === 1) {
+        throw new ConflictException("Caso sob legal hold. Remoção bloqueada.");
+      }
+      return apagar(connection);
+    });
   }
 
   async partesDoEscritorio(officeId: string): Promise<ParteRegistrada[]> {
@@ -104,28 +192,55 @@ export class CasosRepository {
     clientName: string;
     clientKey: string;
     adverseKey: string;
+    classification: ClassificacaoCaso;
   }): Promise<string> {
     const id = `${Date.now()}${Math.floor(Math.random() * 1000)
       .toString()
       .padStart(3, "0")}`;
-    try {
-      await this.db.executar(
-        "INSERT INTO casos (id, titulo, cliente_nome, office_id, status) VALUES (?, ?, ?, ?, 'intake')",
-        [id, input.clientName.slice(0, 200), input.clientName.slice(0, 255), input.officeId],
+
+    return this.db.transacao(async (connection) => {
+      const [linhas] = await connection.query<RowDataPacket[]>(
+        "SELECT caso_id, side, name_key FROM case_parties WHERE office_id = ? FOR UPDATE",
+        [input.officeId],
       );
-      await this.db.executar(
+      const existentes: ParteRegistrada[] = linhas
+        .filter((linha) => linha.side === "client" || linha.side === "adverse")
+        .map((linha) => ({
+          casoId: String(linha.caso_id),
+          side: linha.side,
+          nameKey: String(linha.name_key),
+        }));
+      const conflito = acharConflito(
+        { client: input.clientKey, adverse: input.adverseKey },
+        existentes,
+      );
+      if (conflito) {
+        throw Object.assign(
+          new ConflictException("Conflito de partes com caso existente no escritório."),
+          { casoId: conflito.casoId, motivoAcl: conflito.motivo },
+        );
+      }
+
+      await connection.query(
+        "INSERT INTO casos (id, titulo, cliente_nome, office_id, status, classification) VALUES (?, ?, ?, ?, 'intake', ?)",
+        [
+          id,
+          input.clientName.slice(0, 200),
+          input.clientName.slice(0, 255),
+          input.officeId,
+          input.classification,
+        ],
+      );
+      await connection.query(
         "INSERT INTO case_memberships (office_id, caso_id, user_id, role) VALUES (?, ?, ?, ?)",
         [input.officeId, id, input.userId, input.role],
       );
-      await this.db.executar(
+      await connection.query(
         "INSERT INTO case_parties (office_id, caso_id, side, name_key) VALUES (?, ?, 'client', ?), (?, ?, 'adverse', ?)",
         [input.officeId, id, input.clientKey, input.officeId, id, input.adverseKey],
       );
-    } catch (erro) {
-      await this.apagarIntake(id);
-      throw erro;
-    }
-    return id;
+      return id;
+    });
   }
 
   async obter(officeId: string, idOrCnj: string): Promise<Caso | undefined> {
@@ -135,7 +250,7 @@ export class CasosRepository {
     }
 
     const processo = await this.buscarProcesso(officeId, capa);
-    return this.montarDeCapa(capa, processo ? [processo] : [], true, true);
+    return this.montarDeCapa(capa, processo ? [processo] : [], true, true, officeId);
   }
 
   private async buscarProcesso(officeId: string, capa: Linha): Promise<Linha | undefined> {
@@ -225,11 +340,11 @@ export class CasosRepository {
     }
 
     const porTabela: Record<string, Linha[]> = {
-      clientes: await this.linhas("clientes"),
+      clientes: await this.linhas("clientes", officeId),
     };
 
     return Promise.all(
-      capas.map((capa) => this.montarDeCapa(capa, processos, casos.length > 0, false, porTabela))
+      capas.map((capa) => this.montarDeCapa(capa, processos, casos.length > 0, false, officeId, porTabela))
     );
   }
 
@@ -238,6 +353,7 @@ export class CasosRepository {
     processos: Linha[],
     capaEhCaso: boolean,
     filtrarFilhos: boolean,
+    officeId: string,
     cache?: Record<string, Linha[]>
   ): Promise<Caso> {
     const processo = this.ligarProcesso(capa, processos, capaEhCaso);
@@ -253,7 +369,7 @@ export class CasosRepository {
       const carregadas = await Promise.all(
         FILHAS.map(async (tabela) => ({
           tabela,
-          linhas: await this.linhasDoProcesso(tabela, processoId, cnj),
+          linhas: await this.linhasDoProcesso(tabela, officeId, processoId, cnj),
         }))
       );
       for (const item of carregadas) {
@@ -324,15 +440,23 @@ export class CasosRepository {
     }
   }
 
-  private async linhas(tabela: NomeTabela): Promise<Linha[]> {
+  private async linhas(tabela: NomeTabela, officeId: string): Promise<Linha[]> {
+    if (!officeId.trim()) {
+      return [];
+    }
+
     try {
       const registros = await this.db.consultar<RowDataPacket>(
-        `SELECT * FROM ${nomeSeguro(tabela)}`
+        `SELECT * FROM ${nomeSeguro(tabela)} WHERE office_id = ?`,
+        [officeId]
       );
       return registros.map((linha) => ({ ...linha }));
     } catch (erro) {
       if (tabelaAusente(erro)) {
         return [];
+      }
+      if (colunaOfficeAusente(erro)) {
+        throw new ServiceUnavailableException("office_id ausente na tabela filha. Operação recusada.");
       }
 
       throw erro;
@@ -341,11 +465,16 @@ export class CasosRepository {
 
   private async linhasDoProcesso(
     tabela: NomeTabela,
+    officeId: string,
     processoId: string,
     cnj: string
   ): Promise<Linha[]> {
+    if (!officeId.trim()) {
+      return [];
+    }
+
     const partes: string[] = [];
-    const params: unknown[] = [];
+    const params: unknown[] = [officeId];
 
     if (processoId) {
       partes.push("processo_id = ?");
@@ -363,13 +492,16 @@ export class CasosRepository {
 
     try {
       const registros = await this.db.consultar<RowDataPacket>(
-        `SELECT * FROM ${nomeSeguro(tabela)} WHERE ${partes.join(" OR ")}`,
+        `SELECT * FROM ${nomeSeguro(tabela)} WHERE office_id = ? AND (${partes.join(" OR ")})`,
         params
       );
       return registros.map((linha) => ({ ...linha }));
     } catch (erro) {
       if (tabelaAusente(erro)) {
         return [];
+      }
+      if (colunaOfficeAusente(erro)) {
+        throw new ServiceUnavailableException("office_id ausente na tabela filha. Operação recusada.");
       }
 
       throw erro;
@@ -410,12 +542,6 @@ export class CasosRepository {
       }
       throw erro;
     }
-  }
-
-  private async apagarIntake(casoId: string): Promise<void> {
-    await this.db.executar("DELETE FROM case_parties WHERE caso_id = ?", [casoId]).catch(() => undefined);
-    await this.db.executar("DELETE FROM case_memberships WHERE caso_id = ?", [casoId]).catch(() => undefined);
-    await this.db.executar("DELETE FROM casos WHERE id = ? AND status = 'intake'", [casoId]).catch(() => undefined);
   }
 
   private ligarFilhos(linhas: Linha[], capa: Linha, processo?: Linha): Linha[] {

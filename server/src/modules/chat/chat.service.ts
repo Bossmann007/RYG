@@ -27,9 +27,14 @@ const LIMITE_MAXIMO = 100;
 export class ChatService {
   constructor(private readonly db: DbService) {}
 
-  async listar(processoIdBruto: string, limiteBruto?: string, cursorBruto?: string) {
+  async listar(
+    officeId: string,
+    processoIdBruto: string,
+    limiteBruto?: string,
+    cursorBruto?: string
+  ) {
     const processoId = processoIdDe(processoIdBruto);
-    await this.exigirProcesso(processoId);
+    await this.exigirProcesso(officeId, processoId);
     const limite = limiteDe(limiteBruto);
     const cursor = cursorBruto ? decodificarCursor(cursorBruto) : undefined;
     const params: unknown[] = [processoId];
@@ -63,9 +68,9 @@ export class ChatService {
     };
   }
 
-  async criar(processoIdBruto: string, dto: CriarMensagemChatDto) {
+  async criar(officeId: string, processoIdBruto: string, dto: CriarMensagemChatDto) {
     const processoId = processoIdDe(processoIdBruto);
-    await this.exigirProcesso(processoId);
+    await this.exigirProcesso(officeId, processoId);
     const mensagem = dto.mensagem.trim();
     if (!mensagem) {
       throw new BadRequestException("mensagem não pode conter apenas espaços.");
@@ -103,10 +108,10 @@ export class ChatService {
     return { mensagem: mensagemDaLinha(criada), criado: true };
   }
 
-  private async exigirProcesso(processoId: number): Promise<void> {
+  private async exigirProcesso(officeId: string, processoId: number): Promise<void> {
     const linhas = await this.db.consultar<RowDataPacket>(
-      "SELECT id FROM processos WHERE id = ? LIMIT 1",
-      [processoId]
+      "SELECT id FROM processos WHERE id = ? AND office_id = ? LIMIT 1",
+      [processoId, officeId]
     );
     if (!linhas.length) {
       throw new NotFoundException("Processo não encontrado.");

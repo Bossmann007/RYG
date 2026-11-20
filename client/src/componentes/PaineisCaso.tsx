@@ -1,4 +1,5 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { ItemChecklist, listarChecklist, marcarChecklist } from "../api";
 import {
   Alinhamento,
   Caso,
@@ -59,11 +60,18 @@ export function PainelVisao({
   caso,
   onAbrirJuris,
   onVerTodas,
+  onVerPrazos,
 }: {
   caso: Caso;
   onAbrirJuris: (item: Jurisprudencia) => void;
   onVerTodas: () => void;
+  onVerPrazos: () => void;
 }) {
+  const proximos = caso.prazos
+    .filter((prazo) => prazo.status !== "cumprido" && prazo.status !== "suspenso")
+    .slice()
+    .sort((a, b) => a.dueAt.localeCompare(b.dueAt))
+    .slice(0, 3);
   return (
     <section className="painel visao">
       <div className="visao-grid">
@@ -109,6 +117,27 @@ export function PainelVisao({
         </p>
       </article>
 
+      <article className="cartao-suave">
+        <p className="olho">Próximos prazos</p>
+        {proximos.length === 0 ? (
+          <p>Nenhum prazo aberto neste caso.</p>
+        ) : (
+          <ul className="lista-prazos">
+            {proximos.map((prazo) => (
+              <li key={prazo.id}>
+                <strong>{prazo.title}</strong>
+                <span> · {prazo.dueAt}</span>
+              </li>
+            ))}
+          </ul>
+        )}
+        <button className="botao-texto" type="button" onClick={onVerPrazos}>
+          Ver prazos
+        </button>
+      </article>
+
+      <ChecklistBancario casoId={caso.id} />
+
       <header className="painel-cabeca compacta">
         <div>
           <h3>Julgados que pesam</h3>
@@ -142,6 +171,55 @@ export function PainelVisao({
         ))}
       </ul>
     </section>
+  );
+}
+
+function ChecklistBancario({ casoId }: { casoId: string }) {
+  const [itens, setItens] = useState<ItemChecklist[]>([]);
+  const [erro, setErro] = useState<string | null>(null);
+
+  useEffect(() => {
+    let vivo = true;
+    listarChecklist(casoId)
+      .then((lista) => {
+        if (vivo) {
+          setItens(lista);
+        }
+      })
+      .catch((falha: unknown) => {
+        if (vivo) {
+          setErro(falha instanceof Error ? falha.message : "Checklist indisponível.");
+        }
+      });
+    return () => {
+      vivo = false;
+    };
+  }, [casoId]);
+
+  async function alternar(item: ItemChecklist) {
+    setErro(null);
+    try {
+      setItens(await marcarChecklist(casoId, item.id, !item.done));
+    } catch (falha: unknown) {
+      setErro(falha instanceof Error ? falha.message : "Não foi possível marcar o item.");
+    }
+  }
+
+  return (
+    <article className="cartao-suave">
+      <p className="olho">Checklist bancário</p>
+      {erro ? <p>{erro}</p> : null}
+      <ul>
+        {itens.map((item) => (
+          <li key={item.id}>
+            <label>
+              <input type="checkbox" checked={item.done} onChange={() => void alternar(item)} />
+              {item.rotulo}
+            </label>
+          </li>
+        ))}
+      </ul>
+    </article>
   );
 }
 

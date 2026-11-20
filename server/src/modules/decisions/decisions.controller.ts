@@ -1,4 +1,4 @@
-import { Public } from "@common/decorators/public.decorator";
+import { identidadeDaRequisicao } from "@common/guards/identity.guard";
 import {
   Body,
   Controller,
@@ -10,7 +10,9 @@ import {
   Patch,
   Post,
   Query,
+  Req,
 } from "@nestjs/common";
+import type { Request } from "express";
 import { CreateDecisaoDto, ListarDecisoesQueryDto, UpdateDecisaoDto } from "./decisions.dto";
 import { DecisionsService } from "./decisions.service";
 
@@ -22,12 +24,12 @@ import { DecisionsService } from "./decisions.service";
 export class DecisionsController {
   constructor(private decisionsService: DecisionsService) {}
 
-  @Public()
   @Get()
-  async listar(@Query() query: ListarDecisoesQueryDto) {
+  async listar(@Req() req: Request, @Query() query: ListarDecisoesQueryDto) {
+    const { officeId } = identidadeDaRequisicao(req);
     return {
       zone: "internal",
-      decisoes: await this.decisionsService.listar({
+      decisoes: await this.decisionsService.listar(officeId, {
         clienteId: query.clienteId,
         processNumber: query.processNumber,
         casoId: query.casoId,
@@ -36,28 +38,28 @@ export class DecisionsController {
     };
   }
 
-  @Public()
   @Get(":id")
-  obter(@Param("id") id: string) {
-    return { zone: "internal", decisao: this.decisionsService.obter(id) };
+  obter(@Req() req: Request, @Param("id") id: string) {
+    const { officeId } = identidadeDaRequisicao(req);
+    return { zone: "internal", decisao: this.decisionsService.obter(officeId, id) };
   }
 
-  @Public()
   @Post()
-  criar(@Body() dto: CreateDecisaoDto) {
-    return { zone: "internal", decisao: this.decisionsService.criar(dto) };
+  criar(@Req() req: Request, @Body() dto: CreateDecisaoDto) {
+    const { officeId } = identidadeDaRequisicao(req);
+    return { zone: "internal", decisao: this.decisionsService.criar(officeId, dto) };
   }
 
-  @Public()
   @Patch(":id")
-  atualizar(@Param("id") id: string, @Body() dto: UpdateDecisaoDto) {
-    return { zone: "internal", decisao: this.decisionsService.atualizar(id, dto) };
+  atualizar(@Req() req: Request, @Param("id") id: string, @Body() dto: UpdateDecisaoDto) {
+    const { officeId } = identidadeDaRequisicao(req);
+    return { zone: "internal", decisao: this.decisionsService.atualizar(officeId, id, dto) };
   }
 
-  @Public()
   @Delete(":id")
   @HttpCode(HttpStatus.NO_CONTENT)
-  remover(@Param("id") id: string) {
-    this.decisionsService.remover(id);
+  remover(@Req() req: Request, @Param("id") id: string) {
+    const { officeId } = identidadeDaRequisicao(req);
+    this.decisionsService.remover(officeId, id);
   }
 }

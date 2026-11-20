@@ -1,4 +1,5 @@
 import { Contrato } from "@models/contrato.model";
+import { documentoDaLinha } from "@modules/casos/caso.assembler";
 import { AcervoQuery, filtroApontaParaBanco } from "@modules/db/acervo.query";
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { CreateContratoDto, UpdateContratoDto } from "./contracts.dto";
@@ -13,14 +14,17 @@ export class ContractsService {
     private readonly acervo: AcervoQuery
   ) {}
 
-  async listar(filtro: FiltroContratos): Promise<Contrato[]> {
-    if (this.acervo.ativo() && filtroApontaParaBanco(filtro)) {
-      const docs = await this.acervo.listarDocumentos(
-        "contratos",
-        filtro,
-        "ctr",
-        TIPO_PADRAO
-      );
+  async listar(officeId: string, filtro: FiltroContratos): Promise<Contrato[]> {
+    if (!officeId.trim()) {
+      return [];
+    }
+
+    if (this.acervo.ativo()) {
+      const docs = filtroApontaParaBanco(filtro)
+        ? await this.acervo.listarDocumentos("contratos", officeId, filtro, "ctr", TIPO_PADRAO)
+        : (await this.acervo.listarEscritorio("contratos", officeId)).map((linha, indice) =>
+            documentoDaLinha(linha, "ctr", TIPO_PADRAO, indice)
+          );
       const casoId = (filtro.casoId || "").trim();
       return docs.map((doc) => ({
         ...doc,
@@ -31,7 +35,7 @@ export class ContractsService {
     return this.repositorio.listar(filtro);
   }
 
-  async obter(id: string): Promise<Contrato> {
+  async obter(_officeId: string, id: string): Promise<Contrato> {
     const contrato = await this.repositorio.buscarPorId(id);
 
     if (!contrato) {
@@ -41,7 +45,7 @@ export class ContractsService {
     return contrato;
   }
 
-  criar(dto: CreateContratoDto): Promise<Contrato> {
+  criar(_officeId: string, dto: CreateContratoDto): Promise<Contrato> {
     return this.repositorio.criar({
       casoId: dto.casoId.trim(),
       titulo: dto.titulo.trim(),
@@ -52,7 +56,7 @@ export class ContractsService {
     });
   }
 
-  async atualizar(id: string, dto: UpdateContratoDto): Promise<Contrato> {
+  async atualizar(_officeId: string, id: string, dto: UpdateContratoDto): Promise<Contrato> {
     const atualizado = await this.repositorio.atualizar(id, dto);
 
     if (!atualizado) {
@@ -62,7 +66,7 @@ export class ContractsService {
     return atualizado;
   }
 
-  async remover(id: string): Promise<void> {
+  async remover(_officeId: string, id: string): Promise<void> {
     const removido = await this.repositorio.remover(id);
 
     if (!removido) {

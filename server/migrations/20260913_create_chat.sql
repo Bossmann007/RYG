@@ -2,7 +2,7 @@
 -- No seed data: every row must come from an actual user submission.
 CREATE TABLE chat (
   id CHAR(36) NOT NULL,
-  processo_id INT NOT NULL,
+  processo_id BIGINT NOT NULL,
   remetente_nome VARCHAR(128) NOT NULL,
   remetente_papel VARCHAR(64) NOT NULL,
   remetente_simulado BOOLEAN NOT NULL DEFAULT TRUE,

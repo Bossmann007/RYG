@@ -15,36 +15,42 @@ export class TemplatesService {
     }
   }
 
-  async listar(filtro: {
-    kind?: ModeloKind;
-    area?: ModeloArea;
-    status?: ModeloStatus;
-    casoId?: string;
-    processNumber?: string;
-  }): Promise<ModeloListaItem[]> {
-    const doCaso =
-      this.acervo.ativo() && filtroApontaParaBanco(filtro)
-        ? await this.acervo.listarDocumentos("modelos", filtro, "mod", "Modelo")
-        : [];
-
-    if (doCaso.length) {
-      return doCaso.map((doc) => ({
-        id: doc.id,
-        title: doc.titulo,
-        kind: this.kindDe(doc.tipo),
-        status: "ativo" as const,
-        updatedAt: doc.data,
-        titulo: doc.titulo,
-        tipo: doc.tipo,
-        data: doc.data,
-        origem: doc.origem || "Acervo do caso",
-        resumo: doc.resumo,
-        corpo: doc.resumo,
-      }));
+  async listar(
+    officeId: string,
+    filtro: {
+      kind?: ModeloKind;
+      area?: ModeloArea;
+      status?: ModeloStatus;
+      casoId?: string;
+      processNumber?: string;
+    }
+  ): Promise<ModeloListaItem[]> {
+    if (!officeId.trim()) {
+      return [];
     }
 
     if (this.acervo.ativo()) {
-      const escritorio = await this.acervo.listarEscritorio("modelos");
+      const doCaso = filtroApontaParaBanco(filtro)
+        ? await this.acervo.listarDocumentos("modelos", officeId, filtro, "mod", "Modelo")
+        : [];
+
+      if (doCaso.length) {
+        return doCaso.map((doc) => ({
+          id: doc.id,
+          title: doc.titulo,
+          kind: this.kindDe(doc.tipo),
+          status: "ativo" as const,
+          updatedAt: doc.data,
+          titulo: doc.titulo,
+          tipo: doc.tipo,
+          data: doc.data,
+          origem: doc.origem || "Acervo do caso",
+          resumo: doc.resumo,
+          corpo: doc.resumo,
+        }));
+      }
+
+      const escritorio = await this.acervo.listarEscritorio("modelos", officeId);
       if (escritorio.length) {
         return escritorio
           .map((linha, indice) => {
@@ -66,6 +72,9 @@ export class TemplatesService {
           })
           .filter((item) => !filtro.kind || item.kind === filtro.kind);
       }
+
+      // DB configured: do not fall through to shared fixtures (cross-office leak).
+      return [];
     }
 
     return [...this.porId.values()]
@@ -76,7 +85,7 @@ export class TemplatesService {
       .map((modelo) => this.paraLista(modelo));
   }
 
-  obter(id: string): Modelo {
+  obter(_officeId: string, id: string): Modelo {
     const modelo = this.porId.get(id);
 
     if (!modelo) {
@@ -86,7 +95,7 @@ export class TemplatesService {
     return this.copiar(modelo);
   }
 
-  criar(dto: CreateModeloDto): Modelo {
+  criar(_officeId: string, dto: CreateModeloDto): Modelo {
     const agora = new Date().toISOString();
     const modelo: Modelo = {
       id: `mod_${randomBytes(6).toString("hex")}`,
@@ -112,8 +121,8 @@ export class TemplatesService {
     return this.copiar(modelo);
   }
 
-  atualizar(id: string, dto: UpdateModeloDto): Modelo {
-    const atual = this.obter(id);
+  atualizar(_officeId: string, id: string, dto: UpdateModeloDto): Modelo {
+    const atual = this.obter(_officeId, id);
     const proximo: Modelo = {
       id: atual.id,
       title: dto.title?.trim() || atual.title,
@@ -139,8 +148,8 @@ export class TemplatesService {
     return this.copiar(proximo);
   }
 
-  remover(id: string): void {
-    this.obter(id);
+  remover(_officeId: string, id: string): void {
+    this.obter(_officeId, id);
     this.porId.delete(id);
   }
 

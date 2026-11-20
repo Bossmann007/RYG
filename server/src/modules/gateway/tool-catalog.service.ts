@@ -5,6 +5,12 @@ import { z } from "zod";
 import { ClassificationService } from "./classification.service";
 import { DeclassifyService } from "./declassify.service";
 
+/** Optional hub case id. The MCP path consumes it for Xirp and strips it before the tool runs. */
+const CASE_ID_OPCIONAL = z
+  .string()
+  .optional()
+  .describe("Id do caso no hub (opcional). Liga a chamada ao painel Xirp do caso.");
+
 export type FerramentaGateway = {
   nome: string;
   titulo: string;
@@ -82,6 +88,7 @@ export class ToolCatalogService {
           processNumber: z
             .string()
             .describe("Número do processo no padrão CNJ: 0000000-00.0000.0.00.0000"),
+          caseId: CASE_ID_OPCIONAL,
         }),
         somenteLeitura: true,
         executar: async (argumentos) => {
@@ -104,6 +111,7 @@ export class ToolCatalogService {
             .describe(
               "Assuntos da tese, ex.: ['Tarifa de cadastro', 'Seguro prestamista']"
             ),
+          caseId: CASE_ID_OPCIONAL,
         }),
         somenteLeitura: true,
         executar: async (argumentos) => {
@@ -122,6 +130,7 @@ export class ToolCatalogService {
           processNumber: z
             .string()
             .describe("Número do processo no padrão CNJ a ser analisado"),
+          caseId: CASE_ID_OPCIONAL,
         }),
         somenteLeitura: true,
         executar: async (argumentos) => {

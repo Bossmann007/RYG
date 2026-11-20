@@ -4,6 +4,7 @@ import { ProcessSource } from "../process-source";
 
 export class FixtureProcessSource implements ProcessSource {
   readonly kind = "fixture" as const;
+  readonly configurado = true;
 
   buscarCapa(numeroNormalizado: string): Processo | null {
     const processo = PROCESSOS_POR_NUMERO[numeroNormalizado];

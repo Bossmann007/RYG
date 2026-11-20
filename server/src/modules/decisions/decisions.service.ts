@@ -1,5 +1,6 @@
 import { Decisao, DecisaoKind, DecisaoListaItem } from "@models/decisao.model";
 import { ClientsService } from "@modules/clients/clients.service";
+import { documentoDaLinha } from "@modules/casos/caso.assembler";
 import { AcervoQuery, filtroApontaParaBanco } from "@modules/db/acervo.query";
 import { ProcessService } from "@modules/process/process.service";
 import { DECISOES_INICIAIS } from "../../fixtures/decisoes";
@@ -25,19 +26,26 @@ export class DecisionsService {
     }
   }
 
-  async listar(filtro: {
-    clienteId?: string;
-    processNumber?: string;
-    casoId?: string;
-    kind?: DecisaoKind;
-  }): Promise<DecisaoListaItem[]> {
-    if (this.acervo.ativo() && filtroApontaParaBanco(filtro)) {
-      const docs = await this.acervo.listarDocumentos(
-        "decisoes",
-        filtro,
-        "dec",
-        "Decisão"
-      );
+  async listar(
+    officeId: string,
+    filtro: {
+      clienteId?: string;
+      processNumber?: string;
+      casoId?: string;
+      kind?: DecisaoKind;
+    }
+  ): Promise<DecisaoListaItem[]> {
+    if (!officeId.trim()) {
+      return [];
+    }
+
+    if (this.acervo.ativo()) {
+      const docs = filtroApontaParaBanco(filtro)
+        ? await this.acervo.listarDocumentos("decisoes", officeId, filtro, "dec", "Decisão")
+        : (await this.acervo.listarEscritorio("decisoes", officeId)).map((linha, indice) =>
+            documentoDaLinha(linha, "dec", "Decisão", indice)
+          );
+
       return docs.map((doc) => ({
         id: doc.id,
         processNumber: filtro.processNumber,
@@ -69,7 +77,7 @@ export class DecisionsService {
       .map((decisao) => this.paraLista(decisao));
   }
 
-  obter(id: string): Decisao {
+  obter(_officeId: string, id: string): Decisao {
     const decisao = this.porId.get(id);
 
     if (!decisao) {
@@ -79,7 +87,7 @@ export class DecisionsService {
     return this.copiar(decisao);
   }
 
-  criar(dto: CreateDecisaoDto): Decisao {
+  criar(_officeId: string, dto: CreateDecisaoDto): Decisao {
     const clienteId = this.normalizarClienteOpcional(dto.clienteId);
     const agora = new Date().toISOString();
     const decisao: Decisao = {
@@ -107,8 +115,8 @@ export class DecisionsService {
     return this.copiar(decisao);
   }
 
-  atualizar(id: string, dto: UpdateDecisaoDto): Decisao {
-    const atual = this.obter(id);
+  atualizar(_officeId: string, id: string, dto: UpdateDecisaoDto): Decisao {
+    const atual = this.obter(_officeId, id);
     const proximo: Decisao = {
       id: atual.id,
       title: dto.title?.trim() || atual.title,
@@ -146,8 +154,8 @@ export class DecisionsService {
     return this.copiar(proximo);
   }
 
-  remover(id: string): void {
-    this.obter(id);
+  remover(_officeId: string, id: string): void {
+    this.obter(_officeId, id);
     this.porId.delete(id);
   }
 

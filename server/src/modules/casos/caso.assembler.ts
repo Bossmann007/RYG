@@ -1,3 +1,4 @@
+import { normalizarClassificacao } from "@common/security/case-classification";
 import { aplicarPoliticaCaso } from "@common/security/caso-policy";
 import { sanitizeUntrustedText } from "@common/security/untrusted-text";
 import {
@@ -196,6 +197,7 @@ export function montarCaso(pacote: PacoteCaso): Caso {
     dissidios: dissidiosDe(pacote.dissidios, base.dissidios),
     jurimetria: jurimetriaDe(pacote.jurimetria, capa, base.jurimetria),
     fontes: base.fontes,
+    classification: normalizarClassificacao(valorCampo(pacote.capa, ["classification"])),
   }));
 }
 
@@ -304,6 +306,7 @@ function casoVazio(): Caso {
     jurisprudencias: [],
     dissidios: [],
     jurimetria: { amostra: 0, padrao: "", interno: "", riscos: [] },
+    classification: "sigiloso",
     fontes: {
       titulo: "indisponivel",
       tema: "indisponivel",

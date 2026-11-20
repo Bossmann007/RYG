@@ -30,7 +30,7 @@ export class CatalogController {
       ...prompt,
       aviso: prompt.requerSafeDto
         ? "Dado privado do cliente exige SafeDTO antes de egress para LLM externa."
-        : "Export limpo para BYOAI; sem PII obrigatório neste prompt.",
+        : "Export limpo para linked-provider; sem PII obrigatório neste prompt.",
     };
   }
 }

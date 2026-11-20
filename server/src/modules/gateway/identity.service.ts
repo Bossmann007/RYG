@@ -9,7 +9,7 @@ import { Injectable } from "@nestjs/common";
 @Injectable()
 export class IdentityService {
   resolver(authorization?: string): Identidade | null {
-    const token = this.extrairToken(authorization);
+    const token = this.tokenDe(authorization);
 
     if (!token) {
       return null;
@@ -18,11 +18,7 @@ export class IdentityService {
     return USUARIOS_POR_TOKEN[token] || null;
   }
 
-  perfisDemo() {
-    return PERFIS_DEMO;
-  }
-
-  private extrairToken(authorization?: string): string {
+  tokenDe(authorization?: string): string {
     if (!authorization) {
       return "";
     }
@@ -34,5 +30,9 @@ export class IdentityService {
     }
 
     return valor;
+  }
+
+  perfisDemo() {
+    return PERFIS_DEMO;
   }
 }

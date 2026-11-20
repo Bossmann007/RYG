@@ -83,6 +83,11 @@ Layout: `client/` UI, `server/` Nest, `privacy-gateway/`, `docs/`, `scripts/`, `
 | 2026-09-19 | Default AI capability = consult (retrieval-only); PA mode = RAG+allowlisted tools, role-gated, HITL, post-v0 | Prevent free-hand agents; PA = chefe/sócio opt-in |
 | 2026-09-19 | Hub/BD = source of truth; RAG index derived; SafeDTO egress-only; no model→DB/FS | Align privacy-gateway with RAG story |
 | 2026-09-19 | Anti-drift ritual: Decisions + checkpoint win; outside P0 = issue; agent must not rewrite thesis | User fear of product drift mid-build |
+| 2026-10-10 | Legal RAG store is TiDB `VECTOR` in `HubLegal`. ACL `WHERE` comes before distance. ADR 0004 Accepted. | Bossmann accepted. The vector index is unused on that query. |
+| 2026-10-10 | RAG embed is Ollama `embeddinggemma` at `VECTOR(768)`. Chunk cap 512 tokens. `POST /api/rag/query` returns at most 8 hits and does not call a generative model. | Closed for speed and the recommended local path. Route still unbuilt. |
+| 2026-10-11 | Pin `embeddinggemma:300m` digest `85462619ee72`. Distance is `VEC_COSINE_DISTANCE`. Chunks use `HybridChunker` at 512 with no overlap, and Docling OCR stays off. | Preflight against PingCAP, Ollama, and Google. `embeddinggemma-2` must not share the column. |
+| 2026-10-20 | ADR 0005 Accepted. PA is office-hosted only, opt-in via `OFFICE_PA` and `PA_USERS`, sócio only. Tools are case read, checklist, WhatsApp with confirm, and export. | Bossmann accepted. ADR 0003 stays Proposed. |
+| 2026-10-20 | Financeiro v0 is a case ledger in centavos: honorário, custa, and a frozen fatura. Not an ERP. | Phase 7 goal. ADR 0006 stays Proposed until Bossmann accepts it. |
 
 ## Known issues
 

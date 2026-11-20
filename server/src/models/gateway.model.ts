@@ -8,10 +8,12 @@ export type Identidade = {
   nome: string;
   papel: Papel;
   escritorio: string;
+  /** Fixture or JML leaver. Runtime disables live in HubSessionService. */
+  disabled?: boolean;
 };
 
 /** De onde a chamada entrou. `whatsapp` cobre só o envio com confirmação humana. */
-export type Origem = "mcp" | "whatsapp" | "hub";
+export type Origem = "mcp" | "whatsapp" | "hub" | "pa";
 
 export type Decisao = "permitido" | "negado";
 
@@ -39,4 +41,8 @@ export type RegistroAuditoria = {
   nivel?: NivelDeclassificacao;
   omitido: string[];
   duracaoMs: number;
+  /** ADR 0005: a PA call is the human's delegated session, not a second user. */
+  actor?: "pa_session";
+  delegated_by?: string;
+  caseId?: string;
 };

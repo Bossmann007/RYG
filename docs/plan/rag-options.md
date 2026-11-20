@@ -1,5 +1,7 @@
 # FASE 1 — RAG / vector / local inference (ACL before or during retrieval)
 
+This note is the 2026-09 options survey. For this product, ADR 0004 Accepted replaces the Postgres and pgvector pick. The store is a `VECTOR` column in TiDB `HubLegal`. The query refuses to run when the ACL predicate is missing. TiDB does not hide that row for you.
+
 Constraint: never retrieve then filter in app. External LLM gets sanitized hits only. Sources are official docs / GitHub LICENSE unless noted.
 
 **MVP pick:** Postgres + **pgvector** + **RLS** for ACL that still holds if the app forgets a filter. Add **Qdrant** later if filtered-ANN recall/perf hurts. **Ollama** for local LLM+embed. **Docling** + **OCRmyPDF**. Do **not** let LlamaIndex/LangChain/Haystack be the permission boundary.

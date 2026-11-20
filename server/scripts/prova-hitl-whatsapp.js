@@ -8,13 +8,20 @@
  * With that one-shot token and Bearer demo-socio the stub returns ok.
  * A broken audit file must 503 before any send.
  */
+const fs = require("fs");
+const os = require("os");
+const path = require("path");
+
+const auditoria = path.join(os.tmpdir(), `prova-hitl-${process.pid}.jsonl`);
+process.env.GATEWAY_AUDIT_FILE = auditoria;
+
 require("../dist/register-aliases");
 const assert = require("assert");
 const { NestFactory } = require("@nestjs/core");
 const { AppModule } = require("../dist/app.module");
 const { HttpExceptionFilter } = require("../dist/common/filters/http-exception.filter");
 
-const PEDIDO = { para: "+5541999990000", texto: "oi hitl" };
+const PEDIDO = { para: "+5541999990000", texto: "oi hitl", revisao: true };
 
 async function boot() {
   const app = await NestFactory.create(AppModule, { logger: false });
@@ -63,6 +70,7 @@ async function main() {
     console.log(`POST enviar confirmacao falsa -> ${falso.status}`);
     assert.strictEqual(falso.status, 409);
     assert.notStrictEqual(falso.json.ok, true);
+    assert.ok(!linhas().some((linha) => linha.motivo === "transfer"), "409 must not write transfer");
 
     const com = await post(ligado.base, "/api/whatsapp/enviar", "demo-socio", {
       ...PEDIDO,
@@ -72,6 +80,11 @@ async function main() {
     assert.strictEqual(com.status, 200);
     assert.strictEqual(com.json.ok, true);
     assert.strictEqual(com.json.modo, "stub_fila_local");
+    const transfer = linhas().filter((linha) => linha.motivo === "transfer");
+    assert.strictEqual(transfer.length, 1, "confirmed send writes one transfer line");
+    assert.strictEqual(transfer[0].argumentos.destination, "whatsapp");
+    assert.ok(!("para" in transfer[0].argumentos), "transfer line skips the phone number");
+    assert.ok(!fs.readFileSync(auditoria, "utf8").includes(PEDIDO.texto), "audit must not store the message");
 
     const replay = await post(ligado.base, "/api/whatsapp/enviar", "demo-socio", {
       ...PEDIDO,
@@ -80,8 +93,22 @@ async function main() {
     console.log(`POST enviar replay do desafio -> ${replay.status}`);
     assert.strictEqual(replay.status, 409, "one-shot token must not send twice");
     assert.notStrictEqual(replay.json.ok, true);
+
+    const deNovo = await post(ligado.base, "/api/whatsapp/enviar", "demo-socio", PEDIDO);
+    assert.strictEqual(deNovo.status, 409);
+    fs.rmSync(auditoria, { force: true });
+    fs.mkdirSync(auditoria);
+    const permitido = await post(ligado.base, "/api/whatsapp/enviar", "demo-socio", {
+      ...PEDIDO,
+      confirmacao: deNovo.json.desafio,
+    });
+    console.log(`POST enviar confirmado com auditoria ilegivel -> ${permitido.status}`);
+    assert.ok(permitido.status >= 500, "unreadable audit on the allowed path must deny");
+    assert.notStrictEqual(permitido.status, 200);
+    assert.notStrictEqual(permitido.json && permitido.json.ok, true);
   } finally {
     await ligado.app.close();
+    fs.rmSync(auditoria, { recursive: true, force: true });
   }
 
   process.env.GATEWAY_AUDIT_FILE = "/dev/null/auditoria.jsonl";
@@ -97,6 +124,15 @@ async function main() {
   }
 
   console.log("prova-hitl-whatsapp: OK");
+}
+
+function linhas() {
+  return fs
+    .readFileSync(auditoria, "utf8")
+    .trim()
+    .split("\n")
+    .filter(Boolean)
+    .map((linha) => JSON.parse(linha));
 }
 
 main().catch((erro) => {

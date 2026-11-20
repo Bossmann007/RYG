@@ -4,7 +4,7 @@ import { Injectable, NotFoundException } from "@nestjs/common";
 import { randomBytes } from "crypto";
 import { CreateClienteDto, UpdateClienteDto } from "./clients.dto";
 import { AcervoQuery, filtroApontaParaBanco } from "@modules/db/acervo.query";
-import { textoCampo } from "@modules/casos/caso.assembler";
+import { textoCampo, type Linha } from "@modules/casos/caso.assembler";
 import { ALIASES } from "@modules/casos/schema-map";
 
 @Injectable()
@@ -17,26 +17,19 @@ export class ClientsService {
     }
   }
 
-  async listar(filtro: { casoId?: string; processNumber?: string } = {}): Promise<ClienteListaItem[]> {
-    if (this.acervo.ativo() && filtroApontaParaBanco(filtro)) {
-      const linhas = await this.acervo.listar("clientes", filtro);
-      return linhas.map((linha) => {
-        const nome = textoCampo(linha, ALIASES.cliente);
-        const papel = textoCampo(linha, ALIASES.papel);
-        const tipo = textoCampo(linha, ALIASES.tipo);
-        return {
-          id: textoCampo(linha, ALIASES.id),
-          displayName: nome,
-          kind: tipo === "pessoa_juridica" ? "pessoa_juridica" : "pessoa_fisica",
-          status: "ativo" as const,
-          updatedAt: textoCampo(linha, ALIASES.atualizacao),
-          titulo: nome,
-          tipo: papel || tipo || "Cliente",
-          data: "",
-          origem: textoCampo(linha, ALIASES.origem) || "DataJud",
-          resumo: papel || tipo,
-        } as ClienteListaItem;
-      });
+  async listar(
+    officeId: string,
+    filtro: { casoId?: string; processNumber?: string } = {}
+  ): Promise<ClienteListaItem[]> {
+    if (!officeId.trim()) {
+      return [];
+    }
+
+    if (this.acervo.ativo()) {
+      const linhas = filtroApontaParaBanco(filtro)
+        ? await this.acervo.listar("clientes", officeId, filtro)
+        : await this.acervo.listarEscritorio("clientes", officeId);
+      return linhas.map((linha) => this.daLinha(linha));
     }
 
     return [...this.porId.values()]
@@ -44,7 +37,7 @@ export class ClientsService {
       .map((cliente) => this.paraLista(cliente));
   }
 
-  obter(id: string): Cliente {
+  obter(_officeId: string, id: string): Cliente {
     const cliente = this.porId.get(id);
 
     if (!cliente) {
@@ -58,7 +51,7 @@ export class ClientsService {
     return this.porId.has(id);
   }
 
-  criar(dto: CreateClienteDto): Cliente {
+  criar(_officeId: string, dto: CreateClienteDto): Cliente {
     const agora = new Date().toISOString();
     const cliente: Cliente = {
       id: `cli_${randomBytes(6).toString("hex")}`,
@@ -77,8 +70,8 @@ export class ClientsService {
     return this.copiar(cliente);
   }
 
-  atualizar(id: string, dto: UpdateClienteDto): Cliente {
-    const atual = this.obter(id);
+  atualizar(_officeId: string, id: string, dto: UpdateClienteDto): Cliente {
+    const atual = this.obter(_officeId, id);
     const proximo: Cliente = {
       id: atual.id,
       displayName: dto.displayName?.trim() || atual.displayName,
@@ -98,9 +91,27 @@ export class ClientsService {
     return this.copiar(proximo);
   }
 
-  remover(id: string): void {
-    this.obter(id);
+  remover(_officeId: string, id: string): void {
+    this.obter(_officeId, id);
     this.porId.delete(id);
+  }
+
+  private daLinha(linha: Linha): ClienteListaItem {
+    const nome = textoCampo(linha, ALIASES.cliente);
+    const papel = textoCampo(linha, ALIASES.papel);
+    const tipo = textoCampo(linha, ALIASES.tipo);
+    return {
+      id: textoCampo(linha, ALIASES.id),
+      displayName: nome,
+      kind: tipo === "pessoa_juridica" ? "pessoa_juridica" : "pessoa_fisica",
+      status: "ativo" as const,
+      updatedAt: textoCampo(linha, ALIASES.atualizacao),
+      titulo: nome,
+      tipo: papel || tipo || "Cliente",
+      data: "",
+      origem: textoCampo(linha, ALIASES.origem) || "DataJud",
+      resumo: papel || tipo,
+    } as ClienteListaItem;
   }
 
   private paraLista(cliente: Cliente): ClienteListaItem {

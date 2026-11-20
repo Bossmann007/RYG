@@ -1,5 +1,6 @@
 import { ProcessSource, ProcessSourceKind, PROCESS_SOURCE_KINDS } from "./process-source";
 import { FixtureProcessSource } from "./sources/fixture.process-source";
+import { ManualProcessSource } from "./sources/manual.process-source";
 import { UnconfiguredProcessSource } from "./sources/unconfigured.process-source";
 
 export function criarProcessSource(kindBruto?: string): ProcessSource {
@@ -8,9 +9,10 @@ export function criarProcessSource(kindBruto?: string): ProcessSource {
   switch (kind) {
     case "fixture":
       return new FixtureProcessSource();
+    case "manual":
+      return new ManualProcessSource();
     case "datajud":
     case "eproc":
-    case "manual":
     case "upload":
       return new UnconfiguredProcessSource(kind);
     default: {

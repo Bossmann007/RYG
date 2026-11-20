@@ -7,6 +7,7 @@ import {
 import {
   createPool,
   type Pool,
+  type PoolConnection,
   type ResultSetHeader,
   type RowDataPacket,
 } from "mysql2/promise";
@@ -35,6 +36,27 @@ export class DbService implements OnModuleDestroy {
   async executar(sql: string, params: unknown[] = []): Promise<ResultSetHeader> {
     const [resultado] = await this.consultarBanco<ResultSetHeader>(sql, params);
     return resultado;
+  }
+
+  async transacao<T>(fn: (connection: PoolConnection) => Promise<T>): Promise<T> {
+    if (!this.pool) {
+      throw new ServiceUnavailableException(
+        "Banco não configurado. Defina DB_HOST, DB_PORT, DB_USERNAME, DB_PASSWORD e DB_DATABASE."
+      );
+    }
+
+    const connection = await this.pool.getConnection();
+    try {
+      await connection.beginTransaction();
+      const resultado = await fn(connection);
+      await connection.commit();
+      return resultado;
+    } catch (erro) {
+      await connection.rollback();
+      throw erro;
+    } finally {
+      connection.release();
+    }
   }
 
   async onModuleDestroy() {
@@ -75,4 +97,10 @@ export function tabelaAusente(erro: unknown): boolean {
     /doesn'?t exist/i.test(msg) ||
     /Unknown table/i.test(msg)
   );
+}
+
+export function colunaOfficeAusente(erro: unknown): boolean {
+  const e = erro as { code?: string; errno?: number; message?: string };
+  const msg = String(e.message || "");
+  return e.code === "ER_BAD_FIELD_ERROR" || e.errno === 1054 || /Unknown column/i.test(msg);
 }

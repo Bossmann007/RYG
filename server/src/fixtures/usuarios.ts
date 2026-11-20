@@ -35,6 +35,13 @@ export const USUARIOS_POR_TOKEN: Record<string, Identidade> = {
     papel: "socio",
     escritorio: "outro-escritorio",
   },
+  "demo-off": {
+    id: "u-098",
+    nome: "Conta desligada",
+    papel: "advogado",
+    escritorio: "prado-advogados",
+    disabled: true,
+  },
 };
 
 /**

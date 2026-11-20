@@ -1,3 +1,4 @@
+import { normalizarClassificacao } from "@common/security/case-classification";
 import {
   CHANCE_INDISPONIVEL,
   FonteFato,
@@ -25,6 +26,7 @@ export function aplicarPoliticaCaso(caso: Caso): Caso {
   const limpo: Caso = {
     ...caso,
     id: sanitizeUntrustedText(caso.id),
+    classification: normalizarClassificacao(caso.classification),
     processoId: sanitizeUntrustedText(caso.processoId),
     titulo: sanitizeUntrustedText(caso.titulo),
     tema: sanitizeUntrustedText(caso.tema),

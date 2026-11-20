@@ -69,16 +69,23 @@ export type AbaCaso =
   | "modelos"
   | "historico"
   | "prazos"
+  | "financeiro"
   | "teses"
   | "resultados"
   | "conversas"
   | "jurisprudencia"
-  | "relatorios";
+  | "relatorios"
+  | "xirp";
 
 export type TelaApp =
   | { tipo: "casos" }
   | { tipo: "caso"; id: string }
-  | { tipo: "catalogo" };
+  | { tipo: "catalogo" }
+  | { tipo: "workspace" }
+  | { tipo: "notas" }
+  | { tipo: "consulta" }
+  | { tipo: "confirmacoes" }
+  | { tipo: "contato-dpo" };
 
 export type MembroEquipe = {
   id: string;

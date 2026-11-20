@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import {
   CatalogItem,
+  PedidoWhatsapp,
   WhatsappStatus,
   conectarWhatsappStub,
+  enviarWhatsapp,
   exportarPromptCatalogo,
   listarCatalogo,
   obterStatusWhatsapp,
@@ -18,6 +20,13 @@ export function CatalogoBancario({ onVoltar }: Props) {
   const [erro, setErro] = useState<string | null>(null);
   const [exportado, setExportado] = useState<string | null>(null);
   const [wa, setWa] = useState<WhatsappStatus | null>(null);
+  const [para, setPara] = useState("");
+  const [texto, setTexto] = useState("");
+  const [revisado, setRevisado] = useState(false);
+  const [pendente, setPendente] = useState<{ pedido: PedidoWhatsapp; desafio: string } | null>(null);
+  const [envioMsg, setEnvioMsg] = useState<string | null>(null);
+  const [envioErro, setEnvioErro] = useState<string | null>(null);
+  const [enviando, setEnviando] = useState(false);
 
   useEffect(() => {
     let cancelado = false;
@@ -48,7 +57,7 @@ export function CatalogoBancario({ onVoltar }: Props) {
     setExportado(
       prompt.requerSafeDto
         ? "Copiado. Este prompt exige SafeDTO se houver PII do cliente."
-        : "Prompt copiado para BYOAI."
+        : "Prompt copiado para linked-provider."
     );
   }
 
@@ -60,6 +69,46 @@ export function CatalogoBancario({ onVoltar }: Props) {
   async function oauthWa() {
     const inicio = await iniciarOauthWhatsapp();
     window.open(inicio.authorizeUrl, "_blank", "noopener,noreferrer");
+  }
+
+  function limparEnvio() {
+    setPendente(null);
+    setEnvioMsg(null);
+    setEnvioErro(null);
+  }
+
+  async function pedirEnvio(pedido: PedidoWhatsapp) {
+    setEnvioMsg(null);
+    setEnvioErro(null);
+    setEnviando(true);
+    try {
+      const resultado = await enviarWhatsapp(pedido);
+      if (resultado.tipo === "desafio") {
+        setPendente({ pedido, desafio: resultado.desafio });
+        setEnvioMsg("Confira os dados e confirme o envio.");
+      } else {
+        setPendente(null);
+        setEnvioMsg(`Envio registrado (modo ${resultado.modo}).`);
+      }
+    } catch (falha: unknown) {
+      setPendente(null);
+      setEnvioErro(falha instanceof Error ? falha.message : "Envio recusado.");
+    } finally {
+      setEnviando(false);
+    }
+  }
+
+  function enviarTexto() {
+    void pedirEnvio({ para: para.trim(), texto, revisao: revisado });
+  }
+
+  function enviarModelo() {
+    void pedirEnvio({ para: para.trim(), templateId: "tpl-aviso-prazo", revisao: revisado });
+  }
+
+  function confirmarEnvio() {
+    if (!pendente) return;
+    void pedirEnvio({ ...pendente.pedido, confirmacao: pendente.desafio });
   }
 
   return (
@@ -114,6 +163,58 @@ export function CatalogoBancario({ onVoltar }: Props) {
           <button type="button" className="voltar" onClick={() => void oauthWa()}>
             Abrir OAuth (precisa APP_ID)
           </button>
+        </div>
+
+        <div style={{ display: "grid", gap: "0.5rem", marginTop: "1rem" }}>
+          <label>
+            Destino (telefone)
+            <input
+              type="tel"
+              value={para}
+              autoComplete="off"
+              onChange={(e) => {
+                setPara(e.target.value);
+                limparEnvio();
+              }}
+            />
+          </label>
+          <label>
+            Mensagem
+            <textarea
+              rows={3}
+              value={texto}
+              onChange={(e) => {
+                setTexto(e.target.value);
+                limparEnvio();
+              }}
+            />
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              checked={revisado}
+              onChange={(e) => {
+                setRevisado(e.target.checked);
+                limparEnvio();
+              }}
+            />{" "}
+            Revisei a classificação e o texto
+          </label>
+          <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
+            <button type="button" className="voltar" disabled={enviando} onClick={enviarTexto}>
+              Solicitar envio
+            </button>
+            <button type="button" className="voltar" disabled={enviando} onClick={enviarModelo}>
+              Enviar aviso de prazo (modelo fixo)
+            </button>
+            {pendente ? (
+              <button type="button" className="voltar" disabled={enviando} onClick={confirmarEnvio}>
+                Confirmar envio
+              </button>
+            ) : null}
+          </div>
+          {envioMsg ? <p className="selo neutro">{envioMsg}</p> : null}
+          {envioErro ? <p className="vazio">{envioErro}</p> : null}
         </div>
       </article>
     </section>

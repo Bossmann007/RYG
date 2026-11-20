@@ -1,6 +1,6 @@
 # ADR 0002 — Single MCP egress contract
 
-- **Status:** Proposed (the code does not implement this yet)
+- **Status:** Accepted
 - **Date:** 2026-09-26
 - **Deciders:** Bossmann (SafeDTO / AI Gateway policy owner)
 - **Plan:** Phase 0.2 in [`../plan/hub-office-platform.md`](../plan/hub-office-platform.md)
